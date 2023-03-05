@@ -1,2 +1,7 @@
-# home-scale
-Home Scale Democratized Production Concepts and Designs
+# Home-Scale Democratized Production Concepts and Designs
+
+WARNING: the designs and concepts included here are original thoughts and have NOT BEEN PATENT RESEARCHED. From some brief research the concept of non-plasma micro railguns is rare, and the concept of using it for additive manufacturing in an array of mirco-railguns is something I have yet to find something close to. It would be really cool to find (unless it is patented...).
+
+This project is about open design thinking, for the benefit of all. This changes the nature of thinking and the goal of designs with the technology applied. Simple ideas are cast by the wayside by those who do not appreciate their power, but they are the best when seeking open solutions where simplicity and low cost is a benefit instead of a business risk. Open thinking is the path to innovation the world is missing, and because of the dominance of closed thinking for so long the field is ripe, waiting for harvest by those of us without... well, whatever it is that leads to closed thinking.
+
+Is the real reason open software is winning? We have realized the high cost and lack of need for the complex massive proprietary software it replaces, or being originally created deters proprietary competitors from entering the market with anything too similar. It is not that it is cheaper, it is that it is better and an important part of technology being better is also being cheaper... making open the right mindset for efficient innovation. Open software is not winning yet in every domain, and in some proprietary software may always have a market, but open software is winning in many small ways and in a few large ways, like Linux.
