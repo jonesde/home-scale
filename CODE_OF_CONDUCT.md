@@ -1,4 +1,4 @@
-Open Collaboration
+## Open Collaboration
 
 Throughout my career I have been seeking a model for collaboration among software developers to interact productively without the need for governance beyond how each individual governs themselves. I have always believed that such a model existed, but could not find it anywhere and struggled to figure out the method on my own. Little did I know that what I was seeking was the plan of God itself, the model for interaction among free and independent intelligences so that once each understands the model and the need for it, and the reasons that alternatives do not work, then each independent intelligence will interact with others in a way such that all will coexist in peace and prosperity.
 
@@ -6,7 +6,7 @@ The principles to achieve this model exist. They are simple enough that the mind
 
 There are two other principles that enable the model of open collaboration: Stand Your Ground and Pairs of Accountability
 
-Stand Your Ground
+## Stand Your Ground
 
 Approach each conflict by standing your ground. If a conflict can be ended with both sides maintaining a stand your ground social posture, it is always the best ending. The alternatives are social postures of fight, flight, and hide as the other combinations of confrontation vs avoidance and active vs passive behavior. As long and often as possible, in all circumstances, maintain a stand your ground posture of passive confrontation. From such a posture it is more clear when the posture must be broken to act with intent for a purpose in another way.
 
@@ -39,7 +39,7 @@ When in fear: stand your ground.
 
 To heal the fear and distrust in our communities and societies: simply approach every conflict by standing your ground with passive confrontation and let the power of love and awareness heal the rift.
 
-Pairs of Accountability - Individual
+## Pairs of Accountability - Individual
 
 An intelligence acting completely independently can never maintain self-accountability. At least one other intelligence in a pair of accountability is required. Both sides of the pair must understand the principles of open collaboration and stand your ground in order to operate effectively as a pair. When they do, there is a slightly different characteristic of each half of the pair that emerges.
 
@@ -49,7 +49,7 @@ We as people naturally take on these roles with each other all the time, one low
 
 This provides a check for each intelligence.
 
-Pairs of Accountability - Societal
+## Pairs of Accountability - Societal
 
 The same pattern of Pairs of Accountability applies to all intelligences at large to provide accountability for the whole. The principle leads us to a pattern of not rulers but watchers, carriers of the principle and not of the sword, with horns like a deer for use only when their ground is invaded. In the pattern of revealer and see-er, the deer is the revealer.
 
