@@ -58,3 +58,5 @@ The group of deer operate by a pattern of moderation, maintaining a single centr
 The validity and power of the central repository of the head of the order of moderators likewise rests only on the strength of the principle it contains. If a majority of intelligences choose to follow a different repository among the moderators, that is the new moderator by vote of affiliation, by adopting the name of the moderator followed.
 
 The power of a moderator is limited to that of moderation. This is the solution to: who watches the watchers? Moderation in all things.
+
+The repository of the head moderator is the rule of all, determined by a majority choice of moderator affiliation. The head moderator (deer) may be overridden by a council (aka committee, board) of the seers voting unanimously, up to and including revoking the keys of a moderator so they can no longer submit changes to the code. The council or board of seers is responsible for assigning, and re-assigning, moderator (deer) positions.
