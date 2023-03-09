@@ -49,6 +49,8 @@ We as people naturally take on these roles with each other all the time, one low
 
 This provides a check for each intelligence.
 
+In the pattern of technology, the see-er (the man figure in the veil analogy) specifies the requirements and the revealer or moderator (the woman in the veil analogy) specifies the designs. In the veil analogy, the revealer wears a veil to prevent the communication of the design. The interaction between see-er (specify requirements) and revealer (specify designs) continues until the design satisfies the see-er.
+
 ## Pairs of Accountability - Societal
 
 The same pattern of Pairs of Accountability applies to all intelligences at large to provide accountability for the whole. The principle leads us to a pattern of not rulers but watchers, carriers of the principle and not of the sword, with horns like a deer for use only when their ground is invaded. In the pattern of revealer and see-er, the deer is the revealer.
