@@ -39,7 +39,8 @@ The table below details specific input materials, the resulting alloy matrix, an
 | **Pure Aluminum (Al) + Silicon (Si) Powder** | Isoparaffinic Solvent Oil          | **Al-Si Cast-Grade Alloys**       | The zero-residue oil lifts the oxide layer via micro-cavitation, letting Al and Si fuse into low-shrinkage parts.      |
 | **Iron (Fe) + Chromium (Cr) Powders**        | Non-aqueous CNT Slurry             | **Hard-Faced Tooling Steel**      | The carbon and chromium fuse on impact into Chromium Carbides (\(Cr_{3}C_{2}\)), forming high-wear agricultural edges. |
 | **Pure Copper (Cu)**                         | Graphene-Loaded Light Oil          | **Graphene-Copper Composite**     | The plasma melts the copper while leaving graphene flakes intact, yielding ultra-high-conductivity wire.               |
-The 3 Core Rules for Engineering Custom Blends
+
+**The 3 Core Rules for Engineering Custom Blends**
 
 To discover additional variations at your workbench using your **Genmitsu CNC** to route the test channels, evaluate your raw ingredients against these metrics:
 
