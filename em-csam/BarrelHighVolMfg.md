@@ -73,3 +73,39 @@ The companies most likely to *use* these barrels (power electronics, industrial 
 The most scalable and economically attractive route for millions of barrels per year is **stamped metal rails inserted into a high-temperature injection-molded plastic body** (or CIM ceramic body where higher performance is justified). The machinery is standard industrial equipment, and a substantial base of manufacturers already producing overmolded busbars, leadframes, and power-electronic housings possess both the machines and the process expertise required.
 
 This manufacturing path preserves material flexibility for the rails, enables complex cooling and differentiation features in the body, and aligns well with the supply chains of the industries most likely to adopt the technology.
+
+---
+
+### Rail Design & Structural Architecture
+
+- **Component Geometry:** The system uses short, wide, rectangular current-carrying rails (0.5 mm to 1.5 mm thick by 8 mm to 12 mm wide) arranged with a precise **0.5 mm gap** between them.
+- **Mechanical Stabilization (L-Shape Transition):** To eliminate the risk of the rails moving inward toward the centerline under extreme operational forces (for zero adhesive dry clamped assemblies, or if RTV silicone does not hold sufficiently in lower energy models), the rails may feature a stamped **L-shape bend (perpendicular extension)** running the length of the rail. This extension locks directly into a matching routed slot in the frame body to restrict side-to-side displacement.
+- **The Cartridge Assembly Model:** The entire rail-and-insulation matrix is engineered as an easily replaceable "sacrificial cartridge." The inner channel surfaces face an in-place machining process (honing/skimming) to establish final process tolerances, allowing the module to be easily swapped or re-machined when worn down.
+
+### Operational Invariants & Physics Constraints
+
+- **The Process Window:** The system operates in a sub-millisecond regime using massive, high-frequency current pulses to heat and accelerate fine material powder/fluids flowing between the rails.
+- **The Motive Forces:** Lorentz forces and severe Joulean thermal expansion attempt to drive the rails outward into the frame body when fired. The insulation material acts as a high-stiffness spring, meaning **structural elastic rebound, thermal buckling, and hydrodynamic or venturi fluid pressures** present a distinct risk of bouncing or forcing the rails inward during or immediately following a pulse.
+- **Frame Material Selection:** Standard aluminum frames are vulnerable to power-robbing eddy currents and magnetic braking (Lenz's Law) due to high-frequency pulses. Variations requiring reduced magneto-reactivity will pivot to **Austenitic 316 Stainless Steel** (non-magnetic, high electrical resistivity) or engineering plastics like **PEEK/Torlon** backed by thermal shields.
+
+### Insulation & Contamination Constraints (The Two Pathways)
+
+To maintain precise electrical and thermal isolation between the current-carrying rails and a conductive metal frame, the system design path branches based on energy delivery tiers:
+
+Pathway A: Medium Energy (Prototyping & Lower-Heat Models)
+
+- **Material Selection:** Glass-reinforced mica tape with a pressure-sensitive silicone adhesive (PSA) applied as a 1-sided or 2-sided wrapper.
+- **The Armor Effect:** The woven fiberglass scrim acts as mechanical armor, preventing the sharp stamped edges of the L-rail from cutting or punching through the mica flakes under high clamping or operational pressures.
+- **Contamination Risk:** Extreme temperatures cause the synthetic polymer matrix of silicone adhesives to undergo depolymerization and side-chain oxidation, off-gassing **volatile cyclic siloxanes, formaldehyde, methane, and hydrogen**. When exposed to active current arcs or flash heats, these vapors combust into a fine, non-conductive **white silica ash (\(\text{SiO}_{2}\))** and form migrating liquid films that pollute nearby surfaces.
+- **The Mitigation (Post-Curing):** If adhesive tape is utilized in sensitive configurations, the wrapped rails must undergo an industrial **thermal bake/post-cure at 250°C–300°C for multiple hours** (ideally under vacuum) prior to final frame integration. This forces the adhesive to exhaust its volatile mass safely out of the system.
+
+Pathway B: High Energy (High-Volume Manufacturing & Pure-Run Models)
+
+- **Material Selection:** **Completely adhesive-free (dry) glass-reinforced mica cloth or pre-cut/stamped rigid mica plates** (e.g., NEMA Grade M-7 Phlogopite or Muscovite mica).
+- **The Architecture:** Adhesives are strictly banned to eliminate the risk of outgassed silica ash contaminating the processed pellet stream.
+- **HVM Implementation:** Rather than manually wrapping a dry ribbon around the 3D L-shape profile (which causes mica fracture on 90° bends), the insulation is split into a **multi-piece flat-stamped sequence**. High-speed punch presses stamp independent flat mica strips that are nested into the frame's channels and slots. The automated mechanical clamping of the frame body forces these strips to interlock tightly around the rail edges, providing a seamless dielectric barrier relying purely on compression.
+
+### Critical Guardrails for Contract Manufacturers
+
+- **Bend Radii Clearance:** The L-shape rail will naturally carry a small radius on its outside corner after stamping. The frame slots must incorporate a corresponding corner radius or an undercut relief groove to prevent the rail from riding high in the track.
+- **Post-Machining Contamination:** Honing or skimming the rails in place creates conductive metallic chips and micro-dust. A rigorous, non-negotiable cleaning protocol (e.g., high-pressure solvent flush or ultrasonic wash) must be performed after machining to guarantee zero tracking dust remains trapped behind the rails or embedded in the mica seams.
