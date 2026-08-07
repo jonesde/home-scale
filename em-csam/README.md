@@ -24,38 +24,46 @@ The barrel should be made with an extremely simple/cheap process, and with simpl
 
 The downside is you can't do anything you want, only certain combinations of materials are viable.
 
-It just so happens that there are some really useful outputs that can likely be produced pretty easily this way, and enable creating exotic alloys on the fly.
+It just so happens that there are some really useful outputs that can likely be produced fairly easily this way (relative to alternatives), and enable creating exotic alloys on the fly.
 
-Here are those AI assisted examples:
+Here are those AI assisted examples (updated version with Grok 4.5):
 
 ---
 
-The table below details specific input materials, the resulting alloy matrix, and how the chemical mechanics operate during the deposition flash.
+## Powder, Carrier & Rail Combinations
 
-| Powder Blend (The Input)                     | Carrier Fluid (The Matrix)         | Target Material Produced          | The Chemical / Physical Mechanism                                                                                      |
-| -------------------------------------------- | ---------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| **Pure Iron (Fe)**                           | CNT-Loaded Mineral Oil             | **High-Carbon Tool Steel**        | Carbon nanotubes dissolve directly into the liquid iron pool, forming martensitic steel phases.                        |
-| **Pure Titanium (Ti)**                       | Ultra-Pure Glycerol (Zero-Residue) | **Commercial Pure (CP) Titanium** | Glycerol flash-vaporizes into hydrogen gas, acting as a local shielding atmosphere to prevent embrittlement.           |
-| **Pure Aluminum (Al) + Silicon (Si) Powder** | Isoparaffinic Solvent Oil          | **Al-Si Cast-Grade Alloys**       | The zero-residue oil lifts the oxide layer via micro-cavitation, letting Al and Si fuse into low-shrinkage parts.      |
-| **Iron (Fe) + Chromium (Cr) Powders**        | Non-aqueous CNT Slurry             | **Hard-Faced Tooling Steel**      | The carbon and chromium fuse on impact into Chromium Carbides (\(Cr_{3}C_{2}\)), forming high-wear agricultural edges. |
-| **Pure Copper (Cu)**                         | Graphene-Loaded Light Oil          | **Graphene-Copper Composite**     | The plasma melts the copper while leaving graphene flakes intact, yielding ultra-high-conductivity wire.               |
+Early process development focuses on matching metal powder, carrier fluid, and rail material. The rails are an active part of the system: they erode and contribute material to every deposit. This can be treated as contamination or as intentional alloying depending on the application.
 
-**The 3 Core Rules for Engineering Custom Blends**
+### Highest-Priority Design Considerations
 
-To discover additional variations at your workbench using your **Genmitsu CNC** to route the test channels, evaluate your raw ingredients against these metrics:
+1. **Suspension Stability**
+   Metal powders are dense and settle quickly. The carrier must keep particles suspended for the required working time. High viscosity or suitable thickeners are normally required.
 
-1. Viscosity vs. Particle Suspension (Stokes' Law)
+2. **Gas Chemistry & Metal-Specific Sensitivity**
+   Carrier decomposition products become the local atmosphere during the deposition flash. Carbon- and hydrogen-rich carriers can provide useful reducing conditions for many metals, but hydrogen is harmful to titanium and some other reactive metals. Match carrier chemistry to the powder’s sensitivities (H, C, O, N).
 
-Metal powder is highly dense (\(7.8\text{ g/cm}^3\) for iron) and will settle to the bottom of a thin fluid in minutes, clogging your syringe pump. Your carrier fluid must be thick enough to maintain an emulsion.
+3. **Electrical Behavior & Rail Compatibility**
+   The slurry must support clean current initiation and flow. Rail material erodes into the deposit on every shot—choose rails that are either compatible with the target chemistry or deliberately used as an alloying source.
 
-- _The Fix:_ Use high-viscosity synthetic oils or add a clean thickening agent like **Ethylcellulose** to your volatile carrier solvents to keep the powders in a permanent suspension.
+### Recommended Starting Combinations – Home / Maker Labs
 
-2. The Boiling Point Differential
+These prioritize lower reactivity, manageable handling, and good availability for early splat testing.
 
-The carrier fluid's boiling point must be significantly lower than the metal powder's melting point.
+| Powder | Carrier | Preferred Rails | Notes |
+|--------|---------|-----------------|-------|
+| Copper | Light mineral oil, isoparaffinic solvent, or low-viscosity synthetic oil (± light graphite/graphene) | Copper or Aluminum | Best overall starting point. Forgiving electrical and thermal behavior; good chance of coherent metallic deposits. |
+| Aluminum + Silicon | Isoparaffinic or light synthetic oil | Aluminum or Copper | Classic casting-alloy system. Silicon improves fluidity. Keep powder on the coarser side and use good ventilation. |
+| Iron or low-alloy steel | Mineral oil or light synthetic oil (± controlled fine graphite) | Steel or Copper | Readily available and useful for learning consolidation and carbon control. Monitor carbon pickup. |
 
-- _Why:_ You want the fluid to flash-vaporize out of the way _before_ the metal particles completely melt. If the oil takes too long to vaporize, it will trap gas bubbles inside the cooling metal puddle, resulting in highly porous, structurally weak parts.
+### Recommended Combinations – Industrial / Higher-Performance Targets
 
-3. Oxygen Scavenging (The Self-Shielding Effect)
+These can address more demanding materials but require industrial-level safety controls, powder handling, and process engineering.
 
-Since this is an at-home lab where an industrial vacuum chamber is impractical, your fluid can help fight oxidation. Using a carrier fluid high in hydrogen and carbon (like basic **Ethanol or Glycerol**) means that the plasma flash turns the fluid into a localized cloud of Hydrogen (\(H_{2}\)) and Carbon Monoxide (\(CO\)). These gases aggressively consume any stray oxygen in the immediate print zone, forming a protective barrier that prevents your metal from burning up.
+| Powder | Carrier | Preferred Rails | Notes |
+|--------|---------|-----------------|-------|
+| Titanium | Low-hydrogen / carefully selected carrier (avoid glycerol-type hydrogen sources) | Specialized or coated rails | High value target, but hydrogen embrittlement and oxygen affinity make it significantly more difficult and hazardous. |
+| Iron + Chromium (± carbon source) | Non-aqueous slurry with controlled carbon activity | Steel or Cr-containing rails | Aimed at wear-resistant hard-facing layers with chromium carbides. |
+| Copper + higher graphene loading | Engineered carrier designed to protect graphene | Copper | High-conductivity composite target. Dispersion quality and graphene survival are the main challenges. |
+
+**Development sequence recommendation**
+Begin with the copper-based maker-lab systems. Once coherent deposits are repeatable, expand into aluminum–silicon and controlled iron systems. Attempt titanium and other highly reactive or high-performance combinations only after solid process control and appropriate facilities are in place.
