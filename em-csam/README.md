@@ -12,7 +12,7 @@ There are still bore wear concerns, but not like with a plasma state railgun whe
 
 The first question for practicality is whether the math is right, and how much current needs to be added for barrel friction, etc. After that there are questions of material feed and control and such. Being relatively low voltages and currents with fast solid state switching the circuits are pretty simple (like in PWM motor controllers). Voltage and wave shape gives us a lot of control over the current delivered to the circuit in small time windows (using current and/or pulse width to tune velocity). From there it borrows from the work done for other CSAM methods.
 
-## 5 Advanced Powder & Carrier Blends for Local Manufacturing
+## Potential Powder, Carrier, and Rail Combinations
 
 This is the result of a little AI analysis, progressing toward viability. These are just a few of the many potential viable combinations.
 
@@ -29,8 +29,6 @@ It just so happens that there are some really useful outputs that can likely be 
 Here are those AI assisted examples (updated version with Grok 4.5):
 
 ---
-
-## Powder, Carrier & Rail Combinations
 
 Early process development focuses on matching metal powder, carrier fluid, and rail material. The rails are an active part of the system: they erode and contribute material to every deposit. This can be treated as contamination or as intentional alloying depending on the application.
 
