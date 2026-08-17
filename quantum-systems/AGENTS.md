@@ -311,7 +311,7 @@ Science source of truth. One kebab-case file per effect. Copy [_template.md](lib
 | Path | Purpose |
 |---|---|
 | [library/README.md](library/README.md) | Operating manual: frontmatter schema, index columns, language rules. Markdown is the science source; the analysis layer is the query surface. |
-| [library/INDEX.md](library/INDEX.md) | Catalog and build list. 50 formal first-wave entries. Families are machine/collapse classes. |
+| [library/INDEX.md](library/INDEX.md) | Catalog and build list. 59 formal first-wave entries. Families are machine/collapse classes. |
 | [library/TAXONOMY.md](library/TAXONOMY.md) | Family definitions, assignment rule, constraint tags. |
 | [library/_template.md](library/_template.md) | Locked 7-part body + frontmatter stub. |
 | `library/{slug}.md` | One effect. Body sections 4.1–4.7. Frontmatter feeds `effect` / `effect_constraint`. |
@@ -336,11 +336,11 @@ First-wave families (counts from the current catalog):
 
 | Family | *n* | Dominant collapse |
 |---|---|---|
-| `collective-field-response` | 8 | Spatial under-provisioning or loss of collective phase |
+| `collective-field-response` | 10 | Spatial under-provisioning or loss of collective phase |
 | `latched-order` | 8 | Thermal over-barrier, volume too small for *KV*, or lattice destroyed |
-| `gapped-coherence` | 8 | Gap closure or coherence-length / *H*<sub>c</sub> / *I*<sub>c</sub> violation |
-| `threshold-conversion` | 9 | Under-threshold input (conversion does not occur) |
-| `lattice-modes` | 9 | Mode cutoff, mfp destroyed, or loss of crystalline order |
+| `gapped-coherence` | 10 | Gap closure or coherence-length / *H*<sub>c</sub> / *I*<sub>c</sub> violation |
+| `threshold-conversion` | 13 | Under-threshold input (conversion does not occur) |
+| `lattice-modes` | 10 | Mode cutoff, mfp destroyed, or loss of crystalline order |
 | `ensemble-averages` | 8 | Too few contributors, or observation faster than the averaging window |
 
 ### Analysis layer — `analysis/`
@@ -393,7 +393,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-First-wave load (after a clean rebuild): 50 `effect` · 148 `effect_constraint` · 418 `implication` (393 extracted, 25 predicted) · 9 `design` · 8 `node` · 28 `requirement` · 248 `implication_design` · 46 `design_requirement` · 90 `design_implication` (51 entails, 36 predicts, 3 incompatible) · 22 `implication_node` · 17 `design_node`.
+First-wave load (after a clean rebuild): 59 `effect` · 171 `effect_constraint` · 472 `implication` (447 extracted, 25 predicted) · 9 `design` · 11 `node` · 28 `requirement` · 269 `implication_design` · 46 `design_requirement` · 97 `design_implication` (55 entails, 39 predicts, 3 incompatible) · 36 `implication_node` · 21 `design_node`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 

@@ -67,6 +67,13 @@ energy-gate,photoelectric-threshold:consistency_gap:underived-phi,entails,must,M
 energy-gate,muon-catalyzed-fusion:hardware_scale:muon-plus-two-nuclei,entails,must,Nuclear hydrogen gate needs the muon.
 energy-gate,muon-catalyzed-fusion:failure_mode:no-muon,entails,must,No muon ⇒ channel closed.
 energy-gate,predicted:muon-catalyzed-fusion:muon-free-cell-is-null,predicts,must,A muon-free hydride is not this cycle.
+energy-gate,coulomb-blockade:energy_barrier:charging-energy,entails,should,Charging is an N=1 gate.
+energy-gate,deuteron-photodisintegration:energy_barrier:binding,entails,must,Nuclear unbinding sibling.
+energy-gate,pyroelectric-fusion:failure_mode:no-field-or-no-d,entails,should,Beam-target D–D still needs a field and D.
+gapped-condensate,quantum-point-contact:consistency_gap:not-qhe,predicts,should,QPC stays off this machine.
+gapped-condensate,aharonov-bohm:consistency_gap:not-pair-quantum,predicts,should,h/e stays off the pair increment.
+oscillator-grid,mossbauer-effect:failure_mode:no-lattice,entails,should,Recoilless channel dies with the grid.
+polar-latch,pyroelectric-fusion:hardware_scale:crystal-plus-d,predicts,should,Polar engine can write a beam voltage.
 oscillator-grid,phonon-dispersion:hardware_scale:crystalline-grid,entails,must,
 oscillator-grid,phonon-dispersion:clock_latency:allowed-clock-table,entails,must,ω(q).
 oscillator-grid,debye-cutoff:hardware_scale:three-n-modes,entails,must,3N.

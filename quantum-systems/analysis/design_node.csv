@@ -11,6 +11,10 @@ energy-gate,photon,input,Opens φ / Eg / 2mec²
 energy-gate,positron,product,Pair channel
 energy-gate,nucleus,recoil,Pair channel momentum sink
 energy-gate,muon,input,Opens the hydrogen nuclear well
+energy-gate,proton,product,Photodisintegration
+energy-gate,neutron,product,Photodisintegration
+energy-gate,neutrino,input,CEνNS
+oscillator-grid,nucleus,contrast,Mössbauer payload is nuclear; the buffer is the ion grid
 oscillator-grid,ion,matrix,3N sites
 oscillator-grid,phonon,mode,Allowed clocks
 ensemble-average,electron,average,Fermi-slice / Curie contrast sits elsewhere

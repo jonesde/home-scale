@@ -14,3 +14,6 @@ First wave is `forced` only. `cataloged` cards wait on the admission filter.
 | [Ion](ion.md) | `ion` | composite | forced | formal | — | oscillator-grid 3*N* modes; melt |
 | [Nucleus](nucleus.md) | `nucleus` | composite | forced | formal | — | pair-production recoil partner |
 | [Directional moment](directional-moment.md) | `directional-moment` | quasiparticle | forced | formal | — | anisotropy / polar latch vs Curie |
+| [Proton](proton.md) | `proton` | elementary | forced | formal | 2212 | deuteron photodisintegration product |
+| [Neutron](neutron.md) | `neutron` | elementary | forced | formal | 2112 | photodisintegration; UCN gravity well; CEνNS *N*² |
+| [Neutrino](neutrino.md) | `neutrino` | elementary | forced | formal | 12 | CEνNS (flavor class) |

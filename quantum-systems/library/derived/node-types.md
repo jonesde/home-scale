@@ -19,6 +19,9 @@ Derived from `design_node` ⋈ `node` and `implication_node`.
 | `electron` | elementary | 11 | screening `population`; energy-gate `single`; ensemble `average`; gapped-condensate `population` | starve / *ω > ω_p*; *N* = 1; Fermi slice; QHE 2DEG |
 | `photon` | elementary | 22 | energy-gate `input`; screening `input`; ensemble `average` | under-threshold gate; pair hardware; Planck curve |
 | `muon` | elementary | 13 | energy-gate `input` | no muon / *τ_μ* / sticking |
+| `proton` | elementary | 2212 | energy-gate `product` | deuteron photodisintegration |
+| `neutron` | elementary | 2112 | energy-gate `product` (no design for the UCN well) | photodisintegration; gravity well; CEνNS |
+| `neutrino` | elementary | 12 | energy-gate `input` | CEνNS |
 | `positron` | elementary | −11 | energy-gate `product` | 511 keV line |
 | `phonon` | quasiparticle | — | oscillator-grid `mode` | *ω_D*; *ℓ*; melt of the host grid |
 | `ion` | composite | — | oscillator-grid `matrix`; both latches `matrix` | 3*N* modes; *T_m* |

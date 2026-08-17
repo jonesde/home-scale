@@ -21,3 +21,18 @@ curie-paramagnetism:energy_barrier:unlocked-no-latch,directional-moment,contrast
 muon-catalyzed-fusion:hardware_scale:muon-plus-two-nuclei,muon,forces,One muon per cycle
 muon-catalyzed-fusion:failure_mode:no-muon,muon,forces,Absence shuts the channel
 muon-catalyzed-fusion:clock_latency:muon-lifetime,muon,forces,τμ is the node's clock
+aharonov-bohm:hardware_scale:enclosing-loop,electron,forces,Charge-e carrier on the loop
+coulomb-blockade:hardware_scale:small-island,electron,forces,N=1 charging
+deuteron-photodisintegration:hardware_scale:photon-plus-deuteron,photon,forces,
+deuteron-photodisintegration:emergent_output:photoneutron,proton,forces,Product
+deuteron-photodisintegration:emergent_output:photoneutron,neutron,forces,Product
+pyroelectric-fusion:hardware_scale:crystal-plus-d,directional-moment,forces,Polar engine
+coherent-neutrino-scattering:hardware_scale:neutrino-plus-nucleus,neutrino,forces,
+coherent-neutrino-scattering:hardware_scale:neutrino-plus-nucleus,nucleus,forces,
+coherent-neutrino-scattering:emergent_output:n-squared-recoil,neutron,forces,N² tracks neutron number
+neutron-gravitational-states:hardware_scale:ucn-mirror,neutron,forces,UCN in the well
+mossbauer-effect:hardware_scale:bound-host,ion,forces,Host lattice
+mossbauer-effect:energy_barrier:line-width,nucleus,witnesses,Nuclear line payload
+quantum-point-contact:hardware_scale:ballistic-constriction,electron,forces,1D modes of the 2DEG
+casimir-force:hardware_scale:gap,photon,witnesses,EM modes of the gap
+

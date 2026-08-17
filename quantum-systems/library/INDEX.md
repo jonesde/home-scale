@@ -4,7 +4,7 @@ Entries are utility and internal-consistency tests, not interpretive claims. Fam
 
 Every first-wave row now links to a file. Column meanings: [library README](README.md). Family definitions: [TAXONOMY.md](TAXONOMY.md).
 
-**Status:** 50 formal · 0 draft · 0 queued. Mapping: 25 High · 25 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) (Medium).
+**Status:** 59 formal · 0 draft · 0 queued. Mapping: 30 High · 29 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) and [pyroelectric fusion](pyroelectric-fusion.md) (Medium).
 
 Logically derived spec sheets and a shared-requirement audit live in [`derived/`](derived/README.md) — not catalog rows. Device applications: [`../application/`](../application/README.md).
 
@@ -26,6 +26,8 @@ Many charged nodes must occupy a minimum coherent volume and synchronize before 
 | [Total internal reflection](total-internal-reflection.md) | `total-internal-reflection` | formal | High | High | θ < θc, or n1 ≤ n2; third body inside the evanescent tail | Geometry / index gate on the same n as refraction |
 | [Faraday rotation](faraday-rotation.md) | `faraday-rotation` | formal | High | Medium | B → 0 or path below the Verdet · B · L detection budget | Polarization rotates as VBL; product budget, not a hard cliff |
 | [Cyclotron resonance](cyclotron-resonance.md) | `cyclotron-resonance` | formal | High | High | ω ≠ ωc, or ωc τ < 1 | Absorption at eB/m*; m* is a measured output; needs a long enough scattering time |
+| [Aharonov–Bohm (enclosed-flux phase)](aharonov-bohm.md) | `aharonov-bohm` | formal | High | High | Path does not enclose Φ, or coherence lost | Fringe shift periodic in h/e in a B-free path; not superconducting h/2e |
+| [Casimir force (mode-cutoff attraction)](casimir-force.md) | `casimir-force` | formal | High | Medium | Gap too large; no conducting contrast | Uncharged plates attract ~1/d⁴; 1.3 mPa class at 1 μm; prefactor taken |
 
 ---
 
@@ -60,6 +62,8 @@ A protected collective mode with critical temperature, field, and/or current.
 | [Superfluid helium-4](superfluid-helium-4.md) | `superfluid-helium-4` | formal | High | High | T > Tλ (2.17 K); v > vc | Chargeless superflow / fountain; family name “gapped” is slightly loose (no pairing gap) |
 | [Bose–Einstein condensate](bose-einstein-condensate.md) | `bose-einstein-condensate` | formal | High | Medium | T > Tc(n), or density drops; phase coherence lost | Dilute alkali BEC; clean thermal/density cliff; no measured pairing gap; not a zero-power latch |
 | [Quantum Hall effect](quantum-hall-effect.md) | `quantum-hall-effect` | formal | High | Medium | B off a plateau; T or current too high; 2DEG lost | Integer RH = h/(ν e²); gap + edge channel recorded, not derived |
+| [Quantum point contact](quantum-point-contact.md) | `quantum-point-contact` | formal | High | Medium | Pinch-off; T or mfp wash the steps | 1D conductance steps at 2e²/h; no B required; not QHE |
+| [Neutron gravitational states](neutron-gravitational-states.md) | `neutron-gravitational-states` | formal | High | Medium | Absorber below z1; not UCN; no mirror | UCN bound in mgz + mirror; z1 ≈ 13.7 μm; gapped name loose |
 
 ---
 
@@ -78,6 +82,10 @@ A discrete energetic or field gate. Below threshold the conversion does not occu
 | [Muon-catalyzed fusion](muon-catalyzed-fusion.md) | `muon-catalyzed-fusion` | formal | High | High | No muon; decay at τμ; α-sticking | Handbook H-isotope nuclear gate; N = 1 muon + two nuclei; not a latch |
 | [Dielectric breakdown](dielectric-breakdown.md) | `dielectric-breakdown` | formal | Medium | Medium | E < Ebd (no conversion); above it the insulator is destroyed | Field-opened insulator → conductor; dry air ~3 MV/m class; geometry- and damage-dependent |
 | [Photoconductivity](photoconductivity.md) | `photoconductivity` | formal | High | High | hν < Eg or trap depth | Same gap gate as absorption, read out as current; gain set by lifetime / transit time |
+| [Coulomb blockade](coulomb-blockade.md) | `coulomb-blockade` | formal | High | High | kT ≳ Ec or RT ≲ h/e² | Single-electron charging gate; island aF–fF |
+| [Deuteron photodisintegration](deuteron-photodisintegration.md) | `deuteron-photodisintegration` | formal | High | High | Eγ < 2.224 MeV | Photon unbinds d → p+n; opposite arrow to μCF |
+| [Pyroelectric fusion](pyroelectric-fusion.md) | `pyroelectric-fusion` | formal | Medium | High | No ΔT / no D; potential too low | Polar crystal accelerates D; 2.45 MeV neutrons; not μCF and not the hydride cell |
+| [Coherent neutrino–nucleus scattering](coherent-neutrino-scattering.md) | `coherent-neutrino-scattering` | formal | High | Medium | qR ≳ 1; no nucleus | CEνNS N² recoils (COHERENT); coherence window, no IBD threshold |
 
 ---
 
@@ -96,6 +104,7 @@ The ion grid as coupled mechanical oscillators.
 | [Piezoelectricity](piezoelectricity.md) | `piezoelectricity` | formal | High | Medium | Inversion present, or T > Tc (ferroelectric) | Strain ↔ P only without inversion; coupling taken from handbook d_ij |
 | [Magnetostriction](magnetostriction.md) | `magnetostriction` | formal | High | Medium | T > Tc or lattice destroyed | Length change locked to the moment; Ni ~10⁻⁵ vs Terfenol-D 10⁻³ class |
 | [Thermal expansion](thermal-expansion.md) | `thermal-expansion` | formal | High | Medium | Anharmonicity → 0 (Grüneisen → 0) | Harmonic lattice does not expand; metals 10⁻⁶–10⁻⁵/K; Invar is cancellation |
+| [Mössbauer effect](mossbauer-effect.md) | `mossbauer-effect` | formal | High | High | f → 0 (hot, melt, free atom) | Recoilless 14.4 keV ⁵⁷Fe resonance; lattice is the buffer |
 
 ---
 
@@ -120,4 +129,4 @@ Every mapping in this family is Medium for the same recorded reason: the hardwar
 
 ## Slug list
 
-`antiferromagnetic-order` · `blackbody-spectrum` · `bose-einstein-condensate` · `brownian-motion` · `curie-paramagnetism` · `cyclotron-resonance` · `debye-cutoff` · `dielectric-breakdown` · `elasticity` · `electron-heat-capacity` · `exchange-bias` · `faraday-rotation` · `ferroelectric-remanence` · `ferromagnetic-hysteresis` · `flux-quantization` · `ideal-gas-pressure` · `ionization-threshold` · `johnson-nyquist-noise` · `josephson-effect` · `magnetic-domains` · `magnetostriction` · `meissner` · `melting` · `muon-catalyzed-fusion` · `pair-production` · `permanent-magnet-latch` · `phonon-dispersion` · `photoconductivity` · `photoelectric-threshold` · `piezoelectricity` · `plasma-frequency-cutoff` · `quantum-hall-effect` · `reflection` · `refraction-dielectric` · `semiconductor-gap-absorption` · `shape-anisotropy` · `skin-effect` · `speed-of-sound` · `stefan-boltzmann` · `superconductivity` · `superfluid-helium-4` · `superparamagnetism` · `surface-plasmon-resonance` · `thermal-conductivity-phonon` · `thermal-equilibrium-temperature` · `thermal-expansion` · `total-internal-reflection` · `type-ii-critical-field` · `work-function-thermionic` · `x-ray-absorption-edge`
+`aharonov-bohm` · `antiferromagnetic-order` · `blackbody-spectrum` · `bose-einstein-condensate` · `brownian-motion` · `casimir-force` · `coherent-neutrino-scattering` · `coulomb-blockade` · `curie-paramagnetism` · `cyclotron-resonance` · `debye-cutoff` · `deuteron-photodisintegration` · `dielectric-breakdown` · `elasticity` · `electron-heat-capacity` · `exchange-bias` · `faraday-rotation` · `ferroelectric-remanence` · `ferromagnetic-hysteresis` · `flux-quantization` · `ideal-gas-pressure` · `ionization-threshold` · `johnson-nyquist-noise` · `josephson-effect` · `magnetic-domains` · `magnetostriction` · `meissner` · `melting` · `mossbauer-effect` · `muon-catalyzed-fusion` · `neutron-gravitational-states` · `pair-production` · `permanent-magnet-latch` · `phonon-dispersion` · `photoconductivity` · `photoelectric-threshold` · `piezoelectricity` · `plasma-frequency-cutoff` · `pyroelectric-fusion` · `quantum-hall-effect` · `quantum-point-contact` · `reflection` · `refraction-dielectric` · `semiconductor-gap-absorption` · `shape-anisotropy` · `skin-effect` · `speed-of-sound` · `stefan-boltzmann` · `superconductivity` · `superfluid-helium-4` · `superparamagnetism` · `surface-plasmon-resonance` · `thermal-conductivity-phonon` · `thermal-equilibrium-temperature` · `thermal-expansion` · `total-internal-reflection` · `type-ii-critical-field` · `work-function-thermionic` · `x-ray-absorption-edge`

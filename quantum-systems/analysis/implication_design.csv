@@ -247,4 +247,26 @@ muon-catalyzed-fusion:clock_latency:muon-lifetime,energy-gate,core,Hard stop is 
 muon-catalyzed-fusion:failure_mode:no-muon,energy-gate,core,Missing node shuts the gate
 muon-catalyzed-fusion:emergent_output:fusions-per-muon,energy-gate,core,Yield per stopped muon
 muon-catalyzed-fusion:consistency_gap:not-a-latch,anisotropy-latch,contrast,Spent muon is not 0 W remanence
+aharonov-bohm:emergent_output:h-over-e,gapped-condensate,contrast,h/e is not h/2e
+aharonov-bohm:consistency_gap:not-pair-quantum,gapped-condensate,contrast,Single-charge period
+casimir-force:hardware_scale:gap,collective-screening,contrast,Gap modes are not a metal-film buffer
+casimir-force:failure_mode:large-gap,collective-screening,supporting,Same starve-the-responding-depth class
+coulomb-blockade:energy_barrier:charging-energy,energy-gate,core,N=1 charging gate
+coulomb-blockade:failure_mode:thermal-or-open,energy-gate,core,
+coulomb-blockade:hardware_scale:small-island,energy-gate,core,
+deuteron-photodisintegration:energy_barrier:binding,energy-gate,core,2.224 MeV unbinding
+deuteron-photodisintegration:failure_mode:under-threshold,energy-gate,core,
+deuteron-photodisintegration:hardware_scale:photon-plus-deuteron,energy-gate,core,
+pyroelectric-fusion:failure_mode:no-field-or-no-d,energy-gate,core,Nuclear channel
+pyroelectric-fusion:hardware_scale:crystal-plus-d,energy-gate,core,
+pyroelectric-fusion:hardware_scale:crystal-plus-d,polar-latch,supporting,Polar crystal writes the field
+pyroelectric-fusion:consistency_gap:not-mucf-not-lenr,energy-gate,core,
+coherent-neutrino-scattering:hardware_scale:neutrino-plus-nucleus,energy-gate,supporting,Another extra-node conversion
+coherent-neutrino-scattering:failure_mode:coherence-lost,energy-gate,supporting,
+mossbauer-effect:hardware_scale:bound-host,oscillator-grid,core,Lattice is the recoilless buffer
+mossbauer-effect:failure_mode:no-lattice,oscillator-grid,core,
+quantum-point-contact:consistency_gap:not-qhe,gapped-condensate,contrast,No B; not the pairing condensate
+quantum-point-contact:emergent_output:two-e-squared-over-h,gapped-condensate,contrast,2e²/h is not RH
+neutron-gravitational-states:consistency_gap:gapped-name-loose,gapped-condensate,contrast,peV gravity well is not 2Δ
+
 
