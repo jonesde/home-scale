@@ -2,7 +2,7 @@
 
 Working reference for testing a finite-state-machine reading of quantum and condensed-matter effects. Scope is utility and internal consistency only: no foundational or interpretive claims beyond the working assumptions below.
 
-**Browse the library:** [index](library/INDEX.md) · [conventions](library/README.md) · [taxonomy](library/TAXONOMY.md) · [first application](application/EM-LENR.md)
+**Browse the library:** [index](library/INDEX.md) · [conventions](library/README.md) · [taxonomy](library/TAXONOMY.md) · [derived sheets](library/derived/README.md) · [applications](application/README.md)
 
 The methodology specification follows.
 

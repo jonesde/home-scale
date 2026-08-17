@@ -6,6 +6,8 @@ Every first-wave row now links to a file. Column meanings: [library README](READ
 
 **Status:** 49 formal · 0 draft · 0 queued. Mapping: 24 High · 25 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) (Medium).
 
+Logically derived spec sheets and a shared-requirement audit live in [`derived/`](derived/README.md) — not catalog rows. Device applications: [`../application/`](../application/README.md).
+
 Medium mapping is not a failed entry. It means the collapse is real and the machine class is assigned, but a hardware scale is statistical, mesoscale, or taken from a measured constant rather than derived. Those are the places a second pass should tighten.
 
 ---

@@ -4,7 +4,7 @@ This directory is the QSA effect library: one Markdown file per macroscopic effe
 
 Methodology, evaluation criteria, and the locked 7-part body template live in the [top-level README](../README.md). This file is only the operating manual for the files in `library/`.
 
-**Browse:** [INDEX.md](INDEX.md) · [TAXONOMY.md](TAXONOMY.md) · [_template.md](_template.md)
+**Browse:** [INDEX.md](INDEX.md) · [TAXONOMY.md](TAXONOMY.md) · [_template.md](_template.md) · [derived (not effect entries)](derived/README.md) · [applications](../application/README.md)
 
 ---
 
