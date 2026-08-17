@@ -1,0 +1,47 @@
+design_key,req_key,strength,notes
+collective-screening,zero-hold-power,must,No extra power beyond the incident field.
+collective-screening,connected-spatial-buffer,must,10–20 nm connected metal / optical penetration.
+collective-screening,one-plasma-clock,must,One ωp class per metal.
+collective-screening,underived-penetration-depth,must,δ and classical skin depth are taken.
+collective-screening,coupled-screening-failure,must,Thickness cliff is shared by R SPR and the plasma edge.
+collective-screening,gate-is-single-particle,should,Contrast: photoelectric on the same surface is N=1.
+anisotropy-latch,zero-hold-power,must,Hold costs zero; write costs the loop area.
+anisotropy-latch,thermal-cliff,must,Curie point.
+anisotropy-latch,latch-cell-is-the-cliff,must,Grain KV not the sample envelope.
+anisotropy-latch,mesoscale-coercivity,must,Hc still underived.
+anisotropy-latch,average-replaced-by-order,should,Unlocked Curie χ is the contrast population.
+polar-latch,zero-hold-power,must,Remanent P at E=0.
+polar-latch,thermal-cliff,must,Ferroelectric Tc.
+polar-latch,latch-cell-is-the-cliff,should,Superparaelectric volume collapse is the electrical twin.
+polar-latch,polar-depolarization-buffer,must,Ec / depolarization still mesoscale.
+gapped-condensate,zero-hold-power,must,Persistent current at zero continuous voltage.
+gapped-condensate,thermal-cliff,must,Tc.
+gapped-condensate,connected-spatial-buffer,must,λ and ξ classes.
+gapped-condensate,underived-penetration-depth,should,London λ taken analogously to optical δ.
+gapped-condensate,split-r0-and-expulsion,must,Mixed state is the split-rule test.
+gapped-condensate,pinning-after-hc1,must,Mesoscale pinning unspecified.
+gapped-condensate,fluxoid-increment-2e,must,h/2e taken.
+gapped-condensate,bec-not-this-condensate,must,BEC stays a contrast.
+gapped-condensate,average-replaced-by-order,should,γT dies when the gap opens.
+chargeless-superflow,zero-hold-power,must,Persistent circulation.
+chargeless-superflow,thermal-cliff,must,Tλ = 2.17 K.
+chargeless-superflow,chargeless-no-london-lambda,must,No electromagnetic screening length.
+chargeless-superflow,gapped-name-loose,must,Collapse is ρs not 2Δ.
+chargeless-superflow,bec-not-this-condensate,should,Dilute cousin not this liquid.
+energy-gate,gate-is-single-particle,must,N=1 for one conversion.
+energy-gate,shared-surface-phi,must,Photoelectric and thermionic share φ.
+energy-gate,shared-crystal-eg,must,Absorption and photoconductivity share Eg.
+energy-gate,underived-gate-energy,must,Most gate energies are taken.
+energy-gate,pair-needs-recoil-partner,must,Second hardware clause on pair production.
+oscillator-grid,thermal-cliff,must,Melting is grid loss.
+oscillator-grid,finite-mode-count,must,3N and ωD.
+oscillator-grid,melting-not-derived,must,Tm taken.
+oscillator-grid,underived-grid-couplings,must,Moduli λs d α taken.
+ensemble-average,no-universal-n,must,Statistical buffer only.
+ensemble-average,defined-constants-not-extracted,must,k and σ are defined.
+ensemble-average,average-replaced-by-order,must,Latch or gap replaces the contributing population.
+exchange-pin,zero-hold-power,must,Loop shift held at zero power.
+exchange-pin,nested-pin-not-parent-latch,must,Collapse is TB not FM Tc.
+exchange-pin,interface-exchange-underived,must,Hex / Jex taken.
+exchange-pin,thermal-cliff,should,TB is a thermal cliff of the pin not of the parent FM.
+exchange-pin,mesoscale-coercivity,should,Hex sits in the same mesoscale band as Hc.

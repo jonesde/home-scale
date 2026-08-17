@@ -90,3 +90,81 @@ CREATE INDEX idx_implication_aspect    ON implication(aspect, resource);
 CREATE INDEX idx_implication_inference ON implication(inference_kind);
 CREATE INDEX idx_implication_conf      ON implication(confidence);
 CREATE INDEX idx_implication_clause    ON implication(clause);
+
+-- Assembled reverse-engineered machine (not agency).
+CREATE TABLE design (
+  design_key    TEXT PRIMARY KEY,
+  title         TEXT NOT NULL,
+  summary       TEXT NOT NULL,
+  home_family   TEXT NOT NULL
+    CHECK (home_family IN (
+      'collective-field-response',
+      'latched-order',
+      'gapped-coherence',
+      'threshold-conversion',
+      'lattice-modes',
+      'ensemble-averages'
+    )),
+  status        TEXT NOT NULL
+    CHECK (status IN ('formal', 'draft')),
+  confidence    TEXT NOT NULL
+    CHECK (confidence IN ('high', 'medium', 'low')),
+  description   TEXT NOT NULL,
+  notes         TEXT,
+  updated       TEXT NOT NULL
+);
+
+CREATE TABLE implication_design (
+  impl_key     TEXT NOT NULL REFERENCES implication(impl_key),
+  design_key   TEXT NOT NULL REFERENCES design(design_key),
+  membership   TEXT NOT NULL
+    CHECK (membership IN ('core', 'supporting', 'contrast')),
+  notes        TEXT,
+  PRIMARY KEY (impl_key, design_key)
+);
+
+CREATE TABLE requirement (
+  req_key       TEXT PRIMARY KEY,
+  title         TEXT NOT NULL,
+  kind          TEXT NOT NULL
+    CHECK (kind IN ('spec', 'consistency', 'prediction', 'closure')),
+  aspect        TEXT NOT NULL
+    CHECK (aspect IN (
+      'scale', 'capacity', 'speed', 'latency',
+      'barrier', 'threshold', 'power', 'output'
+    )),
+  resource      TEXT NOT NULL
+    CHECK (resource IN (
+      'length', 'area', 'volume', 'node_count',
+      'time', 'frequency', 'energy', 'temperature',
+      'e_field', 'b_field', 'current', 'mass', 'charge',
+      'dimensionless', 'other'
+    )),
+  statement     TEXT NOT NULL,
+  operator      TEXT
+    CHECK (operator IS NULL OR operator IN ('eq', 'min', 'max', 'approx', 'range')),
+  value_si      REAL,
+  si_unit       TEXT,
+  value_text    TEXT,
+  status        TEXT NOT NULL
+    CHECK (status IN ('open', 'satisfied', 'tension', 'untested')),
+  confidence    TEXT NOT NULL
+    CHECK (confidence IN ('high', 'medium', 'low')),
+  notes         TEXT,
+  updated       TEXT NOT NULL
+);
+
+CREATE TABLE design_requirement (
+  design_key    TEXT NOT NULL REFERENCES design(design_key),
+  req_key       TEXT NOT NULL REFERENCES requirement(req_key),
+  strength      TEXT NOT NULL
+    CHECK (strength IN ('must', 'should')),
+  notes         TEXT,
+  PRIMARY KEY (design_key, req_key)
+);
+
+CREATE INDEX idx_implication_design_design ON implication_design(design_key);
+CREATE INDEX idx_implication_design_impl   ON implication_design(impl_key);
+CREATE INDEX idx_design_requirement_req    ON design_requirement(req_key);
+CREATE INDEX idx_requirement_kind          ON requirement(kind);
+CREATE INDEX idx_requirement_status        ON requirement(status);

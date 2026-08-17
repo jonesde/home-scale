@@ -23,6 +23,10 @@ LIBRARY = ROOT / "library"
 ANALYSIS = Path(__file__).resolve().parent
 SCHEMA = ANALYSIS / "schema.sql"
 IMPLICATION_CSV = ANALYSIS / "implication.csv"
+DESIGN_CSV = ANALYSIS / "design.csv"
+REQUIREMENT_CSV = ANALYSIS / "requirement.csv"
+IMPLICATION_DESIGN_CSV = ANALYSIS / "implication_design.csv"
+DESIGN_REQUIREMENT_CSV = ANALYSIS / "design_requirement.csv"
 SEED_EFFECT = ANALYSIS / "seed_effect.sql"
 DB_PATH = ROOT / "qs-analysis.db"
 
@@ -154,6 +158,30 @@ def empty_to_none(value: str | None) -> str | None:
     return value if value else None
 
 
+def load_table(path: Path, required: set[str], numeric: tuple[str, ...] = ()) -> list[dict]:
+    if not path.exists():
+        raise SystemExit(f"missing {path}")
+    rows = []
+    with path.open(encoding="utf-8", newline="") as fh:
+        reader = csv.DictReader(fh)
+        missing = required - set(reader.fieldnames or [])
+        if missing:
+            raise SystemExit(f"{path.name} missing columns: {sorted(missing)}")
+        for i, raw in enumerate(reader, start=2):
+            row = {k: (v.strip() if isinstance(v, str) else v) for k, v in raw.items()}
+            pk = next(iter(required))
+            if not row.get(pk) and "impl_key" not in row:
+                raise SystemExit(f"{path.name}:{i}: empty row")
+            for key in numeric:
+                val = empty_to_none(row.get(key))
+                row[key] = float(val) if val not in (None, "") else None
+            for key, val in list(row.items()):
+                if key not in numeric and isinstance(val, str):
+                    row[key] = empty_to_none(val) if key not in required else val
+            rows.append(row)
+    return rows
+
+
 def load_implications() -> list[dict]:
     if not IMPLICATION_CSV.exists():
         raise SystemExit(f"missing {IMPLICATION_CSV}")
@@ -228,6 +256,66 @@ def rebuild() -> int:
             "no implication rows for: " + ", ".join(missing_effects)
         )
 
+    designs = load_table(
+        DESIGN_CSV,
+        {
+            "design_key",
+            "title",
+            "summary",
+            "home_family",
+            "status",
+            "confidence",
+            "description",
+            "updated",
+        },
+    )
+    requirements = load_table(
+        REQUIREMENT_CSV,
+        {
+            "req_key",
+            "title",
+            "kind",
+            "aspect",
+            "resource",
+            "statement",
+            "status",
+            "confidence",
+            "updated",
+        },
+        numeric=("value_si",),
+    )
+    impl_designs = load_table(
+        IMPLICATION_DESIGN_CSV,
+        {"impl_key", "design_key", "membership"},
+    )
+    design_reqs = load_table(
+        DESIGN_REQUIREMENT_CSV,
+        {"design_key", "req_key", "strength"},
+    )
+
+    design_keys = {r["design_key"] for r in designs}
+    req_keys = {r["req_key"] for r in requirements}
+    if len(design_keys) != len(designs):
+        raise SystemExit("duplicate design_key")
+    if len(req_keys) != len(requirements):
+        raise SystemExit("duplicate req_key")
+
+    for row in impl_designs:
+        if row["impl_key"] not in keys:
+            raise SystemExit(f"implication_design: unknown impl_key {row['impl_key']!r}")
+        if row["design_key"] not in design_keys:
+            raise SystemExit(f"implication_design: unknown design_key {row['design_key']!r}")
+    for row in design_reqs:
+        if row["design_key"] not in design_keys:
+            raise SystemExit(f"design_requirement: unknown design_key {row['design_key']!r}")
+        if row["req_key"] not in req_keys:
+            raise SystemExit(f"design_requirement: unknown req_key {row['req_key']!r}")
+
+    reqs_with_design = {r["req_key"] for r in design_reqs}
+    orphan_reqs = sorted(req_keys - reqs_with_design)
+    if orphan_reqs:
+        raise SystemExit("requirement with no design edge: " + ", ".join(orphan_reqs))
+
     write_seed_effect(effects, constraints)
 
     if DB_PATH.exists():
@@ -266,6 +354,44 @@ def rebuild() -> int:
         """,
         implications,
     )
+    conn.executemany(
+        """
+        INSERT INTO design (
+          design_key, title, summary, home_family, status, confidence,
+          description, notes, updated
+        ) VALUES (
+          :design_key, :title, :summary, :home_family, :status, :confidence,
+          :description, :notes, :updated
+        )
+        """,
+        designs,
+    )
+    conn.executemany(
+        """
+        INSERT INTO requirement (
+          req_key, title, kind, aspect, resource, statement,
+          operator, value_si, si_unit, value_text, status, confidence, notes, updated
+        ) VALUES (
+          :req_key, :title, :kind, :aspect, :resource, :statement,
+          :operator, :value_si, :si_unit, :value_text, :status, :confidence, :notes, :updated
+        )
+        """,
+        requirements,
+    )
+    conn.executemany(
+        """
+        INSERT INTO implication_design (impl_key, design_key, membership, notes)
+        VALUES (:impl_key, :design_key, :membership, :notes)
+        """,
+        impl_designs,
+    )
+    conn.executemany(
+        """
+        INSERT INTO design_requirement (design_key, req_key, strength, notes)
+        VALUES (:design_key, :req_key, :strength, :notes)
+        """,
+        design_reqs,
+    )
     conn.commit()
 
     n_effect = conn.execute("SELECT COUNT(*) FROM effect").fetchone()[0]
@@ -276,17 +402,40 @@ def rebuild() -> int:
     n_num = conn.execute(
         "SELECT COUNT(*) FROM implication WHERE value_si IS NOT NULL"
     ).fetchone()[0]
+    n_design = conn.execute("SELECT COUNT(*) FROM design").fetchone()[0]
+    n_req = conn.execute("SELECT COUNT(*) FROM requirement").fetchone()[0]
+    n_id = conn.execute("SELECT COUNT(*) FROM implication_design").fetchone()[0]
+    n_dr = conn.execute("SELECT COUNT(*) FROM design_requirement").fetchone()[0]
+    mapped = {
+        r[0]
+        for r in conn.execute("SELECT DISTINCT impl_key FROM implication_design")
+    }
+    unmapped = sorted(keys - mapped)
+    designs_without_req = [
+        r[0]
+        for r in conn.execute(
+            "SELECT design_key FROM design WHERE design_key NOT IN "
+            "(SELECT design_key FROM design_requirement)"
+        )
+    ]
     conn.close()
 
     print(f"wrote {DB_PATH}")
-    print(f"  effect:            {n_effect}")
-    print(f"  effect_constraint: {len(constraints)}")
-    print(f"  implication:       {n_impl}")
-    print(f"  with value_si:     {n_num}")
-    print(f"  open or gap:       {n_open}")
+    print(f"  effect:              {n_effect}")
+    print(f"  effect_constraint:   {len(constraints)}")
+    print(f"  implication:         {n_impl}")
+    print(f"  with value_si:       {n_num}")
+    print(f"  open or gap:         {n_open}")
+    print(f"  design:              {n_design}")
+    print(f"  requirement:         {n_req}")
+    print(f"  implication_design:  {n_id}")
+    print(f"  design_requirement:  {n_dr}")
+    print(f"  implications unmapped to a design: {len(unmapped)}")
     empty = [s for s, n in per_effect.items() if n < 4]
     if empty:
-        print("  warning: fewer than 4 rows:", ", ".join(empty))
+        print("  warning: fewer than 4 implication rows:", ", ".join(empty))
+    if designs_without_req:
+        print("  warning: design with no requirements:", ", ".join(designs_without_req))
     return 0
 
 
