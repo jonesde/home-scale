@@ -2,6 +2,8 @@
 **Date:** 2026-08-17
 **Purpose:** Carry forward all active context, locked rules, and existing analysis so work can continue cleanly in Grok Build (files + optional SQLite).
 
+**Canonical library is now [`library/INDEX.md`](library/INDEX.md).** The two mappings in §3 have been expanded into formal entries; treat those files as the source of truth if they disagree with the preliminary notes below.
+
 ---
 
 ## 1. Project Context (brief)

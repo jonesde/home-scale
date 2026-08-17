@@ -1,4 +1,13 @@
 # Quantum Systems Analysis (QSA)
+
+Working reference for testing a finite-state-machine reading of quantum and condensed-matter effects. Scope is utility and internal consistency only: no foundational or interpretive claims beyond the working assumptions below.
+
+**Browse the library:** [index](library/INDEX.md) · [conventions](library/README.md) · [taxonomy](library/TAXONOMY.md)
+
+The methodology specification follows.
+
+---
+
 ## Methodology Summary and Effect Library Specification
 
 **Version:** 0.1
@@ -94,11 +103,13 @@ High / Medium / Low, with a one-sentence justification focused on how well the e
 
 ---
 
-## 6. Initial Library Status
+## 6. Library Status
+
+The effect library lives in [`library/`](library/INDEX.md). The copy-paste starter is [`library/_template.md`](library/_template.md). Operating rules for files, frontmatter, and the index are in [`library/README.md`](library/README.md).
 
 - Template defined and locked (this document).
-- First two entries (reflection / electron-cloud response; permanent-magnet directional latch) to be formalized next.
-- Subsequent entries will be added one at a time, selected for clear experimental boundaries and distinct failure modes.
+- Formal entries: [reflection](library/reflection.md), [permanent-magnet-latch](library/permanent-magnet-latch.md).
+- Further candidates are queued in the index. Add files one at a time, selected for clear experimental boundaries and distinct failure modes; update the index in the same change.
 
 ---
 
