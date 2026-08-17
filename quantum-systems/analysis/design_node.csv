@@ -10,6 +10,7 @@ energy-gate,electron,single,N=1 conversion
 energy-gate,photon,input,Opens φ / Eg / 2mec²
 energy-gate,positron,product,Pair channel
 energy-gate,nucleus,recoil,Pair channel momentum sink
+energy-gate,muon,input,Opens the hydrogen nuclear well
 oscillator-grid,ion,matrix,3N sites
 oscillator-grid,phonon,mode,Allowed clocks
 ensemble-average,electron,average,Fermi-slice / Curie contrast sits elsewhere

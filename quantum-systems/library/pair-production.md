@@ -11,6 +11,7 @@ confidence_mapping: high
 related:
   - ionization-threshold
   - photoelectric-threshold
+  - muon-catalyzed-fusion
   - x-ray-absorption-edge
   - semiconductor-gap-absorption
   - blackbody-spectrum
@@ -94,6 +95,7 @@ A remaining gap: QSA takes \(m_e c^2 = 511\,\mathrm{keV}\) as a measured node sp
 
 ## Related entries
 
+- [muon-catalyzed-fusion](muon-catalyzed-fusion.md) — another conversion that stays closed without a named extra node (here a muon, not a recoil nucleus)
 - [ionization-threshold](ionization-threshold.md) — unbinding of a pre-existing electron; a different gate at a different energy
 - [photoelectric-threshold](photoelectric-threshold.md) — surface unbinding, eV scale; no positron
 - [x-ray-absorption-edge](x-ray-absorption-edge.md) — inner-shell photoelectric channel that competes with pairs at keV–MeV

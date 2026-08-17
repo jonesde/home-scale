@@ -4,7 +4,7 @@ Entries are utility and internal-consistency tests, not interpretive claims. Fam
 
 Every first-wave row now links to a file. Column meanings: [library README](README.md). Family definitions: [TAXONOMY.md](TAXONOMY.md).
 
-**Status:** 49 formal · 0 draft · 0 queued. Mapping: 24 High · 25 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) (Medium).
+**Status:** 50 formal · 0 draft · 0 queued. Mapping: 25 High · 25 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) (Medium).
 
 Logically derived spec sheets and a shared-requirement audit live in [`derived/`](derived/README.md) — not catalog rows. Device applications: [`../application/`](../application/README.md).
 
@@ -75,6 +75,7 @@ A discrete energetic or field gate. Below threshold the conversion does not occu
 | [X-ray absorption edge](x-ray-absorption-edge.md) | `x-ray-absorption-edge` | formal | High | High | hν below the shell binding energy | Element-specific inner-shell gates; Cu K-edge 8.979 keV |
 | [Ionization threshold](ionization-threshold.md) | `ionization-threshold` | formal | High | High | E < I | Gas stays neutral below the binding energy; H 13.598 eV, He 24.6 eV |
 | [Pair production](pair-production.md) | `pair-production` | formal | High | High | Eγ < 1.022 MeV; no nearby nucleus | Photon → e⁺e⁻ only above 2mec² and with a momentum sink |
+| [Muon-catalyzed fusion](muon-catalyzed-fusion.md) | `muon-catalyzed-fusion` | formal | High | High | No muon; decay at τμ; α-sticking | Handbook H-isotope nuclear gate; N = 1 muon + two nuclei; not a latch |
 | [Dielectric breakdown](dielectric-breakdown.md) | `dielectric-breakdown` | formal | Medium | Medium | E < Ebd (no conversion); above it the insulator is destroyed | Field-opened insulator → conductor; dry air ~3 MV/m class; geometry- and damage-dependent |
 | [Photoconductivity](photoconductivity.md) | `photoconductivity` | formal | High | High | hν < Eg or trap depth | Same gap gate as absorption, read out as current; gain set by lifetime / transit time |
 
@@ -119,4 +120,4 @@ Every mapping in this family is Medium for the same recorded reason: the hardwar
 
 ## Slug list
 
-`antiferromagnetic-order` · `blackbody-spectrum` · `bose-einstein-condensate` · `brownian-motion` · `curie-paramagnetism` · `cyclotron-resonance` · `debye-cutoff` · `dielectric-breakdown` · `elasticity` · `electron-heat-capacity` · `exchange-bias` · `faraday-rotation` · `ferroelectric-remanence` · `ferromagnetic-hysteresis` · `flux-quantization` · `ideal-gas-pressure` · `ionization-threshold` · `johnson-nyquist-noise` · `josephson-effect` · `magnetic-domains` · `magnetostriction` · `meissner` · `melting` · `pair-production` · `permanent-magnet-latch` · `phonon-dispersion` · `photoconductivity` · `photoelectric-threshold` · `piezoelectricity` · `plasma-frequency-cutoff` · `quantum-hall-effect` · `reflection` · `refraction-dielectric` · `semiconductor-gap-absorption` · `shape-anisotropy` · `skin-effect` · `speed-of-sound` · `stefan-boltzmann` · `superconductivity` · `superfluid-helium-4` · `superparamagnetism` · `surface-plasmon-resonance` · `thermal-conductivity-phonon` · `thermal-equilibrium-temperature` · `thermal-expansion` · `total-internal-reflection` · `type-ii-critical-field` · `work-function-thermionic` · `x-ray-absorption-edge`
+`antiferromagnetic-order` · `blackbody-spectrum` · `bose-einstein-condensate` · `brownian-motion` · `curie-paramagnetism` · `cyclotron-resonance` · `debye-cutoff` · `dielectric-breakdown` · `elasticity` · `electron-heat-capacity` · `exchange-bias` · `faraday-rotation` · `ferroelectric-remanence` · `ferromagnetic-hysteresis` · `flux-quantization` · `ideal-gas-pressure` · `ionization-threshold` · `johnson-nyquist-noise` · `josephson-effect` · `magnetic-domains` · `magnetostriction` · `meissner` · `melting` · `muon-catalyzed-fusion` · `pair-production` · `permanent-magnet-latch` · `phonon-dispersion` · `photoconductivity` · `photoelectric-threshold` · `piezoelectricity` · `plasma-frequency-cutoff` · `quantum-hall-effect` · `reflection` · `refraction-dielectric` · `semiconductor-gap-absorption` · `shape-anisotropy` · `skin-effect` · `speed-of-sound` · `stefan-boltzmann` · `superconductivity` · `superfluid-helium-4` · `superparamagnetism` · `surface-plasmon-resonance` · `thermal-conductivity-phonon` · `thermal-equilibrium-temperature` · `thermal-expansion` · `total-internal-reflection` · `type-ii-critical-field` · `work-function-thermionic` · `x-ray-absorption-edge`

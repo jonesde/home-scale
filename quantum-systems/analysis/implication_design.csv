@@ -242,4 +242,9 @@ quantum-hall-effect:energy_barrier:landau-gap,gapped-condensate,contrast,Landau 
 quantum-hall-effect:emergent_output:rk-plateau,gapped-condensate,contrast,RK = h/e² is not Φ0
 quantum-hall-effect:failure_mode:in-plane-b,gapped-condensate,contrast,In-plane B is a non-occurrence of this leftover
 quantum-hall-effect:clock_latency:cyclotron,collective-screening,contrast,Same eB/m clock; output is a DC plateau not a re-radiated field
+muon-catalyzed-fusion:hardware_scale:muon-plus-two-nuclei,energy-gate,core,N=1 muon plus two nuclei
+muon-catalyzed-fusion:clock_latency:muon-lifetime,energy-gate,core,Hard stop is τμ
+muon-catalyzed-fusion:failure_mode:no-muon,energy-gate,core,Missing node shuts the gate
+muon-catalyzed-fusion:emergent_output:fusions-per-muon,energy-gate,core,Yield per stopped muon
+muon-catalyzed-fusion:consistency_gap:not-a-latch,anisotropy-latch,contrast,Spent muon is not 0 W remanence
 

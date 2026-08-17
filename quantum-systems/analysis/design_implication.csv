@@ -64,6 +64,9 @@ energy-gate,semiconductor-gap-absorption:energy_barrier:gap,predicts,must,Same g
 energy-gate,predicted:work-function-thermionic:same-face-same-phi,predicts,should,Same-sample φ identity.
 energy-gate,predicted:photoconductivity:edge-equals-absorption-eg,predicts,must,Onset tracks absorption edge.
 energy-gate,photoelectric-threshold:consistency_gap:underived-phi,entails,must,Most gate energies are taken.
+energy-gate,muon-catalyzed-fusion:hardware_scale:muon-plus-two-nuclei,entails,must,Nuclear hydrogen gate needs the muon.
+energy-gate,muon-catalyzed-fusion:failure_mode:no-muon,entails,must,No muon ⇒ channel closed.
+energy-gate,predicted:muon-catalyzed-fusion:muon-free-cell-is-null,predicts,must,A muon-free hydride is not this cycle.
 oscillator-grid,phonon-dispersion:hardware_scale:crystalline-grid,entails,must,
 oscillator-grid,phonon-dispersion:clock_latency:allowed-clock-table,entails,must,ω(q).
 oscillator-grid,debye-cutoff:hardware_scale:three-n-modes,entails,must,3N.

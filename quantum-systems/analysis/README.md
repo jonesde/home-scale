@@ -4,7 +4,7 @@ Markdown in [`library/`](../library/) is the science source of truth. This direc
 
 Working database: `qs-analysis.db` at the repo root. It is a local build artifact (gitignored). Commit the text: `fragments/*.jsonl`, `implication.csv`, `predicted_implication.csv`, `design*.csv`, `schema.sql`.
 
-First load: 49 `effect` · 145 `effect_constraint` · 410 `implication` (386 extracted, 24 predicted) · 9 `design` · 7 `node` (all `forced`) · 28 `requirement` · 243 `implication_design` · 46 `design_requirement` · 87 `design_implication` (49 entails, 35 predicts, 3 incompatible) · 19 `implication_node` · 16 `design_node`. 62 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
+First load: 50 `effect` · 148 `effect_constraint` · 418 `implication` (393 extracted, 25 predicted) · 9 `design` · 8 `node` (all `forced`) · 28 `requirement` · 248 `implication_design` · 46 `design_requirement` · 90 `design_implication` (51 entails, 36 predicts, 3 incompatible) · 22 `implication_node` · 17 `design_node`. 64 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
 
 Rebuild (stdlib Python 3 only — no pip):
 
@@ -123,6 +123,7 @@ A requirement with no design edge is a rebuild error. A design with no requireme
 |---|---|---|---|
 | `electron` | elementary | forced | `population` / `single` / `average` |
 | `photon` | elementary | forced | `input` / `average` |
+| `muon` | elementary | forced | `input` |
 | `positron` | elementary | forced | `product` |
 | `phonon` | quasiparticle | forced | `mode` |
 | `ion` | composite | forced | `matrix` |

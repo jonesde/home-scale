@@ -50,6 +50,7 @@ Machines that do **not** own the missing variable:
 
 - **`ensemble-average`.** H/M, resistance ratio, and lattice expansion are the averages already measured. They have no universal *N*-cliff. The anomaly, if real, is what happens when a latch or gap *replaces* that average.
 - **`energy-gate` alone.** Isolated D–D / p–p conversion is a discrete gate. Ordinary lattice compression does not open it. An under-threshold gate cannot explain metallurgical history or intermittency.
+- **`energy-gate` as [muon-catalyzed fusion](../library/muon-catalyzed-fusion.md).** The handbook hydrogen-isotope nuclear gate. It requires a muon. Collapse is missing muon / decay / sticking, not blocking of a defect cell. This apparatus has no muon source. Cosmic-ray flux does not track bake-out or cold work. Do not file that cycle as this cell.
 - **Bulk `collective-screening` of the Pd electron gas.** Connected buffer and plasma clock of a uniform metal. Too spatially uniform to carry the defect / recipe dependence.
 - **`gapped-condensate`.** No measured pairing gap, London *λ*, or Meissner of the hydride at these temperatures. Same category error as folding a dilute BEC into the charged condensate.
 

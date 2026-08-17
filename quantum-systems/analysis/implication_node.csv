@@ -18,3 +18,6 @@ pair-production:hardware_scale:photon-plus-nucleus,nucleus,forces,Nearby mass re
 pair-production:failure_mode:no-recoil-partner,nucleus,forces,Empty space is under-provisioned
 permanent-magnet-latch:energy_barrier:anisotropy,directional-moment,forces,KV latch cell
 curie-paramagnetism:energy_barrier:unlocked-no-latch,directional-moment,contrast,Unlocked ensemble has no remnant
+muon-catalyzed-fusion:hardware_scale:muon-plus-two-nuclei,muon,forces,One muon per cycle
+muon-catalyzed-fusion:failure_mode:no-muon,muon,forces,Absence shuts the channel
+muon-catalyzed-fusion:clock_latency:muon-lifetime,muon,forces,τμ is the node's clock

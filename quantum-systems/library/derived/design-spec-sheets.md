@@ -90,9 +90,9 @@ No London *λ*. No *χ* = −1.
 |---|---|---|
 | Buffer | **N = 1** for one conversion | Escape depth / avalanche path are sequels |
 | Clock | Attosecond to optical-cycle opening | Rate ≠ latency |
-| Barrier | *φ*, *E*<sub>g</sub>, *I*, shell *E*<sub>b</sub>, or 2*mₑc*² | *φ* ~ 2–6 eV; Si *E*<sub>g</sub> ≈ 1.12 eV; H *I* = 13.598 eV; pair 1.022 MeV |
+| Barrier | *φ*, *E*<sub>g</sub>, *I*, shell *E*<sub>b</sub>, 2*mₑc*², or the muon-rescaled hydrogen well | *φ* ~ 2–6 eV; Si *E*<sub>g</sub> ≈ 1.12 eV; H *I* = 13.598 eV; pair 1.022 MeV; μCF needs a muon |
 | Hold-power | Not a latch; the product leaves | |
-| Dominant erase | Under-threshold input (non-occurrence) | Pair production also needs a recoil partner |
+| Dominant erase | Under-threshold input (non-occurrence) | Pair production also needs a recoil partner; μCF also needs a muon |
 | Open | Most gate energies taken, not derived | Pair 2*mₑc*² is the clean identity |
 
 *φ* is not *ω*<sub>p</sub>. Same face should share *φ* for photo and thermionic.

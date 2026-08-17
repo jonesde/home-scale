@@ -109,7 +109,7 @@ Same rules as the top-level README, restated so they sit next to the files:
 
 ## Suggested order of work
 
-The first wave (49 formal entries) is written. Prefer, in order:
+The first wave (50 formal entries) is written. Prefer, in order:
 
 1. Tighten a Medium mapping — especially a missing mesoscale step or a statistical buffer that can be given a sharper experimental envelope.
 2. Add a new file only when it has a sharp measured collapse and is not already covered as a clause on an existing entry.

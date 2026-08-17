@@ -52,13 +52,13 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 
 | Layer | Count | Where |
 |---|---|---|
-| Formal effects | 49 (six families) | [library/INDEX.md](library/INDEX.md) |
-| Mapping confidence | 24 High · 25 Medium · 0 Low | per-file frontmatter |
+| Formal effects | 50 (six families) | [library/INDEX.md](library/INDEX.md) |
+| Mapping confidence | 25 High · 25 Medium · 0 Low | per-file frontmatter |
 | Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) (Medium) | same |
-| Extracted implications | 386 | `analysis/fragments/*.jsonl` |
-| Predicted implications | 24 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
+| Extracted implications | 393 | `analysis/fragments/*.jsonl` |
+| Predicted implications | 25 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
 | Designs | 9 (8 formal; `exchange-pin` draft) | [analysis/design.csv](analysis/design.csv) |
-| Nodes | 7 forced first-wave | [library/nodes/INDEX.md](library/nodes/INDEX.md) |
+| Nodes | 8 forced | [library/nodes/INDEX.md](library/nodes/INDEX.md) |
 | Requirements | 28 | [analysis/requirement.csv](analysis/requirement.csv) |
 | Applications | 6 | [application/README.md](application/README.md) |
 | Derived notes | spec sheets + requirement audit | [library/derived/](library/derived/README.md) |

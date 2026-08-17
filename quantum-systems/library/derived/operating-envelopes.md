@@ -71,10 +71,10 @@ No first-wave node.
 
 | | |
 |---|---|
-| **Inside** | Input at or above the named gate (*φ*, *E_g*, *I*, *E_b*, or 2*m_e c*²); for pairs, a nearby nucleus. One event is *N* = 1. The product leaves. |
-| **Outside** | Under-threshold input (non-occurrence). Pair channel also closed in empty space. |
+| **Inside** | Input at or above the named gate (*φ*, *E_g*, *I*, *E_b*, or 2*m_e c*²); for pairs, a nearby nucleus; for hydrogen-isotope fusion, a muon. One event is *N* = 1. The product leaves. |
+| **Outside** | Under-threshold input (non-occurrence). Pair channel also closed in empty space. μCF also closed with no muon, after *τ_μ*, or after sticking. |
 
-Nodes: `electron` `single`; `photon` `input`; `positron` `product`; `nucleus` `recoil`.
+Nodes: `electron` `single`; `photon` `input`; `positron` `product`; `nucleus` `recoil`; `muon` `input`.
 
 ---
 

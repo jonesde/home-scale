@@ -46,7 +46,7 @@ A cataloged card is allowed only if at least one holds:
 
 That is comprehensive inside relevant scope, not every PDG line. Rebuild warns on a cataloged node with zero edges.
 
-Do not add muon, tau, neutrinos, *W*, *Z*, Higgs, quarks, or a dark-sector species until a file names them or a predicted observation exists.
+Do not add tau, neutrinos, *W*, *Z*, Higgs, quarks, or a dark-sector species until a file names them or a predicted observation exists. The muon is forced by [`muon-catalyzed-fusion`](../muon-catalyzed-fusion.md).
 
 ---
 

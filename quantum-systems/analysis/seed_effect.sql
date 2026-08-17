@@ -25,6 +25,7 @@ INSERT INTO effect (slug, title, family, status, confidence_data, confidence_map
 INSERT INTO effect (slug, title, family, status, confidence_data, confidence_mapping, source_path, updated) VALUES ('magnetostriction', 'Magnetostriction (Moment–Strain Coupling)', 'lattice-modes', 'formal', 'high', 'medium', 'library/magnetostriction.md', '2026-08-17');
 INSERT INTO effect (slug, title, family, status, confidence_data, confidence_mapping, source_path, updated) VALUES ('meissner', 'Meissner Effect (Field Expulsion)', 'gapped-coherence', 'formal', 'high', 'high', 'library/meissner.md', '2026-08-17');
 INSERT INTO effect (slug, title, family, status, confidence_data, confidence_mapping, source_path, updated) VALUES ('melting', 'Melting (Loss of Lattice Order)', 'lattice-modes', 'formal', 'high', 'medium', 'library/melting.md', '2026-08-17');
+INSERT INTO effect (slug, title, family, status, confidence_data, confidence_mapping, source_path, updated) VALUES ('muon-catalyzed-fusion', 'Muon-Catalyzed Fusion (Mass-Rescaled Nuclear Gate)', 'threshold-conversion', 'formal', 'high', 'high', 'library/muon-catalyzed-fusion.md', '2026-08-17');
 INSERT INTO effect (slug, title, family, status, confidence_data, confidence_mapping, source_path, updated) VALUES ('pair-production', 'Pair Production (Rest-Mass Conversion Gate)', 'threshold-conversion', 'formal', 'high', 'high', 'library/pair-production.md', '2026-08-17');
 INSERT INTO effect (slug, title, family, status, confidence_data, confidence_mapping, source_path, updated) VALUES ('permanent-magnet-latch', 'Permanent Magnet (Directional Latch)', 'latched-order', 'formal', 'high', 'high', 'library/permanent-magnet-latch.md', '2026-08-17');
 INSERT INTO effect (slug, title, family, status, confidence_data, confidence_mapping, source_path, updated) VALUES ('phonon-dispersion', 'Phonon Dispersion (Lattice Allowed-Clock Map)', 'lattice-modes', 'formal', 'high', 'medium', 'library/phonon-dispersion.md', '2026-08-17');
@@ -123,6 +124,9 @@ INSERT INTO effect_constraint (slug, tag) VALUES ('meissner', 'field-threshold')
 INSERT INTO effect_constraint (slug, tag) VALUES ('meissner', 'thermal');
 INSERT INTO effect_constraint (slug, tag) VALUES ('melting', 'thermal');
 INSERT INTO effect_constraint (slug, tag) VALUES ('melting', 'mechanical-lattice');
+INSERT INTO effect_constraint (slug, tag) VALUES ('muon-catalyzed-fusion', 'energy-barrier');
+INSERT INTO effect_constraint (slug, tag) VALUES ('muon-catalyzed-fusion', 'clock-latency');
+INSERT INTO effect_constraint (slug, tag) VALUES ('muon-catalyzed-fusion', 'spatial-buffer');
 INSERT INTO effect_constraint (slug, tag) VALUES ('pair-production', 'energy-barrier');
 INSERT INTO effect_constraint (slug, tag) VALUES ('pair-production', 'spatial-buffer');
 INSERT INTO effect_constraint (slug, tag) VALUES ('permanent-magnet-latch', 'energy-barrier');

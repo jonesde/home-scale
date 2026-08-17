@@ -59,7 +59,7 @@ A discrete energetic (or field) gate. Below threshold the conversion does not oc
 
 Typical collapse / non-occurrence: **under-threshold input**.
 
-Examples: photoelectric effect, work function / thermionic emission, semiconductor absorption edge, pair production, dielectric breakdown.
+Examples: photoelectric effect, work function / thermionic emission, semiconductor absorption edge, pair production, muon-catalyzed fusion, dielectric breakdown.
 
 ### 5. Lattice modes
 

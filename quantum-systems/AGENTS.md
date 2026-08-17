@@ -311,7 +311,7 @@ Science source of truth. One kebab-case file per effect. Copy [_template.md](lib
 | Path | Purpose |
 |---|---|
 | [library/README.md](library/README.md) | Operating manual: frontmatter schema, index columns, language rules. Markdown is the science source; the analysis layer is the query surface. |
-| [library/INDEX.md](library/INDEX.md) | Catalog and build list. 49 formal first-wave entries. Families are machine/collapse classes. |
+| [library/INDEX.md](library/INDEX.md) | Catalog and build list. 50 formal first-wave entries. Families are machine/collapse classes. |
 | [library/TAXONOMY.md](library/TAXONOMY.md) | Family definitions, assignment rule, constraint tags. |
 | [library/_template.md](library/_template.md) | Locked 7-part body + frontmatter stub. |
 | `library/{slug}.md` | One effect. Body sections 4.1–4.7. Frontmatter feeds `effect` / `effect_constraint`. |
@@ -339,7 +339,7 @@ First-wave families (counts from the current catalog):
 | `collective-field-response` | 8 | Spatial under-provisioning or loss of collective phase |
 | `latched-order` | 8 | Thermal over-barrier, volume too small for *KV*, or lattice destroyed |
 | `gapped-coherence` | 8 | Gap closure or coherence-length / *H*<sub>c</sub> / *I*<sub>c</sub> violation |
-| `threshold-conversion` | 8 | Under-threshold input (conversion does not occur) |
+| `threshold-conversion` | 9 | Under-threshold input (conversion does not occur) |
 | `lattice-modes` | 9 | Mode cutoff, mfp destroyed, or loss of crystalline order |
 | `ensemble-averages` | 8 | Too few contributors, or observation faster than the averaging window |
 
@@ -393,7 +393,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-First-wave load (after a clean rebuild): 49 `effect` · 145 `effect_constraint` · 410 `implication` (386 extracted, 24 predicted) · 9 `design` · 7 `node` · 28 `requirement` · 243 `implication_design` · 46 `design_requirement` · 87 `design_implication` (49 entails, 35 predicts, 3 incompatible) · 19 `implication_node` · 16 `design_node`.
+First-wave load (after a clean rebuild): 50 `effect` · 148 `effect_constraint` · 418 `implication` (393 extracted, 25 predicted) · 9 `design` · 8 `node` · 28 `requirement` · 248 `implication_design` · 46 `design_requirement` · 90 `design_implication` (51 entails, 36 predicts, 3 incompatible) · 22 `implication_node` · 17 `design_node`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 
