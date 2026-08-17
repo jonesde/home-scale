@@ -4,7 +4,7 @@ This directory is the QSA effect library: one Markdown file per macroscopic effe
 
 Methodology, evaluation criteria, and the locked 7-part body template live in the [top-level README](../README.md). This file is only the operating manual for the files in `library/`.
 
-**Browse:** [INDEX.md](INDEX.md) · [TAXONOMY.md](TAXONOMY.md) · [_template.md](_template.md) · [derived (not effect entries)](derived/README.md) · [applications](../application/README.md)
+**Browse:** [INDEX.md](INDEX.md) · [TAXONOMY.md](TAXONOMY.md) · [_template.md](_template.md) · [derived (not effect entries)](derived/README.md) · [applications](../application/README.md) · [orientation / schema](../AGENTS.md)
 
 ---
 
@@ -25,7 +25,7 @@ Do not mix working notes, methodology essays, or multi-effect surveys into entry
 3. Conventional physics names are in the **Effect** column so search still works. The spine is the family heading.
 4. Use the Mapping column before opening a file: High means the collapse translates cleanly; Medium means a recorded gap (statistical buffer, mesoscale step, or a taken rather than derived constant).
 
-GitHub search and local `rg` across `library/*.md` are the search tools. There is no database.
+Search the files with GitHub search or local `rg` across `library/*.md`. Cross-cutting queries (shared buffers, design membership, open gaps) go through the analysis layer: `python3 analysis/rebuild.py` then `sqlite3 qs-analysis.db`. Notes and example SQL: [../analysis/README.md](../analysis/README.md). The Markdown files remain the science source of truth; the database is a query surface, not a second wiki.
 
 ---
 
