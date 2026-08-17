@@ -2,20 +2,19 @@
 
 Markdown in [`library/`](../library/) is the science source of truth. This directory is the derived analysis layer: a queryable reading of the QSA mappings, not a second wiki.
 
-Working database: [`../qs-analysis.db`](../qs-analysis.db)
+Working database: `qs-analysis.db` at the repo root. It is a local build artifact (gitignored). Commit the text: `fragments/*.jsonl`, `implication.csv`, `schema.sql`.
 
 First load: 49 `effect` rows, 145 `effect_constraint` rows, 386 `implication` rows (about eight per file). 144 implications carry a `value_si`. 66 are `open` or `gap`. 11 are zero-power outputs.
 
-Rebuild:
+Rebuild (stdlib Python 3 only — no pip):
 
 ```bash
-python3 analysis/merge_fragments.py   # fragments/*.jsonl → implication.csv
-python3 analysis/rebuild.py           # frontmatter + implication.csv → qs-analysis.db
+python3 analysis/rebuild.py
 ```
 
-`rebuild.py` (1) rebuilds `effect` / `effect_constraint` from library frontmatter, (2) loads curated rows from `implication.csv`, (3) writes `seed_effect.sql` for inspection, (4) writes `qs-analysis.db`.
+That is the whole shot. It merges `fragments/*.jsonl` → `implication.csv` when fragments are present, rebuilds `effect` / `effect_constraint` from library frontmatter, loads `implication.csv`, writes `seed_effect.sql` for inspection, and writes `qs-analysis.db`. `merge_fragments.py` still exists if you only want the CSV.
 
-Edit the per-family files in `fragments/` (one JSON object per line), then merge. Do not hand-edit `implication.csv` or `seed_effect.sql`. The Markdown is never generated from the database. Fragments are never generated from the Markdown by regex. Extraction is interpretive.
+Edit the per-family files in `fragments/` (one JSON object per line). Do not hand-edit `implication.csv` or `seed_effect.sql`. The Markdown is never generated from the database. Fragments are never generated from the Markdown by regex. Extraction is interpretive.
 
 ---
 

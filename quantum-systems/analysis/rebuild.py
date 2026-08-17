@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
-"""Rebuild qs-analysis.db from library frontmatter + curated implication.csv."""
+"""One-shot: rebuild qs-analysis.db from library frontmatter + implication rows.
+
+Stdlib only (csv, json, sqlite3, pathlib). From the repo root:
+
+    python3 analysis/rebuild.py
+
+If analysis/fragments/*.jsonl exist, they are merged into implication.csv first.
+The .db is a local build artifact and is not committed.
+"""
 
 from __future__ import annotations
 
@@ -7,6 +15,8 @@ import csv
 import sqlite3
 import sys
 from pathlib import Path
+
+from merge_fragments import main as merge_fragments
 
 ROOT = Path(__file__).resolve().parents[1]
 LIBRARY = ROOT / "library"
@@ -180,7 +190,15 @@ def load_implications() -> list[dict]:
     return rows
 
 
+def maybe_merge_fragments() -> None:
+    fragments = sorted((ANALYSIS / "fragments").glob("*.jsonl"))
+    if not fragments:
+        return
+    merge_fragments()
+
+
 def rebuild() -> int:
+    maybe_merge_fragments()
     effects, constraints = load_effects()
     implications = load_implications()
 
