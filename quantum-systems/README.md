@@ -110,6 +110,7 @@ The effect library lives in [`library/`](library/INDEX.md). The copy-paste start
 - Template defined and locked (this document).
 - First wave: 49 formal entries (six families). Mapping confidence is recorded per file — 24 High, 25 Medium, 0 Low.
 - Medium mapping means the collapse is assigned but a hardware scale is still statistical, mesoscale, or taken rather than derived. Tighten those before adding a second wave.
+- Analysis layer: [`qs-analysis.db`](qs-analysis.db) (`effect`, `effect_constraint`, `implication`). Rebuild notes and future tables in [`analysis/README.md`](analysis/README.md).
 - Add or revise files one at a time; update the index in the same change.
 
 ---
