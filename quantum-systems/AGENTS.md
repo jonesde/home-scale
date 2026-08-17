@@ -23,9 +23,11 @@ The live pipeline is:
 effect  →  implication  →  design  →  requirement
 (file)     (atomic claim)   (assembled     (demand visible
                             machine)       only at machine grain)
+
+                 ↘  node  (constituent the machine consumes)
 ```
 
-Markdown in `library/` is the **science source of truth**. The SQLite database is a **query surface** rebuilt from text. Never generate library Markdown from the database. If a derived note disagrees with an effect file, the effect file wins.
+Markdown in `library/` is the **science source of truth for collapses**. Markdown in `library/nodes/` is the **science source of truth for node identity**. The SQLite database is a **query surface** rebuilt from text. Never generate library Markdown from the database. If a derived note disagrees with an effect file about a cliff, the effect file wins. If a node card and an effect file disagree about a failure envelope, the effect file wins.
 
 ---
 
@@ -33,9 +35,9 @@ Markdown in `library/` is the **science source of truth**. The SQLite database i
 
 Do not dilute these.
 
-- Constraint reasoning only: what the system cannot do + the threshold where the macro effect collapses.
-- Language is limited to constraints, resources, synchronization, failure thresholds, and emergent output.
-- Every quantitative claim must be traceable to an experimental boundary or a well-established measured parameter.
+- Constraint reasoning only **for effects**: what the system cannot do + the threshold where the macro effect collapses.
+- Effect and design language is limited to constraints, resources, synchronization, failure thresholds, and emergent output. Node cards may state taken identity specs (mass, charge, spin).
+- Every quantitative claim on an effect must be traceable to an experimental boundary or a well-established measured parameter. Node identity specs may be taken from a pinned PDG / CODATA edition.
 - Incomplete mappings stay incomplete. Do not fill a gap with conjecture in an *extracted* row. Conjecture belongs in `predicted_implication.csv` and only on the downward arrow (`design_implication.relation = predicts`).
 - A family is a filing spine (dominant collapse type). A design is a hypothesized machine. Do not invent a seventh family to hide a mismatch; record the mismatch on the entry until several effects share the leftover collapse.
 - Do not add a tenth design for every interface or textbook chapter. Add one only when a cluster of implications has a collapse and a hardware stack that no existing design owns. `quantum-hall-effect` is intentionally unmapped.
@@ -116,6 +118,20 @@ A demand visible only at **design** grain — a rolled-up spec, a consistency co
 
 A requirement with no `design_requirement` edge is a rebuild error. Reuse a shared `req_key` when several machines impose the same demand (`thermal-cliff`, `zero-hold-power`).
 
+### Node
+
+A microscopic constituent (elementary, composite, or quasiparticle) that one or more machines consume. **Not** an effect, **not** a design, **not** a seventh family. Conventional particle names stay on the title.
+
+| `origin` | Meaning | Evidence? |
+|---|---|---|
+| `forced` | A library collapse already requires this constituent | Yes (`implication_node`) |
+| `cataloged` | Well-measured species, no library collapse yet | No (`forces` is a rebuild error) |
+| `predicted` | Theorized species with a named would-be observation | No |
+
+Identity specs (mass, charge, spin, lifetime, PDG MC ID) may be **taken** from a pinned edition (PDG 2026; CODATA 2022). They are not extracted cliffs. Quasiparticles (`phonon`, `directional-moment`) and class nodes (`nucleus`, host `ion`) have `pdgid` NULL.
+
+Do not add node slugs to [`library/INDEX.md`](library/INDEX.md). Do not mint a design per species. Do not close `fluxoid-increment-2e` or `underived-rk` with a particle story. Admission for `cataloged` cards: parent/contrast of a forced node, or already named as hardware in an effect file. Do not vendor PDG or CODATA files.
+
 ### Nearby vocabulary
 
 | Term | Meaning here |
@@ -132,6 +148,7 @@ A requirement with no `design_requirement` edge is a rebuild error. Reuse a shar
 | **Relabel / derived / envelope / open** | How the implication was inferred from the handbook number. Relabel = same number, QSA name. Derived = computed (10–20 nm → 40–85 planes). Envelope = class or inequality. Open = spec named, no number yet. |
 | **Application** | Device-centered use of the library. Concepts may repeat; the library remains the singular science source. |
 | **Derived note** | Spec sheet or requirement audit generated from the analysis layer. **Not** an effect entry. Do not add those slugs to `INDEX.md`. |
+| **Node** | Constituent a machine consumes. Own grain (`library/nodes/`). Not a family. |
 
 ---
 
@@ -142,8 +159,8 @@ A requirement with no `design_requirement` edge is a rebuild error. Reuse a shar
 1. **Name the macroscopic output and its dominant collapse.** If you cannot name the cliff, you do not yet have an effect.
 2. **Find the family** in [library/TAXONOMY.md](library/TAXONOMY.md) / [library/INDEX.md](library/INDEX.md). Open the formal file, not only the index note.
 3. **Read §4.3 then §4.5–4.6.** §4.3 is the measured envelope; §4.5 is the machine spec; §4.6 is where the mapping is still open. Confidence in the data and confidence in the mapping are different columns.
-4. **Rebuild if needed** (`python3 analysis/rebuild.py`) and query `qs-analysis.db` for siblings: same `aspect`+`resource`, same `design_key`, shared `req_key`, or `membership = contrast`.
-5. **Check the derived sheets** ([library/derived/design-spec-sheets.md](library/derived/design-spec-sheets.md), [requirement-audit.md](library/derived/requirement-audit.md)) before treating two designs as sharing a number.
+4. **Rebuild if needed** (`python3 analysis/rebuild.py`) and query `qs-analysis.db` for siblings: same `aspect`+`resource`, same `design_key`, shared `req_key`, `membership = contrast`, or shared `node_key` / `design_node.role`.
+5. **Check the derived sheets** ([library/derived/design-spec-sheets.md](library/derived/design-spec-sheets.md), [requirement-audit.md](library/derived/requirement-audit.md), [operating-envelopes.md](library/derived/operating-envelopes.md), [node-types.md](library/derived/node-types.md)) before treating two designs as sharing a number.
 6. **Only then** look at `application/`. An application is a claim about a device, graded against handbook cliffs. It is not additional science.
 
 ### Recommended query patterns
@@ -209,6 +226,46 @@ WHERE id.design_key = 'anisotropy-latch'
   AND id.membership = 'contrast';
 ```
 
+Which designs consume a node, and as what:
+
+```sql
+SELECT dn.design_key, dn.role, n.origin, n.kind
+FROM design_node dn
+JOIN node n ON n.node_key = dn.node_key
+WHERE dn.node_key = 'electron'
+ORDER BY dn.role, dn.design_key;
+```
+
+What library collapse forces a node:
+
+```sql
+SELECT ino.membership, i.impl_key, i.description
+FROM implication_node ino
+JOIN implication i ON i.impl_key = ino.impl_key
+WHERE ino.node_key = 'electron'
+ORDER BY ino.membership, i.impl_key;
+```
+
+Unforced cataloged species (work list, not mappings):
+
+```sql
+SELECT node_key, title
+FROM node
+WHERE origin = 'cataloged'
+  AND node_key NOT IN (SELECT node_key FROM implication_node)
+  AND node_key NOT IN (SELECT node_key FROM design_node);
+```
+
+Electron forced in an `edge` role that no design consumes (QHE leftover):
+
+```sql
+SELECT i.impl_key, i.description
+FROM implication_node ino
+JOIN implication i ON i.impl_key = ino.impl_key
+WHERE ino.node_key = 'electron'
+  AND i.effect_slug = 'quantum-hall-effect';
+```
+
 ### Worked research moves
 
 **“Is this the same machine?”** Do not join on family alone. Join on `design_key` via `implication_design`, then check `design_implication` for `incompatible` rows. Reflection and photoelectric share a metal surface and sit in different families *and* different designs (`collective-screening` vs `energy-gate`). The downward `incompatible` on `photoelectric-threshold:hardware_scale:single-electron` is the load-bearing fact.
@@ -228,6 +285,7 @@ WHERE id.design_key = 'anisotropy-latch'
 3. Adjust design membership / downward edges / requirements; rebuild; update derived notes to match.
 4. Add a new effect file (and an INDEX row in the same change) only when the collapse is not already owned.
 5. Add a new design only when the hardware stack and collapse are not already owned.
+6. Add a `forced` node only when a library collapse requires that constituent. Add a `cataloged` node only under the admission filter. Do not add node slugs to `library/INDEX.md`.
 
 ---
 
@@ -260,6 +318,19 @@ Science source of truth. One kebab-case file per effect. Copy [_template.md](lib
 | [library/derived/README.md](library/derived/README.md) | Derived notes are **not** catalog rows. |
 | [library/derived/design-spec-sheets.md](library/derived/design-spec-sheets.md) | One sheet per design: buffer, clock, barrier, hold-power, erase, open. Inherited from `design` + downward `entails`. |
 | [library/derived/requirement-audit.md](library/derived/requirement-audit.md) | Shared requirements: same *kind* vs same *number*. What applications are forbidden to do. |
+| [library/derived/operating-envelopes.md](library/derived/operating-envelopes.md) | Inside of each design’s cliff. Inherited; no new numbers. |
+| [library/derived/node-types.md](library/derived/node-types.md) | Join view: which designs consume which nodes. Not the zoo catalog. |
+
+### Node library — `library/nodes/`
+
+Identity cards for constituents. **Not** effect catalog rows.
+
+| Path | Purpose |
+|---|---|
+| [library/nodes/README.md](library/nodes/README.md) | Grain rules, pinned PDG 2026 / CODATA 2022, admission filter. |
+| [library/nodes/INDEX.md](library/nodes/INDEX.md) | Zoo list. Update in the same change as a card. |
+| [library/nodes/_template.md](library/nodes/_template.md) | Short identity card. Not the 7-part effect template. |
+| `library/nodes/{key}.md` | One node. Frontmatter feeds `node`. |
 
 First-wave families (counts from the current catalog):
 
@@ -280,7 +351,7 @@ Queryable reading of the mappings. Commit the text; do not commit the `.db`.
 |---|---|---|
 | [analysis/README.md](analysis/README.md) | Layer rules, column meanings, example SQL, first-wave machines. | yes (docs) |
 | [analysis/schema.sql](analysis/schema.sql) | Canonical DDL. | only with a matching README + rebuild change |
-| [analysis/rebuild.py](analysis/rebuild.py) | One-shot rebuild: merge fragments → `implication.csv`, seed effects from frontmatter, load CSVs, write `../qs-analysis.db`. Stdlib only. | code |
+| [analysis/rebuild.py](analysis/rebuild.py) | One-shot rebuild: merge fragments → `implication.csv`, seed effects and nodes from frontmatter, load CSVs, write `../qs-analysis.db`. Stdlib only. | code |
 | [analysis/merge_fragments.py](analysis/merge_fragments.py) | Concatenate `fragments/*.jsonl` → `implication.csv`. | code |
 | [analysis/seed_effect.sql](analysis/seed_effect.sql) | Generated from frontmatter. | **no** — edit library frontmatter |
 | [analysis/implication.csv](analysis/implication.csv) | Generated merge of fragments. | **no** — edit fragments |
@@ -292,6 +363,8 @@ Queryable reading of the mappings. Commit the text; do not commit the `.db`.
 | [analysis/design_implication.csv](analysis/design_implication.csv) | Commitment down (`entails` / `predicts` / `incompatible`). | **yes** |
 | [analysis/requirement.csv](analysis/requirement.csv) | Design-grain demands. | **yes** |
 | [analysis/design_requirement.csv](analysis/design_requirement.csv) | Design imposes requirement (`must` / `should`). | **yes** |
+| [analysis/implication_node.csv](analysis/implication_node.csv) | Which extracted claims force / witness / contrast a node. | **yes** |
+| [analysis/design_node.csv](analysis/design_node.csv) | Which machines consume a node, and as what role. | **yes** |
 
 ### Applications — `application/`
 
@@ -320,7 +393,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-First-wave load (after a clean rebuild): 49 `effect` · 145 `effect_constraint` · 410 `implication` (386 extracted, 24 predicted) · 9 `design` · 28 `requirement` · 238 `implication_design` · 46 `design_requirement` · 87 `design_implication` (49 entails, 35 predicts, 3 incompatible).
+First-wave load (after a clean rebuild): 49 `effect` · 145 `effect_constraint` · 410 `implication` (386 extracted, 24 predicted) · 9 `design` · 7 `node` · 28 `requirement` · 243 `implication_design` · 46 `design_requirement` · 87 `design_implication` (49 entails, 35 predicts, 3 incompatible) · 19 `implication_node` · 16 `design_node`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 
@@ -331,12 +404,18 @@ effect (slug PK)
 
 implication (impl_key PK, origin)
   ├── implication_design  (impl_key, design_key)   -- evidence UP
-  └── design_implication  (design_key, impl_key)   -- commitment DOWN
+  ├── design_implication  (design_key, impl_key)   -- commitment DOWN
+  └── implication_node    (impl_key, node_key)     -- forces / witnesses / contrast
 
 design (design_key PK)
   ├── implication_design
   ├── design_implication
-  └── design_requirement (design_key, req_key)
+  ├── design_requirement (design_key, req_key)
+  └── design_node        (design_key, node_key)
+
+node (node_key PK)
+  ├── implication_node
+  └── design_node
 
 requirement (req_key PK)
   └── design_requirement
@@ -390,6 +469,12 @@ requirement (req_key PK)
 | `implication_design` | `membership`: `core` · `supporting` · `contrast` |
 | `design_implication` | `relation`: `entails` · `predicts` · `incompatible`; `strength`: `must` · `should` |
 | `design_requirement` | `strength`: `must` · `should` |
+| `implication_node` | `membership`: `forces` · `witnesses` · `contrast` |
+| `design_node` | `role`: `population` · `single` · `average` · `recoil` · `mode` · `matrix` · `latch-cell` · `input` · `product` · `edge` · `contrast` |
+
+### `node`
+
+`kind` `elementary` · `composite` · `quasiparticle`. `origin` `forced` · `cataloged` · `predicted`. Optional `pdgid` (PDG Monte Carlo ID). Identity numbers live here, not as fake implication rows.
 
 ### `requirement`
 
@@ -399,14 +484,19 @@ requirement (req_key PK)
 
 - Unknown family, constraint tag, or `effect_slug`.
 - `id` ≠ filename stem.
-- Duplicate `impl_key` / `design_key` / `req_key`.
+- Duplicate `impl_key` / `design_key` / `req_key` / `node_key`.
 - Extracted key not prefixed `{slug}:`, or `source_path` ≠ `library/{slug}.md`.
 - Formal effect with zero implication rows.
 - Predicted key not prefixed `predicted:`.
 - Predicted row used as `implication_design` evidence, or used downward with `relation ≠ predicts`.
 - Requirement with no design edge.
+- Unknown node `kind` / `origin` / `design_node.role` / `implication_node.membership`.
+- Node `source_path` ≠ `library/nodes/{key}.md`.
+- `origin = forced` node with zero `implication_node` edges.
+- `origin = cataloged` used as `implication_node.membership = forces`.
+- `origin = predicted` node used as `implication_node` evidence.
 
-Warnings (do not fail): design with no requirements; design with no downward edges; effect with fewer than four implication rows; extracted implications unused as evidence.
+Warnings (do not fail): design with no requirements; design with no downward edges; effect with fewer than four implication rows; extracted implications unused as evidence; `cataloged` node with no design and no implication edge; `forced` node used by no design; predicted node with no downward predicted implication.
 
 Not in this schema (on purpose): a `boundary` table of every §4.3 number; pairwise `implication_relation` edges that are not “same machine” or “contrast via a design”; auto-extraction from Markdown.
 
@@ -415,7 +505,7 @@ Not in this schema (on purpose): a `boundary` table of every §4.3 number; pairw
 ## Editing protocol
 
 ```bash
-# after changing library frontmatter, fragments, predicted rows, or design-layer CSVs:
+# after changing library frontmatter, node cards, fragments, predicted rows, or design-layer CSVs:
 python3 analysis/rebuild.py
 ```
 
@@ -424,14 +514,15 @@ python3 analysis/rebuild.py
 - **Conjecture** → `predicted_implication.csv` + a `design_implication` row with `relation = predicts`.
 - **Machine assembly** → `design.csv` and the three junction/requirement CSVs. Then update `library/derived/` so the sheets still match.
 - **New effect** → copy `_template.md`, fill all seven sections, add an INDEX row in the same change, add fragment rows (rebuild fails if a formal file has zero implications).
-- Do not invent a new `family`, `clause`, `role`, `aspect`, `resource`, `inference_kind`, `membership`, `relation`, or constraint tag without updating `schema.sql` and `analysis/README.md` together.
+- **Node identity** → edit `library/nodes/{key}.md` and `library/nodes/INDEX.md`. Junctions: `implication_node.csv`, `design_node.csv`. Do not add the slug to `library/INDEX.md`.
+- Do not invent a new `family`, `clause`, `role`, `aspect`, `resource`, `inference_kind`, `membership`, `relation`, constraint tag, node `kind` / `origin`, or `design_node.role` without updating `schema.sql` and `analysis/README.md` together.
 
 ---
 
 ## Language and safety reminders
 
-- Constraints, resources, synchronization, failure thresholds, emergent output. No agency.
-- “Design” always means assembled machine spec.
+- Constraints, resources, synchronization, failure thresholds, emergent output. No agency. Node cards may add taken identity specs.
+- “Design” always means assembled machine spec. “Node” always means a constituent, not a particle-physics encyclopedia row.
 - Numbers in application files are **classes** from the analysis or from earlier concept notes, not qualified set points.
 - Hydrogen, metal powder, pressure, and pulsed current are industrial hazards even at the small sizes named. Beryllium copper is named only for shops that already control beryllium.
 - Do not scale inventory, pressure, or pulse energy in search of a nuclear signature. There is no demonstrated nuclear process here.

@@ -20,6 +20,7 @@ from merge_fragments import main as merge_fragments
 
 ROOT = Path(__file__).resolve().parents[1]
 LIBRARY = ROOT / "library"
+NODES = LIBRARY / "nodes"
 ANALYSIS = Path(__file__).resolve().parent
 SCHEMA = ANALYSIS / "schema.sql"
 IMPLICATION_CSV = ANALYSIS / "implication.csv"
@@ -29,10 +30,30 @@ DESIGN_IMPLICATION_CSV = ANALYSIS / "design_implication.csv"
 REQUIREMENT_CSV = ANALYSIS / "requirement.csv"
 IMPLICATION_DESIGN_CSV = ANALYSIS / "implication_design.csv"
 DESIGN_REQUIREMENT_CSV = ANALYSIS / "design_requirement.csv"
+IMPLICATION_NODE_CSV = ANALYSIS / "implication_node.csv"
+DESIGN_NODE_CSV = ANALYSIS / "design_node.csv"
 SEED_EFFECT = ANALYSIS / "seed_effect.sql"
 DB_PATH = ROOT / "qs-analysis.db"
 
 SKIP = {"INDEX.md", "README.md", "TAXONOMY.md", "_template.md"}
+NODE_SKIP = {"INDEX.md", "README.md", "_template.md"}
+NODE_KINDS = {"elementary", "composite", "quasiparticle"}
+NODE_ORIGINS = {"forced", "cataloged", "predicted"}
+NODE_STATISTICS = {"fermion", "boson", "unset"}
+NODE_ROLES = {
+    "population",
+    "single",
+    "average",
+    "recoil",
+    "mode",
+    "matrix",
+    "latch-cell",
+    "input",
+    "product",
+    "edge",
+    "contrast",
+}
+NODE_MEMBERSHIPS = {"forces", "witnesses", "contrast"}
 
 FAMILIES = {
     "collective-field-response",
@@ -115,6 +136,68 @@ def load_effects() -> tuple[list[dict], list[tuple[str, str]]]:
                 raise SystemExit(f"{slug}: unknown constraint tag {tag!r}")
             constraints.append((slug, tag))
     return effects, constraints
+
+
+def fm_scalar(fm: dict, key: str) -> str | None:
+    """Frontmatter empty keys parse as lists; treat those as unset scalars."""
+    val = fm.get(key)
+    if val is None or val == []:
+        return None
+    if isinstance(val, list):
+        raise SystemExit(f"frontmatter {key!r} is a list, expected a scalar")
+    return empty_to_none(str(val))
+
+
+def load_nodes() -> list[dict]:
+    if not NODES.is_dir():
+        return []
+    nodes = []
+    for path in sorted(NODES.glob("*.md")):
+        if path.name in NODE_SKIP:
+            continue
+        fm = parse_frontmatter(path.read_text(encoding="utf-8"))
+        key = fm["id"]
+        if key != path.stem:
+            raise SystemExit(f"{path.name}: id {key!r} != filename stem")
+        kind = fm.get("kind")
+        origin = fm.get("origin")
+        if kind not in NODE_KINDS:
+            raise SystemExit(f"{key}: unknown kind {kind!r}")
+        if origin not in NODE_ORIGINS:
+            raise SystemExit(f"{key}: unknown origin {origin!r}")
+        stats = fm_scalar(fm, "statistics")
+        if stats is not None and stats not in NODE_STATISTICS:
+            raise SystemExit(f"{key}: unknown statistics {stats!r}")
+        pdgid = fm_scalar(fm, "pdgid")
+        charge = fm_scalar(fm, "charge_e")
+        mass = fm_scalar(fm, "mass_si")
+        life = fm_scalar(fm, "lifetime_si")
+        description = fm_scalar(fm, "description")
+        if not description:
+            raise SystemExit(f"{key}: missing description")
+        nodes.append(
+            {
+                "node_key": key,
+                "title": fm["title"],
+                "kind": kind,
+                "origin": origin,
+                "status": fm["status"],
+                "confidence": fm["confidence"],
+                "pdgid": int(pdgid) if pdgid is not None else None,
+                "charge_e": float(charge) if charge is not None else None,
+                "mass_si": float(mass) if mass is not None else None,
+                "mass_text": fm_scalar(fm, "mass_text"),
+                "spin_text": fm_scalar(fm, "spin_text"),
+                "statistics": stats,
+                "lifetime_si": float(life) if life is not None else None,
+                "identity_source": fm_scalar(fm, "identity_source"),
+                "source_path": f"library/nodes/{path.name}",
+                "description": description,
+                "notes": fm_scalar(fm, "notes"),
+                "updated": fm["updated"],
+            }
+        )
+    return nodes
 
 
 def sql_quote(value: str) -> str:
@@ -345,6 +428,17 @@ def rebuild() -> int:
         DESIGN_IMPLICATION_CSV,
         {"design_key", "impl_key", "relation", "strength"},
     )
+    nodes = load_nodes()
+    impl_nodes = (
+        load_table(IMPLICATION_NODE_CSV, {"impl_key", "node_key", "membership"})
+        if IMPLICATION_NODE_CSV.exists()
+        else []
+    )
+    design_nodes = (
+        load_table(DESIGN_NODE_CSV, {"design_key", "node_key", "role"})
+        if DESIGN_NODE_CSV.exists()
+        else []
+    )
 
     design_keys = {r["design_key"] for r in designs}
     req_keys = {r["req_key"] for r in requirements}
@@ -352,6 +446,11 @@ def rebuild() -> int:
         raise SystemExit("duplicate design_key")
     if len(req_keys) != len(requirements):
         raise SystemExit("duplicate req_key")
+
+    node_keys = {r["node_key"] for r in nodes}
+    if len(node_keys) != len(nodes):
+        raise SystemExit("duplicate node_key")
+    node_by_key = {r["node_key"]: r for r in nodes}
 
     predicted_keys = {r["impl_key"] for r in predicted}
     for row in impl_designs:
@@ -382,6 +481,43 @@ def rebuild() -> int:
     orphan_reqs = sorted(req_keys - reqs_with_design)
     if orphan_reqs:
         raise SystemExit("requirement with no design edge: " + ", ".join(orphan_reqs))
+
+    for row in impl_nodes:
+        if row["impl_key"] not in keys:
+            raise SystemExit(f"implication_node: unknown impl_key {row['impl_key']!r}")
+        if row["node_key"] not in node_keys:
+            raise SystemExit(f"implication_node: unknown node_key {row['node_key']!r}")
+        if row["membership"] not in NODE_MEMBERSHIPS:
+            raise SystemExit(
+                f"implication_node: unknown membership {row['membership']!r}"
+            )
+        node = node_by_key[row["node_key"]]
+        if node["origin"] == "predicted":
+            raise SystemExit(
+                f"implication_node: predicted node {row['node_key']!r} cannot be evidence"
+            )
+        if node["origin"] == "cataloged" and row["membership"] == "forces":
+            raise SystemExit(
+                f"implication_node: cataloged {row['node_key']!r} cannot use membership=forces"
+            )
+    for row in design_nodes:
+        if row["design_key"] not in design_keys:
+            raise SystemExit(f"design_node: unknown design_key {row['design_key']!r}")
+        if row["node_key"] not in node_keys:
+            raise SystemExit(f"design_node: unknown node_key {row['node_key']!r}")
+        if row["role"] not in NODE_ROLES:
+            raise SystemExit(f"design_node: unknown role {row['role']!r}")
+
+    forced_with_impl = {r["node_key"] for r in impl_nodes}
+    missing_forced = sorted(
+        r["node_key"]
+        for r in nodes
+        if r["origin"] == "forced" and r["node_key"] not in forced_with_impl
+    )
+    if missing_forced:
+        raise SystemExit(
+            "forced node with no implication_node edge: " + ", ".join(missing_forced)
+        )
 
     write_seed_effect(effects, constraints)
 
@@ -466,6 +602,37 @@ def rebuild() -> int:
         """,
         design_impls,
     )
+    if nodes:
+        conn.executemany(
+            """
+            INSERT INTO node (
+              node_key, title, kind, origin, status, confidence,
+              pdgid, charge_e, mass_si, mass_text, spin_text, statistics,
+              lifetime_si, identity_source, source_path, description, notes, updated
+            ) VALUES (
+              :node_key, :title, :kind, :origin, :status, :confidence,
+              :pdgid, :charge_e, :mass_si, :mass_text, :spin_text, :statistics,
+              :lifetime_si, :identity_source, :source_path, :description, :notes, :updated
+            )
+            """,
+            nodes,
+        )
+    if impl_nodes:
+        conn.executemany(
+            """
+            INSERT INTO implication_node (impl_key, node_key, membership, notes)
+            VALUES (:impl_key, :node_key, :membership, :notes)
+            """,
+            impl_nodes,
+        )
+    if design_nodes:
+        conn.executemany(
+            """
+            INSERT INTO design_node (design_key, node_key, role, notes)
+            VALUES (:design_key, :node_key, :role, :notes)
+            """,
+            design_nodes,
+        )
     conn.commit()
 
     n_effect = conn.execute("SELECT COUNT(*) FROM effect").fetchone()[0]
@@ -481,6 +648,9 @@ def rebuild() -> int:
     n_id = conn.execute("SELECT COUNT(*) FROM implication_design").fetchone()[0]
     n_dr = conn.execute("SELECT COUNT(*) FROM design_requirement").fetchone()[0]
     n_di = conn.execute("SELECT COUNT(*) FROM design_implication").fetchone()[0]
+    n_node = conn.execute("SELECT COUNT(*) FROM node").fetchone()[0]
+    n_in = conn.execute("SELECT COUNT(*) FROM implication_node").fetchone()[0]
+    n_dn = conn.execute("SELECT COUNT(*) FROM design_node").fetchone()[0]
     n_pred = conn.execute(
         "SELECT COUNT(*) FROM implication WHERE origin = 'predicted'"
     ).fetchone()[0]
@@ -502,6 +672,25 @@ def rebuild() -> int:
         for r in conn.execute("SELECT DISTINCT impl_key FROM implication_design")
     }
     unmapped = sorted((keys - predicted_keys) - mapped)
+    nodes_without_design = [
+        r[0]
+        for r in conn.execute(
+            "SELECT node_key FROM node WHERE origin = 'forced' AND node_key NOT IN "
+            "(SELECT node_key FROM design_node)"
+        )
+    ]
+    cataloged_unforced = [
+        r[0]
+        for r in conn.execute(
+            "SELECT node_key FROM node WHERE origin = 'cataloged' AND node_key NOT IN "
+            "(SELECT node_key FROM implication_node) AND node_key NOT IN "
+            "(SELECT node_key FROM design_node)"
+        )
+    ]
+    predicted_nodes = [
+        r[0]
+        for r in conn.execute("SELECT node_key FROM node WHERE origin = 'predicted'")
+    ]
     designs_without_req = [
         r[0]
         for r in conn.execute(
@@ -529,10 +718,19 @@ def rebuild() -> int:
     print(f"  implication_design:  {n_id}")
     print(f"  design_requirement:  {n_dr}")
     print(f"  design_implication:  {n_di}  {rel_counts}")
+    print(f"  node:                {n_node}")
+    print(f"  implication_node:    {n_in}")
+    print(f"  design_node:         {n_dn}")
     print(f"  pairs in both junctions: {overlap}")
     print(f"  extracted implications unused as evidence: {len(unmapped)}")
     if designs_without_down:
         print("  warning: design with no downward edges:", ", ".join(designs_without_down))
+    if nodes_without_design:
+        print("  warning: forced node used by no design:", ", ".join(nodes_without_design))
+    if cataloged_unforced:
+        print("  warning: cataloged node unforced:", ", ".join(cataloged_unforced))
+    if predicted_nodes:
+        print("  warning: predicted node present:", ", ".join(predicted_nodes))
     empty = [s for s, n in per_effect.items() if n < 4]
     if empty:
         print("  warning: fewer than 4 implication rows:", ", ".join(empty))

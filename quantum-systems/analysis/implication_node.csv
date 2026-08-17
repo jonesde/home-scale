@@ -1,0 +1,20 @@
+impl_key,node_key,membership,notes
+reflection:hardware_scale:connected-film,electron,forces,Collective charged population
+plasma-frequency-cutoff:hardware_scale:connected-film,electron,forces,Same population as the mirror
+photoelectric-threshold:hardware_scale:single-electron,electron,forces,N=1 gate
+electron-heat-capacity:hardware_scale:fermi-slice,electron,forces,Average over a thermal window
+quantum-hall-effect:hardware_scale:2deg,electron,forces,2DEG leftover; no design consumes edge
+photoelectric-threshold:energy_barrier:work-function,photon,forces,Under-threshold input is non-occurrence
+pair-production:hardware_scale:photon-plus-nucleus,photon,forces,Photon is one of the two hardware pieces
+blackbody-spectrum:emergent_output:planck-curve,photon,forces,Thermal EM average
+pair-production:emergent_output:annihilation-line,positron,forces,511 keV witness
+pair-production:energy_barrier:two-mc2,positron,witnesses,Product of the rest-mass gate
+phonon-dispersion:hardware_scale:crystalline-grid,phonon,forces,Allowed-clock table
+debye-cutoff:clock_latency:omega-d-ceiling,phonon,forces,No mode above ωD
+thermal-conductivity-phonon:hardware_scale:lattice-plus-mfp,phonon,forces,ℓ is the transport resource
+debye-cutoff:hardware_scale:three-n-modes,ion,forces,3N modes of the grid
+melting:hardware_scale:bragg-grid,ion,forces,Grid-loss collapse
+pair-production:hardware_scale:photon-plus-nucleus,nucleus,forces,Nearby mass required
+pair-production:failure_mode:no-recoil-partner,nucleus,forces,Empty space is under-provisioned
+permanent-magnet-latch:energy_barrier:anisotropy,directional-moment,forces,KV latch cell
+curie-paramagnetism:energy_barrier:unlocked-no-latch,directional-moment,contrast,Unlocked ensemble has no remnant

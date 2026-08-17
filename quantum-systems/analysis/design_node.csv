@@ -1,0 +1,17 @@
+design_key,node_key,role,notes
+collective-screening,electron,population,Connected charged gas
+collective-screening,photon,input,Incident drive; not a stored trail
+anisotropy-latch,directional-moment,latch-cell,Written M
+anisotropy-latch,ion,matrix,Anisotropy environment
+polar-latch,directional-moment,latch-cell,Written P
+polar-latch,ion,matrix,Polar well host
+gapped-condensate,electron,population,Charged condensate; 2e is not this node
+energy-gate,electron,single,N=1 conversion
+energy-gate,photon,input,Opens φ / Eg / 2mec²
+energy-gate,positron,product,Pair channel
+energy-gate,nucleus,recoil,Pair channel momentum sink
+oscillator-grid,ion,matrix,3N sites
+oscillator-grid,phonon,mode,Allowed clocks
+ensemble-average,electron,average,Fermi-slice / Curie contrast sits elsewhere
+ensemble-average,photon,average,Planck / Stefan
+exchange-pin,directional-moment,latch-cell,Pin holds a second written direction

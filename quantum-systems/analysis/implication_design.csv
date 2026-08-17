@@ -237,3 +237,9 @@ antiferromagnetic-order:hardware_scale:two-sublattices,exchange-pin,supporting,T
 antiferromagnetic-order:failure_mode:neel,exchange-pin,supporting,TN ≥ TB
 ferromagnetic-hysteresis:emergent_output:remanent-branch,exchange-pin,supporting,The FM being pinned
 ferromagnetic-hysteresis:consistency_gap:mesoscale-hc,exchange-pin,supporting,
+quantum-hall-effect:hardware_scale:2deg,gapped-condensate,contrast,2DEG plus edge path is not the pairing condensate
+quantum-hall-effect:energy_barrier:landau-gap,gapped-condensate,contrast,Landau / mobility gap is not 2Δ
+quantum-hall-effect:emergent_output:rk-plateau,gapped-condensate,contrast,RK = h/e² is not Φ0
+quantum-hall-effect:failure_mode:in-plane-b,gapped-condensate,contrast,In-plane B is a non-occurrence of this leftover
+quantum-hall-effect:clock_latency:cyclotron,collective-screening,contrast,Same eB/m clock; output is a DC plateau not a re-radiated field
+

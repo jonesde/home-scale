@@ -7,7 +7,7 @@ updated: 2026-08-17
 # Design spec sheets
 
 Pulled from `design` rows and from `design_implication` where `relation = entails`.  
-These are assembly commitments, not new measurements.
+These are assembly commitments, not new measurements. The inside of each cliff is restated in [operating-envelopes.md](operating-envelopes.md). Constituents are in [node-types.md](node-types.md).
 
 ---
 

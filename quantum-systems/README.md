@@ -95,11 +95,13 @@ High / Medium / Low, with a one-sentence justification focused on how well the e
 
 ## 5. Working Rules for Library Construction
 
-1. Every quantitative claim must be traceable to experimental boundaries or well-established measured parameters.
-2. Language remains limited to constraints, resources, synchronization, failure thresholds, and emergent output.
+1. Every quantitative claim on an **effect** must be traceable to experimental boundaries or well-established measured parameters.
+2. Effect and design language remains limited to constraints, resources, synchronization, failure thresholds, and emergent output.
 3. Interpretive overlays that are not required by the data are omitted.
-4. When the mapping is incomplete, the incompleteness is stated explicitly rather than filled by conjecture.
+4. When the mapping is incomplete, the incompleteness is stated explicitly rather than filled by conjecture. Extracted implication rows do not close a gap with a particle story (the origin of 2*e*, the value of *R_K*, a pairing or Chern narrative).
 5. Entries may be revised as better data or tighter constraint analysis becomes available.
+
+**Node layer (constituents, not effects).** A separate grain in [`library/nodes/`](library/nodes/README.md) records microscopic constituents that machines consume. Node cards may carry **taken identity specs** (mass, charge, spin, lifetime, PDG Monte Carlo ID) cited from a pinned handbook edition (PDG 2026; CODATA 2022). Those numbers are not extracted collapse cliffs. Collapses stay effect-owned: if a node card and an effect file disagree about a failure envelope, the effect file wins. Cataloged species with no library collapse are `unforced`, not mapped. Predicted species require a named would-be observation. Nodes are not a seventh family and do not mint a design.
 
 ---
 
@@ -110,8 +112,8 @@ The effect library lives in [`library/`](library/INDEX.md). The copy-paste start
 - Template defined and locked (this document).
 - First wave: 49 formal entries (six families). Mapping confidence is recorded per file — 24 High, 25 Medium, 0 Low.
 - Medium mapping means the collapse is assigned but a hardware scale is still statistical, mesoscale, or taken rather than derived. Tighten those before adding a second wave.
-- Analysis layer: `python3 analysis/rebuild.py` builds local `qs-analysis.db` (`effect` → `implication` → `design` → `requirement`) from the text in [`analysis/`](analysis/). The `.db` is not in the repo. Notes: [`analysis/README.md`](analysis/README.md).
-- Add or revise files one at a time; update the index in the same change.
+- Analysis layer: `python3 analysis/rebuild.py` builds local `qs-analysis.db` (`effect` → `implication` → `design` / `node` → `requirement`) from the text in [`analysis/`](analysis/) and [`library/nodes/`](library/nodes/). The `.db` is not in the repo. Notes: [`analysis/README.md`](analysis/README.md).
+- Add or revise effect files one at a time; update [`library/INDEX.md`](library/INDEX.md) in the same change. Node cards update [`library/nodes/INDEX.md`](library/nodes/INDEX.md), not the effect catalog.
 
 ---
 

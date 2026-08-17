@@ -105,3 +105,5 @@ These are cross-cuts, not families. Use only:
 Textbook domains (optics, magnetism, condensed matter) group effects by apparatus and historical field. QSA is testing whether distinct textbook effects share a machine class — buffer-starved collective response, barrier-latched memory, gapped condensate, and so on.
 
 Other indices (by conventional domain, by medium, by confidence) can be added later as generated views. The Markdown files remain the source of truth. Cross-cutting queries live in the analysis layer ([`../analysis/`](../analysis/README.md), local `qs-analysis.db`). Do not treat the database as a second science wiki.
+
+Constituents consumed by these families live in [`nodes/`](nodes/README.md). They are not a seventh family.

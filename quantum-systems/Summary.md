@@ -39,8 +39,9 @@ The methodology and library template live in this repo’s [README.md](README.md
 - Constraint reasoning only: what the system cannot do + exact thresholds where the macro effect collapses.
 - Emergent architecture from synchronized microscopic routines.
 - Performance metrics drawn exclusively from experimental boundaries.
-- Language restricted to constraints, resources, synchronization, failure thresholds, and emergent output.
+- Language restricted to constraints, resources, synchronization, failure thresholds, and emergent output (effect / design prose). Node cards may state taken identity specs.
 - Incomplete mappings are recorded as incomplete. Extracted rows do not fill gaps with conjecture; conjecture belongs in predicted implications on the downward arrow.
+- Node identity specs may be taken from a pinned PDG / CODATA edition. Collapses stay effect-owned.
 - **Utility + internal consistency** are the only evaluation criteria.
 
 ---
@@ -57,11 +58,12 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 | Extracted implications | 386 | `analysis/fragments/*.jsonl` |
 | Predicted implications | 24 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
 | Designs | 9 (8 formal; `exchange-pin` draft) | [analysis/design.csv](analysis/design.csv) |
+| Nodes | 7 forced first-wave | [library/nodes/INDEX.md](library/nodes/INDEX.md) |
 | Requirements | 28 | [analysis/requirement.csv](analysis/requirement.csv) |
 | Applications | 6 | [application/README.md](application/README.md) |
 | Derived notes | spec sheets + requirement audit | [library/derived/](library/derived/README.md) |
 
-`quantum-hall-effect` is filed and formal; it is intentionally **unmapped** as a design member (2DEG + Landau gap + edge channel is not `gapped-condensate`).
+`quantum-hall-effect` is filed and formal; it is intentionally **unmapped** as a design member (2DEG + Landau gap + edge channel is not `gapped-condensate`). The 2DEG electron is a forced node; no design consumes the `edge` role.
 
 The two original handover sketches are now formal entries. Do not use the old preliminary numbers (in particular, reflection is ~40–85 atomic planes, not 100–200):
 
@@ -98,6 +100,7 @@ Prefer, in order:
 2. Correct fragment rows so `observed_text` still quotes the file; rebuild; keep derived sheets in sync.
 3. Add a new effect only when the collapse is sharp and is not already a clause on an existing entry. Update [library/INDEX.md](library/INDEX.md) in the same change.
 4. Add a tenth design only when a hardware stack and collapse are not already owned. Do not invent one for every interface.
+5. Add a `cataloged` node only under the admission filter in [library/nodes/README.md](library/nodes/README.md) (parent of a forced node, or already named as hardware). Do not vendor PDG. Proton / neutron are the likely next pair; muon and the dark-sector list stay out until a file names them.
 
 Applications stay mappings and falsifiers, not protocols. EM-LENR waits on Steven’s review for the nuclear/configuration claim; isolate the interstitial latch first.
 

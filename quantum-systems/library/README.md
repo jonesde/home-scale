@@ -1,10 +1,10 @@
 # Effect library
 
-This directory is the QSA effect library: one Markdown file per macroscopic effect, plus the catalog and the rules for adding more.
+This directory is the QSA effect library: one Markdown file per macroscopic effect, plus the catalog and the rules for adding more. Constituents (electrons, photons, phonons, …) live in [`nodes/`](nodes/README.md). Those slugs are **not** effect catalog rows; do not add them to [`INDEX.md`](INDEX.md).
 
 Methodology, evaluation criteria, and the locked 7-part body template live in the [top-level README](../README.md). This file is only the operating manual for the files in `library/`.
 
-**Browse:** [INDEX.md](INDEX.md) · [TAXONOMY.md](TAXONOMY.md) · [_template.md](_template.md) · [derived (not effect entries)](derived/README.md) · [applications](../application/README.md) · [orientation / schema](../AGENTS.md)
+**Browse:** [INDEX.md](INDEX.md) · [TAXONOMY.md](TAXONOMY.md) · [_template.md](_template.md) · [nodes (not effect entries)](nodes/README.md) · [derived (not effect entries)](derived/README.md) · [applications](../application/README.md) · [orientation / schema](../AGENTS.md)
 
 ---
 
@@ -99,10 +99,10 @@ When a queued row is written, flip `Status`, fill `Mapping`, and turn **Effect**
 
 Same rules as the top-level README, restated so they sit next to the files:
 
-1. Every quantitative claim is traceable to an experimental boundary or a well-established measured parameter.
-2. Language is limited to constraints, resources, synchronization, failure thresholds, and emergent output.
+1. Every quantitative claim on an effect is traceable to an experimental boundary or a well-established measured parameter. Node identity specs (mass, charge, spin) may be taken from a pinned PDG / CODATA edition; they are not collapse cliffs.
+2. Effect language is limited to constraints, resources, synchronization, failure thresholds, and emergent output. Node cards may state identity specs without calling those a latch or a family.
 3. Interpretive overlays that the data do not require are omitted.
-4. Incomplete mappings are stated as incomplete. No conjecture to close a gap.
+4. Incomplete mappings are stated as incomplete. No conjecture to close a gap. A cataloged particle with no library collapse is unforced, not mapped.
 5. Entries may be revised when better data or a tighter constraint analysis appears.
 
 ---

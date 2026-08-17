@@ -4,7 +4,7 @@ Markdown in [`library/`](../library/) is the science source of truth. This direc
 
 Working database: `qs-analysis.db` at the repo root. It is a local build artifact (gitignored). Commit the text: `fragments/*.jsonl`, `implication.csv`, `predicted_implication.csv`, `design*.csv`, `schema.sql`.
 
-First load: 49 `effect` · 145 `effect_constraint` · 410 `implication` (386 extracted, 24 predicted) · 9 `design` · 28 `requirement` · 238 `implication_design` · 46 `design_requirement` · 87 `design_implication` (49 entails, 35 predicts, 3 incompatible). 62 pairs sit in both junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
+First load: 49 `effect` · 145 `effect_constraint` · 410 `implication` (386 extracted, 24 predicted) · 9 `design` · 7 `node` (all `forced`) · 28 `requirement` · 243 `implication_design` · 46 `design_requirement` · 87 `design_implication` (49 entails, 35 predicts, 3 incompatible) · 19 `implication_node` · 16 `design_node`. 62 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
 
 Rebuild (stdlib Python 3 only — no pip):
 
@@ -30,6 +30,9 @@ Edit `fragments/*.jsonl` for extracted implications. Edit `predicted_implication
 | `design_implication` | designs down: which claims the machine commits to | curated `design_implication.csv` |
 | `requirement` | one demand visible only at design grain | curated `requirement.csv` |
 | `design_requirement` | design imposes requirement | curated `design_requirement.csv` |
+| `node` | one constituent (elementary / composite / quasiparticle) | `library/nodes/` frontmatter |
+| `implication_node` | which extracted claims force / witness / contrast a node | curated `implication_node.csv` |
+| `design_node` | which machines consume a node, and as what role | curated `design_node.csv` |
 
 Table names are singular. IDs are slugs. **Design** means an assembled machine specification, not agency. **`requirement` here is not `implication.role = requirement`**: that role is what an *effect* needs from the machine; this table is what an *assembled machine* then demands.
 
@@ -112,7 +115,25 @@ A requirement with no design edge is a rebuild error. A design with no requireme
 | `ensemble-average` | formal | Stable macro number from a large population |
 | `exchange-pin` | draft | Ninth: nested AFM/FM pin; collapse is *T*<sub>B</sub> not FM *T*<sub>C</sub> |
 
-`quantum-hall-effect` is intentionally unmapped. It has distinct hardware (2DEG + Landau gap + edge channel). Add a tenth design when that assembly is worth a row, not before.
+`quantum-hall-effect` is intentionally unmapped. It has distinct hardware (2DEG + Landau gap + edge channel). Add a tenth design when that assembly is worth a row, not before. The 2DEG electron is a `forced` node (`implication_node`); no design consumes the `edge` role yet. That leftover is queryable.
+
+### First-wave nodes
+
+| `node_key` | kind | origin | Typical `design_node.role` |
+|---|---|---|---|
+| `electron` | elementary | forced | `population` / `single` / `average` |
+| `photon` | elementary | forced | `input` / `average` |
+| `positron` | elementary | forced | `product` |
+| `phonon` | quasiparticle | forced | `mode` |
+| `ion` | composite | forced | `matrix` |
+| `nucleus` | composite | forced | `recoil` |
+| `directional-moment` | quasiparticle | forced | `latch-cell` |
+
+`pdgid` follows the PDG Monte Carlo numbering scheme when the species has one (electron `11`, positron `-11`, photon `22`). Quasiparticles and class nodes leave it NULL. Identity numbers are cited from PDG 2026 / CODATA 2022, not extracted as cliffs. Do not vendor those datasets.
+
+`implication_node.membership`: `forces` · `witnesses` · `contrast`. Cataloged nodes cannot `forces`. Predicted nodes cannot be evidence.
+
+`design_node.role`: `population` · `single` · `average` · `recoil` · `mode` · `matrix` · `latch-cell` · `input` · `product` · `edge` · `contrast`.
 
 ### Adding a design
 
@@ -213,6 +234,15 @@ FROM implication
 WHERE origin = 'predicted' AND effect_slug IS NULL;
 ```
 
+Which designs consume the electron, and as what:
+
+```sql
+SELECT design_key, role
+FROM design_node
+WHERE node_key = 'electron'
+ORDER BY role, design_key;
+```
+
 ---
 
 ## Future tables (not in this schema)
@@ -220,6 +250,7 @@ WHERE origin = 'predicted' AND effect_slug IS NULL;
 - **`boundary`** — one row per §4.3 measured number (the science catalog, independent of the QSA translation). Today those numbers sit in `observed_text` / `value_text` only when they load-bear an implication.
 - **`implication_relation`** — pairwise edges that are *not* “same machine” or “contrast via a design.” Same-machine and contrast now join through `design`. Leave this until a query needs an implication–implication edge that has no design.
 - Auto-extraction from Markdown on every edit. Extraction is interpretive; a regex pass would flatten the analysis.
+- A `node_implication` downward arrow. First load hangs node conjecture off ordinary predicted implications.
 
 ---
 

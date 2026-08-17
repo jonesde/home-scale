@@ -189,6 +189,54 @@ CREATE TABLE design_requirement (
   PRIMARY KEY (design_key, req_key)
 );
 
+-- Constituent consumed by one or more machines. Not an effect, not a design.
+CREATE TABLE node (
+  node_key         TEXT PRIMARY KEY,
+  title            TEXT NOT NULL,
+  kind             TEXT NOT NULL
+    CHECK (kind IN ('elementary', 'composite', 'quasiparticle')),
+  origin           TEXT NOT NULL
+    CHECK (origin IN ('forced', 'cataloged', 'predicted')),
+  status           TEXT NOT NULL
+    CHECK (status IN ('formal', 'draft')),
+  confidence       TEXT NOT NULL
+    CHECK (confidence IN ('high', 'medium', 'low')),
+  pdgid            INTEGER,
+  charge_e         REAL,
+  mass_si          REAL,
+  mass_text        TEXT,
+  spin_text        TEXT,
+  statistics       TEXT
+    CHECK (statistics IS NULL OR statistics IN ('fermion', 'boson', 'unset')),
+  lifetime_si      REAL,
+  identity_source  TEXT,
+  source_path      TEXT NOT NULL,
+  description      TEXT NOT NULL,
+  notes            TEXT,
+  updated          TEXT NOT NULL
+);
+
+CREATE TABLE implication_node (
+  impl_key     TEXT NOT NULL REFERENCES implication(impl_key),
+  node_key     TEXT NOT NULL REFERENCES node(node_key),
+  membership   TEXT NOT NULL
+    CHECK (membership IN ('forces', 'witnesses', 'contrast')),
+  notes        TEXT,
+  PRIMARY KEY (impl_key, node_key)
+);
+
+CREATE TABLE design_node (
+  design_key   TEXT NOT NULL REFERENCES design(design_key),
+  node_key     TEXT NOT NULL REFERENCES node(node_key),
+  role         TEXT NOT NULL
+    CHECK (role IN (
+      'population', 'single', 'average', 'recoil', 'mode',
+      'matrix', 'latch-cell', 'input', 'product', 'edge', 'contrast'
+    )),
+  notes        TEXT,
+  PRIMARY KEY (design_key, node_key)
+);
+
 CREATE INDEX idx_implication_design_design ON implication_design(design_key);
 CREATE INDEX idx_implication_design_impl   ON implication_design(impl_key);
 CREATE INDEX idx_design_implication_design ON design_implication(design_key);
@@ -197,3 +245,8 @@ CREATE INDEX idx_design_implication_rel    ON design_implication(relation);
 CREATE INDEX idx_design_requirement_req    ON design_requirement(req_key);
 CREATE INDEX idx_requirement_kind          ON requirement(kind);
 CREATE INDEX idx_requirement_status        ON requirement(status);
+CREATE INDEX idx_node_origin               ON node(origin);
+CREATE INDEX idx_node_kind                 ON node(kind);
+CREATE INDEX idx_implication_node_node     ON implication_node(node_key);
+CREATE INDEX idx_design_node_node          ON design_node(node_key);
+CREATE INDEX idx_design_node_role          ON design_node(role);
