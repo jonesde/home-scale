@@ -23,7 +23,9 @@ LIBRARY = ROOT / "library"
 ANALYSIS = Path(__file__).resolve().parent
 SCHEMA = ANALYSIS / "schema.sql"
 IMPLICATION_CSV = ANALYSIS / "implication.csv"
+PREDICTED_CSV = ANALYSIS / "predicted_implication.csv"
 DESIGN_CSV = ANALYSIS / "design.csv"
+DESIGN_IMPLICATION_CSV = ANALYSIS / "design_implication.csv"
 REQUIREMENT_CSV = ANALYSIS / "requirement.csv"
 IMPLICATION_DESIGN_CSV = ANALYSIS / "implication_design.csv"
 DESIGN_REQUIREMENT_CSV = ANALYSIS / "design_requirement.csv"
@@ -214,8 +216,49 @@ def load_implications() -> list[dict]:
             row["value_si"] = float(value_si) if value_si not in (None, "") else None
             for key in ("operator", "si_unit", "value_text", "notes"):
                 row[key] = empty_to_none(row.get(key))
+            row["origin"] = "extracted"
             rows.append(row)
     return rows
+
+
+def load_predicted(effect_slugs: set[str]) -> list[dict]:
+    if not PREDICTED_CSV.exists():
+        return []
+    rows = load_table(
+        PREDICTED_CSV,
+        {
+            "impl_key",
+            "clause",
+            "role",
+            "aspect",
+            "resource",
+            "observed_text",
+            "implied_text",
+            "inference_kind",
+            "description",
+            "confidence",
+            "updated",
+        },
+        numeric=("value_si",),
+    )
+    out = []
+    for i, row in enumerate(rows, start=2):
+        key = row["impl_key"]
+        if not key.startswith("predicted:"):
+            raise SystemExit(f"predicted_implication.csv:{i}: impl_key must start with predicted:")
+        slug = empty_to_none(row.get("effect_slug"))
+        path = empty_to_none(row.get("source_path"))
+        if slug and slug not in effect_slugs:
+            raise SystemExit(f"{key}: unknown effect_slug {slug!r}")
+        if slug and path != f"library/{slug}.md":
+            path = f"library/{slug}.md"
+        if not slug:
+            path = None
+        row["effect_slug"] = slug
+        row["source_path"] = path
+        row["origin"] = "predicted"
+        out.append(row)
+    return out
 
 
 def maybe_merge_fragments() -> None:
@@ -231,6 +274,7 @@ def rebuild() -> int:
     implications = load_implications()
 
     slugs = {e["slug"] for e in effects}
+    predicted = load_predicted(slugs)
     keys = set()
     per_effect: dict[str, int] = {s: 0 for s in slugs}
     for row in implications:
@@ -249,6 +293,11 @@ def rebuild() -> int:
                 f"{row['impl_key']}: source_path should be library/{slug}.md"
             )
         per_effect[slug] += 1
+
+    for row in predicted:
+        if row["impl_key"] in keys:
+            raise SystemExit(f"duplicate impl_key {row['impl_key']!r}")
+        keys.add(row["impl_key"])
 
     missing_effects = sorted(s for s, n in per_effect.items() if n == 0)
     if missing_effects:
@@ -292,6 +341,10 @@ def rebuild() -> int:
         DESIGN_REQUIREMENT_CSV,
         {"design_key", "req_key", "strength"},
     )
+    design_impls = load_table(
+        DESIGN_IMPLICATION_CSV,
+        {"design_key", "impl_key", "relation", "strength"},
+    )
 
     design_keys = {r["design_key"] for r in designs}
     req_keys = {r["req_key"] for r in requirements}
@@ -300,11 +353,25 @@ def rebuild() -> int:
     if len(req_keys) != len(requirements):
         raise SystemExit("duplicate req_key")
 
+    predicted_keys = {r["impl_key"] for r in predicted}
     for row in impl_designs:
         if row["impl_key"] not in keys:
             raise SystemExit(f"implication_design: unknown impl_key {row['impl_key']!r}")
+        if row["impl_key"] in predicted_keys:
+            raise SystemExit(
+                f"implication_design: predicted {row['impl_key']!r} cannot be evidence"
+            )
         if row["design_key"] not in design_keys:
             raise SystemExit(f"implication_design: unknown design_key {row['design_key']!r}")
+    for row in design_impls:
+        if row["impl_key"] not in keys:
+            raise SystemExit(f"design_implication: unknown impl_key {row['impl_key']!r}")
+        if row["design_key"] not in design_keys:
+            raise SystemExit(f"design_implication: unknown design_key {row['design_key']!r}")
+        if row["impl_key"] in predicted_keys and row["relation"] != "predicts":
+            raise SystemExit(
+                f"design_implication: predicted {row['impl_key']!r} must use relation=predicts"
+            )
     for row in design_reqs:
         if row["design_key"] not in design_keys:
             raise SystemExit(f"design_requirement: unknown design_key {row['design_key']!r}")
@@ -343,16 +410,16 @@ def rebuild() -> int:
     conn.executemany(
         """
         INSERT INTO implication (
-          impl_key, effect_slug, source_path, clause, role, aspect, resource,
+          impl_key, origin, effect_slug, source_path, clause, role, aspect, resource,
           observed_text, implied_text, inference_kind, description,
           operator, value_si, si_unit, value_text, confidence, notes, updated
         ) VALUES (
-          :impl_key, :effect_slug, :source_path, :clause, :role, :aspect, :resource,
+          :impl_key, :origin, :effect_slug, :source_path, :clause, :role, :aspect, :resource,
           :observed_text, :implied_text, :inference_kind, :description,
           :operator, :value_si, :si_unit, :value_text, :confidence, :notes, :updated
         )
         """,
-        implications,
+        implications + predicted,
     )
     conn.executemany(
         """
@@ -392,6 +459,13 @@ def rebuild() -> int:
         """,
         design_reqs,
     )
+    conn.executemany(
+        """
+        INSERT INTO design_implication (design_key, impl_key, relation, strength, notes)
+        VALUES (:design_key, :impl_key, :relation, :strength, :notes)
+        """,
+        design_impls,
+    )
     conn.commit()
 
     n_effect = conn.execute("SELECT COUNT(*) FROM effect").fetchone()[0]
@@ -406,11 +480,28 @@ def rebuild() -> int:
     n_req = conn.execute("SELECT COUNT(*) FROM requirement").fetchone()[0]
     n_id = conn.execute("SELECT COUNT(*) FROM implication_design").fetchone()[0]
     n_dr = conn.execute("SELECT COUNT(*) FROM design_requirement").fetchone()[0]
+    n_di = conn.execute("SELECT COUNT(*) FROM design_implication").fetchone()[0]
+    n_pred = conn.execute(
+        "SELECT COUNT(*) FROM implication WHERE origin = 'predicted'"
+    ).fetchone()[0]
+    n_ext = n_impl - n_pred
+    rel_counts = dict(
+        conn.execute(
+            "SELECT relation, COUNT(*) FROM design_implication GROUP BY relation"
+        )
+    )
+    overlap = conn.execute(
+        """
+        SELECT COUNT(*) FROM implication_design id
+        JOIN design_implication di
+          ON di.impl_key = id.impl_key AND di.design_key = id.design_key
+        """
+    ).fetchone()[0]
     mapped = {
         r[0]
         for r in conn.execute("SELECT DISTINCT impl_key FROM implication_design")
     }
-    unmapped = sorted(keys - mapped)
+    unmapped = sorted((keys - predicted_keys) - mapped)
     designs_without_req = [
         r[0]
         for r in conn.execute(
@@ -418,19 +509,30 @@ def rebuild() -> int:
             "(SELECT design_key FROM design_requirement)"
         )
     ]
+    designs_without_down = [
+        r[0]
+        for r in conn.execute(
+            "SELECT design_key FROM design WHERE design_key NOT IN "
+            "(SELECT design_key FROM design_implication)"
+        )
+    ]
     conn.close()
 
     print(f"wrote {DB_PATH}")
     print(f"  effect:              {n_effect}")
     print(f"  effect_constraint:   {len(constraints)}")
-    print(f"  implication:         {n_impl}")
+    print(f"  implication:         {n_impl} ({n_ext} extracted, {n_pred} predicted)")
     print(f"  with value_si:       {n_num}")
     print(f"  open or gap:         {n_open}")
     print(f"  design:              {n_design}")
     print(f"  requirement:         {n_req}")
     print(f"  implication_design:  {n_id}")
     print(f"  design_requirement:  {n_dr}")
-    print(f"  implications unmapped to a design: {len(unmapped)}")
+    print(f"  design_implication:  {n_di}  {rel_counts}")
+    print(f"  pairs in both junctions: {overlap}")
+    print(f"  extracted implications unused as evidence: {len(unmapped)}")
+    if designs_without_down:
+        print("  warning: design with no downward edges:", ", ".join(designs_without_down))
     empty = [s for s, n in per_effect.items() if n < 4]
     if empty:
         print("  warning: fewer than 4 implication rows:", ", ".join(empty))

@@ -2,9 +2,9 @@
 
 Markdown in [`library/`](../library/) is the science source of truth. This directory is the derived analysis layer: a queryable reading of the QSA mappings, not a second wiki.
 
-Working database: `qs-analysis.db` at the repo root. It is a local build artifact (gitignored). Commit the text: `fragments/*.jsonl`, `implication.csv`, `schema.sql`.
+Working database: `qs-analysis.db` at the repo root. It is a local build artifact (gitignored). Commit the text: `fragments/*.jsonl`, `implication.csv`, `predicted_implication.csv`, `design*.csv`, `schema.sql`.
 
-First load: 49 `effect` · 145 `effect_constraint` · 386 `implication` · 9 `design` · 28 `requirement` · 238 `implication_design` · 46 `design_requirement`. 167 implications are intentionally unmapped (not every clause is load-bearing on a machine).
+First load: 49 `effect` · 145 `effect_constraint` · 410 `implication` (386 extracted, 24 predicted) · 9 `design` · 28 `requirement` · 238 `implication_design` · 46 `design_requirement` · 87 `design_implication` (49 entails, 35 predicts, 3 incompatible). 62 pairs sit in both junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
 
 Rebuild (stdlib Python 3 only — no pip):
 
@@ -14,7 +14,7 @@ python3 analysis/rebuild.py
 
 That is the whole shot. It merges fragments → `implication.csv`, rebuilds `effect` from frontmatter, loads `implication.csv` plus the four design-layer CSVs, and writes `qs-analysis.db`.
 
-Edit `fragments/*.jsonl` for implications. Edit `design.csv`, `requirement.csv`, `implication_design.csv`, and `design_requirement.csv` for the assembled machines. Do not hand-edit `implication.csv` or `seed_effect.sql`. Markdown is never generated from the database.
+Edit `fragments/*.jsonl` for extracted implications. Edit `predicted_implication.csv` for conjectures. Edit `design.csv`, `requirement.csv`, `implication_design.csv`, `design_requirement.csv`, and `design_implication.csv` for the assembled machines and the downward arrow. Do not hand-edit `implication.csv` or `seed_effect.sql`. Markdown is never generated from the database.
 
 ---
 
@@ -24,9 +24,10 @@ Edit `fragments/*.jsonl` for implications. Edit `design.csv`, `requirement.csv`,
 |---|---|---|
 | `effect` | one row per formal library file | frontmatter (mechanical) |
 | `effect_constraint` | one row per constraint tag on an effect | frontmatter (mechanical) |
-| `implication` | one atomic mapping claim | curated fragments / `implication.csv` |
+| `implication` | one atomic mapping claim (`origin` = extracted or predicted) | fragments / `implication.csv` plus `predicted_implication.csv` |
 | `design` | one assembled reverse-engineered machine | curated `design.csv` |
-| `implication_design` | implication ∈ design, with membership | curated `implication_design.csv` |
+| `implication_design` | evidence up: which extracted claims assembled the machine | curated `implication_design.csv` |
+| `design_implication` | designs down: which claims the machine commits to | curated `design_implication.csv` |
 | `requirement` | one demand visible only at design grain | curated `requirement.csv` |
 | `design_requirement` | design imposes requirement | curated `design_requirement.csv` |
 
@@ -77,6 +78,15 @@ Do not invent a new token without updating this file and `schema.sql`.
 ---
 
 ## Design layer
+
+Two arrows between the same entities:
+
+- **`implication_design`** — *which extracted claims did we use to assemble this machine?* `membership`: `core` · `supporting` · `contrast`.
+- **`design_implication`** — *if this machine is right, which atomic claims follow?* `relation`: `entails` · `predicts` · `incompatible`. `strength`: `must` · `should`.
+
+A pair may exist in both tables. That is not a duplicate: one edge is evidence, the other is commitment.
+
+Predicted implications (`origin = predicted`, `impl_key` starts with `predicted:`) are conjectures minted from a design. They appear only on the downward arrow, always as `relation = predicts`. Rebuild fails if one is used as evidence. `effect_slug` may be an existing effect (claim about a filed phenomenon) or NULL (phenomenon not in the library yet). `observed_text` on a prediction is “what would be observed if this is right.”
 
 `implication_design.membership`: `core` (load-bearing) · `supporting` (consistent, not load-bearing) · `contrast` (bounds the machine from outside).
 
@@ -185,6 +195,24 @@ WHERE id.design_key = 'collective-screening'
   AND id.membership = 'contrast';
 ```
 
+What a machine commits to, including conjecture:
+
+```sql
+SELECT di.relation, di.strength, i.origin, i.impl_key, i.description
+FROM design_implication di
+JOIN implication i ON i.impl_key = di.impl_key
+WHERE di.design_key = 'collective-screening'
+ORDER BY di.relation, i.origin, i.impl_key;
+```
+
+Predicted implications with no library file:
+
+```sql
+SELECT impl_key, description
+FROM implication
+WHERE origin = 'predicted' AND effect_slug IS NULL;
+```
+
 ---
 
 ## Future tables (not in this schema)
@@ -199,4 +227,4 @@ WHERE id.design_key = 'collective-screening'
 
 - `qs-analysis.db-wal` and `qs-analysis.db-shm` are transient; do not commit them.
 - `seed_effect.sql` is generated. Edit frontmatter, not that file.
-- Edit `fragments/*.jsonl` when a mapping changes; edit the four design-layer CSVs when a machine or demand changes. Then rerun `rebuild.py`.
+- Edit `fragments/*.jsonl` when an extracted mapping changes. Edit `predicted_implication.csv` and `design_implication.csv` when a downward claim changes. Then rerun `rebuild.py`.

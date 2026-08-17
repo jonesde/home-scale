@@ -40,11 +40,15 @@ CREATE TABLE effect_constraint (
   PRIMARY KEY (slug, tag)
 );
 
--- Slug-based primary key: {effect_slug}:{clause}:{short-name}
+-- Slug-based primary key.
+-- extracted: {effect_slug}:{clause}:{short-name}
+-- predicted: predicted:{effect_slug|design_key}:{short-name}
 CREATE TABLE implication (
   impl_key        TEXT PRIMARY KEY,
-  effect_slug     TEXT NOT NULL REFERENCES effect(slug),
-  source_path     TEXT NOT NULL,
+  origin          TEXT NOT NULL DEFAULT 'extracted'
+    CHECK (origin IN ('extracted', 'predicted')),
+  effect_slug     TEXT REFERENCES effect(slug),
+  source_path     TEXT,
   clause          TEXT NOT NULL
     CHECK (clause IN (
       'hardware_scale',
@@ -81,10 +85,20 @@ CREATE TABLE implication (
   confidence      TEXT NOT NULL
     CHECK (confidence IN ('high', 'medium', 'low')),
   notes           TEXT,
-  updated         TEXT NOT NULL
+  updated         TEXT NOT NULL,
+  CHECK (
+    (origin = 'extracted'
+      AND effect_slug IS NOT NULL
+      AND source_path IS NOT NULL
+      AND impl_key NOT LIKE 'predicted:%')
+    OR
+    (origin = 'predicted'
+      AND impl_key LIKE 'predicted:%')
+  )
 );
 
 CREATE INDEX idx_implication_effect    ON implication(effect_slug);
+CREATE INDEX idx_implication_origin    ON implication(origin);
 CREATE INDEX idx_implication_role      ON implication(role);
 CREATE INDEX idx_implication_aspect    ON implication(aspect, resource);
 CREATE INDEX idx_implication_inference ON implication(inference_kind);
@@ -121,6 +135,18 @@ CREATE TABLE implication_design (
     CHECK (membership IN ('core', 'supporting', 'contrast')),
   notes        TEXT,
   PRIMARY KEY (impl_key, design_key)
+);
+
+-- Top-down: if this machine is right, which atomic claims follow.
+CREATE TABLE design_implication (
+  design_key   TEXT NOT NULL REFERENCES design(design_key),
+  impl_key     TEXT NOT NULL REFERENCES implication(impl_key),
+  relation     TEXT NOT NULL
+    CHECK (relation IN ('entails', 'predicts', 'incompatible')),
+  strength     TEXT NOT NULL
+    CHECK (strength IN ('must', 'should')),
+  notes        TEXT,
+  PRIMARY KEY (design_key, impl_key)
 );
 
 CREATE TABLE requirement (
@@ -165,6 +191,9 @@ CREATE TABLE design_requirement (
 
 CREATE INDEX idx_implication_design_design ON implication_design(design_key);
 CREATE INDEX idx_implication_design_impl   ON implication_design(impl_key);
+CREATE INDEX idx_design_implication_design ON design_implication(design_key);
+CREATE INDEX idx_design_implication_impl   ON design_implication(impl_key);
+CREATE INDEX idx_design_implication_rel    ON design_implication(relation);
 CREATE INDEX idx_design_requirement_req    ON design_requirement(req_key);
 CREATE INDEX idx_requirement_kind          ON requirement(kind);
 CREATE INDEX idx_requirement_status        ON requirement(status);

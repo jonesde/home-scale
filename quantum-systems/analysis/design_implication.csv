@@ -1,0 +1,88 @@
+design_key,impl_key,relation,strength,notes
+collective-screening,reflection:hardware_scale:connected-film,entails,must,Own buffer.
+collective-screening,reflection:clock_latency:plasma-period,entails,must,Own clock.
+collective-screening,reflection:failure_mode:thin-film,entails,must,Buffer starvation.
+collective-screening,reflection:emergent_output:zero-extra-power,entails,must,No extra hold-power.
+collective-screening,reflection:consistency_gap:underived-delta,entails,must,Design commits to the gap being real.
+collective-screening,skin-effect:hardware_scale:screening-delta,entails,must,Low-frequency face of the same buffer.
+collective-screening,plasma-frequency-cutoff:clock_latency:plasma-period,entails,must,One plasma clock.
+collective-screening,surface-plasmon-resonance:failure_mode:thickness-window,predicts,must,Sibling artifact of the same thickness cliff.
+collective-screening,plasma-frequency-cutoff:failure_mode:above-omega-p,predicts,must,Sibling artifact of the same clock overrun.
+collective-screening,predicted:surface-plasmon-resonance:dies-above-plasma-edge,predicts,should,Spectral twin: plasma-transparent film loses the SPR dip.
+collective-screening,predicted:surface-plasmon-resonance:island-film-no-dip,predicts,must,Percolation starves Kretschmann SPR.
+collective-screening,predicted:skin-effect:same-n-kills-optical-and-rf,predicts,should,One n moves R and δ together.
+collective-screening,predicted:faraday-rotation:metal-collapses-above-edge,predicts,should,Magnetized readout dies with the population.
+collective-screening,photoelectric-threshold:hardware_scale:single-electron,incompatible,must,N=1 is not this machine's hardware.
+collective-screening,predicted:photoelectric-threshold:not-the-plasma-edge,predicts,must,φ is not ωp.
+anisotropy-latch,permanent-magnet-latch:hardware_scale:latch-cell,entails,must,Grain is the cliff.
+anisotropy-latch,permanent-magnet-latch:energy_barrier:anisotropy,entails,must,K1V.
+anisotropy-latch,permanent-magnet-latch:failure_mode:curie,entails,must,Thermal cliff.
+anisotropy-latch,permanent-magnet-latch:emergent_output:zero-hold-power,entails,must,
+anisotropy-latch,permanent-magnet-latch:consistency_gap:mesoscale-coercivity,entails,must,Commits to the Hc gap.
+anisotropy-latch,superparamagnetism:failure_mode:under-volume,predicts,must,Volume collapse of the same latch.
+anisotropy-latch,superparamagnetism:energy_barrier:kv,entails,must,Same barrier written as KV.
+anisotropy-latch,predicted:exchange-bias:no-hex-below-kv,predicts,should,A starved grain cannot be pinned.
+anisotropy-latch,predicted:magnetostriction:no-static-lambda-when-unblocked,predicts,should,No held M ⇒ no static λ.
+anisotropy-latch,curie-paramagnetism:energy_barrier:unlocked-no-latch,incompatible,must,Unlocked χ is not the latch barrier.
+anisotropy-latch,predicted:curie-paramagnetism:chi-not-a-latch-spec,predicts,must,Named exclusion.
+polar-latch,ferroelectric-remanence:hardware_scale:polar-volume,entails,must,
+polar-latch,ferroelectric-remanence:energy_barrier:polar-well,entails,must,
+polar-latch,ferroelectric-remanence:failure_mode:curie,entails,must,
+polar-latch,ferroelectric-remanence:emergent_output:zero-hold-power,entails,must,
+polar-latch,ferroelectric-remanence:consistency_gap:ec-depolarization,entails,must,Commits to the mesoscale gap.
+polar-latch,ferroelectric-remanence:failure_mode:superparaelectric,predicts,must,Volume twin of KV collapse.
+polar-latch,predicted:ferroelectric-remanence:depolarization-kills-thin-pr,predicts,should,Thin-film depolarization conjecture.
+polar-latch,piezoelectricity:failure_mode:ferroelectric-tc,predicts,should,Strain channel dies with the polar phase.
+gapped-condensate,superconductivity:emergent_output:zero-resistance,entails,must,
+gapped-condensate,superconductivity:energy_barrier:spectroscopic-gap,entails,must,
+gapped-condensate,superconductivity:failure_mode:above-tc,entails,must,
+gapped-condensate,superconductivity:consistency_gap:pinning-and-xi,entails,must,
+gapped-condensate,meissner:hardware_scale:lambda-buffer,entails,must,Owns λ.
+gapped-condensate,flux-quantization:emergent_output:phi0,entails,must,
+gapped-condensate,josephson-effect:hardware_scale:sis-window,entails,must,
+gapped-condensate,meissner:failure_mode:thin-film,predicts,must,Starve λ ⇒ incomplete expulsion.
+gapped-condensate,type-ii-critical-field:failure_mode:unpinned-flux-flow,predicts,must,Pinning is a resource.
+gapped-condensate,predicted:flux-quantization:no-fluxoid-thinner-than-xi,predicts,should,Need a ξ-class cross-section.
+gapped-condensate,predicted:josephson-effect:lock-fails-above-gap-frequency,predicts,should,Lock rides on 2Δ/h.
+gapped-condensate,predicted:superconductivity:unpinned-vortices-kill-persistent-current,predicts,must,Persistent I needs pinned vortices.
+gapped-condensate,bose-einstein-condensate:consistency_gap:family-tension,incompatible,must,No pairing gap ⇒ not this condensate.
+gapped-condensate,predicted:quantum-hall-effect:not-a-pairing-condensate,predicts,should,QHE stays off this machine.
+chargeless-superflow,superfluid-helium-4:hardware_scale:connected-liquid,entails,must,
+chargeless-superflow,superfluid-helium-4:energy_barrier:t-lambda,entails,must,
+chargeless-superflow,superfluid-helium-4:emergent_output:circulation-quantum,entails,must,h/m4 not h/2e.
+chargeless-superflow,superfluid-helium-4:emergent_output:zero-hold-power,entails,must,
+chargeless-superflow,superfluid-helium-4:consistency_gap:gapped-name-loose,entails,must,Commits to the loose family name.
+chargeless-superflow,predicted:meissner:no-expulsion-in-he4,predicts,must,No charge ⇒ no χ=−1.
+chargeless-superflow,predicted:bose-einstein-condensate:no-fountain-in-dilute-cloud,predicts,must,Dilute BEC is not a superleak / fountain.
+energy-gate,photoelectric-threshold:hardware_scale:single-electron,entails,must,N=1.
+energy-gate,photoelectric-threshold:energy_barrier:work-function,entails,must,
+energy-gate,photoelectric-threshold:failure_mode:under-threshold,entails,must,
+energy-gate,ionization-threshold:energy_barrier:ionization-energy,entails,must,
+energy-gate,pair-production:failure_mode:no-recoil-partner,entails,must,
+energy-gate,pair-production:energy_barrier:two-mc2,entails,must,
+energy-gate,semiconductor-gap-absorption:energy_barrier:gap,predicts,must,Same gate family.
+energy-gate,predicted:work-function-thermionic:same-face-same-phi,predicts,should,Same-sample φ identity.
+energy-gate,predicted:photoconductivity:edge-equals-absorption-eg,predicts,must,Onset tracks absorption edge.
+energy-gate,photoelectric-threshold:consistency_gap:underived-phi,entails,must,Most gate energies are taken.
+oscillator-grid,phonon-dispersion:hardware_scale:crystalline-grid,entails,must,
+oscillator-grid,phonon-dispersion:clock_latency:allowed-clock-table,entails,must,ω(q).
+oscillator-grid,debye-cutoff:hardware_scale:three-n-modes,entails,must,3N.
+oscillator-grid,melting:failure_mode:tm-cliff,entails,must,Grid loss.
+oscillator-grid,melting:consistency_gap:lindemann-not-derived,entails,must,
+oscillator-grid,predicted:speed-of-sound:shear-dies-at-melt,predicts,must,G → 0 at Tm.
+oscillator-grid,predicted:thermal-conductivity-phonon:kappa-dies-at-tm,predicts,must,Crystal κ dies with the grid.
+oscillator-grid,predicted:phonon-dispersion:soft-mode-before-tm,predicts,should,Optional precursor; first-order melts may skip it.
+ensemble-average,thermal-equilibrium-temperature:hardware_scale:one-over-sqrt-n,entails,must,Statistical buffer.
+ensemble-average,thermal-equilibrium-temperature:consistency_gap:underived-k-and-n,entails,must,k not extracted.
+ensemble-average,stefan-boltzmann:consistency_gap:defined-sigma,entails,must,σ defined.
+ensemble-average,curie-paramagnetism:failure_mode:order-lock,predicts,must,Latch replaces the average.
+ensemble-average,electron-heat-capacity:failure_mode:superconducting-gap,predicts,must,Gap replaces γT.
+ensemble-average,predicted:thermal-equilibrium-temperature:few-spin-no-stable-t,predicts,must,Negative experiment for the missing N-cliff.
+ensemble-average,predicted:ensemble-average:shot-noise-is-not-this-machine,predicts,should,Shot noise is a different machine; no effect file yet.
+exchange-pin,exchange-bias:hardware_scale:nested-latches,entails,must,Bilayer is the hardware.
+exchange-pin,exchange-bias:failure_mode:blocking,entails,must,TB not FM Tc.
+exchange-pin,exchange-bias:emergent_output:zero-hold-power,entails,must,
+exchange-pin,exchange-bias:consistency_gap:interface-jex,entails,must,
+exchange-pin,predicted:exchange-bias:hex-gone-above-tb-while-fm-latched,predicts,must,The split that justifies a ninth design.
+exchange-pin,predicted:ferromagnetic-hysteresis:unshifted-loop-without-afm,predicts,must,No pin ⇒ Hex → 0.
+exchange-pin,predicted:exchange-bias:no-hex-below-kv,predicts,should,Also predicted from the parent latch.
