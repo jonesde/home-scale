@@ -21,8 +21,9 @@ Do not mix working notes, methodology essays, or multi-effect surveys into entry
 ## How to browse
 
 1. Start at [INDEX.md](INDEX.md). Families are the QSA machine/collapse classes, not textbook chapters.
-2. `formal` rows link to a finished file. `queued` rows are the worklist — intended slug and collapse note only, no file yet.
+2. Every first-wave row is `formal` and links to a file. `draft` would mean the template is incomplete; `queued` is reserved for names that do not yet have a file.
 3. Conventional physics names are in the **Effect** column so search still works. The spine is the family heading.
+4. Use the Mapping column before opening a file: High means the collapse translates cleanly; Medium means a recorded gap (statistical buffer, mesoscale step, or a taken rather than derived constant).
 
 GitHub search and local `rg` across `library/*.md` are the search tools. There is no database.
 
@@ -108,6 +109,10 @@ Same rules as the top-level README, restated so they sit next to the files:
 
 ## Suggested order of work
 
-Write one formal entry at a time. Prefer the next candidate that has (a) a sharp measured collapse and (b) a machine class not already covered, or that completes a pair with an existing file (for example plasma-frequency cutoff next to reflection, superparamagnetism next to the magnet latch).
+The first wave (49 formal entries) is written. Prefer, in order:
 
-The **Suggested next** list at the top of the index is the short queue. The family tables are the longer backlog.
+1. Tighten a Medium mapping — especially a missing mesoscale step or a statistical buffer that can be given a sharper experimental envelope.
+2. Add a new file only when it has a sharp measured collapse and is not already covered as a clause on an existing entry.
+3. Update [INDEX.md](INDEX.md) in the same change as the file.
+
+Do not create empty stub files just to occupy a row.

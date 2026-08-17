@@ -105,7 +105,7 @@ Contrast case, not yet written: `photoelectric-threshold` is a single-electron e
 
 ## Related entries
 
-- `plasma-frequency-cutoff` (queued) — same collective screening, failed by drive frequency instead of thickness
-- `skin-effect` (queued) — low-frequency limit of the same screening length
-- `surface-plasmon-resonance` (queued) — interface-bound collective mode of the same electron population
-- `photoelectric-threshold` (queued) — single-electron energy gate in the same metals; contrast case
+- [Plasma-frequency cutoff](plasma-frequency-cutoff.md) — same collective screening, failed by drive frequency instead of thickness
+- [Skin effect](skin-effect.md) — low-frequency limit of the same screening length
+- [Surface plasmon resonance](surface-plasmon-resonance.md) — interface-bound collective mode of the same electron population
+- [Photoelectric threshold](photoelectric-threshold.md) — single-electron energy gate in the same metals; contrast case

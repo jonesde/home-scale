@@ -111,8 +111,8 @@ Soft iron’s high \(T_C\) plus low coercivity is internally consistent: the met
 
 ## Related entries
 
-- `superparamagnetism` (queued) — volume collapse of this same latch
-- `ferromagnetic-hysteresis` (queued) — the write / erase cycle; remanence and coercivity as operating points
-- `magnetic-domains` (queued) — how a large body partitions the aligned population
-- `shape-anisotropy` (queued) — a different barrier (sample geometry / demagnetizing field) that can latch without large \(K_1\)
-- `magnetostriction` (queued) — lattice–moment coupling; mechanical failure path
+- [Superparamagnetism](superparamagnetism.md) — volume collapse of this same latch
+- [Ferromagnetic hysteresis](ferromagnetic-hysteresis.md) — the write / erase cycle; remanence and coercivity as operating points
+- [Magnetic domains](magnetic-domains.md) — how a large body partitions the aligned population
+- [Shape anisotropy](shape-anisotropy.md) — a different barrier (sample geometry / demagnetizing field) that can latch without large \(K_1\)
+- [Magnetostriction](magnetostriction.md) — lattice–moment coupling; mechanical failure path

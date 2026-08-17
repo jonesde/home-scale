@@ -108,8 +108,9 @@ High / Medium / Low, with a one-sentence justification focused on how well the e
 The effect library lives in [`library/`](library/INDEX.md). The copy-paste starter is [`library/_template.md`](library/_template.md). Operating rules for files, frontmatter, and the index are in [`library/README.md`](library/README.md).
 
 - Template defined and locked (this document).
-- Formal entries: [reflection](library/reflection.md), [permanent-magnet-latch](library/permanent-magnet-latch.md).
-- Further candidates are queued in the index. Add files one at a time, selected for clear experimental boundaries and distinct failure modes; update the index in the same change.
+- First wave: 49 formal entries (six families). Mapping confidence is recorded per file — 24 High, 25 Medium, 0 Low.
+- Medium mapping means the collapse is assigned but a hardware scale is still statistical, mesoscale, or taken rather than derived. Tighten those before adding a second wave.
+- Add or revise files one at a time; update the index in the same change.
 
 ---
 
