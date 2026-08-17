@@ -8,7 +8,7 @@ updated: 2026-08-17
 
 **Device.** A packed bed or tank of hydride-forming metal (LaNi₅-class, TiFe, Mg, Pd, Ni) that is supposed to take up and give back hydrogen on a *P*–*T* swing.
 **QSA machines.** `ensemble-average` (reversible lattice H); `anisotropy-latch` / `exchange-pin` (trapped H at defects); `oscillator-grid` (*T*<sub>m</sub>, decrepitation, thermal conductivity of the bed).
-**Status.** Working application. No anomaly claim.
+**Status.** Working application. No anomaly claim. **Not a tested protocol.** Hydrogen service and fine powder are industrial hazards ([SAFETY.md](../SAFETY.md)).
 
 ---
 

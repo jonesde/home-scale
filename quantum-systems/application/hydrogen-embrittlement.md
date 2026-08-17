@@ -8,7 +8,7 @@ updated: 2026-08-17
 
 **Device.** A high-strength steel, Ni-alloy, or titanium part that has taken up hydrogen (plating, welding, corrosion, high-pressure H₂, or a hydride-forming service).
 **QSA machines.** `anisotropy-latch` / `exchange-pin` applied to interstitial occupancy; `oscillator-grid` as the crack path; `ensemble-average` as the bulk H you already measure.
-**Status.** Working application. Handbook effect. No nuclear layer.
+**Status.** Working application. Handbook effect. No nuclear layer. **Not a tested protocol** and not a process spec for a load-bearing part. See [SAFETY.md](../SAFETY.md).
 **Why it is here.** Same configuration hypothesis as [EM-LENR](EM-LENR.md) with the energy-gate cut off. If this mapping cannot recover bake-out and the hardness × H window, do not trust it on a coil cell.
 
 Derived specs: [design-spec-sheets](../library/derived/design-spec-sheets.md), [requirement-audit](../library/derived/requirement-audit.md).

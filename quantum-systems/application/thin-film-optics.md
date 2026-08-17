@@ -8,7 +8,7 @@ updated: 2026-08-17
 
 **Device.** A deposited metal or TCO stack: Ag/Al mirror, ITO/AZO window, Au/Ag SPR chip, RF mesh / skin shield.
 **QSA machines.** `collective-screening` (core); `energy-gate` (photoelectric / gap absorption as contrast); `oscillator-grid` (adhesion, anneal, melt).
-**Status.** Working application. High-data, High-mapping calibration.
+**Status.** Working application. High-data, High-mapping calibration. **Not a tested coating process.**
 
 If QSA cannot recover “Ag goes transparent below ~5–10 nm continuous, and above the plasma / interband edge,” do not take the interstitial-latch mapping seriously.
 

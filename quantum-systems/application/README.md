@@ -1,5 +1,7 @@
 # Applications
 
+**Not operating procedures.** Analysis and design notes only. Unqualified readers should stop at [SAFETY.md](../SAFETY.md). Hydrogen, metal powder, pressure, and pulsed current are industrial hazards even at the small sizes named below.
+
 Device-centered uses of the QSA library. Concepts are allowed to repeat; the singular science source is [`../library/`](../library/INDEX.md). Derived spec sheets: [`../library/derived/`](../library/derived/README.md).
 
 | File | Device | What it applies |

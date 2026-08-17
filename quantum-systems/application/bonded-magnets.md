@@ -8,7 +8,7 @@ updated: 2026-08-17
 
 **Device.** A polymer-bonded NdFeB magnet, a particulate recording layer, or a ferrofluid.
 **QSA machines.** `anisotropy-latch` (core); `superparamagnetism` (volume cliff); `shape-anisotropy`; `exchange-pin` (some stacked media); `ensemble-average` (the unlocked fluid).
-**Status.** Working application. **Calibration.** The cliff is in the handbook.
+**Status.** Working application. **Calibration.** The cliff is in the handbook. **Not a tested process spec.**
 
 If this file’s isolation sequence does not recover “NdFeB blocks near ~30 nm at room temperature / lab time; magnetite smaller; a ferrofluid has *no* remanence on purpose,” stop using the latch mapping on EM-LENR powder.
 

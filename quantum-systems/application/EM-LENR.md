@@ -2,8 +2,10 @@
 
 **Source problem:** configuration dependence of reported LENR / gas-loaded-metal anomalies.
 **QSA role:** first end-to-end use of the effect library and the `effect → implication → design → requirement` analysis layer.
-**Status:** Working application. Utility and internal-consistency test only. No nuclear process is asserted.
+**Status:** Working application. Utility and internal-consistency test only. No nuclear process is asserted. **Not a tested protocol.**
 **Updated:** 2026-08-17
+
+> **Hazards (read [SAFETY.md](../SAFETY.md)).** H₂/D₂, fine metal powder, and pressure in one vessel are a fire, leak, and dust-explosion stack. kA-class pulses injure at arm’s length even at tens of volts. BeCu is named only for shops that already control beryllium; otherwise stay on copper. This file is a mapping, not a procedure. Do not scale inventory, pressure, or pulse energy in search of a nuclear signature. Do not skip to a neutron search.
 
 **Credit.** The physical problem, the configuration hypothesis, and the experimental direction are Steven E. Jones’s. The notes that this file analyzes were developed in collaboration with the author of this repository. Electromagnetic cold-spray additive manufacturing (EM-CSAM) entered only as a related thought experiment — a railgun barrel as an incidental high-*dB/dt*, high-strain environment — not as the subject of this application. This document is QSA analysis of that work, not a claim of authorship of it.
 
@@ -129,7 +131,7 @@ The EM-CSAM micro-railgun was the thought-experiment that suggested incidental h
 
 | Element | First article | Upgrade |
 |---|---|---|
-| Cell | ¼″ Cu HVAC tube, Schrader fill, flare or compression closure | BeCu (or equivalent) ¼″ OD, 1.0–1.5 mm wall, ~3.3–4.3 mm ID, metal-seal plug, 300 bar class |
+| Cell | ¼″ Cu HVAC tube, Schrader fill, flare or compression closure | Rated high-pressure copper-alloy cell only under a real vessel review. **BeCu only in a beryllium-controlled shop;** otherwise stay on Cu and prototype pressure. |
 | Coil | ⅜″ OD form sliding over the cell, 12 AWG high-temp magnet wire, 30–80 turns, long solenoid first | Swappable forms; short concentrated coils later; never a closed eddy loop in the fixture |
 | Drive | kA-class short-to-moderate pulses, current in the **coil only** | Reproducible pulse trains; single-shot and low-duty modes for diagnostics |
 | Inventory | Grams or less of powder | Same. Small volume is a control advantage, not a compromise. |
@@ -137,7 +139,7 @@ The EM-CSAM micro-railgun was the thought-experiment that suggested incidental h
 
 Plasma is minimized on the first matrix (external coil, no intentional current through the powder). A later matrix routes current through the bed on purpose.
 
-Hydrogen + fine metal powder + pulsed current + pressure is an ordinary industrial hazard set. Small inventory is the main mitigator. This file does not replace a safety review.
+Hydrogen + fine metal powder + pulsed current + pressure is an ordinary industrial hazard set. Small inventory reduces inventory at risk; it does not make the stack hobby-safe. Schrader / HVAC fittings are not hydrogen service. This file does not replace a safety review and is not a procedure.
 
 ---
 
@@ -185,7 +187,7 @@ Direction is relative to **isolating the latch**, not to maximizing a hoped-for 
 
 ### 5.5 What *not* to optimize first
 
-- Neutron yield or “excess watts.” Those are search channels on an unisolated machine.
+- Neutron yield or “excess watts.” Those are search channels on an unisolated machine. Do not scale inventory, pressure, or pulse energy to chase them.
 - Maximum pulse energy. Reproducible *B*(t) beats a bigger bang.
 - Finest powder. That walks straight into the volume-collapse side of the latch.
 - Highest pressure before the latch protocol exists. Pressure is a chemical-potential assist, not the effect.
@@ -296,7 +298,7 @@ A nuclear-null after a successful isolation is **not** a falsifier of the latch.
 | Dynamic trajectories, defects, interfaces | Kept; filed as write cycle and barrier matrix |
 | EM-CSAM railgun as a related thought experiment | Acknowledged; not the subject. Optional shock writer only |
 | Inverted contained powder + pulsed field | Promoted to primary |
-| Modular ¼″ cell / ⅜″ coil / HVAC → BeCu path | Kept |
+| Modular ¼″ cell / ⅜″ coil / HVAC path | Kept; BeCu only if the shop already controls beryllium |
 | Pd–D as first host | Inverted for this write channel; Ni first |
 | Plasma optional | Kept; sequenced after a low-plasma baseline |
 | Neutrons as first-line nuclear signature | Kept as Phase-5 search, not as isolation |

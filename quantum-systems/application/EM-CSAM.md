@@ -8,8 +8,10 @@ updated: 2026-08-17
 
 **Device.** A short-barrel parallel-rail micro-accelerator that throws a metered metal-powder armature (usually in a carrier) at 200–800 m/s class onto a substrate, plus the capacitor-discharge driver that feeds it. Hardware home: [`../../em-csam/`](../../em-csam/README.md).
 **QSA machines.** `oscillator-grid` (impact, yield, melt); `collective-screening` (skin in rails and armature); `energy-gate` as `dielectric-breakdown` (plasma on/off); `anisotropy-latch` + `magnetostriction` when the powder is ferromagnetic; interstitial latch only if H/D is in the system ([EM-LENR](EM-LENR.md), [hydrogen-embrittlement](hydrogen-embrittlement.md), [hydride-storage](hydride-storage.md)).
-**Status.** Working application of *this* repository’s hardware. Manufacturing first. The same setup is a pulsed high-strain, high-*dB/dt* experiment.
+**Status.** Working application of *this* repository’s hardware. Manufacturing first. The same setup is a pulsed high-strain, high-*dB/dt* experiment. **Not a tested protocol.**
 **Credit.** EM-CSAM is the author’s project. QSA here is analysis of that device, not a redesign of the barrel.
+
+> **Hazards (read [SAFETY.md](../SAFETY.md)).** Capacitor discharge, rail–armature current, flying metal, and carrier vapor can maim without any “interesting physics.” Hydrogen-rich carriers on steel or Ti can charge a part that cracks later. Machining BeCu is a beryllium-control problem; stay on copper if you do not already have that shop. These notes are not a build sequence or a pressure rating. Do not scale the barrel or bank in search of a nuclear signature.
 
 Derived specs: [design-spec-sheets](../library/derived/design-spec-sheets.md), [requirement-audit](../library/derived/requirement-audit.md). Concept numbers (*L*′, *F* = ½ *L*′ *I*², ~100 mm barrel) follow the technical note, not new measurements.
 
