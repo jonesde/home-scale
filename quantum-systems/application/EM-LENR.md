@@ -5,7 +5,7 @@
 **Status:** Working application. Utility and internal-consistency test only. No nuclear process is asserted. **Not a tested protocol.**
 **Updated:** 2026-08-17
 
-> **Hazards (read [SAFETY.md](../SAFETY.md)).** H₂/D₂, fine metal powder, and pressure in one vessel are a fire, leak, and dust-explosion stack. kA-class pulses injure at arm’s length even at tens of volts. BeCu is named only for shops that already control beryllium; otherwise stay on copper. This file is a mapping, not a procedure. Do not scale inventory, pressure, or pulse energy in search of a nuclear signature. Do not skip to a neutron search.
+> **Hazards (read [SAFETY.md](../SAFETY.md)).** H₂/D₂, fine metal powder, and pressure in one vessel are a fire, leak, and dust-explosion stack. A wet bed (H₂O/D₂O or an organic) adds steam, splash, and — if anything actually dissociates — a flammable headspace you did not meter as gas. kA-class pulses injure at arm’s length even at tens of volts. BeCu is named only for shops that already control beryllium; otherwise stay on copper. This file is a mapping, not a procedure. Do not scale inventory, pressure, pulse energy, or liquid volume in search of a nuclear signature. Do not skip to a neutron search.
 
 **Credit.** The physical problem, the configuration hypothesis, and the experimental direction are Steven E. Jones’s. The notes that this file analyzes were developed in collaboration with the author of this repository. Electromagnetic cold-spray additive manufacturing (EM-CSAM) entered only as a related thought experiment — a railgun barrel as an incidental high-*dB/dt*, high-strain environment — not as the subject of this application. This document is QSA analysis of that work, not a claim of authorship of it.
 
@@ -194,8 +194,25 @@ Direction is relative to **isolating the latch**, not to maximizing a hoped-for 
 - Maximum pulse energy. Reproducible *B*(t) beats a bigger bang.
 - Finest powder. That walks straight into the volume-collapse side of the latch.
 - Highest pressure before the latch protocol exists. Pressure is a chemical-potential assist, not the effect.
+- A wet cell or an electrolysis current before the dry gas matrix exists. Occupancy delivery is a later column, not a substitute for Phases 1–3.
+
+### 5.6 Occupancy without a live gas headspace
+
+Step 2 is chemical potential of **interstitial H/D**, not “there is hydrogen somewhere in the room.” A liquid, a preloaded hydride, and a gas cylinder are three ways to provision that reservoir. None of them is the latch.
+
+| Mode | What the handler holds | What the latch sees | When to try it |
+|---|---|---|---|
+| **A.** Preloaded dry hydride | Sealed powder, inert headspace | Lattice H already inside the grain; short hop to a new trap | First, after gas-phase isolation. “Stable until operate.” |
+| **B.** Hydride in a **dry** carrier | Slurry (metering, dust) | Same as A if the carrier is not an H source | If a liquid is needed for handling |
+| **C.** Liquid as the H inventory | H₂O/D₂O film, metered flash, or a lab organic | Only after an **unbinding** gate (catalysis, flash+dissociation, electrolysis) | Last, and only if A/B are not enough or the requirement is specifically water |
+
+Flash evaporation (an EM-CSAM clock) dumps vapor into the open window of the coil pulse. Steam ≠ atomic H unless that unbinding gate opens. Electrolysis writes occupancy **and** reconstructs the surface; it is Phase 4b, not Phase 0.
+
+Tritium is the same capacity species as H/D. It is not more handleable. No T column.
 
 ---
+
+
 
 ## 6. Experimental matrix (isolation sequence)
 
@@ -238,6 +255,41 @@ On a cell that showed a Phase-2 cliff: run the write train, then **stop the coil
 
 Repeat the winning Ni + gas + pulse cell with intentional current through the bed or a discharge-prone gap. If the Phase-2 cliffs vanish and only a hot plasma remains, the latch was never isolated; the discharge wrote a different (or no) configuration and destroyed calorimetry.
 
+### Phase 4b — Liquid / internal occupancy (additional things to try)
+
+Only after Phases 0–3 exist. If the dry gas mapping failed, a liquid does not save it. The coil stays the scribe. These cells change **only** how chemical potential is provisioned.
+
+“Run on water” is an upstream `energy-gate` (unbind H₂O) stacked in front of the interstitial latch. Under-threshold, opened volumes refill with vacancy or with steam, not with H. A water molecule in the pore is the wrong buffer for step 2.
+
+**Do not start here on electrolysis + D₂O because Fleischmann–Pons did.** That buries the latch under four writes (electrochemical occupancy, surface reconstruction, heat/gas evolution, and often plasma) before the coil ever gets a clean column.
+
+| Cell | Inventory | Pulse | Question |
+|---|---|---|---|
+| G | Ni, dry, **preloaded** hydride, inert headspace | coil | Internal store. Does the Phase-1–3 signature survive with **no live gas**? |
+| L0 | Ni, dry, empty, inert | coil | Empty-reservoir control (Phase 1 cell 1) |
+| L1 | Ni + thin H₂O or D₂O film, **no** current through the bed | coil | Does a wet film provision step 2, or only steam/heat? |
+| L2 | Same wet film, flash timed to the pulse (side heater or coil eddy) | coil + flash | Clock: must the dump overlap the open window? |
+| L3 | Preloaded hydride in a **dry** carrier slurry | coil | Liquid handleability without a second H source |
+| L4 | Empty powder + dry carrier | coil | Carrier-only confound |
+| L5 | Formic / methanol on Ni, no electrolysis | coil, modest *T* | Catalytic unbinding as the upstream gate |
+| L6 | Winning wet cell + **low** electrolysis current | coil + *I*_bed | Historical occupancy write as a *factor*, not the default |
+| L7 | Pd in the winning liquid / preload mode | coil | Host split must still hold; if Pd matches Ni, *B*→*λ* is not load-bearing |
+
+Order: **G** first (mode A). Then **L3/L4** if a liquid is needed for metering (mode B). Mode C is **L1 → L2 → L5 → L6**, each with L0/L4/L7. Preferred C feedstock if the bottle must be water: a thin H₂O/D₂O film or a metered flash — after G has shown that interstitial H, however delivered, is what the latch wants. Formic/methanol is a cleaner unbinding gate than raw water on Ni at ambient *T*, at the cost of carbon.
+
+Added clocks: flash/boil must overlap or immediately precede the open window; unbinding rate is another hop-clock (too slow ⇒ empty defects); oxide/coke can fake a “blocking” fade.
+
+**Not to do**
+
+- Do not start on electrolysis + D₂O because Fleischmann–Pons did. That buries the latch under four writes.
+- Do not flash-evaporate “to make more pressure” as a nuclear knob. Pressure is capacity.
+- Do not add a muon, a pyroelectric crystal, or tritium to “open” a wet cell.
+- Do not treat water as the energy-gate. A nuclear-null in a wet cell that never unbound H is a failed step 2, not a closed fourth-layer gate.
+- Do not scale liquid inventory, pulse energy, or *I*_bed in search of a signature.
+- Do not use a glycerol / wet carrier as the “dry” slurry in L3 — that is a second, uncontrolled H write ([hydrogen-embrittlement](hydrogen-embrittlement.md)).
+
+Wet-mode falsifiers: L1/L2 match L0 (steam ≠ H); L1 matches G (then use the solid store); signature requires continuous *I*_bed (not a 0 W latch); signature tracks carrier more than host magnetism; wet Ni matches wet Cu (heat/steam); oxide/melt with no bake-reversible residual (`coupled-grid-loss`) is a destroyed grid, not a latched cell.
+
 ### Phase 5 — Search, not isolation
 
 Only after a write/erase protocol exists: add a quiet neutron channel and the best calorimetry the small cell allows. Columns: H₂ vs D₂ vs inert, loaded vs unloaded, Ni vs Pd, pulse vs no-pulse, on-train vs after-period.
@@ -275,6 +327,9 @@ These are design-down claims. Several already sit on `design_implication` as `or
 - A plasma-present cell can load surfaces and destroy the thermal baseline without ever provisioning the latch.
 - If a nuclear gate opens at all, it tracks the **presence of the written cell**, not RMS pulse power. That is a Phase-5 claim only.
 - A muon-free hydride is not the μCF cycle; pyroelectric 2.45 MeV neutrons (if anyone runs that crystal) do not die with *τ<sub>μ</sub>*; a 2.224 MeV *γ* is not a muon. None of those gates is this cell. Do not add a muon source, a pyroelectric crystal, or a *γ* beam to “open” it.
+- A preloaded dry hydride under inert headspace should reproduce the gas-phase configuration signature if occupancy, not live *P*, is what step 2 needs.
+- A wet or flashed cell that matches the dry empty cell did not provision interstitial H. Steam is not the reservoir.
+- A signature that requires the electrolysis supply to stay on is not this latch.
 
 ---
 
@@ -307,6 +362,7 @@ A nuclear-null after a successful isolation is **not** a falsifier of the latch.
 | Plasma optional | Kept; sequenced after a low-plasma baseline |
 | Neutrons as first-line nuclear signature | Kept as Phase-5 search, not as isolation |
 | Ordinary compression insufficient for fusion | Kept; restated as energy-gate not opening from grid strain alone |
+| Electrolysis / “run on water” / handleable liquid | Kept as **capacity delivery**, sequenced after dry isolation. Not a fourth-layer gate. Fleischmann–Pons-style wet electrolysis first would bury the latch under four writes. |
 
 ---
 
@@ -314,4 +370,4 @@ A nuclear-null after a successful isolation is **not** a falsifier of the latch.
 
 This is the first application of the QSA library to a live, unisolated problem. It does not add a nuclear effect to [`library/`](../library/INDEX.md). If Phases 1–3 produce a blocking-like cliff, that cliff is a candidate for a new library entry (interstitial-cluster latch / defect-cavity occupancy), not a reason to edit `energy-gate`.
 
-Next work on this application, if any: run Phase 0 on the hardware that already exists, then a three-host, two-gas, pulse/no-pulse matrix small enough to finish.
+Next work on this application, if any: run Phase 0 on the hardware that already exists, then a three-host, two-gas, pulse/no-pulse matrix small enough to finish. Liquid / preload cells (Phase 4b) wait on that dry isolation. The solid preloaded hydride (cell G) is the first “stable until operate” try; water is last.
