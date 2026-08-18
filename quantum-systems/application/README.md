@@ -4,6 +4,8 @@
 
 Device-centered uses of the QSA library. Concepts are allowed to repeat; the singular science source is [`../library/`](../library/INDEX.md). Derived spec sheets: [`../library/derived/`](../library/derived/README.md).
 
+**Manufacturing hook (non-nuclear).** [EM-CSAM-Pitch](EM-CSAM-Pitch.md) is an opportunity brief for contacts and for people who might run a first splat series: structure plus function from the EM deposition head (coats, insulating magnets, linear tracks in a frame), then a labeled nano/fab fantasy. Nuclear, accelerator, and reactor-hall applications are a different folder job and are out of that file.
+
 **Strongest of the new set** (QSA-distinct stacks, not used products):
 
 1. [switchable-hydride-mirror](switchable-hydride-mirror.md) — screening × interstitial occupancy; closest to later home-scale packaging.

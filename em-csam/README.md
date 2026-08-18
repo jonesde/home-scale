@@ -26,6 +26,8 @@ The downside is you can't do anything you want, only certain combinations of mat
 
 It just so happens that there are some really useful outputs that can likely be produced fairly easily this way (relative to alternatives), and enable creating exotic alloys on the fly.
 
+**Opportunity brief (QSA reading, non-nuclear).** What those states are good for — insulating magnets next to copper buses, linear tracks printed into a frame, coats and hard-face, and a labeled “if the pixel went to nano” section — lives in [`../quantum-systems/application/EM-CSAM-Pitch.md`](../quantum-systems/application/EM-CSAM-Pitch.md). Hardware notes stay here. That brief is not a protocol.
+
 Here are those AI assisted examples (updated version with Grok 4.5):
 
 ---
