@@ -50,8 +50,9 @@ Machines that do **not** own the missing variable:
 
 - **`ensemble-average`.** H/M, resistance ratio, and lattice expansion are the averages already measured. They have no universal *N*-cliff. The anomaly, if real, is what happens when a latch or gap *replaces* that average.
 - **`energy-gate` alone.** Isolated D–D / p–p conversion is a discrete gate. Ordinary lattice compression does not open it. An under-threshold gate cannot explain metallurgical history or intermittency.
-- **`energy-gate` as [muon-catalyzed fusion](../library/muon-catalyzed-fusion.md).** The handbook hydrogen-isotope nuclear gate. It requires a muon. Collapse is missing muon / decay / sticking, not blocking of a defect cell. This apparatus has no muon source. Cosmic-ray flux does not track bake-out or cold work. Do not file that cycle as this cell.
-- **`energy-gate` as [pyroelectric fusion](../library/pyroelectric-fusion.md).** Ordinary beam-target D–D opened by a pyroelectric high-voltage engine. This apparatus has no pyroelectric accelerator. Do not file a pulsed-coil hydride as that crystal.
+- **`energy-gate` as [muon-catalyzed fusion](../library/muon-catalyzed-fusion.md).** The handbook hydrogen-isotope nuclear gate. It requires a muon. Collapse is missing muon / decay / sticking, not blocking of a defect cell. This apparatus has no muon source. Cosmic-ray flux does not track bake-out or cold work. Do not file that cycle as this cell (`predicted:muon-catalyzed-fusion:muon-free-cell-is-null`).
+- **`energy-gate` as [pyroelectric fusion](../library/pyroelectric-fusion.md).** Ordinary beam-target D–D opened by a pyroelectric high-voltage engine. This apparatus has no pyroelectric accelerator. Do not file a pulsed-coil hydride as that crystal. Pyroelectric neutrons, when they exist, track a thermal ramp, not *τ<sub>μ</sub>* (`predicted:pyroelectric-fusion:muon-free-still-not-mucf`).
+- **`energy-gate` as [deuteron photodisintegration](../library/deuteron-photodisintegration.md).** A 2.224 MeV *γ* unbinds *d* → *p*+*n*. That photon is not a muon catalyst (`predicted:deuteron-photodisintegration:photon-is-not-a-muon`). Do not irradiate this cell, and do not read a 2.45 MeV D–D line as photodisintegration.
 - **Bulk `collective-screening` of the Pd electron gas.** Connected buffer and plasma clock of a uniform metal. Too spatially uniform to carry the defect / recipe dependence.
 - **`gapped-condensate`.** No measured pairing gap, London *λ*, or Meissner of the hydride at these temperatures. Same category error as folding a dilute BEC into the charged condensate.
 
@@ -118,7 +119,7 @@ The latch mapping dies in ways that are **not** “the nuclear gate stayed close
 - Soft, well-annealed host → nothing to pin; pulse only heats.
 - *B* below the write field on Ni → *M* not aligned → *λ* hidden (`magnetostriction` unaligned-*M* failure).
 - *P* / chemical potential too low → opened volumes refill with vacancy, not with H/D.
-- Pulse so slow or so hot that the host sinters or melts → grid destroyed; latch matrix gone.
+- Pulse so slow or so hot that the host sinters or melts → grid destroyed; latch matrix gone. That is `coupled-grid-loss` (shear, crystal *κ*, and Mössbauer *f* fail together at *T*<sub>m</sub>), not a Curie / *T*<sub>λ</sub> / nuclear cliff.
 - Pulse so fast and so small-opening that gas never enters → write of empty defects.
 
 A nuclear-null in all of those collapse cells, **plus** a nuclear-null in the provisioned cell, is a failed application of the energy-gate layer, not a failed isolation of the latch. Keep those verdicts separate.
@@ -273,6 +274,7 @@ These are design-down claims. Several already sit on `design_implication` as `or
 - A configuration signature that needs the coil to stay on is heat, not a latch.
 - A plasma-present cell can load surfaces and destroy the thermal baseline without ever provisioning the latch.
 - If a nuclear gate opens at all, it tracks the **presence of the written cell**, not RMS pulse power. That is a Phase-5 claim only.
+- A muon-free hydride is not the μCF cycle; pyroelectric 2.45 MeV neutrons (if anyone runs that crystal) do not die with *τ<sub>μ</sub>*; a 2.224 MeV *γ* is not a muon. None of those gates is this cell. Do not add a muon source, a pyroelectric crystal, or a *γ* beam to “open” it.
 
 ---
 
