@@ -18,7 +18,7 @@ If QSA cannot recover “Ag goes transparent below ~5–10 nm continuous, and ab
 
 The device dies when the **connected screening buffer** is starved or when the **drive outruns ωp** (or the material’s optical edge). Those are one machine, two knobs. Island films and too-thin continuous films are the same failure class (buffer), not two mysteries.
 
-`coupled-screening-failure` (derived): a film that loses specular *R* in that window should also lose a Kretschmann SPR dip and transmit in the same spectral band.
+`coupled-screening-failure` (derived): a film that loses specular *R* in that window should also lose a Kretschmann SPR dip, transmit in the same spectral band, and lose conducting-plate Casimir contrast. SPR siblings: `predicted:surface-plasmon-resonance:dies-above-plasma-edge`, `predicted:surface-plasmon-resonance:island-film-no-dip`. The force channel as a device is [percolation-dual-switch](percolation-dual-switch.md).
 
 ---
 
@@ -52,9 +52,10 @@ Hold-power: 0 extra W. If the stack needs a bias to “stay reflective,” that 
 ## 4. Isolation / acceptance tests
 
 1. Thickness series of Ag on glass: *R*(λ), *T*(λ). Cliff at percolation, not a linear fade.  
-2. Same series in a Kretschmann mount: dip should vanish with the mirror.  
-3. ITO anneal series: *n* down, IR *R* dies, vis *T* may rise — plasma-edge motion, not “the coating disappeared.”  
-4. Photoemission on the same Ag: threshold is *φ*, not the 3.9 eV edge.
+2. Same series in a Kretschmann mount: dip should vanish with the mirror (`predicted:surface-plasmon-resonance:island-film-no-dip`). A plasma-transparent film should lose the dip in that window (`predicted:surface-plasmon-resonance:dies-above-plasma-edge`).  
+3. ITO anneal series: *n* down, IR *R* dies, vis *T* may rise — plasma-edge motion, not “the coating disappeared.” Same film: RF skin *δ* should inflate (`predicted:skin-effect:same-n-kills-optical-and-rf`).  
+4. Photoemission on the same Ag: threshold is *φ*, not the 3.9 eV edge (`predicted:photoelectric-threshold:not-the-plasma-edge`).  
+5. Optional: conducting-plate attraction on the same thickness series ([percolation-dual-switch](percolation-dual-switch.md)).
 
 ---
 
@@ -68,4 +69,4 @@ Hold-power: 0 extra W. If the stack needs a bias to “stay reflective,” that 
 
 ## 6. Link to EM-CSAM
 
-A micro-railgun can throw metal at a substrate and make a coating. Whether that coating is a **mirror** is this application: you are asking whether the splat field percolated and whether it is thick enough. Spray + *R*/*T* on glass is a cheap Phase-1 for both devices. See [EM-CSAM](EM-CSAM.md).
+A micro-railgun can throw metal at a substrate and make a coating. Whether that coating is a **mirror** is this application: you are asking whether the splat field percolated and whether it is thick enough. Spray + *R*/*T* on glass is a cheap Phase-1 for both devices. See [EM-CSAM](EM-CSAM.md). Occupancy as a way to starve the same buffer is [switchable-hydride-mirror](switchable-hydride-mirror.md).

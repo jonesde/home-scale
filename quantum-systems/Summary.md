@@ -60,7 +60,7 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 | Designs | 12 (8 formal; four drafts) | [analysis/design.csv](analysis/design.csv) |
 | Nodes | 11 forced | [library/nodes/INDEX.md](library/nodes/INDEX.md) |
 | Requirements | 38 | [analysis/requirement.csv](analysis/requirement.csv) |
-| Applications | 6 | [application/README.md](application/README.md) |
+| Applications | 14 | [application/README.md](application/README.md) |
 | Derived notes | spec sheets + requirement audit | [library/derived/](library/derived/README.md) |
 
 `quantum-hall-effect` is the core of draft `edge-channel` (2DEG + Landau gap + edge path). It stays **contrast** on `gapped-condensate`. A quantum point contact is contrast on `edge-channel`, not a member. The electron `edge` role is now consumed.
@@ -105,7 +105,7 @@ Prefer, in order:
 4. Add a thirteenth design only when a hardware stack and collapse are not already owned. Do not invent one for every interface. Drafts `phase-space-condensate` and `landauer-channel` own the BEC and QPC leftovers; do not fold them into He-4 or `edge-channel`.
 5. Add a `cataloged` node only under the admission filter in [library/nodes/README.md](library/nodes/README.md) (parent of a forced node, or already named as hardware). Do not vendor PDG. The dark-sector list stays out until a file names those species.
 
-Applications stay mappings and falsifiers, not protocols. EM-LENR waits on Steven’s review for the nuclear/configuration claim; isolate the interstitial latch first.
+Applications stay mappings and falsifiers, not protocols. EM-LENR waits on Steven’s review for the nuclear/configuration claim; isolate the interstitial latch first. Eight new device concepts (not used products) live under [application/](application/README.md); the strongest stacks are the switchable hydride mirror, the polar beam-target gate, and the extra-node muon hydrogen gate.
 
 ---
 

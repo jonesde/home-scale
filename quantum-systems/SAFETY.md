@@ -34,7 +34,7 @@ People who have not worked in a lab or shop often miss that the following are ro
 
 **Unwanted hydrogen in a part.** Spraying steel or Ti with a hydrogen-rich carrier can charge the metal. Delayed cracking shows up later in a load-bearing part. A post-process bake is not optional folklore if you charged the alloy; it is also not a protocol specified here.
 
-**Radiation search.** A neutron detector next to a pulsed D₂ cell is a *search*, not evidence you have a source. The pulse itself is a serious EMI and electrical hazard. Do not improvise shielding, isotopes, or “just a little more D₂.”
+**Radiation search.** A neutron detector next to a pulsed D₂ cell is a *search*, not evidence you have a source. The pulse itself is a serious EMI and electrical hazard. Do not improvise shielding, isotopes, or “just a little more D₂.” Accelerator and reactor-hall mappings in the application directory are not beamline or hall SOPs. Do not scale muon current, crystal Δ*T*, or target inventory in search of a nuclear signature.
 
 ---
 

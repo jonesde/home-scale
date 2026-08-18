@@ -55,7 +55,8 @@ Shape-anisotropy needles can latch without large *K₁*. Spheres of the same *K�
 1. Size series of the same chemistry: remanence and *H*<sub>c</sub> vs *d*. Recover a drop at the predicted class (NdFeB tens of nm; Fe₃O₄ smaller).  
 2. Same size, two wait times (1 s vs 10³ s): the contour should move.  
 3. Sphere vs needle at fixed volume.  
-4. Ferrofluid: *M*(*H*) reversible, *H*<sub>c</sub> ≈ 0. That is success of the *other* side.
+4. Ferrofluid: *M*(*H*) reversible, *H*<sub>c</sub> ≈ 0. That is success of the *other* side.  
+5. Stacked AFM/FM (if present): *T<sub>B</sub>* < *T* < *T<sub>C</sub>*(FM) ⇒ *H*<sub>ex</sub> gone, *M<sub>r</sub>* can remain (`predicted:exchange-bias:hex-gone-above-tb-while-fm-latched`). No AFM ⇒ unshifted loop. A superparamagnetic FM grain cannot hold the shift. The history-bit reading of that split is [exchange-pin-thermal-history](exchange-pin-thermal-history.md).
 
 If (1) is a smooth “smaller is weaker” with no class cliff, the *KV* mapping is not doing work.
 

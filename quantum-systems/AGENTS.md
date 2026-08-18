@@ -379,6 +379,14 @@ Device-centered uses. Not procedures. Unqualified readers stop at SAFETY.md.
 | [application/hydride-storage.md](application/hydride-storage.md) | Metal-hydride bed / tank | Capacity vs pinned H |
 | [application/EM-LENR.md](application/EM-LENR.md) | Contained pulsed-coil cell (Steven E. Jones) | Defect-pinned interstitial latch; energy-gate last |
 | [application/EM-CSAM.md](application/EM-CSAM.md) | Micro-railgun deposition head | Impact, skin, breakdown, magnetostriction |
+| [application/switchable-hydride-mirror.md](application/switchable-hydride-mirror.md) | H-switchable screening film | `collective-screening` × interstitial occupancy |
+| [application/polar-beam-gate.md](application/polar-beam-gate.md) | Polar HV + beam-target D–D | `polar-latch` × `energy-gate` |
+| [application/muon-hydrogen-gate.md](application/muon-hydrogen-gate.md) | Extra-node H-isotope cycle | `energy-gate` + muon |
+| [application/exchange-pin-thermal-history.md](application/exchange-pin-thermal-history.md) | *H*<sub>ex</sub> trip through *T<sub>B</sub>* | Draft `exchange-pin` |
+| [application/percolation-dual-switch.md](application/percolation-dual-switch.md) | Starve *R* and Casimir contrast together | `collective-screening` |
+| [application/coherence-window-recoil.md](application/coherence-window-recoil.md) | CEνNS vs IBD on one flux | `energy-gate` as CEνNS |
+| [application/edge-orientation-inhibit.md](application/edge-orientation-inhibit.md) | In-plane *B* kills the plateau | Draft `edge-channel` |
+| [application/depolarization-fuse.md](application/depolarization-fuse.md) | *P<sub>r</sub>* dies in a thin polar film | `polar-latch` failure side |
 
 Hardware notes for the railgun live outside this directory, at [`../em-csam/`](../em-csam/README.md). Do not copy those notes in as protocols.
 

@@ -33,7 +33,9 @@ Bulk H/M is the sum. Designers who only measure a Sieverts isotherm are reading 
 
 **Erase of the pin.** A high-*T* bake / activation protocol that the storage swing was not supposed to need. If fade reverses on a bake above the service *T*, you have a blocking / detrapping line, not a lost tank.
 
-**Grid.** Mg-class hydrides sit near a thermal-cliff of the host (*T* to move H, *T*<sub>m</sub> if you overshoot). Bed *κ* is `thermal-conductivity-phonon` plus gas in the voids — starve the mfp and the bed has a hot core and a cold skin.
+**Grid.** Mg-class hydrides sit near a thermal-cliff of the host (*T* to move H, *T*<sub>m</sub> if you overshoot). Bed *κ* is `thermal-conductivity-phonon` plus gas in the voids — starve the mfp and the bed has a hot core and a cold skin. Overshoot to *T<sub>m</sub>* is `coupled-grid-loss`: shear, crystal *κ*, and (if the host is Mössbauer-active) recoilless *f* fail together. That is not a plateau-pressure change and not Curie.
+
+Fade is not an H-isotope energy-gate. Residual H is not [muon-catalyzed fusion](../library/muon-catalyzed-fusion.md), not [polar-beam-gate](polar-beam-gate.md), and not photodisintegration.
 
 ---
 
@@ -72,4 +74,4 @@ Latch mapping: residual grows with damage, shrinks with bake, worse in fines and
 
 ## 6. Link to EM-CSAM
 
-A railgun or coil pulse on hydride powder is an extreme **decrepitation / trap-write**. Useful as a way to *make* a pinned population on purpose (then measure residual), and a warning if the feedstock is a storage alloy you still wanted reversible. See [EM-CSAM](EM-CSAM.md).
+A railgun or coil pulse on hydride powder is an extreme **decrepitation / trap-write**. Useful as a way to *make* a pinned population on purpose (then measure residual), and a warning if the feedstock is a storage alloy you still wanted reversible. See [EM-CSAM](EM-CSAM.md). The same two H populations read as an optical shutter are [switchable-hydride-mirror](switchable-hydride-mirror.md).
