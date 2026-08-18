@@ -57,9 +57,9 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 | Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) and [pyroelectric-fusion](library/pyroelectric-fusion.md) (Medium) | same |
 | Extracted implications | 447 | `analysis/fragments/*.jsonl` |
 | Predicted implications | 27 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
-| Designs | 10 (8 formal; `exchange-pin` and `edge-channel` draft) | [analysis/design.csv](analysis/design.csv) |
+| Designs | 12 (8 formal; four drafts) | [analysis/design.csv](analysis/design.csv) |
 | Nodes | 11 forced | [library/nodes/INDEX.md](library/nodes/INDEX.md) |
-| Requirements | 33 | [analysis/requirement.csv](analysis/requirement.csv) |
+| Requirements | 37 | [analysis/requirement.csv](analysis/requirement.csv) |
 | Applications | 6 | [application/README.md](application/README.md) |
 | Derived notes | spec sheets + requirement audit | [library/derived/](library/derived/README.md) |
 
@@ -88,6 +88,8 @@ Those two, plus [photoelectric-threshold](library/photoelectric-threshold.md), a
 | `ensemble-average` | formal | Stable macro number from a large population; no universal *N* |
 | `exchange-pin` | draft | Nested AFM/FM pin; collapse is *T*<sub>B</sub>, not FM *T*<sub>C</sub> |
 | `edge-channel` | draft | 2DEG + bulk gap + edge path; integer *R_H = h/νe²*; QPC is contrast |
+| `phase-space-condensate` | draft | Dilute BEC; \(T_c(n)\); not 0 W; not He-4 |
+| `landauer-channel` | draft | 1D constriction; \(2e^2/h\); no *B* required |
 
 Shared requirements often share a **kind** of cliff, not a **number**. See [library/derived/requirement-audit.md](library/derived/requirement-audit.md) before quoting one thermal or length figure across machines.
 
@@ -100,7 +102,7 @@ Prefer, in order:
 1. Tighten a Medium mapping — statistical buffer, mesoscale step (*H*<sub>c</sub> ≪ *H*<sub>a</sub>, *E*<sub>c</sub>, pinning after *H*<sub>c1</sub>), or a taken rather than derived constant.
 2. Correct fragment rows so `observed_text` still quotes the file; rebuild; keep derived sheets in sync.
 3. Add a new effect only when the collapse is sharp and is not already a clause on an existing entry. Update [library/INDEX.md](library/INDEX.md) in the same change.
-4. Add an eleventh design only when a hardware stack and collapse are not already owned. Do not invent one for every interface. Draft `edge-channel` is the QHE leftover; do not swallow QPC into it.
+4. Add a thirteenth design only when a hardware stack and collapse are not already owned. Do not invent one for every interface. Drafts `phase-space-condensate` and `landauer-channel` own the BEC and QPC leftovers; do not fold them into He-4 or `edge-channel`.
 5. Add a `cataloged` node only under the admission filter in [library/nodes/README.md](library/nodes/README.md) (parent of a forced node, or already named as hardware). Do not vendor PDG. Proton / neutron are the likely next pair; muon and the dark-sector list stay out until a file names them.
 
 Applications stay mappings and falsifiers, not protocols. EM-LENR waits on Steven’s review for the nuclear/configuration claim; isolate the interstitial latch first.

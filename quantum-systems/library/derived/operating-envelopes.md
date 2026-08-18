@@ -119,3 +119,25 @@ Node: `directional-moment` as `latch-cell`.
 | **Outside** | Off-plateau filling; in-plane *B*; *T* or current too high; 2DEG lost. A 1D constriction (no *B*) is a different machine. |
 
 Node: `electron` as `edge`. Not a latch; the plateau is a driven DC resistance.
+
+---
+
+## phase-space-condensate
+
+| | |
+|---|---|
+| **Inside** | \(n\lambda_{\mathrm{th}}^3\) above the ideal-gas line; trap and cooling on. Condensate fraction and interference contrast. |
+| **Outside** | \(T > T_c(n)\); density drop; trap off. Not a fountain, not *R* = 0, not 0 W remanence. |
+
+No first-wave node. Continuous hold resources.
+
+---
+
+## landauer-channel
+
+| | |
+|---|---|
+| **Inside** | Ballistic constriction; last mode open; \(kT\) below subband spacing. \(G = n\times 2e^2/h\). Zero or in-plane *B* is allowed. |
+| **Outside** | Pinch-off; thermal smear; dirty/long channel. A Hall plateau at \(R_K/\nu\) is a different machine. |
+
+Node: `electron` as `population` (1D modes).

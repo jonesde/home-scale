@@ -4,7 +4,7 @@ Markdown in [`library/`](../library/) is the science source of truth. This direc
 
 Working database: `qs-analysis.db` at the repo root. It is a local build artifact (gitignored). Commit the text: `fragments/*.jsonl`, `implication.csv`, `predicted_implication.csv`, `design*.csv`, `schema.sql`.
 
-First load: 59 `effect` · 171 `effect_constraint` · 474 `implication` (447 extracted, 27 predicted) · 10 `design` · 11 `node` (all `forced`) · 33 `requirement` · 283 `implication_design` · 51 `design_requirement` · 108 `design_implication` (63 entails, 42 predicts, 3 incompatible) · 36 `implication_node` · 22 `design_node`. 79 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
+First load: 59 `effect` · 171 `effect_constraint` · 474 `implication` (447 extracted, 27 predicted) · 12 `design` · 11 `node` (all `forced`) · 37 `requirement` · 297 `implication_design` · 58 `design_requirement` · 121 `design_implication` (74 entails, 44 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node`. 90 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
 
 Rebuild (stdlib Python 3 only — no pip):
 
@@ -115,6 +115,8 @@ A requirement with no design edge is a rebuild error. A design with no requireme
 | `ensemble-average` | formal | Stable macro number from a large population |
 | `exchange-pin` | draft | Ninth: nested AFM/FM pin; collapse is *T*<sub>B</sub> not FM *T*<sub>C</sub> |
 | `edge-channel` | draft | Tenth: 2DEG + bulk gap + edge path; integer *R_H = h/νe²* |
+| `phase-space-condensate` | draft | Eleventh: dilute BEC; \(T_c(n)\); not 0 W |
+| `landauer-channel` | draft | Twelfth: 1D constriction; \(2e^2/h\); no *B* |
 
 `quantum-hall-effect` is the **core** of draft `edge-channel`. It stays contrast on `gapped-condensate`. A quantum point contact (`2e²/h`, no *B*) is contrast on `edge-channel`, not a member. `design_node` consumes `electron` @ `edge`. Promote to formal when a second core effect (QSHE / QAHE) is filed. Do not close *R_K* with a Chern-number story.
 

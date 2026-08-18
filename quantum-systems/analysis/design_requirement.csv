@@ -50,3 +50,10 @@ edge-channel,edge-path-after-bulk-gap,must,Surviving path is the edge.
 edge-channel,underived-hall-quantum,must,RK taken.
 edge-channel,qpc-is-not-this-edge,must,Do not swallow the 1D constriction.
 edge-channel,hall-gap-not-pairing,must,Not gapped-condensate.
+phase-space-condensate,bec-not-this-condensate,must,This design is the home of the leftover.
+phase-space-condensate,not-zero-hold-power,must,Trap plus cool; not a latch.
+phase-space-condensate,phase-space-threshold-taken,must,2.612 taken.
+phase-space-condensate,thermal-cliff,should,Tc(n) is density-set; not Tλ or Curie.
+landauer-channel,qpc-is-not-this-edge,must,Two-way split from edge-channel.
+landauer-channel,underived-conductance-quantum,must,2e²/h taken.
+landauer-channel,no-perpendicular-b-required,must,Not a Landau ladder.

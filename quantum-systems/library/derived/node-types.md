@@ -16,7 +16,7 @@ Derived from `design_node` ⋈ `node` and `implication_node`.
 
 | Node | kind | `pdgid` | Designs (role) | Forcing collapse (examples) |
 |---|---|---|---|---|
-| `electron` | elementary | 11 | screening `population`; energy-gate `single`; ensemble `average`; gapped-condensate `population`; edge-channel `edge` | starve / *ω > ω_p*; *N* = 1; Fermi slice; QHE 2DEG |
+| `electron` | elementary | 11 | screening `population`; energy-gate `single`; ensemble `average`; gapped-condensate `population`; edge-channel `edge`; landauer-channel `population` (1D modes) | starve / *ω > ω_p*; *N* = 1; Fermi slice; QHE 2DEG; QPC constriction |
 | `photon` | elementary | 22 | energy-gate `input`; screening `input`; ensemble `average` | under-threshold gate; pair hardware; Planck curve |
 | `muon` | elementary | 13 | energy-gate `input` | no muon / *τ_μ* / sticking |
 | `proton` | elementary | 2212 | energy-gate `product` | deuteron photodisintegration |

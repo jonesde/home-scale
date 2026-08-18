@@ -40,7 +40,7 @@ Do not dilute these.
 - Every quantitative claim on an effect must be traceable to an experimental boundary or a well-established measured parameter. Node identity specs may be taken from a pinned PDG / CODATA edition.
 - Incomplete mappings stay incomplete. Do not fill a gap with conjecture in an *extracted* row. Conjecture belongs in `predicted_implication.csv` and only on the downward arrow (`design_implication.relation = predicts`).
 - A family is a filing spine (dominant collapse type). A design is a hypothesized machine. Do not invent a seventh family to hide a mismatch; record the mismatch on the entry until several effects share the leftover collapse.
-- Do not add an eleventh design for every interface or textbook chapter. Add one only when a cluster of implications has a collapse and a hardware stack that no existing design owns. Integer QHE is the core of draft `edge-channel`; a 1D constriction is contrast, not a member.
+- Do not add a thirteenth design for every interface or textbook chapter. Add one only when a cluster of implications has a collapse and a hardware stack that no existing design owns. Integer QHE is draft `edge-channel`; a 1D constriction is draft `landauer-channel` (contrast, not a member). Dilute BEC is draft `phase-space-condensate`.
 - Shared requirements often share a **kind** of cliff, not a **number**. Equating Curie, λ-point, melt, and blocking temperatures is a mapping error. See [library/derived/requirement-audit.md](library/derived/requirement-audit.md).
 - Applications name knobs and falsifiers. They are not build sequences, pressure ratings, or lab SOPs.
 
@@ -84,7 +84,7 @@ Two origins:
 
 ### Design
 
-An assembled reverse-engineered **machine specification** — a hypothesized hardware stack that several effects share. Ten first-wave machines: `collective-screening`, `anisotropy-latch`, `polar-latch`, `gapped-condensate`, `chargeless-superflow`, `energy-gate`, `oscillator-grid`, `ensemble-average`, draft `exchange-pin`, and draft `edge-channel`.
+An assembled reverse-engineered **machine specification** — a hypothesized hardware stack that several effects share. Twelve first-wave machines: `collective-screening`, `anisotropy-latch`, `polar-latch`, `gapped-condensate`, `chargeless-superflow`, `energy-gate`, `oscillator-grid`, `ensemble-average`, and drafts `exchange-pin`, `edge-channel`, `phase-space-condensate`, `landauer-channel`.
 
 **Not** intentional design, not a CAD file, not an application device. The word is used because the output looks like a spec sheet (buffer, clock, barrier, hold-power, erase). No agency is implied or permitted.
 
@@ -393,7 +393,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-First-wave load (after a clean rebuild): 59 `effect` · 171 `effect_constraint` · 474 `implication` (447 extracted, 27 predicted) · 10 `design` · 11 `node` · 33 `requirement` · 283 `implication_design` · 51 `design_requirement` · 108 `design_implication` (63 entails, 42 predicts, 3 incompatible) · 36 `implication_node` · 22 `design_node`.
+First-wave load (after a clean rebuild): 59 `effect` · 171 `effect_constraint` · 474 `implication` (447 extracted, 27 predicted) · 12 `design` · 11 `node` · 37 `requirement` · 297 `implication_design` · 58 `design_requirement` · 121 `design_implication` (74 entails, 44 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 

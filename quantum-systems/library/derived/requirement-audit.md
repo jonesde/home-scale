@@ -53,7 +53,7 @@ anisotropy-latch · polar-latch
 
 anisotropy-latch · polar-latch · gapped-condensate · chargeless-superflow · collective-screening · exchange-pin
 
-**Audit.** The number is actually the same: **0 W** (or 0 extra W for the mirror; 0 V for a persistent current). That is the cleanest join in the layer. “Hold-power test” in applications means: does the signature survive after the drive is dark?
+**Audit.** The number is actually the same: **0 W** (or 0 extra W for the mirror; 0 V for a persistent current). That is the cleanest join in the layer. “Hold-power test” in applications means: does the signature survive after the drive is dark? `phase-space-condensate` imposes the opposite spec (`not-zero-hold-power`). Do not quote 0 W as a BEC number.
 
 ### `gate-is-single-particle` — spec, satisfied, 2 designs
 
@@ -71,6 +71,8 @@ energy-gate (must) · collective-screening (should, as contrast)
 | `mesoscale-coercivity` | anisotropy-latch (must), exchange-pin (should) | *H*<sub>c</sub> ≪ *H*<sub>a</sub>; Hex |
 | `no-universal-n` | ensemble-average | Statistical buffer only |
 | `underived-hall-quantum` | edge-channel | *R_K = h/e²* |
+| `underived-conductance-quantum` | landauer-channel | \(2e^2/h\) |
+| `phase-space-threshold-taken` | phase-space-condensate | \(n\lambda^3\simeq 2.612\) |
 
 **Audit.** These are honest. Do not fill them with a guessed node count to make an application look closed.
 
@@ -78,11 +80,11 @@ energy-gate (must) · collective-screening (should, as contrast)
 
 ## Tension, not a failed spec
 
-### `bec-not-this-condensate` — consistency, **tension**, 2 designs
+### `bec-not-this-condensate` — consistency, **tension**, 3 designs
 
-gapped-condensate (must) · chargeless-superflow (should)
+gapped-condensate (must) · chargeless-superflow (should) · phase-space-condensate (must)
 
-**Audit.** Status `tension` is correct: BEC shares a thermal/density cliff and winding, and refuses a pairing gap and zero-power hold. Keep BEC as contrast. Do not “fix” the tension by inventing a gap.
+**Audit.** Status `tension` stays: the leftover now has a home (`phase-space-condensate`) and still must not be folded into the pairing condensate or He-4. Do not “fix” the tension by inventing a gap or a 0 W hold.
 
 ---
 
@@ -107,5 +109,6 @@ Use these as **coupled tests**, not as extra knobs.
 - Calling London *λ* the optical skin.
 - Filing QHE or BEC as `gapped-condensate` members.
 - Filing a quantum point contact as `edge-channel` (or quoting `2e²/h` as *R_K*).
-- Closing *R_K* with a Chern-number story.
+- Closing *R_K* or \(2e^2/h\) with a Chern-number / Landauer derivation story.
+- Quoting \(T_c(n)\) as \(T_\lambda\) or as a 0 W latch number.
 - Treating defined *k* or *σ* as extracted machine constants.

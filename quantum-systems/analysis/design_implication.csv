@@ -85,6 +85,19 @@ edge-channel,quantum-hall-effect:consistency_gap:underived-rk,entails,must,RK ta
 edge-channel,predicted:quantum-hall-effect:not-a-pairing-condensate,predicts,must,Not the pairing condensate.
 edge-channel,predicted:edge-channel:qpc-is-not-this-edge,predicts,must,QPC stays off this machine.
 edge-channel,predicted:edge-channel:qshe-cousin-if-filed,predicts,should,Second core member not yet filed.
+phase-space-condensate,bose-einstein-condensate:hardware_scale:phase-space-density,entails,must,
+phase-space-condensate,bose-einstein-condensate:energy_barrier:tc-n,entails,must,
+phase-space-condensate,bose-einstein-condensate:failure_mode:above-tc,entails,must,
+phase-space-condensate,bose-einstein-condensate:failure_mode:density-drop,entails,must,
+phase-space-condensate,bose-einstein-condensate:emergent_output:mode-occupation,entails,must,
+phase-space-condensate,bose-einstein-condensate:consistency_gap:family-tension,entails,must,
+phase-space-condensate,predicted:bose-einstein-condensate:no-fountain-in-dilute-cloud,predicts,must,Not chargeless-superflow.
+landauer-channel,quantum-point-contact:hardware_scale:ballistic-constriction,entails,must,
+landauer-channel,quantum-point-contact:energy_barrier:subband-edges,entails,must,
+landauer-channel,quantum-point-contact:failure_mode:pinch-off,entails,must,
+landauer-channel,quantum-point-contact:emergent_output:two-e-squared-over-h,entails,must,
+landauer-channel,quantum-point-contact:consistency_gap:not-qhe,entails,must,
+landauer-channel,predicted:edge-channel:qpc-is-not-this-edge,predicts,must,Same split seen from this side.
 oscillator-grid,phonon-dispersion:hardware_scale:crystalline-grid,entails,must,
 oscillator-grid,phonon-dispersion:clock_latency:allowed-clock-table,entails,must,ω(q).
 oscillator-grid,debye-cutoff:hardware_scale:three-n-modes,entails,must,3N.

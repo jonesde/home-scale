@@ -92,6 +92,8 @@ The mapping does not close at the same level as [josephson-effect](josephson-eff
 2. **No sharp hardware cliff.** \(N \sim 10^3\)–\(10^7\) is a working envelope, not a derived minimum node count. QSA here *takes* the measured phase-space condition as the specification; it does not obtain \(2.612\) from node rules.
 3. **Continuous resources.** Unlike a permanent magnet or a trapped fluxoid, the laboratory condensate is not held at zero continuous power. That does not eject it from the family, but it means this is not a latch.
 
+The leftover stack is assembled as draft `phase-space-condensate` in the analysis layer. Contrast on `gapped-condensate` and `chargeless-superflow` stays. That names the home; it does not invent a pairing gap or a 0 W hold.
+
 Relation to [superfluid-helium-4](superfluid-helium-4.md) is analogical. Liquid helium is dense and strongly interacting and has a sharp \(T_\lambda\) at \(2.17\,\mathrm{K}\); alkali BECs are dilute and have a \(T_c\) set by \(n\). They share a thermal coherence cliff and quantized winding; they are not the same hardware. No claim is made about “what the condensate is.”
 
 ### 4.7 Overall Confidence in the QSA Mapping

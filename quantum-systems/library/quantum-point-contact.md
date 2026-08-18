@@ -63,7 +63,9 @@ Recorded as descriptive relations, not as axioms. Landauer: each occupied 1D mod
 
 ### 4.6 Internal Consistency Notes
 
-This is **not** [quantum-hall-effect](quantum-hall-effect.md). QHE needs a perpendicular field, a bulk gap, and an edge path, and outputs \(h/\nu e^2\) Hall resistance. A QPC needs no \(B\) and outputs two-terminal \(2e^2/h\) steps. Same \(h,e\) bricks; different machine. Do not mint a tenth design that swallows both.
+This is **not** [quantum-hall-effect](quantum-hall-effect.md). QHE needs a perpendicular field, a bulk gap, and an edge path, and outputs \(h/\nu e^2\) Hall resistance. A QPC needs no \(B\) and outputs two-terminal \(2e^2/h\) steps. Same \(h,e\) bricks; different machine.
+
+The constriction stack is assembled as draft `landauer-channel`. Contrast on `edge-channel` stays. Do not fold the two designs together.
 
 The quantized value is taken from Landauer / metrology, the same class of underived output as \(R_K\). Mapping is Medium for that reason and for the 0.7 feature being out of scope.
 

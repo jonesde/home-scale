@@ -282,5 +282,19 @@ quantum-point-contact:consistency_gap:not-qhe,edge-channel,contrast,1D constrict
 quantum-point-contact:emergent_output:two-e-squared-over-h,edge-channel,contrast,2e²/h is not RH
 aharonov-bohm:emergent_output:h-over-e,edge-channel,contrast,Interferometer h/e is not this Hall plateau
 aharonov-bohm:consistency_gap:not-pair-quantum,edge-channel,contrast,Same brick different machine
+bose-einstein-condensate:hardware_scale:phase-space-density,phase-space-condensate,core,n λth³ ≃ 2.612
+bose-einstein-condensate:hardware_scale:working-envelope,phase-space-condensate,core,N envelope not a cliff
+bose-einstein-condensate:energy_barrier:tc-n,phase-space-condensate,core,Tc(n)
+bose-einstein-condensate:failure_mode:above-tc,phase-space-condensate,core,
+bose-einstein-condensate:failure_mode:density-drop,phase-space-condensate,core,
+bose-einstein-condensate:emergent_output:mode-occupation,phase-space-condensate,core,
+bose-einstein-condensate:consistency_gap:family-tension,phase-space-condensate,core,Loose family name owned here
+bose-einstein-condensate:clock_latency:trap-apparatus,phase-space-condensate,supporting,Apparatus clock
+quantum-point-contact:hardware_scale:ballistic-constriction,landauer-channel,core,
+quantum-point-contact:energy_barrier:subband-edges,landauer-channel,core,
+quantum-point-contact:failure_mode:pinch-off,landauer-channel,core,
+quantum-point-contact:emergent_output:two-e-squared-over-h,landauer-channel,core,
+quantum-point-contact:consistency_gap:not-qhe,landauer-channel,core,
+quantum-point-contact:clock_latency:transit,landauer-channel,supporting,
 
 

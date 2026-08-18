@@ -153,4 +153,34 @@ A superparamagnetic FM grain cannot hold Hex.
 | Dominant erase | Off-plateau *ν*; in-plane *B*; *kT* or Hall field vs gap; lost 2DEG | Graphene high-*T* integer plateaus sit on the same gap-vs-*kT* clause |
 | Open | *R_K = h/e²* taken; why the edge path forces *R_H* is not derived | `underived-hall-quantum` |
 
-Integer QHE is the core artifact. A 1D constriction (`2e²/h`, no *B*) is contrast. Fractional plateaus stay out. Draft until a second core effect (QSHE / QAHE) is filed.
+Integer QHE is the core artifact. A 1D constriction (`2e²/h`, no *B*) is contrast (`landauer-channel`). Fractional plateaus stay out. Draft until a second core effect (QSHE / QAHE) is filed.
+
+---
+
+## phase-space-condensate
+
+| Spec | Commitment | Source class |
+|---|---|---|
+| Buffer | Phase-space density \(n\lambda_{\mathrm{th}}^3 \simeq 2.612\) | Taken ideal-gas line; \(N\sim 10^3\)–\(10^7\) is a working envelope |
+| Clock | Trap frequencies (apparatus) | No \(2e/h\) lock |
+| Barrier | \(T_c(n)\) / critical density | Not a pairing gap; not *KV* |
+| Hold-power | Continuous trap + cool | `not-zero-hold-power` |
+| Dominant erase | \(T > T_c(n)\); density drop; trap loss | Same cliff two ways |
+| Open | \(2.612\) taken; family name still loose | `phase-space-threshold-taken` |
+
+Contrast: pairing condensate, He-4 fountain/superleak, 0 W latch. Draft.
+
+---
+
+## landauer-channel
+
+| Spec | Commitment | Source class |
+|---|---|---|
+| Buffer | Ballistic constriction, width \(\sim\lambda_F\), \(L <\) mfp | 2DEG is the reservoir, not the Hall buffer |
+| Clock | Fermi transit through the saddle | DC staircase |
+| Barrier | 1D subband edges | Pinch-off closes the last mode |
+| Hold-power | n/a — driven conductance | Not a latch |
+| Dominant erase | Pinch-off; \(kT\) smears subbands; dirty / long channel | No *B* required |
+| Open | \(2e^2/h\) taken; 0.7 feature out of scope | `underived-conductance-quantum` |
+
+Contrast: `edge-channel` Hall plateau. Draft.
