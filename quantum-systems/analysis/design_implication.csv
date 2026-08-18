@@ -98,6 +98,26 @@ landauer-channel,quantum-point-contact:failure_mode:pinch-off,entails,must,
 landauer-channel,quantum-point-contact:emergent_output:two-e-squared-over-h,entails,must,
 landauer-channel,quantum-point-contact:consistency_gap:not-qhe,entails,must,
 landauer-channel,predicted:edge-channel:qpc-is-not-this-edge,predicts,must,Same split seen from this side.
+phase-space-condensate,predicted:bose-einstein-condensate:trap-off-is-null,predicts,must,Atomic form of not-zero-hold-power.
+phase-space-condensate,predicted:bose-einstein-condensate:no-meissner-no-london,predicts,must,Not a London superconductor.
+phase-space-condensate,predicted:superfluid-helium-4:tl-is-not-tc-n,predicts,must,Tλ is not Tc(n).
+chargeless-superflow,predicted:superfluid-helium-4:tl-is-not-tc-n,predicts,should,Same split seen from the He-4 side.
+landauer-channel,predicted:quantum-point-contact:steps-survive-at-zero-b,predicts,must,No Landau ladder required.
+landauer-channel,predicted:coulomb-blockade:diamonds-are-not-landauer-steps,predicts,must,Charging is a different machine.
+energy-gate,predicted:coulomb-blockade:diamonds-are-not-landauer-steps,predicts,should,Same split seen from the gate side.
+edge-channel,predicted:cyclotron-resonance:same-omega-c-not-a-plateau,predicts,should,Same eB/m; different output.
+edge-channel,predicted:coulomb-blockade:rq-is-not-rk,predicts,must,RQ floor is not a Hall plateau.
+energy-gate,predicted:coulomb-blockade:rq-is-not-rk,predicts,should,Same h/e² bricks; different role.
+energy-gate,predicted:deuteron-photodisintegration:photon-is-not-a-muon,predicts,must,Opposite arrow on the same two nucleons.
+energy-gate,predicted:pyroelectric-fusion:muon-free-still-not-mucf,predicts,must,Pyro neutrons do not die with τμ.
+energy-gate,predicted:coulomb-blockade:ec-is-not-phi,predicts,must,Charging is not the surface work function.
+energy-gate,predicted:coherent-neutrino-scattering:no-ibd-threshold,predicts,should,Coherence window, not a 1.8 MeV gate.
+oscillator-grid,predicted:mossbauer-effect:f-dies-at-tm,predicts,must,Third melt twin.
+polar-latch,predicted:pyroelectric-fusion:dies-above-host-tc,predicts,must,Field engine dies with the polar host.
+collective-screening,predicted:casimir-force:starved-faces-kill-force,predicts,should,Screening starvation starves Casimir contrast.
+energy-gate,deuteron-photodisintegration:failure_mode:under-threshold,entails,must,Under-threshold non-occurrence of the unbinding gate.
+energy-gate,pyroelectric-fusion:consistency_gap:not-mucf-not-lenr,entails,must,Commits to the split from μCF and the hydride cell.
+oscillator-grid,mossbauer-effect:consistency_gap:line-not-underthreshold,entails,should,14.4 keV is the payload, not an energy-gate cliff.
 oscillator-grid,phonon-dispersion:hardware_scale:crystalline-grid,entails,must,
 oscillator-grid,phonon-dispersion:clock_latency:allowed-clock-table,entails,must,ω(q).
 oscillator-grid,debye-cutoff:hardware_scale:three-n-modes,entails,must,3N.

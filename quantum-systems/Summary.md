@@ -56,10 +56,10 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 | Mapping confidence | 30 High · 29 Medium · 0 Low | per-file frontmatter |
 | Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) and [pyroelectric-fusion](library/pyroelectric-fusion.md) (Medium) | same |
 | Extracted implications | 447 | `analysis/fragments/*.jsonl` |
-| Predicted implications | 27 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
+| Predicted implications | 41 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
 | Designs | 12 (8 formal; four drafts) | [analysis/design.csv](analysis/design.csv) |
 | Nodes | 11 forced | [library/nodes/INDEX.md](library/nodes/INDEX.md) |
-| Requirements | 37 | [analysis/requirement.csv](analysis/requirement.csv) |
+| Requirements | 38 | [analysis/requirement.csv](analysis/requirement.csv) |
 | Applications | 6 | [application/README.md](application/README.md) |
 | Derived notes | spec sheets + requirement audit | [library/derived/](library/derived/README.md) |
 
@@ -100,10 +100,10 @@ Shared requirements often share a **kind** of cliff, not a **number**. See [libr
 Prefer, in order:
 
 1. Tighten a Medium mapping — statistical buffer, mesoscale step (*H*<sub>c</sub> ≪ *H*<sub>a</sub>, *E*<sub>c</sub>, pinning after *H*<sub>c1</sub>), or a taken rather than derived constant.
-2. Correct fragment rows so `observed_text` still quotes the file; rebuild; keep derived sheets in sync.
+2. Correct fragment rows so `observed_text` still quotes the file; rebuild; keep derived sheets in sync. The μCF-era design-down predicted hunt is done (41 predicted rows). Do not mint a second wave unless a new machine or a new formal file creates a coupled test that slate missed.
 3. Add a new effect only when the collapse is sharp and is not already a clause on an existing entry. Update [library/INDEX.md](library/INDEX.md) in the same change.
 4. Add a thirteenth design only when a hardware stack and collapse are not already owned. Do not invent one for every interface. Drafts `phase-space-condensate` and `landauer-channel` own the BEC and QPC leftovers; do not fold them into He-4 or `edge-channel`.
-5. Add a `cataloged` node only under the admission filter in [library/nodes/README.md](library/nodes/README.md) (parent of a forced node, or already named as hardware). Do not vendor PDG. Proton / neutron are the likely next pair; muon and the dark-sector list stay out until a file names them.
+5. Add a `cataloged` node only under the admission filter in [library/nodes/README.md](library/nodes/README.md) (parent of a forced node, or already named as hardware). Do not vendor PDG. The dark-sector list stays out until a file names those species.
 
 Applications stay mappings and falsifiers, not protocols. EM-LENR waits on Steven’s review for the nuclear/configuration claim; isolate the interstitial latch first.
 

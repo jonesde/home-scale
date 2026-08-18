@@ -17,7 +17,7 @@ Constraint reasoning still locates the machine from the erase row. This note onl
 | | |
 |---|---|
 | **Inside** | Connected metal / polarizable volume ≳ optical *δ* or RF skin; drive *ω* below *ω_p* (or the Ag interband-shifted edge); incident field present. Output is a re-radiated beam / confined AC current. Extra hold-power 0 W. |
-| **Outside** | Thickness / percolation ≲ 5–10 nm, or *ω* above the plasma / interband edge. |
+| **Outside** | Thickness / percolation ≲ 5–10 nm, or *ω* above the plasma / interband edge. Conducting-plate Casimir contrast dies with the same starved faces. |
 
 Nodes: `electron` as `population`; `photon` as `input`.
 
@@ -39,7 +39,7 @@ Nodes: `directional-moment` as `latch-cell`; `ion` as `matrix`.
 | | |
 |---|---|
 | **Inside** | Polar volume that stands depolarization; *T < T_C*; *E* = 0. Remanent *P* at 0 W. |
-| **Outside** | *T > T_C*; *E > E_c*; volume too small. *E_c* / dead layer still mesoscale. |
+| **Outside** | *T > T_C*; *E > E_c*; volume too small. *E_c* / dead layer still mesoscale. A pyroelectric D–D burst dies with the host *T_C* even if D remains. |
 
 Nodes: `directional-moment` as `latch-cell`; `ion` as `matrix`.
 
@@ -61,7 +61,7 @@ Node: `electron` as `population`. The 2*e* increment is not a node.
 | | |
 |---|---|
 | **Inside** | Connected ⁴He with *ρ_s* > 0; *T < T_λ*; *v < v_c*. Persistent circulation *h*/*m*₄ at 0 W. |
-| **Outside** | *T > T_λ*; *v > v_c*; solidification. No London *λ*, no *χ* = −1. |
+| **Outside** | *T > T_λ*; *v > v_c*; solidification. No London *λ*, no *χ* = −1. *T_λ* does not track dilute-cloud *T_c(n)*. |
 
 No first-wave node.
 
@@ -72,7 +72,7 @@ No first-wave node.
 | | |
 |---|---|
 | **Inside** | Input at or above the named gate (*φ*, *E_g*, *I*, *E_b*, 2*m_e c*², *B_d*, *E_c*, or a pyro / muon opener). One event is *N* = 1 (or one ν+A). The product leaves. |
-| **Outside** | Under-threshold input (non-occurrence). Pair channel also closed in empty space. μCF also closed with no muon. Pyro-fusion closed with no Δ*T* or no D. CEνNS leaves the *N*² window when *qR* ≳ 1. |
+| **Outside** | Under-threshold input (non-occurrence). Pair channel also closed in empty space. μCF also closed with no muon. Pyro-fusion closed with no Δ*T* or no D, and is not a *τ_μ* cycle. CEνNS leaves the *N*² window when *qR* ≳ 1; it does not turn on at the 1.8 MeV IBD gate. *E_c* is not *φ*. |
 
 Nodes: `electron` `single`; `photon` `input`; `positron` `product`; `nucleus` `recoil`; `muon` / `neutrino` `input`; `proton` / `neutron` `product`.
 
@@ -83,7 +83,7 @@ Nodes: `electron` `single`; `photon` `input`; `positron` `product`; `nucleus` `r
 | | |
 |---|---|
 | **Inside** | Ordered ion grid; drive on an allowed *ω*(**q**) below *ω_D*; *T* below *T_m*; *ℓ* finite for heat current. Long-wave *v_s* = √(*C*/*ρ*). |
-| **Outside** | *ω > ω_D* (mode absent); *T → T_m*; yield / fracture; *ℓ* collapsed. |
+| **Outside** | *ω > ω_D* (mode absent); *T → T_m* (shear, crystal *κ*, and Mössbauer *f* together); yield / fracture; *ℓ* collapsed. |
 
 Nodes: `ion` `matrix`; `phonon` `mode`.
 
@@ -116,7 +116,7 @@ Node: `directional-moment` as `latch-cell`.
 | | |
 |---|---|
 | **Inside** | 2DEG; perpendicular *B* sitting in a Landau/mobility gap; *kT* and Hall field small compared with the gap. *R_H = R_K/ν*, *R_xx → 0*. Current on the edge. |
-| **Outside** | Off-plateau filling; in-plane *B*; *T* or current too high; 2DEG lost. A 1D constriction (no *B*) is a different machine. |
+| **Outside** | Off-plateau filling; in-plane *B*; *T* or current too high; 2DEG lost. A 1D constriction (no *B*) is a different machine. Off-resonance cyclotron absorption is not this erase. *R_Q* is not *R_K*. |
 
 Node: `electron` as `edge`. Not a latch; the plateau is a driven DC resistance.
 
@@ -127,7 +127,7 @@ Node: `electron` as `edge`. Not a latch; the plateau is a driven DC resistance.
 | | |
 |---|---|
 | **Inside** | \(n\lambda_{\mathrm{th}}^3\) above the ideal-gas line; trap and cooling on. Condensate fraction and interference contrast. |
-| **Outside** | \(T > T_c(n)\); density drop; trap off. Not a fountain, not *R* = 0, not 0 W remanence. |
+| **Outside** | \(T > T_c(n)\); density drop; trap off. Not a fountain, not *R* = 0, not 0 W remanence, not Meissner / London *λ*. *T_λ* is not *T_c(n)*. |
 
 No first-wave node. Continuous hold resources.
 
@@ -138,6 +138,6 @@ No first-wave node. Continuous hold resources.
 | | |
 |---|---|
 | **Inside** | Ballistic constriction; last mode open; \(kT\) below subband spacing. \(G = n\times 2e^2/h\). Zero or in-plane *B* is allowed. |
-| **Outside** | Pinch-off; thermal smear; dirty/long channel. A Hall plateau at \(R_K/\nu\) is a different machine. |
+| **Outside** | Pinch-off; thermal smear; dirty/long channel. A Hall plateau at \(R_K/\nu\) is a different machine. Charging diamonds are a different machine. Zero / in-plane *B* is still inside. |
 
 Node: `electron` as `population` (1D modes).

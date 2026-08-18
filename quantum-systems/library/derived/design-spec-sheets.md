@@ -22,7 +22,7 @@ These are assembly commitments, not new measurements. The inside of each cliff i
 | Dominant erase | Thickness / percolation ≲ 5–10 nm, or drive above the plasma / interband edge | Two routes, one machine |
 | Open | δ and √(2/ωμσ) are taken, not derived from a node count | `underived-penetration-depth` |
 
-Incompatible with “this hardware is N = 1 electron” (that is `energy-gate` / photoelectric).
+Incompatible with “this hardware is N = 1 electron” (that is `energy-gate` / photoelectric). Island or plasma-transparent faces also starve conducting-plate Casimir contrast.
 
 ---
 
@@ -49,8 +49,10 @@ Sample size is capacity, not a second cliff. Unlocked Curie *χ* is not this bar
 | Clock | Ionic / soft-mode class (THz), write is *P*–*E* sweep | Not a hold clock |
 | Barrier | Lattice-locked double well below *T*<sub>C</sub> | Write at *E*<sub>c</sub> |
 | Hold-power | 0 W at *E* = 0 | Remanent *P* |
-| Dominant erase | *T* > *T*<sub>C</sub>; *E* > *E*<sub>c</sub>; volume too small | BaTiO₃ *T*<sub>C</sub> ≈ 393 K |
+| Dominant erase | *T* > *T*<sub>C</sub>; *E* > *E*<sub>c</sub>; volume too small | BaTiO₃ *T*<sub>C</sub> ≈ 393 K; LiTaO₃ ~890 K |
 | Open | *E*<sub>c</sub> / dead layer | Electrical twin of mesoscale coercivity |
+
+A pyroelectric D–D neutron burst dies with the host *T*<sub>C</sub> even if deuterium remains.
 
 ---
 
@@ -80,7 +82,7 @@ Not a dilute BEC. Not integer QHE.
 | Dominant erase | *T* > *T*λ; *v* > *v*<sub>c</sub>; solidification | |
 | Open | Family name “gapped” is loose | `gapped-name-loose` |
 
-No London *λ*. No *χ* = −1.
+No London *λ*. No *χ* = −1. *T*<sub>λ</sub> is not a dilute-cloud *T<sub>c</sub>(n)*.
 
 ---
 
@@ -95,7 +97,7 @@ No London *λ*. No *χ* = −1.
 | Dominant erase | Under-threshold input (non-occurrence) | Pair production also needs a recoil partner; μCF also needs a muon |
 | Open | Most gate energies taken, not derived | Pair 2*mₑc*² is the clean identity |
 
-*φ* is not *ω*<sub>p</sub>. Same face should share *φ* for photo and thermionic.
+*φ* is not *ω*<sub>p</sub>. Same face should share *φ* for photo and thermionic. *E<sub>c</sub>* is not *φ*. A photodisintegration photon is not a muon. Pyroelectric neutrons do not die with *τ<sub>μ</sub>*. *R<sub>Q</sub>* is not *R<sub>K</sub>*.
 
 ---
 
@@ -110,7 +112,7 @@ No London *λ*. No *χ* = −1.
 | Dominant erase | *T* → *T*<sub>m</sub> (Bragg gone, *G* → 0); yield / fracture; *ω* > *ω*<sub>D</sub> | Ice 273 K; Al 933 K; W 3695 K |
 | Open | *T*<sub>m</sub> and moduli / *λ*<sub>s</sub> / *d* / *α* taken | Lindemann is a criterion |
 
-Shear sound dies at melt; a liquid still carries a longitudinal speed.
+Shear sound, crystal phonon *κ*, and Mössbauer *f* die together at melt; a liquid still carries a longitudinal speed. The 14.4 keV line is the payload, not an under-threshold gate.
 
 ---
 
@@ -153,7 +155,7 @@ A superparamagnetic FM grain cannot hold Hex.
 | Dominant erase | Off-plateau *ν*; in-plane *B*; *kT* or Hall field vs gap; lost 2DEG | Graphene high-*T* integer plateaus sit on the same gap-vs-*kT* clause |
 | Open | *R_K = h/e²* taken; why the edge path forces *R_H* is not derived | `underived-hall-quantum` |
 
-Integer QHE is the core artifact. A 1D constriction (`2e²/h`, no *B*) is contrast (`landauer-channel`). Fractional plateaus stay out. Draft until a second core effect (QSHE / QAHE) is filed.
+Integer QHE is the core artifact. A 1D constriction (`2e²/h`, no *B*) is contrast (`landauer-channel`). The cyclotron *m\** line is the same *eB/m* combination, not this plateau. *R<sub>Q</sub>* as a tunnel floor is not *R<sub>K</sub>*. Fractional plateaus stay out. Draft until a second core effect (QSHE / QAHE) is filed.
 
 ---
 
@@ -168,7 +170,7 @@ Integer QHE is the core artifact. A 1D constriction (`2e²/h`, no *B*) is contra
 | Dominant erase | \(T > T_c(n)\); density drop; trap loss | Same cliff two ways |
 | Open | \(2.612\) taken; family name still loose | `phase-space-threshold-taken` |
 
-Contrast: pairing condensate, He-4 fountain/superleak, 0 W latch. Draft.
+Contrast: pairing condensate, He-4 fountain/superleak, 0 W latch, Meissner / London *λ*. Trap off ⇒ laboratory condensate gone. *T<sub>λ</sub>* is not *T<sub>c</sub>(n)*. Draft.
 
 ---
 
@@ -183,4 +185,4 @@ Contrast: pairing condensate, He-4 fountain/superleak, 0 W latch. Draft.
 | Dominant erase | Pinch-off; \(kT\) smears subbands; dirty / long channel | No *B* required |
 | Open | \(2e^2/h\) taken; 0.7 feature out of scope | `underived-conductance-quantum` |
 
-Contrast: `edge-channel` Hall plateau. Draft.
+Contrast: `edge-channel` Hall plateau. Steps persist at *B* = 0. Charging diamonds are a different machine. Draft.

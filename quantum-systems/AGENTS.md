@@ -393,7 +393,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-First-wave load (after a clean rebuild): 59 `effect` · 171 `effect_constraint` · 474 `implication` (447 extracted, 27 predicted) · 12 `design` · 11 `node` · 37 `requirement` · 297 `implication_design` · 58 `design_requirement` · 121 `design_implication` (74 entails, 44 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node`.
+First-wave load (after a clean rebuild): 59 `effect` · 171 `effect_constraint` · 488 `implication` (447 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 297 `implication_design` · 59 `design_requirement` · 141 `design_implication` (77 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 

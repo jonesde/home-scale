@@ -3,7 +3,7 @@ collective-screening,zero-hold-power,must,No extra power beyond the incident fie
 collective-screening,connected-spatial-buffer,must,10–20 nm connected metal / optical penetration.
 collective-screening,one-plasma-clock,must,One ωp class per metal.
 collective-screening,underived-penetration-depth,must,δ and classical skin depth are taken.
-collective-screening,coupled-screening-failure,must,Thickness cliff is shared by R SPR and the plasma edge.
+collective-screening,coupled-screening-failure,must,Thickness cliff is shared by R SPR the plasma edge and Casimir conducting contrast.
 collective-screening,gate-is-single-particle,should,Contrast: photoelectric on the same surface is N=1.
 anisotropy-latch,zero-hold-power,must,Hold costs zero; write costs the loop area.
 anisotropy-latch,thermal-cliff,must,Curie point.
@@ -37,6 +37,7 @@ oscillator-grid,thermal-cliff,must,Melting is grid loss.
 oscillator-grid,finite-mode-count,must,3N and ωD.
 oscillator-grid,melting-not-derived,must,Tm taken.
 oscillator-grid,underived-grid-couplings,must,Moduli λs d α taken.
+oscillator-grid,coupled-grid-loss,must,Shear κ and Mössbauer f die together at Tm.
 ensemble-average,no-universal-n,must,Statistical buffer only.
 ensemble-average,defined-constants-not-extracted,must,k and σ are defined.
 ensemble-average,average-replaced-by-order,must,Latch or gap replaces the contributing population.

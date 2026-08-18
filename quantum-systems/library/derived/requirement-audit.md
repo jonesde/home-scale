@@ -92,13 +92,16 @@ gapped-condensate (must) · chargeless-superflow (should) · phase-space-condens
 
 | Requirement | Meaning for applications |
 |---|---|
-| `coupled-screening-failure` | A starved Ag film should lose *R*, SPR, and go plasma-transparent together |
+| `coupled-screening-failure` | A starved Ag film should lose *R*, SPR, go plasma-transparent, and lose conducting-plate Casimir contrast together |
 | `average-replaced-by-order` | When a latch or gap opens, *χ* ~ 1/*T* and *γT* are the wrong readout |
 | `split-r0-and-expulsion` | Type-II mixed state: *R* = 0 can outlive *χ* = −1 |
 | `qpc-is-not-this-edge` | A 1D constriction’s `2e²/h` steps are not a Hall plateau |
 | `hall-gap-not-pairing` | Landau / mobility gap is not 2Δ |
+| `coupled-grid-loss` | Shear speed, crystal *κ*, and Mössbauer *f* fail together at *T*<sub>m</sub> |
 
 Use these as **coupled tests**, not as extra knobs.
+
+`coupled-grid-loss` is imposed only by `oscillator-grid`. The number is each host’s *T*<sub>m</sub> (ice 273 K … W 3695 K). It is the same *kind* as `thermal-cliff`, not Curie, *T*<sub>λ</sub>, or *T<sub>c</sub>(n)*.
 
 ---
 
@@ -112,3 +115,6 @@ Use these as **coupled tests**, not as extra knobs.
 - Closing *R_K* or \(2e^2/h\) with a Chern-number / Landauer derivation story.
 - Quoting \(T_c(n)\) as \(T_\lambda\) or as a 0 W latch number.
 - Treating defined *k* or *σ* as extracted machine constants.
+- Identifying *E<sub>c</sub>* with *φ*, or *R<sub>Q</sub>* with *R<sub>K</sub>*.
+- Quoting *T<sub>m</sub>* as Curie or as *T<sub>λ</sub>*.
+- Filing pyroelectric D–D neutrons or a 2.224 MeV *γ* as a muon-catalyzed cycle.
