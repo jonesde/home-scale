@@ -139,3 +139,18 @@ Shear sound dies at melt; a liquid still carries a longitudinal speed.
 | Open | *J*<sub>ex</sub> / *T*<sub>B</sub>/*T*<sub>N</sub> taken | Draft design |
 
 A superparamagnetic FM grain cannot hold Hex.
+
+---
+
+## edge-channel
+
+| Spec | Commitment | Source class |
+|---|---|---|
+| Buffer | 2DEG; after the bulk is gapped, current lives on the edge | 3D metal is the wrong buffer; *ℓ_B* = √(ℏ/*eB*) |
+| Clock | Cyclotron *ω_c = eB/m* | Same combination as cyclotron resonance; output is DC |
+| Barrier | Landau / mobility gap | Perpendicular *B* opens the ladder |
+| Hold-power | n/a — driven DC plateau, not a latch | Do not attach `zero-hold-power` |
+| Dominant erase | Off-plateau *ν*; in-plane *B*; *kT* or Hall field vs gap; lost 2DEG | Graphene high-*T* integer plateaus sit on the same gap-vs-*kT* clause |
+| Open | *R_K = h/e²* taken; why the edge path forces *R_H* is not derived | `underived-hall-quantum` |
+
+Integer QHE is the core artifact. A 1D constriction (`2e²/h`, no *B*) is contrast. Fractional plateaus stay out. Draft until a second core effect (QSHE / QAHE) is filed.

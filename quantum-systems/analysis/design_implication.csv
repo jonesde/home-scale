@@ -74,6 +74,17 @@ gapped-condensate,quantum-point-contact:consistency_gap:not-qhe,predicts,should,
 gapped-condensate,aharonov-bohm:consistency_gap:not-pair-quantum,predicts,should,h/e stays off the pair increment.
 oscillator-grid,mossbauer-effect:failure_mode:no-lattice,entails,should,Recoilless channel dies with the grid.
 polar-latch,pyroelectric-fusion:hardware_scale:crystal-plus-d,predicts,should,Polar engine can write a beam voltage.
+edge-channel,quantum-hall-effect:hardware_scale:2deg,entails,must,2DEG.
+edge-channel,quantum-hall-effect:clock_latency:cyclotron,entails,must,ωc.
+edge-channel,quantum-hall-effect:energy_barrier:landau-gap,entails,must,Landau/mobility gap.
+edge-channel,quantum-hall-effect:failure_mode:in-plane-b,entails,must,In-plane B is a non-occurrence.
+edge-channel,quantum-hall-effect:failure_mode:off-plateau,entails,must,
+edge-channel,quantum-hall-effect:failure_mode:thermal-current,entails,must,
+edge-channel,quantum-hall-effect:emergent_output:rk-plateau,entails,must,RH = h/νe².
+edge-channel,quantum-hall-effect:consistency_gap:underived-rk,entails,must,RK taken.
+edge-channel,predicted:quantum-hall-effect:not-a-pairing-condensate,predicts,must,Not the pairing condensate.
+edge-channel,predicted:edge-channel:qpc-is-not-this-edge,predicts,must,QPC stays off this machine.
+edge-channel,predicted:edge-channel:qshe-cousin-if-filed,predicts,should,Second core member not yet filed.
 oscillator-grid,phonon-dispersion:hardware_scale:crystalline-grid,entails,must,
 oscillator-grid,phonon-dispersion:clock_latency:allowed-clock-table,entails,must,ω(q).
 oscillator-grid,debye-cutoff:hardware_scale:three-n-modes,entails,must,3N.

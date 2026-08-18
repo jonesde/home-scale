@@ -4,7 +4,7 @@ Markdown in [`library/`](../library/) is the science source of truth. This direc
 
 Working database: `qs-analysis.db` at the repo root. It is a local build artifact (gitignored). Commit the text: `fragments/*.jsonl`, `implication.csv`, `predicted_implication.csv`, `design*.csv`, `schema.sql`.
 
-First load: 59 `effect` · 171 `effect_constraint` · 472 `implication` (447 extracted, 25 predicted) · 9 `design` · 11 `node` (all `forced`) · 28 `requirement` · 269 `implication_design` · 46 `design_requirement` · 97 `design_implication` (55 entails, 39 predicts, 3 incompatible) · 36 `implication_node` · 21 `design_node`. 71 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
+First load: 59 `effect` · 171 `effect_constraint` · 474 `implication` (447 extracted, 27 predicted) · 10 `design` · 11 `node` (all `forced`) · 33 `requirement` · 283 `implication_design` · 51 `design_requirement` · 108 `design_implication` (63 entails, 42 predicts, 3 incompatible) · 36 `implication_node` · 22 `design_node`. 79 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
 
 Rebuild (stdlib Python 3 only — no pip):
 
@@ -114,8 +114,9 @@ A requirement with no design edge is a rebuild error. A design with no requireme
 | `oscillator-grid` | formal | Ion grid as coupled oscillators |
 | `ensemble-average` | formal | Stable macro number from a large population |
 | `exchange-pin` | draft | Ninth: nested AFM/FM pin; collapse is *T*<sub>B</sub> not FM *T*<sub>C</sub> |
+| `edge-channel` | draft | Tenth: 2DEG + bulk gap + edge path; integer *R_H = h/νe²* |
 
-`quantum-hall-effect` is intentionally unmapped. It has distinct hardware (2DEG + Landau gap + edge channel). Add a tenth design when that assembly is worth a row, not before. The 2DEG electron is a `forced` node (`implication_node`); no design consumes the `edge` role yet. That leftover is queryable.
+`quantum-hall-effect` is the **core** of draft `edge-channel`. It stays contrast on `gapped-condensate`. A quantum point contact (`2e²/h`, no *B*) is contrast on `edge-channel`, not a member. `design_node` consumes `electron` @ `edge`. Promote to formal when a second core effect (QSHE / QAHE) is filed. Do not close *R_K* with a Chern-number story.
 
 ### First-wave nodes
 

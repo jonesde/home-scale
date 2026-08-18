@@ -70,6 +70,7 @@ energy-gate (must) · collective-screening (should, as contrast)
 | `underived-penetration-depth` | screening (must), condensate (should) | δ, skin √, London *λ* |
 | `mesoscale-coercivity` | anisotropy-latch (must), exchange-pin (should) | *H*<sub>c</sub> ≪ *H*<sub>a</sub>; Hex |
 | `no-universal-n` | ensemble-average | Statistical buffer only |
+| `underived-hall-quantum` | edge-channel | *R_K = h/e²* |
 
 **Audit.** These are honest. Do not fill them with a guessed node count to make an application look closed.
 
@@ -92,6 +93,8 @@ gapped-condensate (must) · chargeless-superflow (should)
 | `coupled-screening-failure` | A starved Ag film should lose *R*, SPR, and go plasma-transparent together |
 | `average-replaced-by-order` | When a latch or gap opens, *χ* ~ 1/*T* and *γT* are the wrong readout |
 | `split-r0-and-expulsion` | Type-II mixed state: *R* = 0 can outlive *χ* = −1 |
+| `qpc-is-not-this-edge` | A 1D constriction’s `2e²/h` steps are not a Hall plateau |
+| `hall-gap-not-pairing` | Landau / mobility gap is not 2Δ |
 
 Use these as **coupled tests**, not as extra knobs.
 
@@ -103,4 +106,6 @@ Use these as **coupled tests**, not as extra knobs.
 - Treating H/M or sample mass as a latch-cell cliff.
 - Calling London *λ* the optical skin.
 - Filing QHE or BEC as `gapped-condensate` members.
+- Filing a quantum point contact as `edge-channel` (or quoting `2e²/h` as *R_K*).
+- Closing *R_K* with a Chern-number story.
 - Treating defined *k* or *σ* as extracted machine constants.

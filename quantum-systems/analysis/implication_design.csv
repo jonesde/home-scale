@@ -268,5 +268,19 @@ mossbauer-effect:failure_mode:no-lattice,oscillator-grid,core,
 quantum-point-contact:consistency_gap:not-qhe,gapped-condensate,contrast,No B; not the pairing condensate
 quantum-point-contact:emergent_output:two-e-squared-over-h,gapped-condensate,contrast,2e²/h is not RH
 neutron-gravitational-states:consistency_gap:gapped-name-loose,gapped-condensate,contrast,peV gravity well is not 2Δ
+quantum-hall-effect:hardware_scale:2deg,edge-channel,core,2DEG buffer
+quantum-hall-effect:clock_latency:cyclotron,edge-channel,core,ωc clock
+quantum-hall-effect:energy_barrier:landau-gap,edge-channel,core,Bulk gap
+quantum-hall-effect:failure_mode:in-plane-b,edge-channel,core,Non-occurrence
+quantum-hall-effect:failure_mode:off-plateau,edge-channel,core,Filling collapse
+quantum-hall-effect:failure_mode:thermal-current,edge-channel,core,Gap overrun
+quantum-hall-effect:emergent_output:rk-plateau,edge-channel,core,RH = RK/ν
+quantum-hall-effect:consistency_gap:underived-rk,edge-channel,core,RK taken
+cyclotron-resonance:clock_latency:omega-c,edge-channel,supporting,Same eB/m combination
+cyclotron-resonance:failure_mode:omega-c-tau,edge-channel,supporting,Scattering kills the orbit
+quantum-point-contact:consistency_gap:not-qhe,edge-channel,contrast,1D constriction is not this edge
+quantum-point-contact:emergent_output:two-e-squared-over-h,edge-channel,contrast,2e²/h is not RH
+aharonov-bohm:emergent_output:h-over-e,edge-channel,contrast,Interferometer h/e is not this Hall plateau
+aharonov-bohm:consistency_gap:not-pair-quantum,edge-channel,contrast,Same brick different machine
 
 

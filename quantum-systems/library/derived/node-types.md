@@ -16,7 +16,7 @@ Derived from `design_node` ⋈ `node` and `implication_node`.
 
 | Node | kind | `pdgid` | Designs (role) | Forcing collapse (examples) |
 |---|---|---|---|---|
-| `electron` | elementary | 11 | screening `population`; energy-gate `single`; ensemble `average`; gapped-condensate `population` | starve / *ω > ω_p*; *N* = 1; Fermi slice; QHE 2DEG |
+| `electron` | elementary | 11 | screening `population`; energy-gate `single`; ensemble `average`; gapped-condensate `population`; edge-channel `edge` | starve / *ω > ω_p*; *N* = 1; Fermi slice; QHE 2DEG |
 | `photon` | elementary | 22 | energy-gate `input`; screening `input`; ensemble `average` | under-threshold gate; pair hardware; Planck curve |
 | `muon` | elementary | 13 | energy-gate `input` | no muon / *τ_μ* / sticking |
 | `proton` | elementary | 2212 | energy-gate `product` | deuteron photodisintegration |
@@ -40,7 +40,7 @@ Only `latch-cell` (and the pinned condensate, which is a design not a node) hold
 
 ## Leftover
 
-`quantum-hall-effect:hardware_scale:2deg` **forces** `electron`. No design has `design_node.role = edge`. That is the QHE leftover, queryable. Do not mint a tenth design from this row alone.
+`quantum-hall-effect:hardware_scale:2deg` **forces** `electron`. Draft `edge-channel` now consumes `role = edge`. That names the leftover; it does not derive *R_K*.
 
 ---
 

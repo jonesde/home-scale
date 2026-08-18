@@ -15,6 +15,7 @@ energy-gate,proton,product,Photodisintegration
 energy-gate,neutron,product,Photodisintegration
 energy-gate,neutrino,input,CEνNS
 oscillator-grid,nucleus,contrast,Mössbauer payload is nuclear; the buffer is the ion grid
+edge-channel,electron,edge,Surviving path after the bulk is gapped
 oscillator-grid,ion,matrix,3N sites
 oscillator-grid,phonon,mode,Allowed clocks
 ensemble-average,electron,average,Fermi-slice / Curie contrast sits elsewhere

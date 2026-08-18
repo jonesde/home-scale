@@ -108,3 +108,14 @@ Nodes: `electron` `average`; `photon` `average`. No universal *N*.
 | **Outside** | *T > T_B* (*T_B* ≤ *T_N*). FM remanence can remain. |
 
 Node: `directional-moment` as `latch-cell`.
+
+---
+
+## edge-channel
+
+| | |
+|---|---|
+| **Inside** | 2DEG; perpendicular *B* sitting in a Landau/mobility gap; *kT* and Hall field small compared with the gap. *R_H = R_K/ν*, *R_xx → 0*. Current on the edge. |
+| **Outside** | Off-plateau filling; in-plane *B*; *T* or current too high; 2DEG lost. A 1D constriction (no *B*) is a different machine. |
+
+Node: `electron` as `edge`. Not a latch; the plateau is a driven DC resistance.

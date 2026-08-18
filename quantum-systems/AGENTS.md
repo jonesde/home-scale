@@ -40,7 +40,7 @@ Do not dilute these.
 - Every quantitative claim on an effect must be traceable to an experimental boundary or a well-established measured parameter. Node identity specs may be taken from a pinned PDG / CODATA edition.
 - Incomplete mappings stay incomplete. Do not fill a gap with conjecture in an *extracted* row. Conjecture belongs in `predicted_implication.csv` and only on the downward arrow (`design_implication.relation = predicts`).
 - A family is a filing spine (dominant collapse type). A design is a hypothesized machine. Do not invent a seventh family to hide a mismatch; record the mismatch on the entry until several effects share the leftover collapse.
-- Do not add a tenth design for every interface or textbook chapter. Add one only when a cluster of implications has a collapse and a hardware stack that no existing design owns. `quantum-hall-effect` is intentionally unmapped.
+- Do not add an eleventh design for every interface or textbook chapter. Add one only when a cluster of implications has a collapse and a hardware stack that no existing design owns. Integer QHE is the core of draft `edge-channel`; a 1D constriction is contrast, not a member.
 - Shared requirements often share a **kind** of cliff, not a **number**. Equating Curie, λ-point, melt, and blocking temperatures is a mapping error. See [library/derived/requirement-audit.md](library/derived/requirement-audit.md).
 - Applications name knobs and falsifiers. They are not build sequences, pressure ratings, or lab SOPs.
 
@@ -84,7 +84,7 @@ Two origins:
 
 ### Design
 
-An assembled reverse-engineered **machine specification** — a hypothesized hardware stack that several effects share. Nine first-wave machines: `collective-screening`, `anisotropy-latch`, `polar-latch`, `gapped-condensate`, `chargeless-superflow`, `energy-gate`, `oscillator-grid`, `ensemble-average`, and draft `exchange-pin`.
+An assembled reverse-engineered **machine specification** — a hypothesized hardware stack that several effects share. Ten first-wave machines: `collective-screening`, `anisotropy-latch`, `polar-latch`, `gapped-condensate`, `chargeless-superflow`, `energy-gate`, `oscillator-grid`, `ensemble-average`, draft `exchange-pin`, and draft `edge-channel`.
 
 **Not** intentional design, not a CAD file, not an application device. The word is used because the output looks like a spec sheet (buffer, clock, barrier, hold-power, erase). No agency is implied or permitted.
 
@@ -256,14 +256,14 @@ WHERE origin = 'cataloged'
   AND node_key NOT IN (SELECT node_key FROM design_node);
 ```
 
-Electron forced in an `edge` role that no design consumes (QHE leftover):
+Electron consumed as an edge path (draft `edge-channel`):
 
 ```sql
-SELECT i.impl_key, i.description
-FROM implication_node ino
+SELECT dn.design_key, dn.role, i.impl_key
+FROM design_node dn
+JOIN implication_node ino ON ino.node_key = dn.node_key
 JOIN implication i ON i.impl_key = ino.impl_key
-WHERE ino.node_key = 'electron'
-  AND i.effect_slug = 'quantum-hall-effect';
+WHERE dn.node_key = 'electron' AND dn.role = 'edge';
 ```
 
 ### Worked research moves
@@ -393,7 +393,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-First-wave load (after a clean rebuild): 59 `effect` · 171 `effect_constraint` · 472 `implication` (447 extracted, 25 predicted) · 9 `design` · 11 `node` · 28 `requirement` · 269 `implication_design` · 46 `design_requirement` · 97 `design_implication` (55 entails, 39 predicts, 3 incompatible) · 36 `implication_node` · 21 `design_node`.
+First-wave load (after a clean rebuild): 59 `effect` · 171 `effect_constraint` · 474 `implication` (447 extracted, 27 predicted) · 10 `design` · 11 `node` · 33 `requirement` · 283 `implication_design` · 51 `design_requirement` · 108 `design_implication` (63 entails, 42 predicts, 3 incompatible) · 36 `implication_node` · 22 `design_node`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 

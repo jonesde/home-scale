@@ -45,3 +45,8 @@ exchange-pin,nested-pin-not-parent-latch,must,Collapse is TB not FM Tc.
 exchange-pin,interface-exchange-underived,must,Hex / Jex taken.
 exchange-pin,thermal-cliff,should,TB is a thermal cliff of the pin not of the parent FM.
 exchange-pin,mesoscale-coercivity,should,Hex sits in the same mesoscale band as Hc.
+edge-channel,two-dimensional-electron-buffer,must,3D metal is the wrong buffer.
+edge-channel,edge-path-after-bulk-gap,must,Surviving path is the edge.
+edge-channel,underived-hall-quantum,must,RK taken.
+edge-channel,qpc-is-not-this-edge,must,Do not swallow the 1D constriction.
+edge-channel,hall-gap-not-pairing,must,Not gapped-condensate.

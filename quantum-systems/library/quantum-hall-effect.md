@@ -106,6 +106,8 @@ The mapping does not close tightly, for three recorded reasons.
 2. **Architecture recorded, not derived.** Bulk gap plus edge path is the measured surviving hardware. Why the current is expelled to the edge, and why that forces the Hall resistance onto \(R_K/\nu\), is not a QSA specification yet.
 3. **Fractional effect out of scope.** Fractional plateaus are a harder related case. No anyon, composite-fermion, or fractional-charge story is used or required, and none is added to close the integer mapping.
 
+The 2DEG / bulk-gap / edge-path stack is assembled as draft `edge-channel` in the analysis layer. That names the leftover; it does not derive \(R_K\). A 1D constriction ([quantum-point-contact](quantum-point-contact.md)) is contrast, not a member.
+
 Disorder (the mobility gap that *widens* a plateau) is an extra, sample-dependent resource, analogous to pinning on [type-ii-critical-field](type-ii-critical-field.md). The integer values of \(R_H\) do not depend on closing it; the width of the flat region does.
 
 ### 4.7 Overall Confidence in the QSA Mapping

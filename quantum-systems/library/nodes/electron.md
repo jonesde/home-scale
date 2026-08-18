@@ -35,7 +35,7 @@ Electron. Same species in four QSA roles; the roles are not four particles.
 - [`reflection`](../reflection.md) / [`plasma-frequency-cutoff`](../plasma-frequency-cutoff.md) — connected charged population; dies by starve or *ω > ω_p*.
 - [`photoelectric-threshold`](../photoelectric-threshold.md) — *N* = 1 conversion. Contrast with the collective buffer.
 - [`electron-heat-capacity`](../electron-heat-capacity.md) — Fermi-surface slice ~*T*/*T_F*.
-- [`quantum-hall-effect`](../quantum-hall-effect.md) — 2DEG + perpendicular *B*. No design consumes the `edge` role yet.
+- [`quantum-hall-effect`](../quantum-hall-effect.md) — 2DEG + perpendicular *B*; `edge-channel` now consumes the `edge` role.
 
 ### 4. Consumed as
 
@@ -43,8 +43,7 @@ Electron. Same species in four QSA roles; the roles are not four particles.
 - `energy-gate` — `single`
 - `ensemble-average` — `average`
 - `gapped-condensate` — `population` (the 2*e* increment is not this node)
-
-No `edge` design role. That is the QHE leftover.
+- `edge-channel` — `edge` (surviving path after the bulk is gapped; *R_K* is still taken)
 
 ### 5. Open
 
