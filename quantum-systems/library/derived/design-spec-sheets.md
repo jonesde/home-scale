@@ -9,9 +9,13 @@ updated: 2026-08-17
 Pulled from `design` rows and from `design_implication` where `relation = entails`.  
 These are assembly commitments, not new measurements. The inside of each cliff is restated in [operating-envelopes.md](operating-envelopes.md). Constituents are in [node-types.md](node-types.md).
 
+Each sheet is one reverse-engineered machine: the smallest hardware that still produces the macro output, the clock it must keep, any barrier that protects a written state, what it costs to hold, and the erase that kills the output. Shared *kinds* of demand (a thermal cliff, a spatial buffer, a true 0 W hold) are audited in [requirement-audit.md](requirement-audit.md). Do not copy one sheet’s number onto another machine.
+
 ---
 
 ## collective-screening
+
+A connected charged population that screens an incoming field and re-radiates it. That is a visible mirror, an RF skin, a plasma-edge cutoff, and the conducting faces of a Casimir gap. The machine is **driven**, not a memory: there is no stored bit when the incident field is gone. Starve the connected thickness (island film, ≲ 5–10 nm continuous Ag/Al) or drive faster than the plasma / interband clock and the collective output dies. One electron leaving a surface is a different machine (`energy-gate`).
 
 | Spec | Commitment | Source class |
 |---|---|---|
@@ -28,6 +32,8 @@ Incompatible with “this hardware is N = 1 electron” (that is `energy-gate` /
 
 ## anisotropy-latch
 
+A grain that keeps a direction of magnetization after the writing field is removed, at **zero continuous power**. The cliff is the grain’s anisotropy energy versus thermal kicks (*KV* above a timescale contour), not the size of the part in the hand. Sample envelope is capacity. Heat through Curie, shrink through the superparamagnetic line, or destroy the lattice and the held direction is gone. Unlocked Curie *χ* is the population this latch *replaces*, not its barrier.
+
 | Spec | Commitment | Source class |
 |---|---|---|
 | Buffer | Grain / cluster with *KV* above the thermal-escape line | NdFeB ~30 nm / 2.3×10⁻²⁶ m³ at ~25 *kT* (timescale contour) |
@@ -42,6 +48,8 @@ Sample size is capacity, not a second cliff. Unlocked Curie *χ* is not this bar
 ---
 
 ## polar-latch
+
+The electrical twin of the anisotropy latch: remnant polarization at *E* = 0, still 0 W hold. The barrier is a lattice-locked double well below the ferroelectric Curie point. There is not yet a portable grain-size number analogous to NdFeB’s ~30 nm. A pyroelectric temperature ramp on this crystal can write a high face voltage; that field engine dies at the host *T*<sub>C</sub> even if deuterium is still present.
 
 | Spec | Commitment | Source class |
 |---|---|---|
@@ -58,6 +66,8 @@ A pyroelectric D–D neutron burst dies with the host *T*<sub>C</sub> even if de
 
 ## gapped-condensate
 
+A charged superconducting condensate. Zero resistance and complete field expulsion are related artifacts of one machine with **different erase lines**: in type II, *R* = 0 can outlive *χ* = −1 if vortices are pinned. The spectroscopic gap closes at a material *T*<sub>c</sub>. This is not a dilute alkali cloud and not an integer Hall plateau.
+
 | Spec | Commitment | Source class |
 |---|---|---|
 | Buffer | *ξ* (coherence) and *λ* (London) as classes | *λ*(0) ~ 40–50 nm elements; *ξ* from µm (clean Al) to nm (cuprates) |
@@ -72,6 +82,8 @@ Not a dilute BEC. Not integer QHE.
 ---
 
 ## chargeless-superflow
+
+Liquid ⁴He below the λ-point: superflow and a fountain / superleak without electric charge. No London depth, no Meissner expulsion, no Josephson voltage–frequency lock. Circulation is quantized as *h*/*m*₄, not *h*/2*e*. The 2.17 K cliff is not the density-set *T<sub>c</sub>* of a trapped alkali cloud.
 
 | Spec | Commitment | Source class |
 |---|---|---|
@@ -88,6 +100,8 @@ No London *λ*. No *χ* = −1. *T*<sub>λ</sub> is not a dilute-cloud *T<sub>c<
 
 ## energy-gate
 
+One discrete conversion at a time (*N* = 1): a photon above the work function, a crystal above *E<sub>g</sub>*, a pair above 2*m<sub>e</sub>c*², a muon opening a hydrogen well. The product leaves; this is not a latch. Under-threshold input is simply non-occurrence. Named gates are not interchangeable: *φ* is not *ω<sub>p</sub>*, charging *E<sub>c</sub>* is not *φ*, a 2.224 MeV *γ* is not a muon, and pyroelectric neutrons do not die with *τ<sub>μ</sub>*.
+
 | Spec | Commitment | Source class |
 |---|---|---|
 | Buffer | **N = 1** for one conversion | Escape depth / avalanche path are sequels |
@@ -102,6 +116,8 @@ No London *λ*. No *χ* = −1. *T*<sub>λ</sub> is not a dilute-cloud *T<sub>c<
 ---
 
 ## oscillator-grid
+
+The crystal as a finite set of coupled mechanical oscillators (3*N* modes, a Debye ceiling). Allowed clocks are the measured phonon branches. There is no stored configuration unless some other machine latches on this grid. Melting takes the grid away: shear sound, crystal phonon heat current, and Mössbauer recoilless fraction fail together. A liquid still carries a longitudinal speed.
 
 | Spec | Commitment | Source class |
 |---|---|---|
@@ -118,6 +134,8 @@ Shear sound, crystal phonon *κ*, and Mössbauer *f* die together at melt; a liq
 
 ## ensemble-average
 
+A stable macroscopic number or spectrum that exists only as the average of a large population: temperature, ideal-gas pressure, the Planck curve, *γT* electronic heat, Johnson noise, Curie *χ*. The buffer is statistical (1/√*N*, a Knudsen number, a Fermi-surface slice). There is **no** universal node-count cliff. A latch or a gap does not sit on this average; it *replaces* the contributing population.
+
 | Spec | Commitment | Source class |
 |---|---|---|
 | Buffer | Statistical: 1/√*N*, Kn = *λ*/*L*, or a Fermi-surface slice | **No universal *N*** |
@@ -130,6 +148,8 @@ Shear sound, crystal phonon *κ*, and Mössbauer *f* die together at melt; a liq
 ---
 
 ## exchange-pin
+
+A second latch that pins the first: an antiferromagnet at an interface writes a unidirectional loop shift *H*<sub>ex</sub> on a ferromagnet and holds that shift at 0 W. Collapse is the pin’s blocking temperature *T*<sub>B</sub> (≤ *T<sub>N</sub>*), not the FM Curie point — remanence of the parent latch can remain. A superparamagnetic FM grain has nothing to pin. Draft until more bilayer implications exist.
 
 | Spec | Commitment | Source class |
 |---|---|---|
@@ -146,6 +166,8 @@ A superparamagnetic FM grain cannot hold Hex.
 
 ## edge-channel
 
+A two-dimensional electron system in a perpendicular field. Once the field opens a gap in the bulk, surviving current runs on the edge and the Hall resistance locks to *R<sub>K</sub>/ν*. That lock is a driven DC plateau, not a 0 W latch. Rotate *B* in-plane, walk off a filling, overrun the gap, or lose the 2DEG and the plateau is gone. A ballistic 1D constriction with no field (`landauer-channel`) is contrast, not a member. *R<sub>K</sub>* is taken. Draft until a second core effect (QSHE / QAHE) is filed.
+
 | Spec | Commitment | Source class |
 |---|---|---|
 | Buffer | 2DEG; after the bulk is gapped, current lives on the edge | 3D metal is the wrong buffer; *ℓ_B* = √(ℏ/*eB*) |
@@ -161,6 +183,8 @@ Integer QHE is the core artifact. A 1D constriction (`2e²/h`, no *B*) is contra
 
 ## phase-space-condensate
 
+A dilute trapped atomic cloud that macroscopically occupies one mode once the phase-space density crosses the taken ideal-gas line *nλ*<sub>th</sub>³ ≃ 2.612. Holding it needs continuous cooling and trapping — the opposite of a 0 W latch. Turn the trap off and the laboratory condensate is gone. This is not helium-4 superflow (no fountain / superleak), not a pairing condensate, and not Meissner. *T<sub>λ</sub>* is not *T<sub>c</sub>(n)*. Draft.
+
 | Spec | Commitment | Source class |
 |---|---|---|
 | Buffer | Phase-space density \(n\lambda_{\mathrm{th}}^3 \simeq 2.612\) | Taken ideal-gas line; \(N\sim 10^3\)–\(10^7\) is a working envelope |
@@ -175,6 +199,8 @@ Contrast: pairing condensate, He-4 fountain/superleak, 0 W latch, Meissner / Lon
 ---
 
 ## landauer-channel
+
+A short, clean constriction in a 2DEG reservoir, about a Fermi wavelength wide. Each occupied 1D mode contributes a taken 2*e*²/*h*. No perpendicular field is required; pinch-off, thermal smear, or a dirty/long channel kills the staircase. This is not a Hall plateau and not a Coulomb-blockade diamond pattern. Draft because one constriction file owns it.
 
 | Spec | Commitment | Source class |
 |---|---|---|

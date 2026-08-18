@@ -7,8 +7,8 @@ These notes unpack what the twelve machines and the shared requirements already 
 
 | File | What it is |
 |---|---|
-| [design-spec-sheets.md](design-spec-sheets.md) | One sheet per design: buffer, clock, barrier, hold-power, erase |
-| [requirement-audit.md](requirement-audit.md) | Shared requirements: same *kind* of cliff vs same *number* |
+| [design-spec-sheets.md](design-spec-sheets.md) | One sheet per design: a short prose lead-in, then buffer, clock, barrier, hold-power, erase |
+| [requirement-audit.md](requirement-audit.md) | Shared requirements: same *kind* of cliff vs same *number*, plus a prose description of each row |
 | [operating-envelopes.md](operating-envelopes.md) | Inside of each design’s cliff. Inherited from spec sheets |
 | [node-types.md](node-types.md) | Which designs consume which nodes. Not the zoo catalog |
 
