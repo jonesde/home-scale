@@ -64,6 +64,7 @@ A 0.5 mm-class plug at a few hundred m/s wants tens to hundreds of millijoules k
 | Bypass relay                               | Solid-state bypass FETs (later revision) |
 | Copper sheet / tube for bus bars, `L_series`, shorting bar | Full-bridge extras |
 | Charge / bleeder power resistors, TVS, ultrafast clamps | |
+| Breadboard + 22 AWG jumpers + PA0006 adapters | Clip-on “breadboard power” 3.3/5 V hats |
 
 ---
 
@@ -96,7 +97,7 @@ Links go to a specific Digi-Key product page where one exists. Mouser (or a Digi
 | Bus / rail voltage divider | 2 sets | Search: [`220k 1% 0.25W metal film`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=220k+1%25+0.25W+metal+film) + [`10k 1% 0.25W metal film`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=10k+1%25+0.25W+metal+film) | [`200k 1% 0.25W`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=200k+1%25+0.25W+metal+film) + same 10k (less headroom). 0.1% if you care about absolute volts. **Not** 100k/10k unless the ADC is 5 V. | $0.10–0.30 | For a **3.3 V ADC** (typical BTT / STM32): 220k/10k → 48 V≈2.09 V, 60 V≈2.61 V, 65 V≈2.83 V. 200k/10k is 2.29 / 2.86 / 3.10 V. Old 100k/10k is 11:1 and hits ~5.5 V at 60 V. Clamp each tap with the BAT85s below; the ratio must stay under the rail so the diodes only catch spikes. |
 | Divider clamp diodes | **10** | [BAT85S-TAP](https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/BAT85S-TAP/3104127) Vishay 30 V / 200 mA Schottky, **DO-35 axial** (~$0.20–0.50) | Other axial BAT85 / [1N5819](https://www.digikey.com/en/products/filter/diodes-rectifiers-single/280?keywords=1N5819). Not SOD-523 `BAT54KFILM` (too small to hand-solder). | $0.15–0.50 | Two per divider if you clamp both ways (tap→3.3 V and tap→GND) → 4 for bus + rail sense. Order 10; they are cheap and you will use extras on test points. Cathode band to the MCU rail (or GND for the lower clamp). |
 | 5 V / 3.3 V housekeeping | 1 set | Search: [`AMS1117-3.3`](https://www.digikey.com/en/products/filter/voltage-regulators-linear-low-drop-out-ldo-regulators/699?keywords=AMS1117-3.3) + [`L7805CV`](https://www.digikey.com/en/products/filter/voltage-regulators-linear-low-drop-out-ldo-regulators/699?keywords=L7805CV) | Better LDOs (AP2112, AMS1117-5.0) if you already have a favorite. | $0.50–2 | From the 12 V isolated rail or a small aux input. |
-| Logic connectors | assorted | Search: [`0.1 inch header 2.54`](https://www.digikey.com/en/products/filter/rectangular-connectors-headers-male-pins/314?keywords=2.54mm+header+straight) / [`screw terminal 5.08 2pos`](https://www.digikey.com/en/products/filter/terminal-blocks-headers-plugs-and-sockets/370?keywords=5.08mm+2+position+terminal) | JST-XH if the BTT harness already uses it — wait for pinout before locking gender. | $1–5 total | FIRE, PWM, bypass, fault, sense, 12 V logic. |
+| Logic connectors | see proto kit | Breakaway headers in the **Breadboard / proto kit** below | JST-XH later if the BTT harness already uses it. | — | FIRE, PWM, bypass, fault, sense. |
 | TO-247 heatsink + hardware | 1 bar or 8 clips | Search: [`TO-247 heatsink`](https://www.digikey.com/en/products/filter/thermal-heat-sinks/219?keywords=TO-247+heatsink) + [`TO-220 insulating pad`](https://www.digikey.com/en/products/filter/thermal-pads-sheets/219?keywords=TO-220+sil-pad) + [`M3 shoulder screw`](https://www.digikey.com/en/products/filter/screws-bolts/562?keywords=M3+socket+cap) | A single aluminum bar drilled for 8 TO-247s is better than 8 tiny sinks. | $10–25 | Isolate tabs from the bar unless all drains are common (they are not — half-bridge). |
 | Bus bar / flexible copper | as needed | Metals / McMaster: [copper sheet](https://www.mcmaster.com/products/copper/copper-sheets/) 0.016–0.032″ (0.4–0.8 mm) or thicker | Amazon copper flashing; leftover flexible strip from the v0.1 build. | variable | External high-current path. Also used for the `L_series` pads and shorting bar. |
 | Copper spreader washers / plates | 4–8 | Cut from 1–2 mm copper sheet (same McMaster copper family) | — | low | 2-bolt rail clamps **and** `L_series` terminals. |
@@ -106,6 +107,26 @@ Links go to a specific Digi-Key product page where one exists. Mouser (or a Digi
 **Approximate total for a minimal first build** (8 FETs + 4 spares, 2× 100 V electrolytics, 4× 10 µF film, driver + 2 isolated 12 V, ACS772, relay, TVS/diodes, bleeders, copper, heatsink): **$180–300** depending on how much copper/hardware you already have.
 
 Designed-max populate (16 FETs + 6 electrolytics + 8 film) adds roughly another $80–140.
+
+Add **~$25–35** for the dedicated breadboard kit below if you do not already have a good 830-point board and 22 AWG jumpers.
+
+---
+
+## Breadboard / proto kit (order now)
+
+Logic / gate-drive only — matches [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md) §9. There is no single Digi-Key kit that includes the board, 22 AWG jumpers, **and** the SOIC adapter. Buy these on the same order as the semiconductors. Skip cheap Amazon “MB-102 + Dupont” kits: sloppy contacts and floppy leads on the UCC21551 / SIP modules.
+
+Do **not** buy clip-on breadboard 3.3/5 V power hats. They fight the isolated 12 V plan and invite mixing the pack into the logic rails.
+
+| Item | Qty | Primary (Digi-Key) | Good alternatives | Approx. | Notes |
+|------|-----|--------------------|-------------------|---------|-------|
+| Full-size breadboard, 830 point | 1 | [BB830](https://www.digikey.com/en/products/detail/busboard-prototype-systems/BB830/19200392) BusBoard (~$9) | [BB1660](https://www.digikey.com/en/products/detail/busboard-prototype-systems/BB1660/19200358) (~$17) — two 830s side-by-side if you want MCU 3.3 V away from the isolated 12 V SIPs. 3M framed boards (~$85–160) are overkill. | $9–17 | Same layout as the §9 sketch. Better springs than generic white boards. |
+| Pre-formed 22 AWG jumpers | 1 kit | [WK-2](https://www.digikey.com/en/products/detail/global-specialties/WK-2/5231341) 140 pcs (~$9) | Twin Industries 140-pc kits. | $7–10 | Solid **22 AWG** is the only gauge that seats reliably. Use these on the board, not Dupont. Fine for 12 V / 5 V / gate-drive; not for launch or 5–20 A preconditioning. |
+| SOIC-16 → DIP adapter | 2 | [PA0006](https://www.digikey.com/en/products/detail/chip-quik-inc/PA0006/5014721) Chip Quik, **300 mil** (~$4) | Any 300 mil SOIC-16 breakout. Not 150 mil / “narrow” SOIC-16. | $4 | Matches `UCC21551ADWR` (DW). One working, one spare. |
+| Breakaway 0.1″ header | 1 | [PRPC040SAAN-RC](https://www.digikey.com/en/products/detail/sullins-connector-solutions/PRPC040SAAN-RC/2775214) 40-pin (~$1.25) | Any 0.1″ single-row breakaway. | $1–2 | Snap a 16 for the PA0006; leftovers for MCU and gate headers. |
+| M–M Dupont (optional) | 1 pack | Search: [`jumper male-male 40 2.54`](https://www.digikey.com/en/products/filter/jumper-wire/640?keywords=jumper+male-male+40+2.54) | — | $3–6 | Only for the BTT/Pi harness **off** the board. Gate header → FET gates: short 22 AWG, not a 20 cm rainbow. |
+
+Splay TO-220 legs (L7805) slightly so they do not wreck the springs. R12P212S SIP modules fit 0.1″ as-is.
 
 ---
 
