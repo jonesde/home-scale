@@ -177,8 +177,108 @@ Firmware responsibilities (not schematic, but required for function): frequency 
 7. Increase energy and current stepwise while monitoring device temperatures, voltage overshoot, and waveform quality.
 8. Full sequencing with real barrel and slurry once electrical behavior is stable.
 
-## 9. Status
+## 9. Breadboard Placement Sketch
+
+Placement only — no jumper list. First-build populate (8 MOSFETs, not 16). Parts match [`UnifiedResonantShoppingList.md`](UnifiedResonantShoppingList.md).
+
+**This is a bring-up jig, not the PCB.** An eventual board will look quite different: tighter gate loops, Kelvin sources, pours or bars under the FETs, and no solderless contacts. Do not copy these row numbers into KiCad.
+
+Two physical pieces, same split as the shopping list:
+
+1. **Logic breadboard** — 12 V / 5 V / 3.3 V, UCC21551 on a PA0006, MCU header, dividers, sense *signals*, relay *coil*.
+2. **High-current bar strip** — pack, Schottky, bank, FETs, `L_series` / bypass, rails, ACS772 *current* path. Never through breadboard springs.
+
+They meet only at a short gate-lead header, isolated-supply returns, sense taps, and the bypass-coil drive.
+
+Convention: top of the breadboard drawing is the MCU / BTT end; bottom is the gate-header facing the FET bars. Empty rows omitted. DIP bodies span the gutter as multi-row blocks.
+
+### 9.1 Logic breadboard
+
+Standard 830-point view. Power rails along the long edges. Columns `a–e` and `f–j` are the two 5-hole strips.
+
+> ```
+>  +12 / +5   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
+>  GND        ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
+>                a b c d e   f g h i j
+>
+>  1–3        [ MCU / BTT header              ]  PWM, EN, bypass, fault, 3.3 V, GND
+>
+>  5–7        [ L7805 + 5 V decouple          ]  house 5 V for ACS772 / TMP36
+>                                                (AMS1117-3.3 beside if needed)
+>
+>  9–16       [ UCC21551ADWR on PA0006        ]  isolated half-bridge driver
+>              (16-pin DIP adapter, 300 mil)
+>
+> 18–21       [ R12P212S  #1  (low-side 12 V) ]  isolated SIP → driver VDDB
+>
+> 23–26       [ R12P212S  #2  (high-side 12 V)]  isolated SIP → driver VDDA
+>
+> 28–32       [ bus divider 220k / 10k        ]  BAT85 clamps on the tap
+>              [ + charge LED                 ]
+>
+> 34–37       [ rail divider 220k / 10k       ]  BAT85 clamps on the tap
+>
+> 39–40       [ TMP36  (signal only)          ]  second sensor is on the FET bar
+>
+> 42–44       [ ACS772 signal pins only       ]  VCC, GND, VIOUT — not the current tabs
+>
+> 46–48       [ relay coil + NPN + flyback    ]  contacts live on the bar, not here
+>
+> 50–53       [ gate / isol-12 V header       ]  HO, LO, HS 12 V, LS 12 V, returns
+>                                                short leads toward the FET gates
+> ```
+
+| Rows | Part | Notes |
+|------|------|-------|
+| 1–3 | MCU / BTT header | Logic only. No 48 V. |
+| 5–7 | L7805 (+ optional 3.3 V LDO) | From isolated 12 V or a small aux. |
+| 9–16 | UCC21551 + [PA0006](https://www.digikey.com/en/products/detail/chip-quik-inc/PA0006/5014721) | Wide SOIC-16 on 300 mil adapter. Dummy gate load (spare FET or ~10 nF) for first dead-time check — **no pack connected**. |
+| 18–26 | Two R12P212S | One per driver secondary. Keep secondaries off the breadboard GND except at the intended returns. |
+| 28–37 | Dividers + BAT85 + LED | 3.3 V ADC ratio. Clamps catch spikes only. |
+| 39–44 | TMP36, ACS772 signals | Hall *body* is on the return bar. |
+| 46–48 | T9AS coil drive | 12 V coil. Power contacts stay on the `L_series` pads. |
+| 50–53 | Gate header | Shortest practical leads to the TO-247 gates. `Rg` / `Rgs` sit at the FETs, not here. |
+
+### 9.2 High-current bar strip
+
+Not a breadboard. Fold this loop as small as the parts allow. First build: 4 high-side + 4 low-side TO-247s.
+
+> ```
+>  PACK+ ── Schottky ── HS25 10 Ω ── C_bus (2× 100 V snap-in)
+>                           │              + 4× 10 µF film at the legs
+>                           │              + 5KP58A on the bus
+>                           │
+>                           ├── HS FETs (Q1–Q4) ─┬── L_series pads ── RAILS
+>                           │                    │    ├ bypass relay contacts
+>                           │                    │    └ or copper shorting bar
+>                           └── LS FETs (Q5–Q8) ─┘
+>
+>  PACK− / return bar  ──────── ACS772 current tabs ─────────────┘
+>       bleeder across the bank    5KP58A at the rail pads
+>       MUR1560 clamps at the legs
+> ```
+
+| Position | Part | Notes |
+|----------|------|-------|
+| Pack + | MBR20100CT-E3/4W | Charge path only. Anode(s) to pack +, cathode to bus. |
+| After Schottky | HS25 10 Ω | Soft-charge. May be jumpered once the bank is up. |
+| Mid-bar | 2× 100 V electrolytics + 4× 10 µF film | Film right at the FET drains/sources. |
+| Bridge | 4 HS + 4 LS IRFP4568, isolated tabs | `Rg` / `Rgs` / C0G at each gate. Heatsink bar, tabs **not** common. |
+| After bridge | `L_series` 2-bolt pads | Relay or copper short across the pads for preconditioning. |
+| Far end | Rail clamps (same as the print head) | Second 5KP58A here. |
+| Return break | ACS772 current terminals | Signal pins fly to breadboard rows 42–44. |
+| Across bank | Bleeder (hardwired) | Not a jumper that can fall out. |
+
+### 9.3 First electrical bring-up on this placement
+
+Follow §8, but with this split: steps 1–2 entirely on the breadboard (dummy gates). Do not energize the bar strip until dead time is verified. Then bring the pack up through the Schottky and charge resistor with the bleeder already fitted.
+
+---
+
+## 10. Status
 
 This schematic description defines a unified resonant-bridge driver that collapses separate preconditioning and launch power stages into one flexible half- or full-bridge architecture. External L_series + bypass provides frequency agility and mode switching. Component directions favor commonly available, robust parts suitable for a 48–60 V high-current pulsed application and for iterative home or small-lab construction.
+
+§9 is a **breadboard / bus-bar placement sketch** for first bring-up only. The eventual PCB (or milled board + bars) will not follow those row numbers.
 
 Next concrete step: schematic capture following the block hierarchy above, followed by a low-inductance layout that respects the mechanical interface to the micro-railgun toolhead.
