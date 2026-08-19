@@ -29,15 +29,15 @@ Optional: separate low-power ignition/high-voltage tick generator (not required 
 
 ### 3.1 DC Input & Charging
 
-- Input: 48–60 V nominal DC (wall supply with bulk capacitance or battery array).
-- Reverse-polarity protection (series MOSFET or ideal-diode controller).
+- Input: 48–60 V nominal DC (wall supply with bulk capacitance or **battery array**; 48 V pack is in range).
+- Reverse-polarity protection: **first revision is a series Schottky** on the charge path (pack+ → anode, cathode → bus). Launch current does not go through it.
 - Soft-start / inrush limiting.
 - Charging path to the pulse capacitor bank: current-limited resistor, active current source, or simple buck pre-regulator.
-- Bus voltage sense for MCU.
+- Bus voltage sense for MCU (220 kΩ / 10 kΩ for a 3.3 V ADC; not 100 kΩ / 10 kΩ).
 
 **Candidate direction**
-- Input TVS and bulk electrolytic/film for supply decoupling.
-- Ideal-diode controller or discrete P-channel/N-channel reverse protection.
+- Input TVS (`5KP58A` axial) and bulk electrolytic/film for supply decoupling.
+- First build: [MBR20100CT-E3/4W](https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/MBR20100CT-E3-4W/2153208) or equivalent 100 V / 10–20 A TO-220 Schottky. An ideal-diode IC + N-FET is a later low-drop option (see shopping-list optional table). Do not use a P-FET with gate tied to pack− on a 48–60 V bus (\(V_{GS}\) max is typically ±20 V).
 - Charge current limit sized so the bank reaches target voltage in an acceptable time without excessive supply stress.
 
 ### 3.2 Pulse Capacitor Bank (C_tank)
