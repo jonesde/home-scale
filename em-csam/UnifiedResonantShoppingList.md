@@ -175,6 +175,27 @@ Every block in [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md) §3 
 
 ---
 
+## Two circuit parts (breadboard or later PCB)
+
+Treat the driver as two circuits that only meet at a few well-defined points. This split is the home-build layout, not a temporary hack. It applies to a first solderless-breadboard checkout of the logic and to the eventual simple PCB.
+
+**1. Logic / gate drive / sense** — 12 V isolated supplies, UCC21551, PWM / enable / fault, voltage dividers, TMP36, relay coil, MCU headers.
+
+- Fine on a solderless breadboard for bring-up (SOIC driver needs an adapter), or on a soldered proto / later PCB.
+- Prove dead time and isolated 12 V **with no 48 V connected**, using a dummy gate load (spare FET or ~10 nF).
+- If you split across two boards, put this side on one and power on the other. Do **not** run long jumper wires for MOSFET gates or the power return; the gate loop must stay as short as the power loop.
+
+**2. High-current pulse path** — battery/bus, electrolytics, pulse film, MOSFET drain/source, `L_series`, bypass, rails, bleeder, ACS772 *current* conductor.
+
+- Never through solderless-breadboard springs (amp-class contacts; extra inductance wrecks ≥200 kHz and spikes the FETs).
+- Current rides on short, thick **external** conductors — copper bar, laminated strip, or a few paralleled heavy wires — bolted to wide pads. Board copper only provides landing pads, not the pulse path. “Floating bars” above or beside a simple single-sided board is the intended construction.
+- Close the loop *C_tank → half-bridge → L_series / bypass → rails → return* in as small an area as you can physically fold. Wires are acceptable for a first jig if they are short, fat, and laid flat as a go/return pair or sandwich. A long flying lead to the barrel is unbudgeted inductance.
+- Bleeder must be hardwired (not a jumper that can fall out). The Hall sensor body can sit next to the logic; its heavy current path stays on the bars.
+
+The two sides touch only at FET gates (and `Rgs`), isolated-supply returns, sense taps, and the bypass-coil drive. That is enough for a later PCB to stay simple: control and landing pads on the board, bus bars for current.
+
+---
+
 ## Builder advice
 
 - Order extras of MOSFETs, the isolated driver, and at least two spare film cans. Those are the parts you will stress on first shots.
