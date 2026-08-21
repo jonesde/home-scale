@@ -160,7 +160,7 @@ Do not add node slugs to [`library/INDEX.md`](library/INDEX.md). Do not mint a d
 2. **Find the family** in [library/TAXONOMY.md](library/TAXONOMY.md) / [library/INDEX.md](library/INDEX.md). Open the formal file, not only the index note.
 3. **Read §4.3 then §4.5–4.6.** §4.3 is the measured envelope; §4.5 is the machine spec; §4.6 is where the mapping is still open. Confidence in the data and confidence in the mapping are different columns.
 4. **Rebuild if needed** (`python3 analysis/rebuild.py`) and query `qs-analysis.db` for siblings: same `aspect`+`resource`, same `design_key`, shared `req_key`, `membership = contrast`, or shared `node_key` / `design_node.role`.
-5. **Check the derived sheets** ([library/derived/design-spec-sheets.md](library/derived/design-spec-sheets.md), [requirement-audit.md](library/derived/requirement-audit.md), [operating-envelopes.md](library/derived/operating-envelopes.md), [node-types.md](library/derived/node-types.md)) before treating two designs as sharing a number.
+5. **Check the derived sheets** ([library/derived/design-spec-sheets.md](library/derived/design-spec-sheets.md), [requirement-audit.md](library/derived/requirement-audit.md), [operating-envelopes.md](library/derived/operating-envelopes.md), [node-types.md](library/derived/node-types.md), [analog-slots.md](library/derived/analog-slots.md)) before treating two designs as sharing a number. Clause-only handbook names: [library/INDEX.md](library/INDEX.md#handbook-topics-not-filed-as-effects).
 6. **Only then** look at `application/`. An application is a claim about a device, graded against handbook cliffs. It is not additional science.
 
 ### Recommended query patterns
@@ -311,7 +311,7 @@ Science source of truth. One kebab-case file per effect. Copy [_template.md](lib
 | Path | Purpose |
 |---|---|
 | [library/README.md](library/README.md) | Operating manual: frontmatter schema, index columns, language rules. Markdown is the science source; the analysis layer is the query surface. |
-| [library/INDEX.md](library/INDEX.md) | Catalog and build list. 59 formal first-wave entries. Families are machine/collapse classes. |
+| [library/INDEX.md](library/INDEX.md) | Catalog and build list. 60 formal entries. Families are machine/collapse classes. Handbook topics that stay clauses are a table in that file. |
 | [library/TAXONOMY.md](library/TAXONOMY.md) | Family definitions, assignment rule, constraint tags. |
 | [library/_template.md](library/_template.md) | Locked 7-part body + frontmatter stub. |
 | `library/{slug}.md` | One effect. Body sections 4.1–4.7. Frontmatter feeds `effect` / `effect_constraint`. |
@@ -320,6 +320,7 @@ Science source of truth. One kebab-case file per effect. Copy [_template.md](lib
 | [library/derived/requirement-audit.md](library/derived/requirement-audit.md) | Shared requirements: same *kind* vs same *number*. What applications are forbidden to do. |
 | [library/derived/operating-envelopes.md](library/derived/operating-envelopes.md) | Inside of each design’s cliff. Inherited; no new numbers. |
 | [library/derived/node-types.md](library/derived/node-types.md) | Join view: which designs consume which nodes. Not the zoo catalog. |
+| [library/derived/analog-slots.md](library/derived/analog-slots.md) | Latch / loop / partition map: file vs clause vs hole. Not a catalog row. |
 
 ### Node library — `library/nodes/`
 
@@ -337,7 +338,7 @@ First-wave families (counts from the current catalog):
 | Family | *n* | Dominant collapse |
 |---|---|---|
 | `collective-field-response` | 10 | Spatial under-provisioning or loss of collective phase |
-| `latched-order` | 8 | Thermal over-barrier, volume too small for *KV*, or lattice destroyed |
+| `latched-order` | 9 | Thermal over-barrier, volume too small for *KV*, or lattice destroyed |
 | `gapped-coherence` | 10 | Gap closure or coherence-length / *H*<sub>c</sub> / *I*<sub>c</sub> violation |
 | `threshold-conversion` | 13 | Under-threshold input (conversion does not occur) |
 | `lattice-modes` | 10 | Mode cutoff, mfp destroyed, or loss of crystalline order |
@@ -401,7 +402,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-First-wave load (after a clean rebuild): 59 `effect` · 171 `effect_constraint` · 488 `implication` (447 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 297 `implication_design` · 59 `design_requirement` · 141 `design_implication` (77 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node`.
+Load (after a clean rebuild): 60 `effect` · 176 `effect_constraint` · 498 `implication` (457 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 

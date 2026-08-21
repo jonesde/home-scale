@@ -89,6 +89,13 @@ ferroelectric-remanence:consistency_gap:ec-depolarization,polar-latch,core,
 piezoelectricity:hardware_scale:inversion-free-lattice,polar-latch,supporting,Strain channel
 piezoelectricity:failure_mode:ferroelectric-tc,polar-latch,supporting,
 piezoelectricity:emergent_output:d-class,polar-latch,supporting,
+ferroelectric-domains:hardware_scale:wall-width,polar-latch,core,Polar partition buffer
+ferroelectric-domains:hardware_scale:charged-vs-neutral,polar-latch,core,Electrostatic extra vs magnetism
+ferroelectric-domains:failure_mode:single-domain,polar-latch,core,
+ferroelectric-domains:failure_mode:saturation,polar-latch,core,Pattern expelled; Pr can remain
+ferroelectric-domains:emergent_output:zero-hold-power,polar-latch,core,
+ferroelectric-domains:consistency_gap:pattern-pinning,polar-latch,core,Ec / pattern leftover
+ferroelectric-domains:hardware_scale:ninety-degree-strain,polar-latch,supporting,Ferroelastic 90° walls
 superconductivity:hardware_scale:coherence-length-class,gapped-condensate,core,
 superconductivity:energy_barrier:spectroscopic-gap,gapped-condensate,core,
 superconductivity:failure_mode:above-tc,gapped-condensate,core,
@@ -197,6 +204,7 @@ thermal-expansion:hardware_scale:anharmonic-wells,oscillator-grid,core,
 thermal-expansion:failure_mode:harmonic-limit,oscillator-grid,core,
 thermal-expansion:emergent_output:alpha-class,oscillator-grid,core,
 magnetostriction:hardware_scale:moment-plus-lattice,oscillator-grid,supporting,Also on the latch
+ferroelectric-domains:hardware_scale:ninety-degree-strain,oscillator-grid,supporting,90° walls switch strain
 magnetostriction:failure_mode:lattice-shock,oscillator-grid,supporting,
 piezoelectricity:hardware_scale:inversion-free-lattice,oscillator-grid,supporting,Also on the polar latch
 piezoelectricity:failure_mode:inversion,oscillator-grid,supporting,

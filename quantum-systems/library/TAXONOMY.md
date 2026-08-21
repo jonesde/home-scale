@@ -37,7 +37,7 @@ An energy barrier holds a directional or configurational state at **zero continu
 
 Typical collapse: **thermal over-barrier**, **volume too small to keep the barrier above kT** (superparamagnetic / superparaelectric limit), or **mechanical destruction of the latch matrix**.
 
-Examples: permanent magnet, ferromagnetic hysteresis, ferroelectric remanence, superparamagnetism.
+Examples: permanent magnet, ferromagnetic hysteresis, ferroelectric remanence, superparamagnetism, magnetic domains, ferroelectric domains.
 
 ### 3. Gapped coherence
 

@@ -33,6 +33,11 @@ polar-latch,ferroelectric-remanence:consistency_gap:ec-depolarization,entails,mu
 polar-latch,ferroelectric-remanence:failure_mode:superparaelectric,predicts,must,Volume twin of KV collapse.
 polar-latch,predicted:ferroelectric-remanence:depolarization-kills-thin-pr,predicts,should,Thin-film depolarization conjecture.
 polar-latch,piezoelectricity:failure_mode:ferroelectric-tc,predicts,should,Strain channel dies with the polar phase.
+polar-latch,ferroelectric-domains:hardware_scale:wall-width,entails,must,A large polar body partitions; walls are a measured buffer.
+polar-latch,ferroelectric-domains:failure_mode:saturation,entails,must,E can expel the pattern while Pr remains.
+polar-latch,ferroelectric-domains:emergent_output:zero-hold-power,entails,must,
+polar-latch,ferroelectric-domains:hardware_scale:charged-vs-neutral,entails,should,Charged walls need screening; magnetic walls do not.
+polar-latch,ferroelectric-domains:consistency_gap:pattern-pinning,entails,must,Commits to the mesoscale pattern/Ec leftover.
 gapped-condensate,superconductivity:emergent_output:zero-resistance,entails,must,
 gapped-condensate,superconductivity:energy_barrier:spectroscopic-gap,entails,must,
 gapped-condensate,superconductivity:failure_mode:above-tc,entails,must,

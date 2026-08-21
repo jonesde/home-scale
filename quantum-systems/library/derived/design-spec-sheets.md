@@ -1,7 +1,7 @@
 ---
 origin: logically-derived
 not_an_effect_entry: true
-updated: 2026-08-17
+updated: 2026-08-20
 ---
 
 # Design spec sheets
@@ -49,18 +49,18 @@ Sample size is capacity, not a second cliff. Unlocked Curie *χ* is not this bar
 
 ## polar-latch
 
-The electrical twin of the anisotropy latch: remnant polarization at *E* = 0, still 0 W hold. The barrier is a lattice-locked double well below the ferroelectric Curie point. There is not yet a portable grain-size number analogous to NdFeB’s ~30 nm. A pyroelectric temperature ramp on this crystal can write a high face voltage; that field engine dies at the host *T*<sub>C</sub> even if deuterium is still present.
+The electrical twin of the anisotropy latch: remnant polarization at *E* = 0, still 0 W hold. The barrier is a lattice-locked double well below the ferroelectric Curie point. There is not yet a portable grain-size number analogous to NdFeB’s ~30 nm. A large polar body partitions; walls are a measured nm-class buffer, and a field can expel the pattern while remanent *P* remains. Charged walls need screening (the electrostatic extra vs magnetism). A pyroelectric temperature ramp on this crystal can write a high face voltage; that field engine dies at the host *T*<sub>C</sub> even if deuterium is still present.
 
 | Spec | Commitment | Source class |
 |---|---|---|
-| Buffer | Polar grain / film thick enough to stand depolarization | Process-dependent; no portable ferroelectric *KV* yet |
-| Clock | Ionic / soft-mode class (THz), write is *P*–*E* sweep | Not a hold clock |
+| Buffer | Polar grain / film thick enough to stand depolarization; a large body partitions (nm-class walls) | Process-dependent; no portable ferroelectric *KV* yet |
+| Clock | Ionic / soft-mode class (THz), write is *P*–*E* sweep / wall motion | Not a hold clock |
 | Barrier | Lattice-locked double well below *T*<sub>C</sub> | Write at *E*<sub>c</sub> |
-| Hold-power | 0 W at *E* = 0 | Remanent *P* |
-| Dominant erase | *T* > *T*<sub>C</sub>; *E* > *E*<sub>c</sub>; volume too small | BaTiO₃ *T*<sub>C</sub> ≈ 393 K; LiTaO₃ ~890 K |
+| Hold-power | 0 W at *E* = 0 | Remanent *P*; static domain pattern |
+| Dominant erase | *T* > *T*<sub>C</sub>; *E* > *E*<sub>c</sub>; volume too small; *E* can also expel walls without killing *P<sub>r</sub>* | BaTiO₃ *T*<sub>C</sub> ≈ 393 K; LiTaO₃ ~890 K |
 | Open | *E*<sub>c</sub> / dead layer | Electrical twin of mesoscale coercivity |
 
-A pyroelectric D–D neutron burst dies with the host *T*<sub>C</sub> even if deuterium remains.
+A pyroelectric D–D neutron burst dies with the host *T*<sub>C</sub> even if deuterium remains. Filing ferroelectric domains does not close `polar-depolarization-buffer`.
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 origin: logically-derived
 not_an_effect_entry: true
-updated: 2026-08-17
+updated: 2026-08-20
 ---
 
 # Shared-requirement audit
@@ -74,7 +74,7 @@ A number or mesoscale step is **located and taken**, not derived. Shared or sing
 |---|---|---|
 | `underived-penetration-depth` | screening (must), condensate (should) | δ, skin √, London *λ* |
 | `mesoscale-coercivity` | anisotropy-latch (must), exchange-pin (should) | *H*<sub>c</sub> ≪ *H*<sub>a</sub>; Hex |
-| `polar-depolarization-buffer` | polar-latch | *E<sub>c</sub>* / dead layer |
+| `polar-depolarization-buffer` | polar-latch | *E<sub>c</sub>* / dead layer. Ferroelectric domains fill the *partition* slot; they do not close this buffer. |
 | `pinning-after-hc1` | gapped-condensate | pinning landscape after first penetration |
 | `fluxoid-increment-2e` | gapped-condensate | *Φ*<sub>0</sub> = *h*/2*e* |
 | `gapped-name-loose` | chargeless-superflow | *ρ<sub>s</sub>(*T<sub>λ</sub>*)*, not 2Δ |
@@ -208,7 +208,7 @@ Technical *H<sub>c</sub>* is not the anisotropy field *H<sub>a</sub>*. Nucleatio
 
 #### `polar-depolarization-buffer`
 
-*E<sub>c</sub>* and the depolarization field of a thin ferroelectric are mesoscale. Electrical twin of `mesoscale-coercivity`. The polar latch is located; the write-field / dead-layer spec is not.
+*E<sub>c</sub>* and the depolarization field of a thin ferroelectric are mesoscale. Electrical twin of `mesoscale-coercivity`. The polar latch is located; the write-field / dead-layer spec is not. [`ferroelectric-domains`](../ferroelectric-domains.md) fills the partition slot (nm-class walls, field-expelled pattern); it does not close this buffer.
 
 #### `pinning-after-hc1`
 

@@ -15,10 +15,11 @@ related:
   - permanent-magnet-latch
   - ferromagnetic-hysteresis
   - superparamagnetism
+  - ferroelectric-domains
   - piezoelectricity
   - refraction-dielectric
   - dielectric-breakdown
-updated: 2026-08-17
+updated: 2026-08-20
 ---
 
 # Ferroelectric Remanence (Polar Latch)
@@ -68,13 +69,13 @@ Recorded as descriptive relations, not as axioms.
 
 - **Minimum hardware scale / node count / coherence volume.** A polar lattice cell (perovskite \(\mathrm{ABO_3}\) in the oxides above) plus a correlated volume large enough that the polar well survives \(kT\) and the depolarization field. One unit-cell dipole is not a macroscopic remanent capacitor. Ceramic remanence is the synchronized output of a poled grain population. Below a process-dependent grain / thickness buffer the latch does not hold.
 
-- **Clock rate / latency.** The polar displacement is ionic and sits on the lattice-mode clock (optical-phonon / THz class). Macroscopic switching of a ceramic or a multidomain crystal is slower and is set by nucleation and wall motion under the applied \(E\), not by the phonon period.
+- **Clock rate / latency.** The polar displacement is ionic and sits on the lattice-mode clock (optical-phonon / THz class). Macroscopic switching of a ceramic or a multidomain crystal is slower and is set by nucleation and wall motion under the applied \(E\), not by the phonon period. That wall-motion clock, and the domain pattern itself, are owned by [ferroelectric-domains](ferroelectric-domains.md).
 
 - **Energy barriers or thresholds.** A polar double well, locked to a non-centrosymmetric lattice, holds \(\pm P_r\) at \(E = 0\). Holding that state costs zero continuous power. Energy is spent only on transitions (the \(P\)–\(E\) loop area). The write threshold is \(E_c\), not the Landau barrier of a perfect crystal.
 
 - **Dominant failure modes.**
   - Thermal: \(T > T_C\) \(\to\) polar well closes \(\to\) \(P_r \to 0\).
-  - Field: reverse \(E\) of order \(E_c\) writes the opposite polarity (the cycle). Larger \(E\) can destroy the insulator ([dielectric-breakdown](dielectric-breakdown.md)); that is hardware failure, not a clean rewrite.
+  - Field: reverse \(E\) of order \(E_c\) writes the opposite polarity (the cycle). A (possibly different) field can expel the *domain pattern* while remanent \(P\) remains — that partition collapse is [ferroelectric-domains](ferroelectric-domains.md), not this latch. Larger \(E\) can destroy the insulator ([dielectric-breakdown](dielectric-breakdown.md)); that is hardware failure, not a clean rewrite.
   - Spatial: grain or film too small, or depolarization uncompensated \(\to\) superparaelectric / volatile \(P\).
   - Mechanical: loss of the non-centrosymmetric lattice (cracking, phase conversion, electrode failure) erases the polar matrix.
 
@@ -95,6 +96,7 @@ The mapping is not closed on the write threshold or the volume cliff. \(E_c\) of
 - [permanent-magnet-latch](permanent-magnet-latch.md) — magnetic twin: remanent moment at zero continuous field
 - [ferromagnetic-hysteresis](ferromagnetic-hysteresis.md) — the same loop accounting, written in \(M(H)\) instead of \(P(E)\)
 - [superparamagnetism](superparamagnetism.md) — volume collapse of a directional latch; electrical analog is the superparaelectric grain
+- [ferroelectric-domains](ferroelectric-domains.md) — how a large polar body partitions; walls as a measured buffer; *E* can expel the pattern while \(P_r\) remains
 - [piezoelectricity](piezoelectricity.md) — strain \(\leftrightarrow\) polarization on a lattice that lacks inversion
 - [refraction-dielectric](refraction-dielectric.md) — linear bound-charge response without remanence
 - [dielectric-breakdown](dielectric-breakdown.md) — field destruction of the insulator that hosts the polar latch

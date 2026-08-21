@@ -17,7 +17,8 @@ related:
   - superparamagnetism
   - exchange-bias
   - magnetostriction
-updated: 2026-08-17
+  - ferroelectric-domains
+updated: 2026-08-20
 ---
 
 # Magnetic Domains (Partitioned Alignment)
@@ -83,6 +84,8 @@ Domains do not contradict the latch: they *are* many latches sharing a body, wit
 
 The mapping is not closed on pattern selection. Why one sample shows closure domains, another stripes, another a maze is a magnetostatic-plus-pinning problem whose output is imaged, not derived here from node rules. Continuum \(A\) and \(K\) are taken as measured inputs to \(\delta_w\) and \(\gamma_w\); QSA does not yet produce those two stiffnesses from a more primitive buffer. The same mesoscale gap as on the hysteresis file reappears as wall pinning \(\to H_c\). None of those gaps moves the two collapse cliffs.
 
+The electrical twin is [ferroelectric-domains](ferroelectric-domains.md). Polar walls can carry bound charge and need screening; magnetic Bloch/Néel walls pay a magnetostatic cost instead. Do not quote \(\sqrt{A/K}\) tens-of-nanometres as a ferroelectric wall width.
+
 ### 4.7 Overall Confidence in the QSA Mapping
 
 **Medium** — wall-width scaling, the single-domain size, saturation, and zero hold power are solid, but pattern choice and the pinning that sets technical \(H_c\) remain mesoscale data without a closed specification.
@@ -95,3 +98,4 @@ The mapping is not closed on pattern selection. Why one sample shows closure dom
 - [superparamagnetism](superparamagnetism.md) — below both the single-domain size and the \(KV\) stability line
 - [exchange-bias](exchange-bias.md) — interface pinning of FM domains by an AFM latch
 - [magnetostriction](magnetostriction.md) — strain locked to the local domain direction
+- [ferroelectric-domains](ferroelectric-domains.md) — polar twin: partitioned *P*, nm-class walls, charged walls possible

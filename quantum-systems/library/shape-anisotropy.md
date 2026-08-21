@@ -16,7 +16,8 @@ related:
   - magnetic-domains
   - superparamagnetism
   - magnetostriction
-updated: 2026-08-17
+  - ferroelectric-remanence
+updated: 2026-08-20
 ---
 
 # Shape Anisotropy (Geometry Barrier)
@@ -94,3 +95,4 @@ Uniform-ellipsoid \(\mathsf{N}\) is an idealization. Real precipitates, lithogra
 - [magnetic-domains](magnetic-domains.md) — magnetostatic energy that, in a large body, is spent on walls rather than on a single-domain shape latch
 - [superparamagnetism](superparamagnetism.md) — \(KV\) collapse with \(K\) now equal to \(K_\mathrm{shape}\)
 - [magnetostriction](magnetostriction.md) — strain that can change effective shape and add a magnetoelastic term
+- [ferroelectric-remanence](ferroelectric-remanence.md) — polar analog of the geometry cost is slab depolarization, a clause on that latch, not a second file

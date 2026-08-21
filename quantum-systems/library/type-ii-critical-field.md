@@ -16,8 +16,9 @@ related:
   - flux-quantization
   - josephson-effect
   - magnetic-domains
+  - ferroelectric-domains
   - superfluid-helium-4
-updated: 2026-08-17
+updated: 2026-08-20
 ---
 
 # Type-II Critical Field (Mixed-State Vortex Lattice)
@@ -110,4 +111,5 @@ No pairing mechanism is used or required. \(\xi\) and the gap are taken as measu
 - [flux-quantization](flux-quantization.md) — one \(\Phi_0\) per vortex; the hole is now a core
 - [josephson-effect](josephson-effect.md) — same \(\Phi_0\); junction-scale field response is Fraunhofer modulation, not \(H_{c2}\)
 - [magnetic-domains](magnetic-domains.md) — another macroscopic partition into real-space cells; different family, useful contrast
+- [ferroelectric-domains](ferroelectric-domains.md) — polar partition, same contrast: topology is not a seventh family
 - [superfluid-helium-4](superfluid-helium-4.md) — chargeless vortices; circulation quantum rather than \(\Phi_0\)

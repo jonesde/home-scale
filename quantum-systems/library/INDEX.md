@@ -2,11 +2,11 @@
 
 Entries are utility and internal-consistency tests, not interpretive claims. Families are QSA machine/collapse classes; conventional names are in the Effect column.
 
-Every first-wave row now links to a file. Column meanings: [library README](README.md). Family definitions: [TAXONOMY.md](TAXONOMY.md).
+Every catalog row links to a file. Column meanings: [library README](README.md). Family definitions: [TAXONOMY.md](TAXONOMY.md).
 
-**Status:** 59 formal · 0 draft · 0 queued. Mapping: 30 High · 29 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) and [pyroelectric fusion](pyroelectric-fusion.md) (Medium).
+**Status:** 60 formal · 0 draft · 0 queued. Mapping: 30 High · 30 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) and [pyroelectric fusion](pyroelectric-fusion.md) (Medium).
 
-Logically derived spec sheets and a shared-requirement audit live in [`derived/`](derived/README.md) — not catalog rows. Device applications: [`../application/`](../application/README.md).
+Logically derived spec sheets, a shared-requirement audit, and an analog-slot map live in [`derived/`](derived/README.md) — not catalog rows. Conventional topics that stay **clauses** rather than files are listed under [Handbook topics not filed as effects](#handbook-topics-not-filed-as-effects). Device applications: [`../application/`](../application/README.md).
 
 Medium mapping is not a failed entry. It means the collapse is real and the machine class is assigned, but a hardware scale is statistical, mesoscale, or taken from a measured constant rather than derived. Those are the places a second pass should tighten.
 
@@ -45,6 +45,7 @@ An energy barrier holds a directional or configurational state at zero continuou
 | [Exchange bias](exchange-bias.md) | `exchange-bias` | formal | High | Medium | T > TB of the AFM pin (TB ≤ TN) | Second latch pinning the first; Hex and TB/TN remain interface / grain data |
 | [Shape anisotropy](shape-anisotropy.md) | `shape-anisotropy` | formal | High | High | Aspect ratio → 1 (demag barrier vanishes) | Geometry / demag barrier; needles latch without large K1; spheres do not |
 | [Magnetic domains](magnetic-domains.md) | `magnetic-domains` | formal | High | Medium | Single-domain size, or saturation (walls expelled) | How a large body partitions the aligned population; wall width ~√(A/K) is a measured buffer |
+| [Ferroelectric domains](ferroelectric-domains.md) | `ferroelectric-domains` | formal | High | Medium | Single-domain size, or applied E expels walls | Polar twin of magnetic domains; nm-class walls; charged walls possible; Pr can remain after the pattern is gone |
 
 ---
 
@@ -127,6 +128,24 @@ Every mapping in this family is Medium for the same recorded reason: the hardwar
 
 ---
 
+## Handbook topics not filed as effects
+
+Conventional names a handbook would give their own chapter. Here they are **clauses** on existing files, not catalog rows: the collapse is already owned, or there is no portable number, or the topic is a write channel of a partition rather than a distinct output. Analog slots (which machine owns latch / loop / partition, and which holes are still file-worthy) live in [`derived/analog-slots.md`](derived/analog-slots.md).
+
+Do not add a file to “complete a chapter.” Add one only when the collapse is sharp and is not already a clause.
+
+| Name | What it is here | See |
+|---|---|---|
+| Superparaelectric collapse | Volume too small for a polar well to hold *P<sub>r</sub>* against *kT* and the depolarization field. Electrical twin of superparamagnetism; no portable ferroelectric *KV*. | [ferroelectric-remanence](ferroelectric-remanence.md), [superparamagnetism](superparamagnetism.md), [ferroelectric-domains](ferroelectric-domains.md) |
+| Ferroelectric *P*–*E* loop | Write/erase cycle of the polar latch. Magnet side split this out as hysteresis; polar remanence already owns loop area and *E<sub>c</sub>*. | [ferroelectric-remanence](ferroelectric-remanence.md), [ferromagnetic-hysteresis](ferromagnetic-hysteresis.md) |
+| Polar slab depolarization | Geometry / uncompensated *P* empties the well (*E<sub>d</sub>* ~ *P*/ε). Electrical analog of shape anisotropy; still an open mesoscale buffer, not a second file. | [ferroelectric-remanence](ferroelectric-remanence.md), [shape-anisotropy](shape-anisotropy.md), [depolarization-fuse](../application/depolarization-fuse.md) |
+| Optical domain-wall write | Visible light can move ferroelectric walls (photovoltaic / thermal / flexoelectric). A write channel of the partition, not a photon-energy gate. | [ferroelectric-domains](ferroelectric-domains.md), [photoelectric-threshold](photoelectric-threshold.md) |
+| Charged-wall addressing | Head-to-head / tail-to-tail walls carry bound charge and can conduct. Extra constraint on the polar partition, not a nested pin and not a 13th design. | [ferroelectric-domains](ferroelectric-domains.md), [exchange-bias](exchange-bias.md) |
+| Magneto-optical Kerr | Polarization rotation on *reflection* from a magnetized surface. Faraday’s reflection-side twin; same *eB/m* population, not a second collapse. | [faraday-rotation](faraday-rotation.md), [reflection](reflection.md) |
+| Ferroelasticity (90° walls) | Strain switches with a 90° polar wall. Coupling already owned by piezo + this partition + the elastic grid. | [ferroelectric-domains](ferroelectric-domains.md), [piezoelectricity](piezoelectricity.md), [elasticity](elasticity.md) |
+
+---
+
 ## Slug list
 
-`aharonov-bohm` · `antiferromagnetic-order` · `blackbody-spectrum` · `bose-einstein-condensate` · `brownian-motion` · `casimir-force` · `coherent-neutrino-scattering` · `coulomb-blockade` · `curie-paramagnetism` · `cyclotron-resonance` · `debye-cutoff` · `deuteron-photodisintegration` · `dielectric-breakdown` · `elasticity` · `electron-heat-capacity` · `exchange-bias` · `faraday-rotation` · `ferroelectric-remanence` · `ferromagnetic-hysteresis` · `flux-quantization` · `ideal-gas-pressure` · `ionization-threshold` · `johnson-nyquist-noise` · `josephson-effect` · `magnetic-domains` · `magnetostriction` · `meissner` · `melting` · `mossbauer-effect` · `muon-catalyzed-fusion` · `neutron-gravitational-states` · `pair-production` · `permanent-magnet-latch` · `phonon-dispersion` · `photoconductivity` · `photoelectric-threshold` · `piezoelectricity` · `plasma-frequency-cutoff` · `pyroelectric-fusion` · `quantum-hall-effect` · `quantum-point-contact` · `reflection` · `refraction-dielectric` · `semiconductor-gap-absorption` · `shape-anisotropy` · `skin-effect` · `speed-of-sound` · `stefan-boltzmann` · `superconductivity` · `superfluid-helium-4` · `superparamagnetism` · `surface-plasmon-resonance` · `thermal-conductivity-phonon` · `thermal-equilibrium-temperature` · `thermal-expansion` · `total-internal-reflection` · `type-ii-critical-field` · `work-function-thermionic` · `x-ray-absorption-edge`
+`aharonov-bohm` · `antiferromagnetic-order` · `blackbody-spectrum` · `bose-einstein-condensate` · `brownian-motion` · `casimir-force` · `coherent-neutrino-scattering` · `coulomb-blockade` · `curie-paramagnetism` · `cyclotron-resonance` · `debye-cutoff` · `deuteron-photodisintegration` · `dielectric-breakdown` · `elasticity` · `electron-heat-capacity` · `exchange-bias` · `faraday-rotation` · `ferroelectric-domains` · `ferroelectric-remanence` · `ferromagnetic-hysteresis` · `flux-quantization` · `ideal-gas-pressure` · `ionization-threshold` · `johnson-nyquist-noise` · `josephson-effect` · `magnetic-domains` · `magnetostriction` · `meissner` · `melting` · `mossbauer-effect` · `muon-catalyzed-fusion` · `neutron-gravitational-states` · `pair-production` · `permanent-magnet-latch` · `phonon-dispersion` · `photoconductivity` · `photoelectric-threshold` · `piezoelectricity` · `plasma-frequency-cutoff` · `pyroelectric-fusion` · `quantum-hall-effect` · `quantum-point-contact` · `reflection` · `refraction-dielectric` · `semiconductor-gap-absorption` · `shape-anisotropy` · `skin-effect` · `speed-of-sound` · `stefan-boltzmann` · `superconductivity` · `superfluid-helium-4` · `superparamagnetism` · `surface-plasmon-resonance` · `thermal-conductivity-phonon` · `thermal-equilibrium-temperature` · `thermal-expansion` · `total-internal-reflection` · `type-ii-critical-field` · `work-function-thermionic` · `x-ray-absorption-edge`

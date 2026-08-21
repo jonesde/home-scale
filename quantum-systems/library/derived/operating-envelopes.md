@@ -1,7 +1,7 @@
 ---
 origin: logically-derived
 not_an_effect_entry: true
-updated: 2026-08-17
+updated: 2026-08-20
 ---
 
 # Operating envelopes
@@ -38,8 +38,8 @@ Nodes: `directional-moment` as `latch-cell`; `ion` as `matrix`.
 
 | | |
 |---|---|
-| **Inside** | Polar volume that stands depolarization; *T < T_C*; *E* = 0. Remanent *P* at 0 W. |
-| **Outside** | *T > T_C*; *E > E_c*; volume too small. *E_c* / dead layer still mesoscale. A pyroelectric D–D burst dies with the host *T_C* even if D remains. |
+| **Inside** | Polar volume that stands depolarization; *T < T_C*; *E* = 0. Remanent *P* at 0 W. A large body may be partitioned (nm-class walls); a static pattern holds at 0 W. |
+| **Outside** | *T > T_C*; *E > E_c*; volume too small. A field can expel walls while *P_r* remains (partition gone, latch present). *E_c* / dead layer still mesoscale. A pyroelectric D–D burst dies with the host *T_C* even if D remains. |
 
 Nodes: `directional-moment` as `latch-cell`; `ion` as `matrix`.
 

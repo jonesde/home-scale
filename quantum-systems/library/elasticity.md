@@ -15,7 +15,8 @@ related:
   - magnetostriction
   - thermal-expansion
   - ferromagnetic-hysteresis
-updated: 2026-08-17
+  - ferroelectric-domains
+updated: 2026-08-20
 ---
 
 # Elasticity (Small-Strain Restoring Output)
@@ -96,6 +97,7 @@ Elastomers (entropy-elastic, large reversible strain) share the word “elastic�
 - [phonon-dispersion](phonon-dispersion.md) — finite-\(q\) extension of the same springs
 - [melting](melting.md) — \(G\to 0\); the grid stops being a grid
 - [piezoelectricity](piezoelectricity.md) — strain coupled to polarization
+- [ferroelectric-domains](ferroelectric-domains.md) — 90° walls switch this strain with the polar partition
 - [magnetostriction](magnetostriction.md) — strain coupled to ordered moment
 - [thermal-expansion](thermal-expansion.md) — anharmonic correction to these wells
 - [ferromagnetic-hysteresis](ferromagnetic-hysteresis.md) — analog of the mesoscale write threshold (coercivity vs \(H_a\))

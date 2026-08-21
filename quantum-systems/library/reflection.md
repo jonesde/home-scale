@@ -13,7 +13,8 @@ related:
   - skin-effect
   - photoelectric-threshold
   - surface-plasmon-resonance
-updated: 2026-08-17
+  - faraday-rotation
+updated: 2026-08-20
 ---
 
 # Reflection (Electron-Cloud Response)
@@ -109,3 +110,4 @@ Contrast case, not yet written: `photoelectric-threshold` is a single-electron e
 - [Skin effect](skin-effect.md) — low-frequency limit of the same screening length
 - [Surface plasmon resonance](surface-plasmon-resonance.md) — interface-bound collective mode of the same electron population
 - [Photoelectric threshold](photoelectric-threshold.md) — single-electron energy gate in the same metals; contrast case
+- [faraday-rotation](faraday-rotation.md) — Kerr rotation is Faraday on this metal face; a clause, not a second file

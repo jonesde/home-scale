@@ -14,7 +14,8 @@ related:
   - refraction-dielectric
   - plasma-frequency-cutoff
   - curie-paramagnetism
-updated: 2026-08-17
+  - reflection
+updated: 2026-08-20
 ---
 
 # Faraday Rotation (Magneto-Optical Path Accumulator)
@@ -90,6 +91,8 @@ The mapping is a product budget, not a hard machine death. A 5–10 nm metal fil
 
 [Cyclotron resonance](cyclotron-resonance.md) is the resonant cousin: absorption when \(\omega=\omega_c\). Faraday is the off-resonant, cumulative phase between the two circular modes. They share the \(eB/m\) scale and must not be filed as one artifact. The interstellar plasma form also sits next to `plasma-frequency-cutoff`: Faraday in a magnetized plasma is written in the same \(\omega_p,\omega_c\) language, far below cutoff.
 
+Magneto-optical Kerr rotation is the same population read on *reflection* rather than in transmission. It is a clause on this file and on [reflection](reflection.md), not a second catalog row: there is no distinct collapse, only a different optical path (the metal face instead of a bulk Verdet path).
+
 QSA *takes* \(V\) (or the 0.81 prefactor) as measured. It does not derive TGG’s \(10^{2}\,\mathrm{rad\,T^{-1}\,m^{-1}}\) from node rules. Paramagnetic \(V(T)\) touches `curie-paramagnetism` but the Faraday output is a path integral, not a susceptibility reading.
 
 ### 4.7 Overall Confidence in the QSA Mapping
@@ -102,3 +105,4 @@ QSA *takes* \(V\) (or the 0.81 prefactor) as measured. It does not derive TGG’
 - [refraction-dielectric](refraction-dielectric.md) — the underlying polarizable medium; Faraday is magnetically split \(n_\pm\)
 - [Plasma-frequency cutoff](plasma-frequency-cutoff.md) — magnetized-plasma Faraday is written in the same \(\omega_p,\omega_c\) language
 - [Curie paramagnetism](curie-paramagnetism.md) — unlocked-moment ensemble that feeds paramagnetic \(V(T)\)
+- [reflection](reflection.md) — Kerr is Faraday’s reflection-side twin on a magnetized metal face; not a separate effect

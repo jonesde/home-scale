@@ -11,13 +11,14 @@ confidence_data: high
 confidence_mapping: medium
 related:
   - ferroelectric-remanence
+  - ferroelectric-domains
   - elasticity
   - magnetostriction
   - melting
   - phonon-dispersion
   - refraction-dielectric
   - dielectric-breakdown
-updated: 2026-08-17
+updated: 2026-08-20
 ---
 
 # Piezoelectricity (Strain–Polarization Coupling)
@@ -90,6 +91,7 @@ The mapping takes handbook \(d_{ij}\) as the coupling strength. QSA does not yet
 ## Related entries
 
 - [ferroelectric-remanence](ferroelectric-remanence.md) — the polar latch; this file owns strain \(\leftrightarrow\) \(P\), not remnant \(P\)
+- [ferroelectric-domains](ferroelectric-domains.md) — 90° walls are ferroelastic; they switch strain with the partition
 - [elasticity](elasticity.md) — the strain hardware
 - [magnetostriction](magnetostriction.md) — the magnetic analogue (moment \(\leftrightarrow\) strain)
 - [melting](melting.md) — destruction of the coupling lattice

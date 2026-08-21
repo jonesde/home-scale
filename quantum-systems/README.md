@@ -110,7 +110,7 @@ High / Medium / Low, with a one-sentence justification focused on how well the e
 The effect library lives in [`library/`](library/INDEX.md). The copy-paste starter is [`library/_template.md`](library/_template.md). Operating rules for files, frontmatter, and the index are in [`library/README.md`](library/README.md).
 
 - Template defined and locked (this document).
-- First wave: 59 formal entries (six families). Mapping confidence is recorded per file — 30 High, 29 Medium, 0 Low.
+- Catalog: 60 formal entries (six families). Mapping confidence is recorded per file — 30 High, 30 Medium, 0 Low.
 - Medium mapping means the collapse is assigned but a hardware scale is still statistical, mesoscale, or taken rather than derived. Tighten those before adding a second wave.
 - Analysis layer: `python3 analysis/rebuild.py` builds local `qs-analysis.db` (`effect` → `implication` → `design` / `node` → `requirement`) from the text in [`analysis/`](analysis/) and [`library/nodes/`](library/nodes/). The `.db` is not in the repo. Notes: [`analysis/README.md`](analysis/README.md).
 - Add or revise effect files one at a time; update [`library/INDEX.md`](library/INDEX.md) in the same change. Node cards update [`library/nodes/INDEX.md`](library/nodes/INDEX.md), not the effect catalog.

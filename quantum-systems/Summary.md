@@ -1,6 +1,6 @@
 # QSA working summary
 
-**Date:** 2026-08-17  
+**Date:** 2026-08-20  
 **Purpose:** Current state and locked rules so work can continue without rereading the whole tree. Not a second methodology spec.
 
 **Canonical sources**
@@ -53,16 +53,16 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 
 | Layer | Count | Where |
 |---|---|---|
-| Formal effects | 59 (six families) | [library/INDEX.md](library/INDEX.md) |
-| Mapping confidence | 30 High · 29 Medium · 0 Low | per-file frontmatter |
+| Formal effects | 60 (six families) | [library/INDEX.md](library/INDEX.md) |
+| Mapping confidence | 30 High · 30 Medium · 0 Low | per-file frontmatter |
 | Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) and [pyroelectric-fusion](library/pyroelectric-fusion.md) (Medium) | same |
-| Extracted implications | 447 | `analysis/fragments/*.jsonl` |
+| Extracted implications | 457 | `analysis/fragments/*.jsonl` |
 | Predicted implications | 41 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
 | Designs | 12 (8 formal; four drafts) | [analysis/design.csv](analysis/design.csv) |
 | Nodes | 11 forced | [library/nodes/INDEX.md](library/nodes/INDEX.md) |
 | Requirements | 38 | [analysis/requirement.csv](analysis/requirement.csv) |
 | Applications | 14 | [application/README.md](application/README.md) |
-| Derived notes | spec sheets + requirement audit | [library/derived/](library/derived/README.md) |
+| Derived notes | spec sheets + requirement audit + analog-slot map | [library/derived/](library/derived/README.md) |
 
 `quantum-hall-effect` is the core of draft `edge-channel` (2DEG + Landau gap + edge path). It stays **contrast** on `gapped-condensate`. A quantum point contact is contrast on `edge-channel`, not a member. The electron `edge` role is now consumed.
 
@@ -81,7 +81,7 @@ Those two, plus [photoelectric-threshold](library/photoelectric-threshold.md), a
 |---|---|---|
 | `collective-screening` | formal | Connected charged population; dies by buffer starvation or clock overrun |
 | `anisotropy-latch` | formal | Barrier-protected directional memory; 0 W hold |
-| `polar-latch` | formal | Electrical twin; remnant *P* at *E* = 0 |
+| `polar-latch` | formal | Electrical twin; remnant *P* at *E* = 0; a large body partitions |
 | `gapped-condensate` | formal | Charged protected mode; *R* = 0 and expulsion are split artifacts |
 | `chargeless-superflow` | formal | ⁴He analog; not the same hardware |
 | `energy-gate` | formal | Discrete conversion; *N* = 1 per event |
