@@ -1,7 +1,7 @@
 ---
 origin: application
 device: EM-CSAM opportunity brief (non-nuclear functional print)
-updated: 2026-08-18
+updated: 2026-11-10
 envelope: concept brief; shop first; nano/fab is fantasy
 scope: non-nuclear
 ---
@@ -91,7 +91,8 @@ This is the reality check. Interesting effects do **not** scale down to a single
 | **Hydride shutter** | Metal phase still needs the percolation cliff. Island hydride is a starved buffer, not a shutter. | Cycle life and the pin (stuck open or shut). Overshoot toward host *T<sub>m</sub>* is `coupled-grid-loss`, not a cleverer switch. Packaging of the H inventory is the product ceiling. |
 | **Casimir / conducting-plate force** | Starve the faces and the conducting-plate class should die with *R*. | Gap *d* is capacity of the force (0.1–1 μm class). Opening the gap into the noise is not percolation. Patch charge is the practical ceiling. |
 | **CSAM write pixel (this head)** | Particles must pass the bore. Nano-only feedstock is skin + melt + H pickup. | ~0.5 mm-class bore is the present pixel. Larger bore buys rate and loses the map. Velocity class 200–800 m/s; Cu can stay solid farther than steel (steel liquifies on the way to 500 m/s class because resistivity dumps heat into a small *C*). |
-| **Pulse as a materials knob** | Too short: gas/carrier never does what you wanted; current in a tens-of-μm Cu skin (~1 μs class). | Too long: a bake. ~100 μs class wets ~0.2–0.3 mm of Cu. More ∫*I*²*dt* is not a finer state. |
+| **Pulse as a materials knob** | Too short: gas/carrier never does what you wanted; current in a tens-of-μm Cu skin (~1 μs class). | Too long: a bake. ~100 μs class wets ~0.7–0.9 mm of Cu. More ∫*I*²*dt* is not a finer state. |
+| **This driver’s pulse (hardware note, 2026-11)** | The launch pulse is 0.2–0.7 ms class at 1–4 kHz. A ~1 μs write is outside it. | Skin in Cu is ~2 mm class at that pulse; the slug itself has no skin effect. Conditioning is a separate, current-limited step. |
 | **Printed logic / photonics (fantasy, §5)** | Tunnel islands and dopants are a different machine (`energy-gate` / Coulomb), not a tinier mirror. Latch bits cannot be smaller than *KV* / depolarization. | Complementary to a CMOS front-end, not a replacement. The paid ceiling today is backend, interposer, and electrical–optical packaging. |
 
 **Process upper bounds of the pitch itself.** Joule-class shots, not a foundry. Bonded-magnet energy product below sintered. mm-class pixels, not lithography. Printed windings are not a sheet. Occupancy shutter waits on a sealed package. None of that kills the shop-scale offer in §1.
@@ -140,6 +141,7 @@ Each box is a design target. **Stands on** is filed. **Stretch** is the part tha
 - **Stands on.** [bonded-magnets](bonded-magnets.md) *KV* cliff; electrical percolation as a *separate* starve ([thin-film-optics](thin-film-optics.md)).
 - **Stretch.** Impact does not smash the grains through the blocking line or sinter them into a conducting network.
 - **First trial.** Ferrite or bonded-NdFeB-class powder, sparse splat or insulating residue, *B* on during flight or on the substrate. Read remanence (VSM / powder pattern) **and** sheet resistance. You want *M<sub>r</sub>* without a Cu-like sheet.
+- **Prior art caveat.** Cold-sprayed NdFeB already exists, but with an aluminum binder that deforms around the hard grains (Lamarre & Bernier, [J. Therm. Spray Technol. 28:1709, 2019](https://link.springer.com/doi/10.1007/s11666-019-00917-6)). That deposit **conducts**. The insulating variant asked for here needs ferrite, or coated grains, or a non-metallic binder.
 - **Dies if.** Every magnetic deposit is either non-magnetic or a conducting sheet.
 
 #### E. Conservative linear drive (the honest “print the motor into the frame”)
@@ -338,7 +340,7 @@ Full isolation sequences live in the application files. This brief does not dupl
 | Magnetite blocking | smaller than NdFeB | “all magnets, 30 nm” |
 | BaTiO₃ *T<sub>C</sub>* | ≈ 393 K class | NdFeB Curie, *T<sub>B</sub>* |
 | Ni *T<sub>C</sub>* | 627 °C class | A hydride phase line |
-| Cu skin | ~tens of μm at ~1 μs; ~0.2–0.3 mm at ~100 μs | Optical 10–20 nm |
+| Cu skin | ~tens of μm at ~1 μs; ~0.7–0.9 mm at ~100 μs; ~2 mm at the 0.2–0.7 ms launch pulse | Optical 10–20 nm |
 | Bonding velocity | 200–800 m/s class, material-specific | A fusion knob |
 | Casimir gap window | 0.1–1 μm class | The optical percolation thickness |
 | Steel bake-out (erase of charged H) | 150–200 °C class — check the spec | A nuclear clock |

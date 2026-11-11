@@ -12,9 +12,36 @@ There are still bore wear concerns, but not like with a plasma state railgun whe
 
 The first question for practicality is whether the math is right, and how much current needs to be added for barrel friction, etc. After that there are questions of material feed and control and such. Being relatively low voltages and currents with fast solid state switching the circuits are pretty simple (like in PWM motor controllers). Voltage and wave shape gives us a lot of control over the current delivered to the circuit in small time windows (using current and/or pulse width to tune velocity). From there it borrows from the work done for other CSAM methods.
 
+## Where things stand (November 2026 review)
+
+The whole folder was reviewed in November 2026. The findings, with numbers and sources, are in [`DesignReview-2026-11.md`](DesignReview-2026-11.md). The points that qualify the introduction above:
+
+- **Solid copper, yes; copper paste, not yet.** The "copper to 1 km/s without melting" estimate holds for a solid copper slug. A slug of powder in oil is an insulator until its particle contacts break down, and it launches as a solid only once its resistance is down to a few tenths of a milliohm. Above a few milliohms it boils. Getting the slug conductive is the first problem, ahead of everything else.
+- **The circuits are simple; the numbers are not small.** A shot needs about a coulomb and tens of joules, at 1–4 kA. Efficiency is a fraction of a percent at these velocities.
+- **Magnets help at this scale.** The rails' own field is weak enough that permanent magnets, and a few extra turns over the rails, add roughly 1.5–1.9× in velocity.
+- **Three processes, not one.** A solid slug thrown by Lorentz force, a spray driven by the flashing carrier, and an exploding slug are different regimes with different deposits.
+- **Close cousins exist.** A railgun-driven powder deposition process was patented by the University of Texas in 2001 (now expired), and two Japanese pulsed-plasma spray processes are related. None uses a solid milligram slug at kiloamp scale. See the review, §8.
+- **Nothing here is measured yet.** [`TestPlan.md`](TestPlan.md) is the order in which to find out.
+
+### Document map
+
+| Read this | For |
+|---|---|
+| [`DesignReview-2026-11.md`](DesignReview-2026-11.md) | What the review found and why |
+| [`EM-CSAM-ConceptTechnical.md`](EM-CSAM-ConceptTechnical.md) | Physics: shot budget, slug resistance, augmentation, regimes |
+| [`UnifiedResonantDriver.md`](UnifiedResonantDriver.md), [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md), [`UnifiedResonantShoppingList.md`](UnifiedResonantShoppingList.md) | The live driver design |
+| [`RailgunHeadPrototype.md`](RailgunHeadPrototype.md), [`RailMaterial.md`](RailMaterial.md), [`BarrelHighVolMfg.md`](BarrelHighVolMfg.md) | Head, rails, barrel manufacture |
+| [`PowderCarrierRailMaterial.md`](PowderCarrierRailMaterial.md) | Powder, carrier and rail chemistry |
+| [`TestPlan.md`](TestPlan.md) | Experiments, in order |
+| [`References.md`](References.md) | Sources, with links and summaries |
+| [`tools/shot_model.py`](tools/shot_model.py) | The model behind the numbers |
+| [`AGENTS.md`](AGENTS.md) | Handoff notes for anyone (or any agent) continuing the work |
+| [`ControllerArchitecture.md`](ControllerArchitecture.md), `DriverBoard*.md`, [`DriverShoppingList.md`](DriverShoppingList.md) | Earlier v0.1 notes, superseded but kept |
+| [`EM-CSAM-LENR.md`](EM-CSAM-LENR.md) | A separate speculative experiment; not part of the deposition work |
+
 ## Potential Powder, Carrier, and Rail Combinations
 
-This is the result of a little AI analysis, progressing toward viability. These are just a few of the many potential viable combinations.
+This is the result of a little AI analysis, progressing toward viability. These are just a few of the many potential viable combinations. The tables below were revised after the November 2026 review; the reasoning is in [`PowderCarrierRailMaterial.md`](PowderCarrierRailMaterial.md).
 
 Note that these do not yet take into account contamination from the rail material, which depending on the energy level and rail materials is anywhere between a non-issue to an engineered part of the process (ie intentionally consume the rails to mix the desired output metal). In theory, rails can be made of any conductive material, even lower conductivity if you need/want loss/contamination as part of the process.
 
@@ -36,6 +63,9 @@ Early process development focuses on matching metal powder, carrier fluid, and r
 
 ### Highest-Priority Design Considerations
 
+0. **Electrical Conduction of the Slug**
+   Decide first how the slug comes to conduct. Powder in an insulating carrier does not, until its contacts are broken down, compacted or sintered. Carrier choice, powder shape, compaction and preconditioning all serve this before anything else.
+
 1. **Suspension Stability**
    Metal powders are dense and settle quickly. The carrier must keep particles suspended for the required working time. High viscosity or suitable thickeners are normally required.
 
@@ -49,11 +79,16 @@ Early process development focuses on matching metal powder, carrier fluid, and r
 
 These prioritize lower reactivity, manageable handling, and good availability for early splat testing.
 
-| Powder | Carrier | Preferred Rails | Notes |
-|--------|---------|-----------------|-------|
-| Copper | Light mineral oil, isoparaffinic solvent, or low-viscosity synthetic oil (± light graphite/graphene) | Copper or Aluminum | Best overall starting point. Forgiving electrical and thermal behavior; good chance of coherent metallic deposits. |
-| Aluminum + Silicon | Isoparaffinic or light synthetic oil | Aluminum or Copper | Classic casting-alloy system. Silicon improves fluidity. Keep powder on the coarser side and use good ventilation. |
-| Iron or low-alloy steel | Mineral oil or light synthetic oil (± controlled fine graphite) | Steel or Copper | Readily available and useful for learning consolidation and carbon control. Monitor carbon pickup. |
+| Powder | Carrier | Preferred Rails | Bonding velocity (20 µm, cold) | Notes |
+|--------|---------|-----------------|--------------------------------|-------|
+| Tin, or ready-made solder paste | As supplied (flux vehicle), or light oil | Copper (C145) | 160–180 m/s | Easiest first target. Proves feed, conduction and launch. Tin melts on the way, so this is molten-drop deposition. |
+| Zinc | Light mineral or isoparaffinic oil | Copper (C145) | 360–380 m/s | Cheap, conductive, useful (galvanic protection). Ventilate: zinc fume causes metal fume fever. |
+| Copper | Light mineral oil or isoparaffinic solvent; later a self-reducing or metallic carrier | Copper (C145) | 460–500 m/s, lower when warm | The main target. Use low-oxygen powder and store it dry: oxygen content moves the bonding velocity from about 300 to 610 m/s. |
+| Copper + tin | Flux vehicle | Copper (C145) | — | Tin melts and wets the copper, so the slug conducts early; the mix reacts toward a bronze-like network. |
+| Iron or low-alloy steel | Mineral oil (± controlled fine graphite) | Steel or Copper | 700–750 m/s (316L) | Iron melts before it reaches a bonding velocity unless the head is augmented. Useful for learning carbon control, as hot or molten deposits. |
+| Aluminum + Silicon | Isoparaffinic oil, with a fluoride flux | Aluminum (same metal), or tungsten/graphite-faced | 620–660 m/s | Later. **Not copper rails and not with copper powder**: copper and aluminum form a liquid at 548 °C. |
+
+Rails: copper powders go with copper rails. Aluminum rails with copper powder were recommended earlier and are withdrawn (see [`RailMaterial.md`](RailMaterial.md)).
 
 ### Recommended Combinations – Industrial / Higher-Performance Targets
 
@@ -66,4 +101,4 @@ These can address more demanding materials but require industrial-level safety c
 | Copper + higher graphene loading | Engineered carrier designed to protect graphene | Copper | High-conductivity composite target. Dispersion quality and graphene survival are the main challenges. |
 
 **Development sequence recommendation**
-Begin with the copper-based maker-lab systems. Once coherent deposits are repeatable, expand into aluminum–silicon and controlled iron systems. Attempt titanium and other highly reactive or high-performance combinations only after solid process control and appropriate facilities are in place.
+Begin with tin or solder paste, then zinc, then copper, all on copper rails. Once coherent deposits are repeatable, expand into aluminum–silicon and controlled iron systems. Attempt titanium and other highly reactive or high-performance combinations only after solid process control and appropriate facilities are in place. Bonding velocities are from Schmidt et al. 2009 ([CS-SCHMIDT09](https://www.researchgate.net/figure/alues-of-critical-velocity-for-bonding-assuming-a-particle-size-of-20-lm-Material-Melting_tbl1_225516724)); see [`References.md`](References.md).

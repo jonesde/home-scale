@@ -1,7 +1,7 @@
 ---
 origin: application
 device: EM-CSAM micro-railgun deposition head, driver, and the same barrel/coil as a lab
-updated: 2026-08-17
+updated: 2026-11-10
 ---
 
 # Application: EM-CSAM head (manufacture + experiment)
@@ -40,7 +40,9 @@ The manufacturing goal (coherent deposit, low substrate heat) and the experiment
 
 ### 2.1 Acceleration
 
-*F* = ½ *L*′ *I*² with *L*′ ~ 0.5–0.6 µH/m for simple rails. Short barrel (~100 mm) ⇒ you buy velocity with *I*, not with length. The armature is a slurry slug whose mass, conductivity, and fill fraction are process variables, not nuisances.
+*F* = ½ *L*′ *I*² with *L*′ ~ 0.3–0.5 µH/m class for this head’s flat side-by-side rails (the earlier 0.5–0.6 was for a square bore; the hardware review of 2026-11 revised it). Short barrel (~100 mm) ⇒ you buy velocity with *I*, not with length. The armature is a slurry slug whose mass, conductivity, and fill fraction are process variables, not nuisances.
+
+Two knobs the hardware notes added after that review ([`DesignReview-2026-11.md`](../../em-csam/DesignReview-2026-11.md)): an external field (permanent magnets, a term linear in *I*) and series augmenting turns (more force per *I*²). At this scale the rails’ own field is only ~0.8 T class at 2 kA, so a magnet competes with it. The magnet term is what lets pulse shape trade heat against velocity.
 
 ### 2.2 Skin and heating (why pulse width is a materials knob)
 
@@ -49,12 +51,12 @@ Classical skin: δ = √(2/ωμσ). A short pulse (high *ω*) confines current t
 | Pulse | Skin in Cu (order) | Manufacturing read |
 |---|---|---|
 | ~1 µs | ~tens of µm | Current on the bore face; erosion localized; armature must conduct at its skin |
-| ~100 µs | ~0.2–0.3 mm | More of the rail participates; less peak face *T* for the same ∫*I*²*dt* |
-| ~ms / precondition 5–50 kHz | δ still sub-mm at 50 kHz | Precondition path in the driver is a **clock**, not just a “warm-up” |
+| ~100 µs | ~0.7–0.9 mm | More of the rail participates; less peak face *T* for the same ∫*I*²*dt* |
+| 0.2–0.7 ms launch pulse (the driver’s actual pulse) | ~2 mm class | Rails wider than 3–4 mm carry no more pulse current; the pulse is a bulk heater of the rail edge zone |
 
 Anomalous skin (mfp ≳ δ) is a High-mapping sibling; at room-temperature Cu and these pulses it is usually secondary. Do not confuse optical 10–20 nm with RF skin.
 
-If the armature is a **powder compact**, each particle has its own δ. A 20 µm Cu particle is electrically thick at 1 µs; a 20 µm steel particle is closer to the line (lower σ). Steel liquifies on the way to 500 m/s in the project README because resistivity dumps *I*²*R* into a small *C* — that is this machine, not a mystery.
+If the armature is a **powder compact**, the skin clock applies to the *slug*, not to each particle. A 20 µm Cu particle is electrically **thin** at every pulse this driver makes: δ in Cu is ~66 µm at 1 µs class and ~2 mm at the 0.2–0.7 ms launch pulse (an earlier version of this note had that backwards). For the slug, δ is set by its effective resistivity; at 10–100× bulk Cu it is ≳ the slug size even at 200 kHz, so there is no skin effect in a paste armature. What the particles do have is **contacts**: an oxidised powder chain is an insulator until the contacts break down, then holds ~0.4 V per contact class until necks grow. That contact latch, not skin, decides solid vs boiling armature. Steel liquifies on the way to 500 m/s in the project README because resistivity dumps *I*²*R* into a small *C* — that is this machine, not a mystery.
 
 ### 2.3 Bonding: yield, not melt (unless you choose melt)
 
@@ -96,7 +98,7 @@ Paschen in a small H₂-contaminated gap is why the [EM-LENR](EM-LENR.md) cell t
 | Substrate *T* | Cold (the point of CSAM) | Warm if you need extra diffusion | Substrate melt |
 | Stand-off / angle | In the cold-spray window | Steeper for peening / more strain | Grazing bounce |
 
-Precondition (5–50 kHz on the existing driver) is a **clock knob**: it can wet contacts and lower breakdown chance before the main pulse. Use it as “plasma off,” not as extra energy.
+Precondition is a **contact knob**: a current-limited sintering step whose endpoint is slug resistance (the hardware notes now use a ballast-limited current, not a 5–50 kHz tone). It lowers breakdown chance before the main pulse. Use it as “plasma off,” not as extra energy. Under a voltage source the same step runs away.
 
 ---
 
@@ -117,6 +119,8 @@ You do not need a second lab. A missed shot, an empty barrel, a coil around a ¼
 **What.** Deposit Cu or Al (or Ag if you ever load it) onto glass. Measure *R*(λ), *T*(λ), continuity.
 
 **Question.** Did the splat field **percolate**, and is the connected thickness ≳ 10–20 nm class?
+
+**Regime.** A solid-slug or splat shot lands µm-class metal, four orders above this cliff. A 5–20 nm film only comes from the **exploding / vapor** regime (thin foil or fine wire as the armature), which is a different write from cold bonding. Run this series there, and do not read a splat coupon against the percolation cliff.
 
 **Tune.** Shot count **up** to cross percolation (cliff in *R*, not linear). Pulse energy **down** if you are melting instead of tiling. Rail metal will show up in the film — treat it as the film’s second layer.
 
@@ -220,6 +224,6 @@ None of these is a LENR falsifier. They are falsifiers of using this barrel as a
 
 ## 6. What this file is not
 
-- Not a KiCad driver design ([`ForFutureGrok.md`](../../em-csam/ForFutureGrok.md) still owns that).  
+- Not a KiCad driver design ([`AGENTS.md`](../../em-csam/AGENTS.md) still owns that).  
 - Not a substitute for [EM-LENR](EM-LENR.md).  
 - Not a claim that rail erosion, skin, or magnetostriction are new physics. They are the library applied to a head you are actually building.

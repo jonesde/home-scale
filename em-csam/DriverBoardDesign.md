@@ -1,5 +1,7 @@
 # EM-CSAM Micro-Railgun Driver Board – Candidate Design v0.1
 
+> **Superseded (November 2026).** This is the v0.1 low-side-dump driver, kept for reference. The live design is [`UnifiedResonantDriver.md`](UnifiedResonantDriver.md); the reasons are in [`DesignReview-2026-11.md`](DesignReview-2026-11.md). Do not order parts or lay out a board from this file.
+
 Open-source baseline for a 48–60 V capacitor-discharge driver intended for a 0.5 mm-class micro-railgun deposition head.
 Designed for home fabrication, common parts, scaling flexibility, and easy forking.
 

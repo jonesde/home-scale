@@ -1,6 +1,17 @@
 
 # EM-CSAM Controller Architecture - Design and Build Notes
 
+> **Status (November 2026).** These are the earliest controller notes, kept for reference.
+>
+> - **Superseded:** the capacitor-discharge circuit and the "48–60 V single-head" parts list below describe the v0.1 low-side-dump driver. The live design is [`UnifiedResonantDriver.md`](UnifiedResonantDriver.md), [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md) and [`UnifiedResonantShoppingList.md`](UnifiedResonantShoppingList.md).
+> - **Still current:** the flat lead cable design and the oscilloscope notes.
+> - **Corrections from the review** ([`DesignReview-2026-11.md`](DesignReview-2026-11.md)):
+>   - A dedicated pulse sequencer (RP2040 class) is required, not optional. Printer firmware sends FIRE; it does not time the pulse.
+>   - A shot needs about a coulomb and tens of joules, not "a fraction" of a small bank. Capacitor ESR is about half the loop.
+>   - A 100–200 A Hall sensor measures conditioning current only. Launch current needs a Rogowski loop.
+>   - The preconditioning path is a ballast-limited current source with slug resistance as its endpoint, not a Class-D amplifier or stepper channel.
+>   - SCRs and IGBT bricks are not pursued; the half-bridge of paralleled MOSFETs is.
+
 ---
 
 **For a 0.5 mm bore the practical hardware path is a capacitor-discharge pulse system controlled by the existing BigTreeTech + Pi 4 stack.** This is the cheapest and most hack-friendly route that still reaches the required peak currents (roughly 500–2000 A depending on pellet mass and target velocity) while keeping energy per shot low (tens to a few hundred millijoules kinetic + ohmic losses).
@@ -266,7 +277,7 @@ Kapton
 (optional second protective layer)
 ```
 
-P**ut the spring steel on the outside of the bend (the tension side).** This puts the copper layers closer to the neutral axis or on the compression side, so the copper sees less stretching. The steel takes the tensile load and helps the whole stack return smoothly.
+**Put the spring steel on the outside of the bend (the tension side).** This puts the copper layers closer to the neutral axis or on the compression side, so the copper sees less stretching. The steel takes the tensile load and helps the whole stack return smoothly.
 
 If you orient the finished cable so that the steel is always on the outside of the curve in normal machine motion, copper fatigue life improves significantly.
 
@@ -287,42 +298,10 @@ This is easy to make, fully inspectable, and avoids the risks of cold-crimping d
 **Short summary:**
 
 Flexible high-current leads are made from multi-layer 0.32 mm (28 ga) copper strip, 1.5" wide, with Kapton insulation on each copper layer. A 301/302 spring-temper stainless strip is placed on the outside of the primary bend direction to take tensile stress and smooth flexing; the copper layers sit closer to the neutral or compression side. Outer cloth tape provides abrasion protection. At each end the copper foil is folded a few times for thickness, then sandwiched between two 1–2 mm copper plates that act as load-spreading washers. The stack is bolted with ordinary steel washers, giving a simple, low-resistance, fully serviceable termination that can be re-made by exposing more foil if needed.
-
-```
-Outer protective cloth tape
-301/302 spring steel (tension side)
-Kapton
-Copper layer(s) + Kapton between them
-Kapton
-(optional second protective layer)
-```
-
-P**ut the spring steel on the outside of the bend (the tension side).** This puts the copper layers closer to the neutral axis or on the compression side, so the copper sees less stretching. The steel takes the tensile load and helps the whole stack return smoothly.
-
-If you orient the finished cable so that the steel is always on the outside of the curve in normal machine motion, copper fatigue life improves significantly.
-
-Look for **301 (or 302) stainless spring-temper strip** in 0.10–0.25 mm thickness and the same 1.5" width (or a bit narrower). 0.15–0.20 mm is a sweet spot for most people — stiff enough to smooth the flex without making the cable too springy or hard to route.
-
-You can find it on Amazon, AliExpress, McMaster-Carr, or industrial suppliers as “301 spring temper stainless strip” or “301 full hard stainless steel strip.”
-
-Because the connection is always bolted, you can treat the termination as a simple bolted sandwich:
-
-- Fold or stack the end of the 0.3 mm foil a few times to build local thickness.
-- Place a 1–2 mm copper plate (same width or slightly wider) on each side of the folded foil — these act as load-spreading “washers.”
-- Put normal steel washers on the outsides and torque the bolt.
-- The thick copper pieces distribute the clamping force, give a solid low-resistance face, and protect the thin foil.
-- For maintenance you just peel the outer tape back and cut/expose more foil if the end ever needs re-terminating.
-
-This is easy to make, fully inspectable, and avoids the risks of cold-crimping delicate foil.
-
-**Short summary:**
-
-Flexible high-current leads are made from multi-layer 0.32 mm (28 ga) copper strip, 1.5" wide, with Kapton insulation on each copper layer. A 301/302 spring-temper stainless strip is placed on the outside of the primary bend direction to take tensile stress and smooth flexing; the copper layers sit closer to the neutral or compression side. Outer cloth tape provides abrasion protection. At each end the copper foil is folded a few times for thickness, then sandwiched between two 1–2 mm copper plates that act as load-spreading washers. The stack is bolted with ordinary steel washers, giving a simple, low-resistance, fully serviceable termination that can be re-made by exposing more foil if needed.
-
 
 ---
 
-## Oscilliscope Notes
+## Oscilloscope Notes
 
 
 **You’ll want a scope, but it doesn’t have to be extreme.** The frequencies and pulse widths involved are very manageable for a solid mid-range instrument, especially while you stay in lower-power test states.

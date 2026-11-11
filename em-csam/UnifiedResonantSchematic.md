@@ -1,284 +1,342 @@
 # Schematic Description – Unified Resonant Bridge Driver Board
-EM-CSAM Micro-Railgun
-Alternate driver: single half-/full-bridge for preconditioning + ≥200 kHz resonant launch
+EM-CSAM Micro-Railgun · Version 0.2
+
+A net-level description with values, sufficient to begin schematic capture, plus a bring-up order that works on a 0–30 V bench supply.
+
+**What changed in 0.2.** Launch is one unipolar pulse, not a ≥200 kHz burst (see [`UnifiedResonantDriver.md`](UnifiedResonantDriver.md) §3). This file now has an explicit schematic with reference designators, real gate-drive values, a grounding decision, a conditioning path that works, launch-current sensing, and the protection that was missing. Findings and sources: [`DesignReview-2026-11.md`](DesignReview-2026-11.md) and [`References.md`](References.md). Values marked *start* are bench starting points, not final.
 
 ## 1. Purpose of this Document
 
-Provide a clear, hierarchical schematic description and best-guess component guidance sufficient to begin schematic capture and PCB layout. The design implements one low-inductance power stage that operates in two modes:
+One low-inductance power stage with these jobs:
 
-- Preconditioning: lower frequency (~10–50 kHz), moderate current, L_series bypassed.
-- Launch: short high-current resonant burst ≥200 kHz with external swappable L_series in circuit.
+- **Launch:** a single 0.2–0.7 ms pulse of up to 1.4 kA (4+4 FETs), shaped by the bank and `L1`.
+- **Conditioning:** ballast-limited current of up to about 20 A from a low bus.
+- **Measure every shot:** current, slug voltage, bank voltage.
 
-Target bus voltage class remains 48–60 V for early work (adjustable later). Peak launch current capability should be scalable into the high hundreds of amps by population of parallel devices. Layout must prioritize minimal high-current loop area.
+Bus voltage: ≤30 V for first light; 48–56 V later.
 
-## 2. Top-Level Blocks
+## 2. Schematic
 
-1. DC input & charging / bus management
-2. Pulse capacitor bank (C_tank)
-3. Half- or full-bridge power stage (paralleled MOSFETs)
-4. Gate drive & local protection
-5. L_series interface + bypass path
-6. Rail output interface
-7. Current / voltage / temperature sensing
-8. Control logic & MCU interface (BTT or equivalent)
-9. Auxiliary power & housekeeping
+```
+                 F1        D1          K1          R1
+SUPPLY+ ───────[fuse]─────▷|───────[charge en.]──[10 Ω]───┬────────┬────────┬────────┬───── BUS+
+                                                          │        │        │        │
+                                                        C1–C6    C7–C10     D2       R2
+                                                      4700 µF    10 µF    5KP58A   1.5 kΩ bleeder
+                                                       100 V     film       │        │      (R3 10 Ω dump via S1)
+                                                          │        │        │        │
+SUPPLY− ──────────────────────────────────────────────────┴────────┴────┬───┴────────┴───── RETURN ★ (star point)
+                                                                        │
+          ┌── drains ── BUS+                                            │
+   Q1–Q4 (HS, 4 in parallel; Rg 10 Ω and Rgs 10 kΩ each)                │
+          └── sources ──┬── SW ──── L1 (L_series) ──── RAIL A           │
+          ┌── drains ───┘                                ║              │
+   Q5–Q8 (LS, 4 in parallel)                            slug            │
+          └── sources ── RETURN ★                        ║              │
+                                                       RAIL B ── RC1 (Rogowski, around the bar) ── U4 ACS772 ── RETURN ★
 
-Optional: separate low-power ignition/high-voltage tick generator (not required for first revision).
+   BUS+ ── K2 (conditioning relay) ── R4 (ballast 1–10 Ω) ── RAIL A
 
-## 3. Block Descriptions and Candidate Parts
+   Snubber R9 + C11 across each leg, at the FETs.
+   Muzzle taps: MA (rail A, muzzle end), MB (rail B, muzzle end) → twisted pair → sense network (§3.7).
+```
 
-### 3.1 DC Input & Charging
+Gate drive and logic:
 
-- Input: 48–60 V nominal DC (wall supply with bulk capacitance or **battery array**; 48 V pack is in range).
-- Reverse-polarity protection: **first revision is a series Schottky** on the charge path (pack+ → anode, cathode → bus). Launch current does not go through it.
-- Soft-start / inrush limiting.
-- Charging path to the pulse capacitor bank: current-limited resistor, active current source, or simple buck pre-regulator.
-- Bus voltage sense for MCU (220 kΩ / 10 kΩ for a 3.3 V ADC; not 100 kΩ / 10 kΩ).
+```
+PS3 floating 12 V ──┬── PS1 R12P212S ── VDDA/VSSA (HS gate rail; VSSA = SW via Kelvin pair)
+                    ├── PS2 R12P212S ── VDDB/VSSB (LS gate rail; VSSB = LS sources via Kelvin pair)
+                    ├── U2 7805 ── 5 V ── 3.3 V LDO ── U3 sequencer, U1 VCCI, U4 ACS772
+                    └── K1, K2 coils
 
-**Candidate direction**
-- Input TVS (`5KP58A` axial) and bulk electrolytic/film for supply decoupling.
-- First build: [MBR20100CT-E3/4W](https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/MBR20100CT-E3-4W/2153208) or equivalent 100 V / 10–20 A TO-220 Schottky. An ideal-diode IC + N-FET is a later low-drop option (see shopping-list optional table). Do not use a P-FET with gate tied to pack− on a 48–60 V bus (\(V_{GS}\) max is typically ±20 V).
-- Charge current limit sized so the bank reaches target voltage in an acceptable time without excessive supply stress.
+U3 sequencer ── HS_CMD ──[one-shot limit]──[fault gate]── INA ┐
+              ── LS_CMD (strapped low for first light) ── INB ┤ U1 UCC21551A ── OUTA → Rg → Q1–Q4 gates
+              ── ARM ──[supply-good A]──[supply-good B]── EN  ┘                 OUTB → Rg → Q5–Q8 gates
+              ── ADC: bus, MA, MB, Rogowski, ACS772, temperature
+              ── isolated link (optocouplers or USB isolator) ── printer controller / PC
+```
 
-### 3.2 Pulse Capacitor Bank (C_tank)
+**Reading the power path.** High-side drains to BUS+. High-side sources, low-side drains and one end of `L1` are the switch node SW. Low-side sources go to RETURN at the star point. `L1` is in series with the rails. Rail B returns through the Rogowski loop and the Hall sensor.
 
-- Modular parallel positions (design for up to 12 footprints).
-- Pulse-rated film capacitors preferred for low ESR/ESL and high surge current; low-ESR electrolytics or hybrids acceptable for early prototypes if ripple and life are accepted.
-- Local decoupling directly at the bridge with high-quality film or ceramic.
+## 3. Block Descriptions and Values
 
-**Candidate direction**
-- Film pulse capacitors in the low-to-mid µF range per can, voltage rating ≥100 V (comfortable margin above 60 V bus and resonant rise).
-- Populate number of cans to achieve the desired joule budget (\(\frac12CV^2\)).
-- Footprints allow mixing values or leaving positions empty for scaling.
+### 3.1 DC Input and Charging
+
+| Ref | Part | Value / note |
+|---|---|---|
+| F1 | DC fuse | 10 A, rated for at least the bus voltage. Automotive blade fuses are 32 V parts and will not do for a 48 V pack. |
+| D1 | MBR20100CT | Reverse-polarity protection, in the charge path only ([DS-MBR20100](https://assets.rs-online.com/v1698967684/Datasheets/8209c593df7f907f3184c5a5cc9a980e.pdf)). |
+| K1 | Charge enable | On a bench supply, the supply's own output switch does this job and K1 is a link. On a pack, use a switch rated for the DC voltage; the T9AS relay is rated 28 VDC only ([DS-T9A](https://tvsat.com.pl/PDF/1/1-1393210-3.pdf)). |
+| R1 | HS25 10 Ω | Charge resistor. **Never jumpered on a battery**: it is the only current limit between a pack and a shorted FET. |
+| D2 | 5KP58A | Bus transient clamp; 64.4 V minimum breakdown, so keep the bus at or below 56 V ([DS-5KP](https://cdn.eicom.ru/media/PDF24/69681.pdf)). It also absorbs part of the bank-to-film pump on a hard turn-off. |
+
+- **Bench supply setting:** current limit ≤1 A while charging. A stuck-on high side then dissipates about 10 W in R1 instead of 90 W.
+- **Charge time:** R1 with six cans is a 0.28 s time constant.
+- **Bus sense:** 220 kΩ / 10 kΩ divider to the sequencer ADC, with clamp diodes.
+
+### 3.2 Capacitor Bank
+
+| Ref | Part | Value / note |
+|---|---|---|
+| C1–C6 | LGU2A472MELC | 4700 µF 100 V. Pulse-forming capacitor and energy store. Two for first light, six for useful shots, twelve footprints. |
+| C7–C10 | B32774D4106K000 | 10 µF 450 V film, directly at the FET legs. Commutation decoupling only: about 300 A peak each ([DS-B32774](https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/MKP_B32774_778.pdf)). |
+| R2 | Bleeder | 1.5 kΩ 10 W, hard-wired. Time constant 14 s (two cans) or 42 s (six); 76–102 s to fall below 5 V. |
+| R3, S1 | Dump | 10 Ω 25 W through a push switch, for a fast safe discharge. |
+
+- **ESR is half the loop.** Nichicon gives ≤56 mΩ at 120 Hz and nothing at kilohertz ([DS-LGU](https://www.nichicon.co.jp/english/series_items/catalog_pdf/e-lgu.pdf)). Measure each can before relying on any current figure.
+- **Keep the electrolytics close to the film cans.** The inductance between them sets the pump term in the turn-off budget (§4).
+- **Bank reversal.** If the bank reaches zero with the high side still on, the low-side body diodes clamp it at about −1.3 to −1.8 V. Tolerable briefly; leave the charger connected so it recovers.
+- Standard electrolytics are not rated for rapid, frequent discharge ([DS-LGU-GUIDE](https://www.mouser.lt/pdfDocs/nichicon-gxc-app-guidelines.pdf)). Keep the shot rate low and watch can temperature.
 
 ### 3.3 Power Bridge
 
-**Topology recommendation for first revision: half-bridge**
-(Full-bridge can be a later option if bipolar drive or higher effective voltage is needed.)
+| Ref | Part | Value / note |
+|---|---|---|
+| Q1–Q4 | IRFP4568 | High-side launch switch. Tabs isolated from the heatsink bar. |
+| Q5–Q8 | IRFP4568 | Low-side group. First light: used as diodes, gates tied to sources. |
+| R9, C11 | Snubber | 2.7 Ω + 10 nF per leg, *start*. Damps ringing; it does not absorb the commutation energy. |
 
-- High-side and low-side switch positions, each designed for multiple paralleled MOSFETs (target 4–8 devices per position).
-- Kelvin source connections where possible for clean gate drive.
-- Snubbers or RC clamps across each half-bridge leg.
-- Bootstrap or isolated supply for high-side gate drive.
-
-**Candidate MOSFET families (48–60 V bus, high pulse current)**
-- 100 V or 120–150 V N-channel power MOSFETs with very low R<sub>DS(on)</sub> and robust pulse current ratings.
-- Examples of commonly available directions: Infineon OptiMOS / StrongIRFET, Onsemi, Vishay, or equivalent low-R<sub>DS(on)</sub> 100 V class devices in TO-220, TO-247, or power-surface-mount packages that can be paralleled and heatsunk.
-- Final choice by pulse-current rating, R<sub>DS(on)</sub>, package thermal performance, and availability.
-
-Populate fewer devices for early low-current testing; scale up for full launch current.
+- **Current limit:** 450 A per FET for 0.5 ms, 350 A for 1 ms; about 1.4 kA for 4+4 with a sharing derate ([DS-IRFP4568](https://www.infineon.com/dgdl/irfp4568pbf.pdf?fileId=5546d462533600a4015356310e811e5b)).
+- **First light with the low side as diodes.** Link each low-side gate to its source with a short wire at the FET. There is then no shoot-through path, and the fast rise of the switch node cannot turn the low side on through its Miller capacitance.
+- **Kelvin source connections.** Take each gate-drive return from the middle of its source bar, as a twisted pair with the gate lead.
+- **Freewheel path:** the FET body diodes (684 A pulse each). The MUR1560 on the original list is a 150 A part and is not in this path ([DS-MUR1560](https://www.onsemi.com/download/data-sheet/pdf/mur1520-d.pdf)).
 
 ### 3.4 Gate Drive
 
-- Dedicated gate-driver ICs capable of strong peak source/sink current (several amps) for fast switching of paralleled MOSFETs.
-- Half-bridge driver with integrated bootstrap or fully isolated drivers.
-- Local gate resistors (per device or per group) for damping and current sharing.
-- Desaturation or V<sub>DS</sub> sensing for over-current protection, feeding a fast fault latch that inhibits the drivers.
+U1 is a UCC21551**A** on a SOIC-16 adapter. Source for everything below: [DS-UCC21551](https://www.ti.com/lit/ds/symlink/ucc21551.pdf).
 
-**Candidate direction**
-- Industry-standard half-bridge drivers (IR21xxx family style, Infineon, TI, Analog Devices, etc.) sized for the chosen MOSFET gate charge and desired rise/fall times.
-- Isolated supply or bootstrap dimensioned for the maximum duty and frequency of preconditioning mode.
+| Item | Value | Why |
+|---|---|---|
+| VDDA, VDDB decoupling | 10 µF + 0.1 µF each, **soldered on the adapter** | One edge of four gates moves 0.6 µC, which droops 0.1 µF by 6 V. |
+| VCCI decoupling | 0.1 µF + 1 µF at the adapter | Supply is some distance away. |
+| DT pin | 51 kΩ to ground (452 ns), with ≤1 nF | tDT[ns] = 8.6·RDT[kΩ] + 13. **Never open, never tied to VCCI**: either removes the interlock. |
+| EN pin | 10 kΩ pull-down; driven through the supply-good chain | Low or floating means both outputs off. |
+| INA, INB | 100 Ω + 100 pF at the adapter | The bars radiate; filter where the signal enters the driver. |
+| INB | Strapped low for first light | Low side stays off. |
+| Gate resistors | 10 Ω per FET, *start* | One per device, at the device. |
+| Gate–source resistors | 10 kΩ per FET | Defined gate with the driver unpowered. |
+| Gate rails | 12 V nominal from PS1 and PS2 | Unregulated modules; expect 12–13 V lightly loaded ([DS-R12P](https://recom-power.com/pdf/Econoline/RxxP2xx.pdf)). |
 
-### 3.5 L_series Interface & Bypass
+**The suffix.** The A is the 5 V-UVLO part (turn-on about 6 V), not 8 V as earlier notes said. It is still the right choice for 12 V rails; the B and C are not sold in SOIC-16, and the C needs at least 13.5 V. But a 6 V lockout is below the 7–8 V a FET needs at 450 A, so it does not protect the FETs from a sagging gate rail. Hence the supervisor.
 
-- Two heavy, low-inductance terminals or bus-bar pads for the external series inductor.
-- Bypass path that reliably shorts those terminals during preconditioning.
+**Supply-good supervisor.** On each isolated rail: a 9.1 V zener, an optocoupler LED and 1 kΩ in series across the rail. The LED lights only above about 10 V. The two optocoupler transistors sit in series between the sequencer's ARM output and EN. If either gate rail sags, EN falls and both outputs go low.
 
-**Bypass options**
-- Early prototypes: robust relay or manual shorting bar.
-- Later: paralleled MOSFETs or a solid-state crowbar-style switch rated for the preconditioning current and the voltage present when open.
+**Turn-off speed.** The gate resistor has little effect on how fast the current falls until it is very large; source inductance inside the gate loop sets it. A lower turn-off resistance (2.2–4.7 Ω through a Schottky diode) holds the gate against Miller turn-on. Choose on the bench from measured overshoot.
 
-Bypass control is a digital output from the MCU (with appropriate level shifting and drive).
+### 3.5 `L1` (`L_series`)
 
-### 3.6 Rail Output Interface
+- Air core, 0.5–3 µH, on two-bolt pads so coils can be swapped. No ferrite: it would saturate.
+- 2 µH for first light. It limits the rate of rise to 15 A/µs at 30 V.
+- Later, 4–8 flat turns over and under the rails serve as part of `L1` and as augmentation ([`RailgunHeadPrototype.md`](RailgunHeadPrototype.md)). Count about 2.6 µH and 6 mΩ for eight turns.
+- **No bypass across `L1`.** A relay contact cannot shunt a milliohm coil, and a closed contact at launch removes the current limit.
 
-- Heavy copper or external bus-bar connection points sized for the peak launch current.
-- Mechanical interface consistent with the existing toolhead / breech rail connection (bolted pads, copper washers, etc.).
-- Optional current-sense shunt or Hall / CT sensor in the return or high-side path.
-- TVS or clamp devices at the output for inductive kick and resonant overshoot protection.
+### 3.6 Conditioning Path
+
+| Ref | Part | Value / note |
+|---|---|---|
+| K2 | T9AS1D12-12 | Switches the ballast path. Stay at or below 28 V and 20 A (its DC rating). 15 ms operate and release. |
+| R4 | Ballast | 1–10 Ω, 25–50 W. Sets the current: 10 V across 10 Ω is 1 A; 28 V across 2.2 Ω is about 13 A. |
+
+- **Why a resistor.** With ballast much larger than the slug, power into the slug falls as the slug sinters. A stiff source does the opposite and runs away ([PC-ALLEN08](https://cris.vtt.fi/en/publications/electrical-sintering-of-nanoparticle-structures/), [PC-HUMMELGARD11](https://pmc.ncbi.nlm.nih.gov/articles/PMC3044741)).
+- **Bridge state:** both FET groups off. Rail A sits at the slug voltage; `L1` just connects it to the floating switch node.
+- **Compliance:** fritting needs about 4–8 V across this gap ([PC-FALCON05](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)), so the conditioning bus must be above that.
+- **Current cap:** about 20 A without magnets or augmenting turns, so the slug is not pushed off its seat.
+- **Timing:** the relay limits conditioning to steps of about 15 ms. That is acceptable because the ballast is self-limiting. An energy-capped alternative is in [`TestPlan.md`](TestPlan.md) T4.
+- **Later:** a solid-state stage with its own inductor of at least 50 µH and peak-current control.
 
 ### 3.7 Sensing
 
-- Bus voltage divider (scaled to MCU ADC range).
-- Bridge / rail current sense (shunt + amplifier or current transformer / Hall sensor).
-- Temperature sensors on the MOSFET heatsink or board copper near the bridge.
-- Optional rail-voltage sense for diagnostics.
+| Signal | How | Notes |
+|---|---|---|
+| Launch current | RC1, a Rogowski loop around the return bar, sampled raw and integrated in the sequencer | About 100 turns on a 6 mm former gives roughly 0.35 V at 10 A/µs. Calibrate against U4 at 100–200 A. |
+| Conditioning current | U4, ACS772ECB-200B | ±200 A, 10 mV/A, 2.5 µs. Clamps during launch; carries up to 0.4 A of offset afterwards, so re-zero after every shot ([DS-ACS772](https://www.allegromicro.com/-/media/files/datasheets/acs772-datasheet.pdf)). |
+| Slug voltage | MA and MB, a twisted pair from the **muzzle** ends of the rails | Reads the slug alone: no rail drop, no inductive term. |
+| Bus voltage | 220 kΩ / 10 kΩ divider | Before and after each shot gives the charge used. |
+| Switch node | 220 kΩ / 10 kΩ divider | For the over-current comparator and for scope work. |
+| Temperature | TMP36 or NTC on the FET bar and on a can | Slow; for shot-rate limits. |
 
-All sense signals filtered and protected before reaching the MCU.
+**Muzzle tap network.** Each of MA and MB goes through 10 kΩ to its own ADC channel, with BAT85 clamps to 3.3 V and ground. The sequencer subtracts them. Add a second pair of channels through 220 kΩ / 10 kΩ for the high range.
 
-### 3.8 Control & MCU Interface
+- The low range resolves about 1 mV, which is 0.1 mΩ at 10 A.
+- It must be differential. Rail B sits tens of millivolts above RETURN at conditioning current because of the sensor and bar drops.
+- With no slug, MA rises to the full bus. The clamp then passes up to about 6 mA into the 3.3 V rail; give that rail a bleed load so it cannot be lifted.
 
-- Logic-level inputs from the main controller (BTT or equivalent):
-  – PWM / gate-drive command
-  – Mode select or separate precondition vs launch enables
-  – Bypass control
-  – Fault reset
-- Fast fault output back to MCU (active on desaturation, over-current, over-temperature, etc.).
-- Optical isolation or careful level translation if the MCU ground and power ground are separated.
+**What is not used.** A sense winding on `L1` reads flux, which depends on slug position, so it is not a current sensor. The ACS772 is not a launch sensor.
 
-Firmware responsibilities (not schematic, but required for function): frequency selection, duty/burst length, current-limit thresholds per mode, sequencing (precondition → bypass open → launch burst), and fault handling.
+### 3.8 Control, Protection Logic and Grounding
+
+**Sequencer (U3).** An RP2040-class board on the power-return ground. It times the pulse, runs conditioning, samples the sense channels and talks to the printer controller. Printer firmware cannot do this job.
+
+**Hardware limits, independent of firmware:**
+
+| Function | Suggested parts | Behaviour |
+|---|---|---|
+| Maximum on-time | 74HC123 + 74HC08 | INA = HS_CMD AND a 2 ms monostable started by HS_CMD's rising edge. A stuck command cannot hold the switch on. |
+| Over-current / desaturation latch | LM393 + 74HC74 | Trips if (BUS+ − SW) exceeds about 6 V more than 20 µs after turn-on. Latches INA low until the sequencer clears it. |
+| Supply-good | 2 × optocoupler + zener (§3.4) | EN low unless both gate rails are above 10 V. |
+| Firmware abort | — | Cancel the pulse if no current appears within about 30 µs. |
+
+The on-time limit acts on the high-side command, not on EN.
+
+**Grounding decision.** Logic ground is the power return.
+
+- One star point at the low-side sources and film negative. The sequencer ground, the divider bottoms and the ACS772 signal ground meet there by a single wire.
+- U1's input side shares that ground. Its isolation is still doing its job for the floating high side.
+- VSSB returns only by the Kelvin pair from the low-side sources. Do not add a second bond between VSSB and logic ground on the board.
+- The galvanic boundary is between the sequencer and anything else: two optocouplers (FIRE in, FAULT/READY out) to the printer controller, and a USB isolator on any PC link.
+
+**Earth.** The rig floats. A bench supply's earth terminal stays unlinked. An oscilloscope ground lead goes on RETURN and nowhere else.
+
+- If RETURN is earthed through a PC's USB, clipping a scope ground to the switch node shorts the bank through protective earth.
+- Probe floating nodes differentially.
 
 ### 3.9 Auxiliary Power
 
-- Local regulators for gate-drive supply, sense amplifiers, and logic (e.g., 12 V / 5 V / 3.3 V as required).
-- Derived from the main DC bus or a small auxiliary input.
-- Adequate decoupling and sequencing so gate drive is stable before the power stage is enabled.
+| Ref | Part | Note |
+|---|---|---|
+| PS3 | Floating 12 V, ≥1 A | A double-insulated wall adapter. Feeds PS1, PS2, U2 and the relay coils. Not derived from a gate rail. |
+| PS1, PS2 | R12P212S | Isolated gate rails. Maximum capacitive load 680 µF. |
+| U2 | 7805, then a 3.3 V LDO | Sequencer, U1 VCCI, U4. |
 
-## 4. Mode Configuration (Schematic-Level)
+Sequence: logic and gate rails up and proven before the bars are energised.
 
-**Preconditioning**
-- Bypass closed.
-- L_series shorted out of the power path.
-- Bridge driven at moderate current, lower frequency (10–50 kHz class).
-- Current limit set to the moderate range.
+## 4. Limits and Mode Configuration
 
-**Launch**
-- Bypass open.
-- L_series in circuit.
-- Bridge driven with a short, high-current resonant burst at the frequency set by C_tank and L_total.
-- Current limit / desaturation thresholds raised to the launch value.
-- Burst length (number of half-cycles) controlled by the MCU.
+Limits are derived in [`UnifiedResonantDriver.md`](UnifiedResonantDriver.md) §5. The ones that govern wiring and bring-up:
+
+| Limit | Value |
+|---|---|
+| Peak per FET | 450 A (0.5 ms), 350 A (1 ms); 4+4 ≈ 1.4 kA |
+| Bus ceiling, six cans + 2 µH | 19–21 V |
+| Bus ceiling, six cans + 1 µH | 16–18 V |
+| Bus ceiling, two cans + 2 µH | above 30 V, so the whole bench range is safe |
+| Hard turn-off | V_bus + I·√(L_bank/C_film) + Lσ·di/dt ≤ 120 V |
+| Bus maximum | 56 V |
+
+| Mode | K2 | HS | LS | Bus |
+|---|---|---|---|---|
+| Idle | open | off | off (gates tied) | any |
+| Conditioning | closed | off | off | 5–28 V |
+| Launch, dump | open | one pulse | diodes | set point, under the ceiling |
+| Launch, truncated | open | pulse cut early | diodes | ≤30 V until measured |
 
 ## 5. Protection Summary
 
-- Reverse-polarity input protection.
-- Bus over- and under-voltage detection.
-- Fast desaturation / over-current on the bridge.
-- Gate-drive under-voltage lockout.
-- Snubbers / clamps for resonant overshoot and inductive spikes.
-- Thermal monitoring.
-- Hard inhibit of gate drive on any critical fault until MCU reset.
+- DC fuse at the source; charge resistor always in circuit.
+- Reverse-polarity diode in the charge path.
+- Bench current limit ≤1 A while charging.
+- Hardware maximum on-time on the high-side command.
+- Over-current / desaturation latch.
+- Gate-supply supervisor on EN; dead-time interlock set by resistor.
+- Low side unable to turn on at first light.
+- Bank-reversal clamp through the low-side diodes.
+- Hard-wired bleeder and a dump resistor; a voltmeter check before touching the bars.
+- Thermal monitoring on the FET bar and a can.
+- Enclosure with interlock, backstop behind the target, eye protection, E-stop, fume extraction.
 
-## 6. Layout Directives (for schematic → PCB)
+## 6. Layout Directives
 
-- Treat the loop C_tank → bridge → L_series/bypass → rails as a single high-current, low-inductance path; place components to minimize enclosed area.
-- Kelvin connections for gate drive and current sense where practical.
-- Separate power and signal returns with controlled joining strategy.
-- Provide clear, labeled test points for bus voltage, bridge current, gate signals, and rail output.
-- Mechanical mounting and rail-terminal placement consistent with toolhead constraints (power entry preferred from one end, rail connections from the other).
-- Single-sided PCB with external bus bars remains acceptable for home fabrication; multi-layer is fine if available.
+- **Commutation loop** (C7–C10 → Q1–Q4 → Q5–Q8 → C7–C10): the smallest area the parts allow. Film cans directly across the legs.
+- **Bank next to the film cans**, on wide bars laid as a go-and-return pair.
+- **Launch loop** (bank → high side → `L1` → rails → return): short, flat, go-and-return. Its inductance is part of `L1`.
+- **Star point** at the low-side sources.
+- **Gate leads** as twisted pairs with their returns, under 100 mm, kept away from the bars.
+- **Sense leads** twisted; the muzzle pair run along the barrel away from the rails' own loop.
+- **Room for a second leg** in the rail B return.
+- Test points for bus, switch node, both gates, muzzle voltage and the Rogowski signal.
+- Single-sided board with external bars remains acceptable.
 
 ## 7. Scaling Notes
 
-- Capacitor bank: populate 1–12 positions according to joule requirement.
-- MOSFET parallel count: start low for bring-up; increase until launch current and thermal margins are met.
-- L_series: external and swappable — primary means of frequency tuning.
-- Bypass: simple for first articles; solid-state later if high repetition rate is required.
-- Voltage class: 48–60 V baseline; component footprints should allow later migration to higher bus voltage if experiments demand it (with appropriate part substitution).
+- **Capacitors:** 2 → 6 → 12 as voltage ceilings and FET count allow.
+- **FETs:** 4+4 → 6+6 → 8+8. The driver IC has current to spare for single pulses; gate power only matters in the high-frequency experiment.
+- **`L1`:** swappable. Smaller values shorten the tail and raise the peak.
+- **Voltage:** 48–56 V needs a DC-rated charge switch, a ≥60 V fuse, and a measured turn-off budget.
 
-## 8. Suggested Bring-Up Order
+## 8. Bring-Up Order (0–30 V Bench Supply)
 
-1. Auxiliary supplies and MCU interface (no high power).
-2. Gate-drive timing and dead-time verification into dummy loads.
-3. Low-voltage, low-current bridge test with bypass closed (preconditioning path).
-4. Capacitor bank charging and bus monitoring.
-5. Controlled moderate-current preconditioning into a resistive or dummy rail load.
-6. Install L_series, open bypass, verify resonant frequency and short low-energy bursts.
-7. Increase energy and current stepwise while monitoring device temperatures, voltage overshoot, and waveform quality.
-8. Full sequencing with real barrel and slurry once electrical behavior is stable.
+Full procedures and exit criteria are in [`TestPlan.md`](TestPlan.md). In outline:
+
+1. **Bench checks, nothing connected.** ESR and capacitance of each can. PS1–PS3 rails under a dummy load.
+2. **Logic board only.** Driver outputs into a spare FET's gate. Confirm: EN low by default; dead time; a 10 ms command is cut to about 2 ms; pulling either gate rail drops EN; rail droop during a pulse is under 0.5 V.
+3. **Bars, two cans, 2 µH, a copper strap across the rail pads.** Low-side gates tied to sources. Supply at 5 V, current limit 1 A. Fire. Expect about 180–210 A, inside the ACS772's range. Calibrate the Rogowski channel.
+4. **Step up:** 10, 15, 20, 25, 30 V (about 1.1–1.2 kA at 30 V). At each step record current, switch node and bus; feel for a FET running hotter than its neighbours.
+5. **Truncation at low current** (100, 200, 400 A). Measure overshoot and ring frequency; extract Lσ and the bank-to-film inductance; extrapolate to the 120 V budget before going further.
+6. **Six cans.** Obey the ceiling: 19–21 V with 2 µH.
+7. **Barrel in place of the strap.** Solid-armature shots, then conditioning, then paste.
+
+No step uses the battery pack.
 
 ## 9. Breadboard Placement Sketch
 
-Placement only — no jumper list. First-build populate (8 MOSFETs, not 16). Parts match [`UnifiedResonantShoppingList.md`](UnifiedResonantShoppingList.md).
+Placement only. First-build populate: eight MOSFETs, two then six cans. Parts match [`UnifiedResonantShoppingList.md`](UnifiedResonantShoppingList.md).
 
-**This is a bring-up jig, not the PCB.** An eventual board will look quite different: tighter gate loops, Kelvin sources, pours or bars under the FETs, and no solderless contacts. Do not copy these row numbers into KiCad.
+**This is a bring-up jig, not the PCB.** An eventual board will have tighter gate loops, Kelvin sources, pours or bars under the FETs, and no solderless contacts. Do not copy these row numbers into KiCad.
 
-Two physical pieces, same split as the shopping list:
+Two physical pieces:
 
-1. **Logic breadboard** — 12 V / 5 V / 3.3 V, UCC21551 on a PA0006, MCU header, dividers, sense *signals*, relay *coil*.
-2. **High-current bar strip** — pack, Schottky, bank, FETs, `L_series` / bypass, rails, ACS772 *current* path. Never through breadboard springs.
+1. **Logic breadboard** — PS3 input, 5 V and 3.3 V, sequencer, U1 on its adapter, the protection logic, sense networks, relay coil drive.
+2. **High-current bar strip** — supply input, bank, FETs, `L1`, rails, Rogowski loop, ACS772 current path, ballast and relay contacts. Never through breadboard springs.
 
-They meet only at a short gate-lead header, isolated-supply returns, sense taps, and the bypass-coil drive.
-
-Convention: top of the breadboard drawing is the MCU / BTT end; bottom is the gate-header facing the FET bars. Empty rows omitted. DIP bodies span the gutter as multi-row blocks.
+They meet only at the two gate pairs, the Kelvin returns, the sense taps and the relay coil.
 
 ### 9.1 Logic breadboard
 
-Standard 830-point view. Power rails along the long edges. Columns `a–e` and `f–j` are the two 5-hole strips.
-
 > ```
->  +12 / +5   ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
->  GND        ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
->                a b c d e   f g h i j
+>  +12 / +5 / +3.3 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
+>  GND (to star ★)  ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
 >
->  1–3        [ MCU / BTT header              ]  PWM, EN, bypass, fault, 3.3 V, GND
->
->  5–7        [ L7805 + 5 V decouple          ]  house 5 V for ACS772 / TMP36
->                                                (AMS1117-3.3 beside if needed)
->
->  9–16       [ UCC21551ADWR on PA0006        ]  isolated half-bridge driver
->              (16-pin DIP adapter, 300 mil)
->
-> 18–21       [ R12P212S  #1  (low-side 12 V) ]  isolated SIP → driver VDDB
->
-> 23–26       [ R12P212S  #2  (high-side 12 V)]  isolated SIP → driver VDDA
->
-> 28–32       [ bus divider 220k / 10k        ]  BAT85 clamps on the tap
->              [ + charge LED                 ]
->
-> 34–37       [ rail divider 220k / 10k       ]  BAT85 clamps on the tap
->
-> 39–40       [ TMP36  (signal only)          ]  second sensor is on the FET bar
->
-> 42–44       [ ACS772 signal pins only       ]  VCC, GND, VIOUT — not the current tabs
->
-> 46–48       [ relay coil + NPN + flyback    ]  contacts live on the bar, not here
->
-> 50–53       [ gate / isol-12 V header       ]  HO, LO, HS 12 V, LS 12 V, returns
->                                                short leads toward the FET gates
+>  1–4        [ PS3 input, 7805, 3.3 V LDO            ]
+>  6–16       [ Sequencer (RP2040 board)              ]  ADC, HS_CMD, ARM, relay, isolated link
+>  18–21      [ Isolated link: 2 optocouplers         ]  FIRE in, FAULT/READY out
+>  23–30      [ 74HC123 + 74HC08 + LM393 + 74HC74     ]  on-time limit, fault latch
+>  32–39      [ UCC21551A on SOIC-16 adapter          ]  decoupling soldered to the adapter
+>  41–44      [ PS1 R12P212S  (high-side gate rail)   ]  + zener/optocoupler supervisor
+>  46–49      [ PS2 R12P212S  (low-side gate rail)    ]  + zener/optocoupler supervisor
+>  51–54      [ Dividers: bus, switch node            ]  220k / 10k, clamps
+>  55–58      [ Muzzle taps MA, MB                    ]  10k per leg, clamps, two ranges
+>  59–60      [ ACS772 signal, Rogowski input         ]
+>  61–62      [ Relay coil driver, flyback diode      ]
+>  63         [ Gate header: two twisted pairs        ]
 > ```
 
-| Rows | Part | Notes |
-|------|------|-------|
-| 1–3 | MCU / BTT header | Logic only. No 48 V. |
-| 5–7 | L7805 (+ optional 3.3 V LDO) | From isolated 12 V or a small aux. |
-| 9–16 | UCC21551 + [PA0006](https://www.digikey.com/en/products/detail/chip-quik-inc/PA0006/5014721) | Wide SOIC-16 on 300 mil adapter. Dummy gate load (spare FET or ~10 nF) for first dead-time check — **no pack connected**. |
-| 18–26 | Two R12P212S | One per driver secondary. Keep secondaries off the breadboard GND except at the intended returns. |
-| 28–37 | Dividers + BAT85 + LED | 3.3 V ADC ratio. Clamps catch spikes only. |
-| 39–44 | TMP36, ACS772 signals | Hall *body* is on the return bar. |
-| 46–48 | T9AS coil drive | 12 V coil. Power contacts stay on the `L_series` pads. |
-| 50–53 | Gate header | Shortest practical leads to the TO-247 gates. `Rg` / `Rgs` sit at the FETs, not here. |
+- Solder the driver's decoupling capacitors, DT resistor and input filters onto the adapter itself. Do not plug them in rows away.
+- Keep the two isolated secondaries off the breadboard ground rail. VSSA goes only to the switch node; VSSB only to the low-side sources.
+- Solid 22 AWG jumpers on the board; no long Dupont leads on gate or sense lines.
 
 ### 9.2 High-current bar strip
 
-Not a breadboard. Fold this loop as small as the parts allow. First build: 4 high-side + 4 low-side TO-247s.
-
 > ```
->  PACK+ ── Schottky ── HS25 10 Ω ── C_bus (2× 100 V snap-in)
->                           │              + 4× 10 µF film at the legs
->                           │              + 5KP58A on the bus
->                           │
->                           ├── HS FETs (Q1–Q4) ─┬── L_series pads ── RAILS
->                           │                    │    ├ bypass relay contacts
->                           │                    │    └ or copper shorting bar
->                           └── LS FETs (Q5–Q8) ─┘
+>  SUPPLY+ ─ F1 ─ D1 ─ R1 10 Ω ─┬─ BUS+ bar ─┬─ C1–C6 ─┬─ C7–C10 (at the legs) ─┬─ D2, R2
+>                               │            │         │                        │
+>                               │         Q1–Q4 drains                          │
+>                               │         Q1–Q4 sources ─┬─ SW bar ─ L1 pads ─ RAIL A clamp
+>                               │         Q5–Q8 drains ──┘
+>                               │         Q5–Q8 sources ─ RETURN bar ★
+>                               └─ K2 contact ─ R4 ballast ─ RAIL A clamp
 >
->  PACK− / return bar  ──────── ACS772 current tabs ─────────────┘
->       bleeder across the bank    5KP58A at the rail pads
->       MUR1560 clamps at the legs
+>  SUPPLY− ─────────────────────── RETURN bar ★ ─ ACS772 ─ (Rogowski loop around this bar) ─ RAIL B clamp
 > ```
 
 | Position | Part | Notes |
-|----------|------|-------|
-| Pack + | MBR20100CT-E3/4W | Charge path only. Anode(s) to pack +, cathode to bus. |
-| After Schottky | HS25 10 Ω | Soft-charge. May be jumpered once the bank is up. |
-| Mid-bar | 2× 100 V electrolytics + 4× 10 µF film | Film right at the FET drains/sources. |
-| Bridge | 4 HS + 4 LS IRFP4568, isolated tabs | `Rg` / `Rgs` / C0G at each gate. Heatsink bar, tabs **not** common. |
-| After bridge | `L_series` 2-bolt pads | Relay or copper short across the pads for preconditioning. |
-| Far end | Rail clamps (same as the print head) | Second 5KP58A here. |
-| Return break | ACS772 current terminals | Signal pins fly to breadboard rows 42–44. |
-| Across bank | Bleeder (hardwired) | Not a jumper that can fall out. |
+|---|---|---|
+| Supply input | F1, D1, R1 | Charge path only. |
+| Bank | C1–C6, then C7–C10 | Electrolytics as close to the film cans as they will sit. Film cans directly across the legs. |
+| Bridge | Q1–Q8 on one heatsink bar, tabs isolated | Rg and Rgs at each gate. Low-side gates tied to sources for first light. |
+| After the bridge | `L1` two-bolt pads | No relay across them. |
+| Conditioning | K2 contacts and R4 | From BUS+ to the rail A clamp. |
+| Far end | Rail clamps, same as the print head | Muzzle taps run back as a twisted pair. |
+| Return | RETURN bar through ACS772, Rogowski loop around it | Star point at the low-side sources. |
+| Across the bank | R2, hard-wired; R3 on a push switch | Not a jumper that can fall out. |
 
 ### 9.3 First electrical bring-up on this placement
 
-Follow §8, but with this split: steps 1–2 entirely on the breadboard (dummy gates). Do not energize the bar strip until dead time is verified. Then bring the pack up through the Schottky and charge resistor with the bleeder already fitted.
+Follow §8. Steps 1–2 are entirely on the breadboard with a spare FET as the gate load and nothing on the bars. Do not energise the bar strip until the enable default, the on-time limit and the supervisor have each been seen to work.
 
 ---
 
 ## 10. Status
 
-This schematic description defines a unified resonant-bridge driver that collapses separate preconditioning and launch power stages into one flexible half- or full-bridge architecture. External L_series + bypass provides frequency agility and mode switching. Component directions favor commonly available, robust parts suitable for a 48–60 V high-current pulsed application and for iterative home or small-lab construction.
+A net-level description of the re-baselined driver. The power stage is the half-bridge of version 0.1; the gate-drive values, grounding, conditioning path, sensing and protection are new. Every *start* value and every limit awaits the measurements in [`TestPlan.md`](TestPlan.md).
 
-§9 is a **breadboard / bus-bar placement sketch** for first bring-up only. The eventual PCB (or milled board + bars) will not follow those row numbers.
-
-Next concrete step: schematic capture following the block hierarchy above, followed by a low-inductance layout that respects the mechanical interface to the micro-railgun toolhead.
+Next concrete step: schematic capture from §2–3, then a layout that respects §6.

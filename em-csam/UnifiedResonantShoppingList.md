@@ -1,229 +1,238 @@
-# EM-CSAM Unified Resonant Driver – Shopping List (v0.1)
+# EM-CSAM Unified Resonant Driver – Shopping List (v0.2)
 
-Companion to [`UnifiedResonantDriver.md`](UnifiedResonantDriver.md) and [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md). This is the half-bridge + swappable `L_series` + bypass variation, **not** a drop-in replacement for [`DriverShoppingList.md`](DriverShoppingList.md).
+Companion to [`UnifiedResonantDriver.md`](UnifiedResonantDriver.md) and [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md). This is the half-bridge + series inductor driver, **not** a drop-in replacement for the older [`DriverShoppingList.md`](DriverShoppingList.md).
+
+**What changed in 0.2.** The driver was reviewed and re-baselined ([`DesignReview-2026-11.md`](DesignReview-2026-11.md)). Nothing on the 0.1 list is wasted, but several parts have a different job, a few claims about them were wrong, and a short list of additions is needed. Datasheet values below were checked against the manufacturer documents on 2026-11-10; the links and the verified numbers are in [`References.md`](References.md) §1.
 
 **Notes for builders**
 - Quantities show **typical first build → designed maximum**. Populate only what you need.
-- Prices are approximate USD (mid-2026 street prices) and will fluctuate. Check current stock on the linked page.
-- **Digi-Key is the primary retailer** for first-build semiconductors, sensors, and pulse film. Mouser is the usual alternate. LCSC / AliExpress are fine for many passives once the design is proven.
-- Always verify pin-compatible alternatives before ordering large quantities.
-- PCB layout is **not frozen**. Order long-lead and stressed parts now; leave 0402-only passives, exact connector genders, and the board itself until schematic capture.
-- High-current MOSFETs, isolated drivers, and pulse film benefit from buying a few extras.
-
-**Checked 2026-08-18** on Digi-Key US for the primary MOSFET, isolated driver, Hall sensor, and 10 µF film can. Re-check stock the day you order.
+- Prices are approximate USD (mid-2026 street prices) and will fluctuate. Distributor stock and prices were last checked 2026-08-18.
+- **Digi-Key is the primary retailer** for semiconductors, sensors and film capacitors. Mouser is the usual alternate.
+- PCB layout is **not frozen**. Leave the board itself until schematic capture.
+- High-current MOSFETs and the gate driver benefit from buying a few extras.
 
 ---
 
-## Delta vs the v0.1 low-side dump list
+## Nothing bought is wasted: what each part does now
 
-| Keep | Drop | Add |
-|------|------|-----|
-| 48–60 V bus, bolted rail pads, external bus bars, bleeders, charge LED, TO-247-friendly build | Separate preconditioning H-bridge (`BTS7960` / IR2104 module) | Half-bridge: 4–8 FETs **per leg** (8–16 devices) |
-| Per-FET gate resistor, optional `Rgs` | `HCPL-3120` + `TC4420` as the **primary** drive | Isolated dual-channel half-bridge driver + two isolated 12 V supplies |
-| Hall current sensor, TVS / snubber, copper hardware | Treating `12 × 4700 µF` as the 200 kHz resonant C | Two-tier capacitors (DC-bus electrolytic + pulse film at the bridge) |
-| | | External air-core `L_series` kit + bypass relay / shorting bar |
-| | | Reverse-polarity, inrush / charge limit, temp sense |
-
-First revision is a **half-bridge**, as stated in the schematic. Do not buy a full-bridge FET pile “just in case.”
-
-If you already bought parts from the v0.1 list, reuse MOSFETs, isolated 12 V modules, ACS772, bleeders, copper, and hardware. Do **not** reuse a leftover `BTS7960` as the launch switch.
-
----
-
-## Why the capacitor bank is split
-
-The Unified docs want both a useful joule budget (`½CV²`) **and** `f ≈ 1/(2π√(L C)) ≥ 200 kHz`. Those cannot be the same capacitor at 48–60 V:
-
-| C used as the resonant tank | L needed for 200 kHz | Energy at 60 V |
-|-----------------------------|----------------------|----------------|
-| 6 × 4700 µF (v0.1 bank)     | ~23 pH (impossible)  | ~51 J          |
-| 100 µF                      | ~6 nH                | 180 mJ         |
-| 10 µF                       | ~63 nH (tight)       | 18 mJ          |
-| 2.2 µF                      | ~290 nH (comfortable)| 4 mJ           |
-
-A 0.5 mm-class plug at a few hundred m/s wants tens to hundreds of millijoules kinetic. A few-µF film-only tank is too small unless bus voltage rises a lot.
-
-**Buy a two-tier bank:**
-
-1. **DC bus / energy store** — 63–100 V low-ESR electrolytics on the DC side of the half-bridge. Holds the joules. Does **not** set 200 kHz.
-2. **Bridge-local pulse film** — 10–22 µF, 250–450 V polypropylene right at the legs.
-3. **Optional small pulse film** — 0.47–2.2 µF if you later want a true small series tank (see the optional table).
-
-`L_series` then sets rise time / resonant-assisted current at ≥200 kHz.
+| Part on the 0.1 list | Job in 0.1 | Job in 0.2 |
+|---|---|---|
+| 4700 µF 100 V electrolytics | "DC energy store, not the tank" | **The pulse-forming capacitor.** With `L_series` they shape the launch pulse. Populate six for useful shots. |
+| 4 × 10 µF film | "Pulse film at the legs" | Commutation decoupling only (about 300 A peak each). |
+| IRFP4568 × 12 | 4 + 4 + 4 spare | Same. 4+4 carries about 1.4 kA. The low-side four act as diodes at first light. |
+| UCC21551ADWR | Half-bridge driver | Same part, now with real decoupling, a dead-time resistor and a supply supervisor. |
+| R12P212S × 2 | Isolated gate rails | Same. |
+| `L_series` copper | 50 nH–2 µH kit for "≥200 kHz" | 0.5–3 µH pulse-forming coils; later 4–8 augmenting turns on the head. |
+| T9AS relay | Bypass across `L_series` | **Conditioning switch** in the ballast path (≤28 V, ≤20 A). Not a bypass. |
+| ACS772 200 A | "Protection / peak" for launch | Conditioning current only. It clamps at ±200 A. |
+| HS25 10 Ω | Charge resistor, "may be jumpered" | Charge resistor, **never jumpered on a battery**. Buy a second as a dump resistor. |
+| MUR1560 | Freewheel clamp | Not in the launch path (150 A surge). Keep for small clamps. |
+| 5KP58A × 2 | Bus and rail-pad clamp | One on the bus. The rail-pad one is not a muzzle-arc suppressor (54.5 A). |
+| MBR20100CT | Reverse polarity | Same. |
+| Small pulse film caps (optional table) | "Experimental series tank" | The series capacitor for the high-frequency experiment. |
 
 ---
 
-## Order now vs wait for layout
+## How big the bank has to be
 
-| Order now (long-lead, stressed, or unique) | Wait for schematic / PCB |
-|--------------------------------------------|--------------------------|
-| MOSFETs + extras                           | The PCB itself           |
-| Isolated half-bridge driver + isolated 12 V DC-DCs | Exact connector genders / JST vs header |
-| ACS772 (or 400 A sibling)                  | 0402 / 0603-only passives whose footprint is still unknown |
-| Pulse / DC-link film                       | Final snubber C after bench tune (buy a small assortment now) |
-| Bypass relay                               | Solid-state bypass FETs (later revision) |
-| Copper sheet / tube for bus bars, `L_series`, shorting bar | Full-bridge extras |
-| Charge / bleeder power resistors, TVS, ultrafast clamps | |
-| Breadboard + 22 AWG jumpers + PA0006 adapters | Clip-on “breadboard power” 3.3/5 V hats |
+Version 0.1 sized the capacitors around a 200 kHz resonance that the circuit does not have. What matters is charge and energy.
+
+**What a shot needs** (constant current, 100 mm barrel):
+
+| Slug | Charge | Loss in a 10–20 mΩ loop at 300 m/s |
+|---|---|---|
+| 2 mg | 1.2–1.4 C | 30–60 J |
+| 1 mg | 1.0 C | 15–30 J |
+| 0.5 mg | 0.7 C | 8–15 J |
+| 0.25 mg | 0.5 C | 4–8 J |
+
+**What the bank holds:**
+
+| Cans | 30 V | 48 V | 55 V |
+|---|---|---|---|
+| 2 | 0.28 C, 4.2 J | 0.45 C, 10.8 J | 0.52 C, 14.2 J |
+| 6 | 0.85 C, 12.7 J | 1.35 C, 32.5 J | 1.55 C, 42.7 J |
+| 12 | 1.69 C, 25.4 J | 2.71 C, 65.0 J | 3.10 C, 85.3 J |
+
+- "Two cans is enough for first shots" was wrong for anything but a strap test or a very light slug. **Two cans are the right first-light bank for a different reason:** with 2 µH they cannot exceed the FET limit anywhere in a 0–30 V range.
+- Six cans at 30 V into a short deliver 2.0–2.6 kA, more than four FETs per leg carry. Obey the voltage ceiling in [`UnifiedResonantDriver.md`](UnifiedResonantDriver.md) §5.2.
+- Capacitor ESR is about half the loop. Nichicon publishes no kilohertz ESR for these cans; measure it.
+
+Produced by `python3 em-csam/tools/shot_model.py tables` (tables 1–3).
 
 ---
 
 ## Main BOM (first-revision half-bridge)
 
-Links go to a specific Digi-Key product page where one exists. Mouser (or a Digi-Key keyword search) is the alternate.
-
-| Component | Qty (min→max) | Primary (Digi-Key) | Good alternatives | Approx. unit | Notes |
-|-----------|---------------|--------------------|-------------------|--------------|-------|
-| Power MOSFET, TO-247 | 8→16 (+4 spare; order **12** for first build) | [IRFP4568PBFXKMA1](https://www.digikey.com/en/products/detail/infineon-technologies/IRFP4568PBFXKMA1/16669015) — 150 V, ~5.9 mΩ, in stock ~$8.21 | [IRFP4468PBFXKMA1](https://www.digikey.com/en/products/detail/infineon-technologies/IRFP4468PBFXKMA1/16669046) 100 V / 2.6 mΩ (~$7.75, **use only with TVS+snubber**); [IRFB4110PBF](https://www.digikey.com/en/products/detail/infineon-technologies/IRFB4110PBF/935978) TO-220 100 V (~$4.10); [IPP023N10N5XKSA1](https://www.digikey.com/en/products/detail/infineon-technologies/IPP023N10N5XKSA1/20841774) TO-220 OptiMOS. Mouser: search same OPNs. | $4–9 | Current Infineon OPN of the v0.1 FET. Old `IRFP4568PBF` (no XKMA1) is obsolete. 4 high + 4 low for first board. |
-| Isolated dual-channel gate driver | 1→2 (+1 spare) | [UCC21551ADWR](https://www.digikey.com/en/products/detail/texas-instruments/UCC21551ADWR/24708455) — SOIC-16, **8 V UVLO / 6.7 V VDD min** (~$1.70) | [UCC21551ADWKR](https://www.digikey.com/en/products/detail/texas-instruments/UCC21551ADWKR/24708431) SOIC-14 same UVLO. Do **not** buy `UCC21551C*` (13.5 V min — will not run on 12 V). Fallback: [HCPL-3120-000E](https://www.digikey.com/en/products/detail/broadcom-limited/HCPL-3120-000E/669903) × 2 + [FOD3182](https://www.digikey.com/en/products/detail/onsemi/FOD3182/2804328). Old `UCC21520DW` is obsolete. | $2–5 | TI replacement for UCC21520. **A suffix only** if the isolated rails are 12 V. |
-| Isolated 12 V DC-DC, 2 W | 2 | [R12P212S](https://www.digikey.com/en/products/detail/recom-power/R12P212S/2256185) Recom 12 V→12 V, 2 W | [R12P212S/X2](https://www.digikey.com/en/products/detail/recom-power/R12P212S-X2/3586187); cheaper 1 W [NME1212SC](https://www.digikey.com/en/products/detail/murata-power-solutions-inc/NME1212SC/1927046) (tight on 8-FET 50 kHz drive). Traco / Murata 12 V 2 W SIP also fine. | $8–17 | One low-side, one high-side. Prefer 2 W over 1 W. 15 V modules are a later option, not required. |
-| DC-bus electrolytic | 2→6 | [LGU2A472MELC](https://www.digikey.com/en/products/detail/nichicon/LGU2A472MELC/2540733) 4700 µF **100 V** snap-in (~$8–9) | [LGU1J472MELC](https://www.digikey.com/en/products/detail/nichicon/LGU1J472MELC/2540661) 4700 µF **63 V** (~$7) if you stay strictly ≤60 V and clamp well; Rubycon / Panasonic low-ESR 63–100 V snap-in. Search: `4700uF 100V snap-in low ESR`. | $4–10 | Energy store, **not** the 200 kHz tank. 100 V preferred for resonant rise. Two cans is enough for first shots. |
-| Bridge pulse / DC-link film | 4→8 | [B32774D4106K000](https://www.digikey.com/en/products/detail/tdk/B32774D4106K000/3492300) TDK 10 µF 450 V (~$7) | [B32774D4226K000](https://www.digikey.com/en/products/detail/tdk/B32774D4226K000/1884963) 22 µF 450 V; Kemet C4AQ / Vishay MKP1848 10–22 µF 250–450 V. Search: `DC link film 10uF 450V`. | $5–12 | Park these right at the half-bridge legs. |
-| HF decouple (C0G ceramic) | 8→16 (factory bag **50**, or ~15 singles) | [C350C104F1G5TA](https://www.digikey.com/en/products/detail/kemet/C350C104F1G5TA/6562499) Kemet GoldMax 0.1 µF **1%** 100 V C0G, **radial**, 10.16 mm lead spacing | Other 100 nF 100 V+ C0G radial (5% `J` suffix is cheaper and electrically the same here). Not 1206 SMD. | $1–3 (1% is spendy) | One at each FET + driver VDDA/VDDB/VCCI. Bulk bag is 50; Digi-Key Bulk still sells singles. Does **not** replace the 10 µF film. |
-| Gate resistor | 16 | Search: [`4.7 ohm 0.5W 1% metal film axial`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=4.7+ohm+0.5W+1%25+metal+film+axial) | 10 Ω same family. Buy a 10-pack of each and pick on the bench. | $0.10–0.25 | One per designed FET footprint. 0.5 W preferred (pulse). |
-| Gate–source resistor (optional but recommended) | 16 | Search: [`10k 0.25W 1% metal film axial`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=10k+0.25W+1%25+metal+film+axial) | Any 10 kΩ ¼ W. | $0.03–0.10 | Keeps the gate defined when the driver is off. |
-| Current sensor (protection / peak) | 1→2 | [ACS772ECB-200B-PFF-T](https://www.digikey.com/en/products/detail/allegro-microsystems/ACS772ECB-200B-PFF-T/9674832) 200 A bidirectional, 200 kHz (~$10.54) | 250 A / 400 A ACS772 siblings; ACS37200. [Family](https://www.digikey.com/en/products/base-product/allegro-microsystems/620/ACS772/300586). | $10–15 | Bandwidth is **at** the launch frequency — good for peak / protect, not a waveform instrument. |
-| Bypass relay | 1→2 | [T9AS1D12-12](https://www.digikey.com/en/products/detail/te-connectivity-potter-brumfield-relays/T9AS1D12-12/254519) TE 30 A SPST, 12 V coil (~$6.40) | T9G / T92 30 A; automotive ISO mini 80 A (Amazon / rocker-relay). Coil transistor + flyback diode from the junk box or a 2N7002 / 2N2222 pack. | $4–10 | Rated for preconditioning current (5–20 A class), **not** launch current. Launch path is `L_series` with this open. |
-| Manual copper shorting bar | 1 | Cut from the bus-bar copper below | — | (copper stock) | Lowest-inductance bypass for bring-up if the relay is late. |
-| Bus / output TVS | 2→4 | [5KP58A](https://www.digikey.com/en/products/detail/littelfuse-inc/5KP58A/556577) or bulk [5KP58A-B](https://www.digikey.com/en/products/detail/littelfuse-inc/5KP58A-B/3427764) — 58 V standoff, ~93.6 V clamp, 5 kW, **P600 axial** (~$1.50–3) | [1.5KE68A-B](https://www.digikey.com/en/products/detail/littelfuse-inc/1-5KE68A-B/714924) 1.5 kW DO-201 if 5KP is empty. `5KP64A` if the pack sits near 58 V full (16s LFP). SMD: [5.0SMDJ58A](https://www.digikey.com/en/products/detail/littelfuse-inc/5-0SMDJ58A/2024341). Bidirectional is `CA`. | $1.50–3 | Unidirectional (`A`) on the DC bus. One on the bus, one across the rail pads. 58 V standoff is right for a 48 V / 13s pack (~55 V full). |
-| Freewheel / clamp diode | 2 | [MUR1560G](https://www.digikey.com/en/products/detail/onsemi/MUR1560G/919902) 600 V 15 A ultrafast TO-220 (~$2.50) | Any 150 V+ ultrafast or SiC Schottky in TO-220. Search: `ultrafast diode 200V 15A TO-220`. | $1.50–4 | Shares work with the FET body diodes. |
-| Snubber R | 2→4 | Search: [`22 ohm 2W metal oxide axial`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=22+ohm+2W+metal+oxide) | 10–47 Ω pulse-safe. Tune on the bench. | $0.30–1 | One RC per half-bridge leg. |
-| Snubber C | 2→4 | Search: [`4.7nF 250V C0G`](https://www.digikey.com/en/products/filter/ceramic-capacitors/60?keywords=4.7nF+250V+C0G) or small pulse film | 1–10 nF 250 V+ film / C0G. | $0.20–1 | Start at a few nF; do not guess a final value from this list. |
-| Bleeder | 2→4 | Search: [`1.5k 10W wirewound`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=1.5k+10W+wirewound) or [`2k 10W chassis`](https://www.digikey.com/en/products/filter/chassis-mount-resistors/54?keywords=2k+10W) | Any 1–2 kΩ 5–10 W. Same as v0.1. | $0.80–3 | Size total dissipation for a few-second dump of the electrolytic bus. |
-| Charge / inrush limiter | 1 | [HS25 10R J](https://www.digikey.com/en/products/detail/ohmite/HS25-10R-J/5307681) 10 Ω 25 W chassis (~$5.35) | 10–47 Ω 25 W; or an NTC inrush + optional relay. Search: `25W 10 ohm chassis`. | $3–8 | Soft-charges the bank. Bypass it after the bus is up if you want faster recharge. |
-| Reverse-polarity (series Schottky) | 1 | [MBR20100CT-E3/4W](https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/MBR20100CT-E3-4W/2153208) Vishay 100 V / 20 A dual common-cathode TO-220 (~$3) | [MBR20H100CT](https://www.digikey.com/en/products/detail/taiwan-semiconductor-corporation/MBR20H100CT/7377448); any 100 V 10–20 A TO-220 Schottky. Do **not** pair with a P-FET in series. | $1.50–4 | Pack+ → anode(s), cathode → bus (parallel both anodes if you like). Charge current only; launch does not go through it. ~0.6–0.8 V drop while charging. Skip only if you never swap the battery leads. |
-| Temperature sensor | 2 | [TMP36GT9Z](https://www.digikey.com/en/products/detail/analog-devices-inc/TMP36GT9Z/820404) TO-92 (~$1.85) | [NTCLG100E2103JB](https://www.digikey.com/en/products/detail/vishay-beyschlag-draloric-bc-components/NTCLG100E2103JB/773999) 10 k NTC (~$0.70) glued to the FET bar. | $0.70–2 | One on the MOSFET bar, one on board copper near the bus. |
-| Charge LED + resistor | 1 set | Search: [`5mm red LED`](https://www.digikey.com/en/products/filter/led-indication-discrete/94?keywords=5mm+red+LED) + [`10k 0.25W`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=10k+0.25W) | Any. | $0.20 | Visible when the bank is charged. |
-| Bus / rail voltage divider | 2 sets | Search: [`220k 1% 0.25W metal film`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=220k+1%25+0.25W+metal+film) + [`10k 1% 0.25W metal film`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=10k+1%25+0.25W+metal+film) | [`200k 1% 0.25W`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=200k+1%25+0.25W+metal+film) + same 10k (less headroom). 0.1% if you care about absolute volts. **Not** 100k/10k unless the ADC is 5 V. | $0.10–0.30 | For a **3.3 V ADC** (typical BTT / STM32): 220k/10k → 48 V≈2.09 V, 60 V≈2.61 V, 65 V≈2.83 V. 200k/10k is 2.29 / 2.86 / 3.10 V. Old 100k/10k is 11:1 and hits ~5.5 V at 60 V. Clamp each tap with the BAT85s below; the ratio must stay under the rail so the diodes only catch spikes. |
-| Divider clamp diodes | **10** | [BAT85S-TAP](https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/BAT85S-TAP/3104127) Vishay 30 V / 200 mA Schottky, **DO-35 axial** (~$0.20–0.50) | Other axial BAT85 / [1N5819](https://www.digikey.com/en/products/filter/diodes-rectifiers-single/280?keywords=1N5819). Not SOD-523 `BAT54KFILM` (too small to hand-solder). | $0.15–0.50 | Two per divider if you clamp both ways (tap→3.3 V and tap→GND) → 4 for bus + rail sense. Order 10; they are cheap and you will use extras on test points. Cathode band to the MCU rail (or GND for the lower clamp). |
-| 5 V / 3.3 V housekeeping | 1 set | Search: [`AMS1117-3.3`](https://www.digikey.com/en/products/filter/voltage-regulators-linear-low-drop-out-ldo-regulators/699?keywords=AMS1117-3.3) + [`L7805CV`](https://www.digikey.com/en/products/filter/voltage-regulators-linear-low-drop-out-ldo-regulators/699?keywords=L7805CV) | Better LDOs (AP2112, AMS1117-5.0) if you already have a favorite. | $0.50–2 | From the 12 V isolated rail or a small aux input. |
-| Logic connectors | see proto kit | Breakaway headers in the **Breadboard / proto kit** below | JST-XH later if the BTT harness already uses it. | — | FIRE, PWM, bypass, fault, sense. |
-| TO-247 heatsink + hardware | 1 bar or 8 clips | Search: [`TO-247 heatsink`](https://www.digikey.com/en/products/filter/thermal-heat-sinks/219?keywords=TO-247+heatsink) + [`TO-220 insulating pad`](https://www.digikey.com/en/products/filter/thermal-pads-sheets/219?keywords=TO-220+sil-pad) + [`M3 shoulder screw`](https://www.digikey.com/en/products/filter/screws-bolts/562?keywords=M3+socket+cap) | A single aluminum bar drilled for 8 TO-247s is better than 8 tiny sinks. | $10–25 | Isolate tabs from the bar unless all drains are common (they are not — half-bridge). |
-| Bus bar / flexible copper | as needed | Metals / McMaster: [copper sheet](https://www.mcmaster.com/products/copper/copper-sheets/) 0.016–0.032″ (0.4–0.8 mm) or thicker | Amazon copper flashing; leftover flexible strip from the v0.1 build. | variable | External high-current path. Also used for the `L_series` pads and shorting bar. |
-| Copper spreader washers / plates | 4–8 | Cut from 1–2 mm copper sheet (same McMaster copper family) | — | low | 2-bolt rail clamps **and** `L_series` terminals. |
-| Bolts / hardware | assorted | Hardware store or McMaster M5 / M6 stainless + steel washers | — | $5–15 | Same 2-bolt clamp idea as v0.1. |
-| PCB | 1 | **Do not order yet.** | JLCPCB / PCBWay 2.0–2.4 mm, 2–3 oz when layout exists. | $15–60 | — |
-
-**Approximate total for a minimal first build** (8 FETs + 4 spares, 2× 100 V electrolytics, 4× 10 µF film, driver + 2 isolated 12 V, ACS772, relay, TVS/diodes, bleeders, copper, heatsink): **$180–300** depending on how much copper/hardware you already have.
-
-Designed-max populate (16 FETs + 6 electrolytics + 8 film) adds roughly another $80–140.
-
-Add **~$25–35** for the dedicated breadboard kit below if you do not already have a good 830-point board and 22 AWG jumpers.
+| Component | Qty (min→max) | Primary (Digi-Key) | Verified values | Approx. unit | Notes |
+|-----------|---------------|--------------------|-----------------|--------------|-------|
+| Power MOSFET, TO-247 | 8→16 (+4 spare) | [IRFP4568PBFXKMA1](https://www.digikey.com/en/products/detail/infineon-technologies/IRFP4568PBFXKMA1/16669015) | 150 V; 4.8 mΩ typ / 5.9 max; IDM 684 A; Qg 151 nC ([datasheet](https://www.infineon.com/dgdl/irfp4568pbf.pdf?fileId=5546d462533600a4015356310e811e5b)) | $4–9 | Design to **450 A each for 0.5 ms**, not IDM. Alternatives: [IRFP4468PBFXKMA1](https://www.digikey.com/en/products/detail/infineon-technologies/IRFP4468PBFXKMA1/16669046) 100 V (less voltage margin); [IRFP4668PBFXKMA1](https://www.digikey.com/en/products/detail/infineon-technologies/IRFP4668PBFXKMA1/16669049) 200 V. |
+| Isolated dual-channel gate driver | 1 (+1 spare) | [UCC21551ADWR](https://www.digikey.com/en/products/detail/texas-instruments/UCC21551ADWR/24708455) | **A = 5 V UVLO** (turn-on ~6 V), not 8 V. 4 A / 6 A. Only the A is sold in SOIC-16 ([datasheet](https://www.ti.com/lit/ds/symlink/ucc21551.pdf)) | $2–5 | Right part for 12 V rails. Its lockout will not protect the FETs; add the supervisor below. `UCC21551C*` needs ≥13.5 V and will not start on 12 V. |
+| Isolated 12 V DC-DC, 2 W | 2 | [R12P212S](https://www.digikey.com/en/products/detail/recom-power/R12P212S/2256185) | Unregulated; 680 µF max load; 1.5–10 pF isolation ([datasheet](https://recom-power.com/pdf/Econoline/RxxP2xx.pdf)) | $8–17 | One per gate rail. Expect 12–13 V lightly loaded. |
+| DC-bus electrolytic | 2→12 | [LGU2A472MELC](https://www.digikey.com/en/products/detail/nichicon/LGU2A472MELC/2540733) | 4700 µF 100 V, 35 × 50 mm; ESR ≤56 mΩ at 120 Hz; no kHz ESR published ([catalog](https://www.nichicon.co.jp/english/series_items/catalog_pdf/e-lgu.pdf)) | $4–10 | Two for first light, six for useful shots. Not rated by the maker for rapid, frequent discharge; keep the shot rate low. |
+| Bridge film | 4→8 | [B32774D4106K000](https://www.digikey.com/en/products/detail/tdk/B32774D4106K000/3492300) | 10 µF 450 V; ESR 10.9 mΩ; ESL 24 nH; 30 V/µs ≈ 300 A peak ([datasheet](https://www.tdk-electronics.tdk.com/inf/20/20/db/fc_2009/MKP_B32774_778.pdf)) | $5–12 | Directly across the FET legs. More film lowers the turn-off pump. 22 µF alternative: [B32774D4226K000](https://www.digikey.com/en/products/detail/tdk/B32774D4226K000/1884963). |
+| HF decouple (C0G) | 8→16 | [C350C104F1G5TA](https://www.digikey.com/en/products/detail/kemet/C350C104F1G5TA/6562499) | 0.1 µF 100 V C0G radial | $1–3 | The ±1 % "F" part is costly; the ±5 % `C350C104J1G5TA` is electrically the same here. |
+| Gate resistor | 16 | Search: [`10 ohm 0.5W 1% metal film axial`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=10+ohm+0.5W+1%25+metal+film+axial) | — | $0.10–0.25 | 10 Ω to start. Also buy 2.2 Ω and 4.7 Ω for a faster turn-off path. |
+| Gate–source resistor | 16 | Search: [`10k 0.25W 1% metal film axial`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=10k+0.25W+1%25+metal+film+axial) | — | $0.03–0.10 | One per FET. |
+| Current sensor (conditioning) | 1 | [ACS772ECB-200B-PFF-T](https://www.digikey.com/en/products/detail/allegro-microsystems/ACS772ECB-200B-PFF-T/9674832) | ±200 A; 10 mV/A; 2.5 µs; clamps beyond range; ≤0.4 A offset after overload ([datasheet](https://www.allegromicro.com/-/media/files/datasheets/acs772-datasheet.pdf)) | $10–15 | **Not a launch sensor.** Re-zero after each shot. Do not buy a 400 A sibling for launch; use the Rogowski loop. |
+| Relay (conditioning switch) | 1 | [T9AS1D12-12](https://www.digikey.com/en/products/detail/te-connectivity-potter-brumfield-relays/T9AS1D12-12/254519) | SPST-NO; **DC rating 20 A at 28 VDC**; 75 mΩ initial; 15 ms ([datasheet copy](https://tvsat.com.pl/PDF/1/1-1393210-3.pdf)) | $4–10 | 30 A is its AC rating. Use at ≤28 V in the ballast path. It cannot break a 48–60 V DC circuit. |
+| Bus TVS | 1→2 | [5KP58A](https://www.digikey.com/en/products/detail/littelfuse-inc/5KP58A/556577) | 58 V standoff; 64.4 V min breakdown; 93.6 V at 54.5 A | $1.50–3 | Keep the bus ≤56 V. `5KP64A` for a 16s LFP pack. |
+| Snubber R | 2→4 | Search: [`2.7 ohm 2W metal oxide axial`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=2.7+ohm+2W+metal+oxide) | — | $0.30–1 | 2.7 Ω to start; tune on the bench. |
+| Snubber C | 2→4 | Search: [`10nF 250V C0G`](https://www.digikey.com/en/products/filter/ceramic-capacitors/60?keywords=10nF+250V+C0G) | — | $0.20–1 | 10 nF to start. It damps ringing; it does not absorb the commutation energy. |
+| Bleeder | 2→4 | Search: [`1.5k 10W wirewound`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=1.5k+10W+wirewound) | — | $0.80–3 | 14 s time constant with two cans, 42 s with six: 76–102 s to fall below 5 V. Wait, then check with a meter. |
+| Charge resistor | 1 | [HS25 10R J](https://www.digikey.com/en/products/detail/ohmite/HS25-10R-J/5307681) | 25 W on a heatsink, 9 W without; no pulse rating published | $3–8 | Never jumpered on a battery. |
+| Reverse-polarity Schottky | 1 | [MBR20100CT-E3/4W](https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/MBR20100CT-E3-4W/2153208) | 100 V; 10 A per diode | $1.50–4 | Charge path only. |
+| Small clamp diode | 2 | [MUR1560G](https://www.digikey.com/en/products/detail/onsemi/MUR1560G/919902) | 600 V; 15 A; IFSM 150 A | $1.50–4 | Not a launch freewheel diode. |
+| Temperature sensor | 2 | [TMP36GT9Z](https://www.digikey.com/en/products/detail/analog-devices-inc/TMP36GT9Z/820404) | — | $0.70–2 | One on the FET bar, one on a can. |
+| Voltage dividers | 4 sets | Search: [`220k 1% 0.25W metal film`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=220k+1%25+0.25W+metal+film) + [`10k 1% 0.25W metal film`](https://www.digikey.com/en/products/filter/through-hole-resistors/53?keywords=10k+1%25+0.25W+metal+film) | — | $0.10–0.30 | Bus, switch node, and the high range of the two muzzle taps. |
+| Clamp diodes | 20 | [BAT85S-TAP](https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/BAT85S-TAP/3104127) | 30 V / 200 mA Schottky, DO-35 | $0.15–0.50 | Two per ADC input. |
+| 5 V / 3.3 V regulators | 1 set | Search: [`L7805CV`](https://www.digikey.com/en/products/filter/voltage-regulators-linear-low-drop-out-ldo-regulators/699?keywords=L7805CV) + [`AMS1117-3.3`](https://www.digikey.com/en/products/filter/voltage-regulators-linear-low-drop-out-ldo-regulators/699?keywords=AMS1117-3.3) | — | $0.50–2 | Fed from the floating 12 V supply, **not** from a gate rail. |
+| TO-247 heatsink + hardware | 1 bar | Search: [`TO-247 heatsink`](https://www.digikey.com/en/products/filter/thermal-heat-sinks/219?keywords=TO-247+heatsink) | — | $10–25 | One bar for all eight; tabs isolated. |
+| Copper sheet / bar | as needed | McMaster: [copper sheet](https://www.mcmaster.com/products/copper/copper-sheets/) | — | variable | Bars, coil pads, spreader plates. |
+| Bolts / hardware | assorted | M5 / M6 stainless + washers | — | $5–15 | Two-bolt clamps. |
+| PCB | 1 | **Do not order yet.** | — | $15–60 | — |
 
 ---
 
-## Breadboard / proto kit (order now)
+## Additions for 0.2 (order these)
 
-Logic / gate-drive only — matches [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md) §9. There is no single Digi-Key kit that includes the board, 22 AWG jumpers, **and** the SOIC adapter. Buy these on the same order as the semiconductors. Skip cheap Amazon “MB-102 + Dupont” kits: sloppy contacts and floppy leads on the UCC21551 / SIP modules.
+About $50–90 in total.
 
-Do **not** buy clip-on breadboard 3.3/5 V power hats. They fight the isolated 12 V plan and invite mixing the pack into the logic rails.
+### Gate drive and logic
 
-| Item | Qty | Primary (Digi-Key) | Good alternatives | Approx. | Notes |
-|------|-----|--------------------|-------------------|---------|-------|
-| Full-size breadboard, 830 point | 1 | [BB830](https://www.digikey.com/en/products/detail/busboard-prototype-systems/BB830/19200392) BusBoard (~$9) | [BB1660](https://www.digikey.com/en/products/detail/busboard-prototype-systems/BB1660/19200358) (~$17) — two 830s side-by-side if you want MCU 3.3 V away from the isolated 12 V SIPs. 3M framed boards (~$85–160) are overkill. | $9–17 | Same layout as the §9 sketch. Better springs than generic white boards. |
-| Pre-formed 22 AWG jumpers | 1 kit | [WK-2](https://www.digikey.com/en/products/detail/global-specialties/WK-2/5231341) 140 pcs (~$9) | Twin Industries 140-pc kits. | $7–10 | Solid **22 AWG** is the only gauge that seats reliably. Use these on the board, not Dupont. Fine for 12 V / 5 V / gate-drive; not for launch or 5–20 A preconditioning. |
-| SOIC-16 → DIP adapter | 2 | [PA0006](https://www.digikey.com/en/products/detail/chip-quik-inc/PA0006/5014721) Chip Quik, **300 mil** (~$4) | Any 300 mil SOIC-16 breakout. Not 150 mil / “narrow” SOIC-16. | $4 | Matches `UCC21551ADWR` (DW). One working, one spare. |
-| Breakaway 0.1″ header | 1 | [PRPC040SAAN-RC](https://www.digikey.com/en/products/detail/sullins-connector-solutions/PRPC040SAAN-RC/2775214) 40-pin (~$1.25) | Any 0.1″ single-row breakaway. | $1–2 | Snap a 16 for the PA0006; leftovers for MCU and gate headers. |
-| M–M Dupont (optional) | 1 pack | Search: [`jumper male-male 40 2.54`](https://www.digikey.com/en/products/filter/jumper-wire/640?keywords=jumper+male-male+40+2.54) | — | $3–6 | Only for the BTT/Pi harness **off** the board. Gate header → FET gates: short 22 AWG, not a 20 cm rainbow. |
+| Item | Qty | What to buy | Why |
+|------|-----|-------------|-----|
+| Bulk decoupling | 4 | 10 µF 25 V, leaded film or X7R | 10 µF + 0.1 µF at each gate rail, soldered on the adapter. |
+| Dead-time resistor | 2 | 51 kΩ 1 % | 452 ns. The DT pin is never left open. |
+| Input filter parts | few | 100 Ω, 100 pF C0G | At the driver inputs. |
+| Supply supervisor | 2 sets | 9.1 V zener + optocoupler (PC817 class) + 1 kΩ | EN stays low unless both gate rails are above 10 V. |
+| Sequencer | 1 (+1) | RP2040 board (Raspberry Pi Pico class) | Times the pulse; printer firmware cannot. |
+| On-time limit | 1 set | 74HC123 + 74HC08 | Cuts any high-side command at about 2 ms. |
+| Over-current latch | 1 set | LM393 + 74HC74 | Trips on excess drop across the high side. |
+| Isolated link | 2 | Optocouplers (PC817 class) | FIRE in, FAULT/READY out, to the printer controller. |
+| USB isolator | 1 | ADuM3160-class module | On every PC link. Without it the return bar is earthed through the PC. |
+| Logic supply | 1 | Double-insulated 12 V wall adapter, ≥1 A | Floating; feeds the DC-DC inputs, the 7805 and relay coils. |
 
-Splay TO-220 legs (L7805) slightly so they do not wreck the springs. R12P212S SIP modules fit 0.1″ as-is.
+### Power and protection
+
+| Item | Qty | What to buy | Why |
+|------|-----|-------------|-----|
+| DC fuse + holder | 1 | 10 A, rated ≥60 VDC (a 10 × 38 mm solar "gPV" fuse is a cheap choice) | Automotive blade fuses are 32 V parts. |
+| Ballast resistors | 1 each | 1 Ω, 2.2 Ω, 4.7 Ω, 10 Ω at 25–50 W, chassis mount | Conditioning current limit. |
+| Dump resistor + push switch | 1 | 10 Ω 25 W (a second HS25) | Fast safe discharge of the bank. |
+| More electrolytics | to 6 | Same LGU2A472MELC | If only two are on hand. |
+| More FETs | 4 | Same IRFP4568 | Only if moving to 6+6 with spares. |
+
+### Sensing and diagnostics
+
+| Item | Qty | What to buy | Why |
+|------|-----|-------------|-----|
+| Rogowski loop | 1 | 30–34 AWG magnet wire, about 100 turns on a 6 mm flexible former, return lead threaded back through the middle | Launch current. Around the return bar. |
+| Muzzle tap leads | 1 | Thin twisted pair, high-temperature insulation | Slug voltage. |
+| Photogates | 2 | Slotted optical switches, or IR LED + phototransistor pairs | Velocity. |
+| Witness plates | several | Copper, aluminium, steel and glass coupons | Splat tests. |
+
+### Head
+
+| Item | Qty | What to buy | Why |
+|------|-----|-------------|-----|
+| Magnets | 4–8 | NdFeB bars about 40 × 10 × 5 mm, magnetised through the 5 mm, **SH grade** (150 °C) | 0.6–0.9 T across the bore over the downstream 80 mm. Standard N grades weaken above 80 °C. |
+| Yoke | 2 | Mild steel strip, 3–5 mm | Flux return; raises the field. |
+| Augmenting-turn strip | 1 lot | Copper strip about 4 × 0.5 mm, polyimide tape | 4–8 flat turns over and under the rails. |
+
+### People
+
+Polycarbonate enclosure with an interlock, a backstop behind the target, safety glasses, an emergency-stop switch, and fume extraction. These are part of the kit, not options. A 1 mg slug at 300 m/s will penetrate an eye; the oil mist can ignite; zinc and copper fume cause metal fume fever.
 
 ---
 
-## `L_series` winding kit (order copper now)
+## Breadboard / proto kit
 
-Do **not** buy a catalog ferrite power inductor. It will saturate at launch current.
+Logic and gate drive only — matches [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md) §9. Skip cheap "MB-102 + Dupont" kits: sloppy contacts and floppy leads.
 
-| Item | Qty | What to buy | Notes |
-|------|-----|-------------|-------|
-| Coil conductor | 1 lot, enough for 4–5 coils | 10–12 AWG copper (magnet or hookup) **or** 1/4″ / 6 mm copper tube. McMaster / electrical supplier. Search Digi-Key only if you want magnet wire: [`10 AWG magnet wire`](https://www.digikey.com/en/products/filter/magnet-wire/88?keywords=10+AWG+magnet+wire). | Tube is nicer for high pulse current and air cooling. |
-| Formers | DIY | PVC pipe or 3D-printed bobbins, ~20–40 mm diameter | Air-core. |
-| Target values | 5 | **~50 nH, 150 nH, 500 nH, 1 µH, 2 µH** | Same 2-bolt pad pattern so they swap. A ~100 mm rail pair is already ~50–150 nH plus bus, so the middle of this kit is the useful range. |
-| Terminals | with rail hardware | Same copper washers + M5/M6 | Keep the loop tiny. |
+Do **not** buy clip-on breadboard 3.3/5 V power hats. They invite mixing the bus into the logic rails.
 
-Wind after the first `L_rails` estimate if you want; the copper can sit on the shelf until then.
+| Item | Qty | Primary (Digi-Key) | Approx. | Notes |
+|------|-----|--------------------|---------|-------|
+| Full-size breadboard, 830 point | 1–2 | [BB830](https://www.digikey.com/en/products/detail/busboard-prototype-systems/BB830/19200392) | $9–17 | The 0.2 logic needs more rows than 0.1; a second board or a [BB1660](https://www.digikey.com/en/products/detail/busboard-prototype-systems/BB1660/19200358) helps. |
+| Pre-formed 22 AWG jumpers | 1 kit | [WK-2](https://www.digikey.com/en/products/detail/global-specialties/WK-2/5231341) | $7–10 | Solid 22 AWG seats reliably. |
+| SOIC-16 → DIP adapter | 2 | [PA0006](https://www.digikey.com/en/products/detail/chip-quik-inc/PA0006/5014721) | $4 | For the wide-body (7.5 mm) DW package. The Digi-Key page does not state body width; confirm the fit and the DIP row spacing on arrival. |
+| Breakaway 0.1″ header | 1 | [PRPC040SAAN-RC](https://www.digikey.com/en/products/detail/sullins-connector-solutions/PRPC040SAAN-RC/2775214) | $1–2 | Adapter and gate headers. |
+
+Solder the driver's decoupling capacitors, dead-time resistor and input filters to the adapter pins, not into breadboard rows.
+
+---
+
+## `L_series` winding kit
+
+Do **not** buy a catalog ferrite power inductor. It will saturate.
+
+| Item | What to buy | Notes |
+|------|-------------|-------|
+| Conductor | 1/4″ or 6 mm copper tube, or doubled 10 AWG | Tube keeps resistance near 1 mΩ; single 10 AWG is about 4 mΩ for a 2 µH coil. |
+| Formers | PVC pipe or printed bobbins, about 38 mm diameter | Air core. |
+| Target values | **0.5, 1, 2 and 3 µH** | On a 38 mm former: about 4 turns over 20 mm, 6 over 30 mm, 10 over 50 mm, 13 over 65 mm (Wheeler's formula; measure each). |
+| Terminals | Two-bolt copper pads, same pattern for every coil | So they swap. |
+
+- Start with 2 µH. It keeps the first-light bank inside the FET limit.
+- Smaller values shorten the freewheel tail and raise the peak.
+- The 50–150 nH coils on the 0.1 list have no role: the rails and bars already supply that much.
+- Measure each coil with an LCR meter or by ringing it against a known film capacitor.
 
 ---
 
 ## Optional and possibly needed
 
-Called out separately so they are **not** mistaken for the first-order core kit. Buy from this table only if the note matches what you are actually doing.
-
-| Status | Item | When you need it | Candidate (Digi-Key / other) | Approx. |
-|--------|------|------------------|------------------------------|---------|
-| Optional — later SMD upgrade | 100 V TOLL OptiMOS | After the TO-247 board works and you want lower Qg / more parallel current on a multi-layer PCB | [IPT015N10N5ATMA1](https://www.digikey.com/en/products/detail/infineon-technologies/IPT015N10N5ATMA1/5213939) 100 V, 1.5 mΩ, ~$6.67. Hard to hand-solder. | $7 |
-| Optional — 200 V TO-247 | Extra voltage margin | If 150 V still feels tight once you see overshoot | [IRFP4668PBFXKMA1](https://www.digikey.com/en/products/detail/infineon-technologies/IRFP4668PBFXKMA1/16669049) 200 V. Often long lead time. | $7–16 |
-| Optional — experimental series tank | Small pulse film 0.47–2.2 µF | Only if you try a true small-C resonant tank instead of a stiff DC bus | [940C10W1K-F](https://www.digikey.com/en/products/detail/cornell-dubilier-knowles/940C10W1K-F/809448) 1 µF 1 kV pulse; [940C6P22K-F](https://www.digikey.com/en/products/detail/cornell-dubilier-knowles/940C6P22K-F/1929440) 0.22 µF. Buy 4. | $5–12 |
-| Optional — waveform current sense | Current transformer | If you want to **scope** the ≥200 kHz burst. ACS772 will not resolve the ring well. | Cheap: [CST206-3A](https://www.digikey.com/en/products/detail/triad-magnetics/CST206-3A/242543) 20–200 kHz, 70 A — OK for preconditioning / low-energy shots, will saturate at launch peak. Real instrument: [Pearson 411](https://www.pearsonelectronics.com/products/wideband-current-monitors) (not Digi-Key; expensive). | $7 / $$$ |
-| Optional — higher-range Hall | ACS772 400 A class | If first shots clip the 200 A sensor | Search ACS772 family: [ACS772](https://www.digikey.com/en/products/base-product/allegro-microsystems/620/ACS772/300586) | $11–15 |
-| Possibly needed | Isolated 48–60 V PSU | If you do not already have a bench / Mean Well-class 48–60 V supply of a few amps | Search: [`Mean Well 48V 5A`](https://www.digikey.com/en/products/filter/ac-dc-converters/922?keywords=Mean+Well+48V+5A) or [`Mean Well 60V`](https://www.digikey.com/en/products/filter/ac-dc-converters/922?keywords=Mean+Well+60V). Must be isolated from the BTT/Pi earth if you keep a common bench ground. | $40–90 |
-| Possibly needed | Dummy-load power resistors | Bring-up before a real barrel (schematic §8 steps 3–5) | Search: [`50 ohm 50W chassis`](https://www.digikey.com/en/products/filter/chassis-mount-resistors/54?keywords=50+ohm+50W+chassis) — buy 2–4 to series/parallel. | $5–12 |
-| Optional — bootstrap-only fallback | Half-bridge bootstrap driver | If isolated DC-DCs are out of stock. Weaker for a one-shot launch burst. | Search: [`IR2110PBF`](https://www.digikey.com/en/products/filter/gate-drivers/730?keywords=IR2110PBF) + ultrafast bootstrap diode. | $2–4 |
-| Optional — 15 V gate rails | Isolated 15 V 2 W | If you want more Vgs margin than 12 V | Search: [`R15P215S`](https://www.digikey.com/en/products/filter/dc-dc-converters/922?keywords=R15P215S) or `isolated 15V 2W SIP`. Must still match driver UVLO (A suffix is fine). | $10–18 |
-| Optional — full-bridge later | 2nd driver + 8 more FETs | Only if bipolar / higher effective voltage is justified | Same MOSFETs + a second UCC21551ADWR | ~$70–100 |
-| Optional — solid-state bypass | Paralleled MOSFETs or a small contactor | High repetition-rate firing; not rev 1 | Same TO-247 FET family, or a Kilovac-class EV relay (overkill). | $20+ |
-| Optional — ignition tick | Separate HV / HF tick generator | Explicitly **not** required for first revision (schematic §2) | Do not buy a Tesla / flyback module for this yet. | — |
-| Possibly needed | Interlock switch / E-stop | Shop safety; schematic wants an inhibit | Search: [`emergency stop 22mm NC`](https://www.digikey.com/en/products/filter/configurable-switch-body/196?keywords=emergency+stop+22mm) or a big NC mushroom from the hardware store. | $8–20 |
-| Optional — desat / fast OC latch | Comparator + TVS + latch | If you implement discrete desat instead of relying on ACS772 + firmware | Search: [`LM393P`](https://www.digikey.com/en/products/filter/comparators/370?keywords=LM393P) + [`74HC74`](https://www.digikey.com/en/products/filter/logic-flip-flops/705?keywords=74HC74N) + a 10–15 V zener. Fine to wait for schematic. | $2 |
-| Optional — fan | Forced air on the FET bar | Long preconditioning runs | Any 12 V 40–60 mm fan. Search: [`12V 40mm fan`](https://www.digikey.com/en/products/filter/dc-brushless-fans-ac-fans-blowers/217?keywords=12V+40mm+fan). | $5–12 |
-| Optional — low-drop reverse-polarity | Ideal-diode IC + N-FET, or P-FET | Only if you want to avoid the Schottky’s ~0.7 V charge drop | IC path: [LM74700QDBVRQ1](https://www.mouser.com/ProductDetail/Texas-Instruments/LM74700QDBVRQ1) (often in stock at Mouser when Digi-Key is empty) + [IRFB4110PBF](https://www.digikey.com/en/products/detail/infineon-technologies/IRFB4110PBF/935978). Do **not** use a P-FET (`IRF9540NPBF`) with gate tied straight to pack− — \(V_{GS}\) max is ±20 V on a 48–60 V pack. | $5–8 |
+| Status | Item | When you need it | Candidate | Approx. |
+|--------|------|------------------|-----------|---------|
+| Optional — HF experiment | Small pulse film 0.22–2.2 µF, 1 kV class | The series-resonant experiment in [`UnifiedResonantDriver.md`](UnifiedResonantDriver.md) §4.4 | [940C10W1K-F](https://www.digikey.com/en/products/detail/cornell-dubilier-knowles/940C10W1K-F/809448) 1 µF; [940C6P22K-F](https://www.digikey.com/en/products/detail/cornell-dubilier-knowles/940C6P22K-F/1929440) 0.22 µF. Check the peak-current rating. | $5–12 |
+| Needed for 48–56 V | DC-rated charge switch | Moving from the bench supply to a pack | A relay or contactor rated for the pack voltage, or a MOSFET high-side switch | $10–30 |
+| Needed for 48–56 V | Isolated 48–56 V source | Same | Bench supply, or pack through fuse and charge resistor | $40–90 |
+| Possibly needed | Adjustable bench supply | If none is on hand | 0–30 V, 5–10 A, current-limited. Enough for all of first light. | $50–100 |
+| Optional | Scope current probe or Pearson-class monitor | Independent check on the Rogowski channel | [Pearson](https://www.pearsonelectronics.com/products/wideband-current-monitors) | $$$ |
+| Optional | Differential probe | Scope work on the switch node | Any 100 V-class differential probe | $50–300 |
+| Optional — later | 15 V gate rails | More gate margin at high current | `R12P215S` class; A-suffix driver still fits | $10–18 |
+| Optional — later | Second driver + 8 FETs | A second leg in the rail B return (full bridge) | Same parts | ~$70–100 |
+| Optional — later | Solid-state conditioning stage | Faster, finer conditioning | ≥50 µH inductor rated 20 A + comparator + one FET | $10–20 |
+| Optional | Fan | Long runs | 12 V 40–60 mm | $5–12 |
 
 ---
 
-## Assumed already owned (do not force-buy)
+## Assumed already owned
 
-- BigTreeTech board + Raspberry Pi (or equivalent MCU) for FIRE / PWM / bypass GPIO
-- Isolated 48–60 V bench or Mean Well-class PSU (see optional table if you do not have one)
-- Scope with a differential probe or two isolated channels — you will need it for 200 kHz bring-up
-- Dummy barrel or a pair of thick copper straps for first current tests
-
----
-
-## Schematic §3 coverage
-
-Every block in [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md) §3 has a BOM line, or is called out as already-owned / wait-for-layout:
-
-| Block | Where it lives |
-|-------|----------------|
-| 3.1 DC input & charging | Reverse-polarity Schottky, TVS, charge resistor, bleeders, bus divider |
-| 3.2 Pulse capacitor bank | Electrolytics + bridge film + HF decouple |
-| 3.3 Power bridge | TO-247 MOSFETs, snubber RC, clamp diodes, heatsink |
-| 3.4 Gate drive | UCC21551A, isolated 12 V × 2, Rg / Rgs |
-| 3.5 `L_series` + bypass | Winding kit, T9AS relay, copper shorting bar |
-| 3.6 Rail output | Bus bars, copper washers, output TVS, ACS772 |
-| 3.7 Sensing | ACS772, dividers, TMP36 / NTC |
-| 3.8 Control & MCU interface | Headers; isolation is the gate driver. Exact pin gender waits for layout. |
-| 3.9 Auxiliary power | Isolated 12 V + 5 V / 3.3 V LDOs |
-| Optional ignition tick | Optional table — not rev 1 |
+- BigTreeTech board + Raspberry Pi (or equivalent) for motion; it only sends FIRE to the sequencer.
+- A current-limited bench supply. 0–30 V at 10 A covers all of first light.
+- An oscilloscope, 100 MHz class, two or more channels.
+- An LCR meter, or the patience to do ring tests.
+- A pair of thick copper straps for first current tests.
 
 ---
 
 ## Two circuit parts (breadboard or later PCB)
 
-Treat the driver as two circuits that only meet at a few well-defined points. This split is the home-build layout, not a temporary hack. It applies to a first solderless-breadboard checkout of the logic and to the eventual simple PCB.
+Treat the driver as two circuits that meet at a few defined points.
 
-**1. Logic / gate drive / sense** — 12 V isolated supplies, UCC21551, PWM / enable / fault, voltage dividers, TMP36, relay coil, MCU headers.
+**1. Logic, gate drive, sense** — the floating 12 V supply, sequencer, UCC21551, protection logic, dividers, relay coil.
 
-- Fine on a solderless breadboard for bring-up (SOIC driver needs an adapter), or on a soldered proto / later PCB.
-- Prove dead time and isolated 12 V **with no 48 V connected**, using a dummy gate load (spare FET or ~10 nF).
-- If you split across two boards, put this side on one and power on the other. Do **not** run long jumper wires for MOSFET gates or the power return; the gate loop must stay as short as the power loop.
+- Fine on a solderless breadboard for bring-up.
+- Prove the enable default, the on-time limit and the supervisor **with nothing on the bars**, using a spare FET as the gate load.
+- Gate leads are twisted pairs with their returns, under 100 mm.
 
-**2. High-current pulse path** — battery/bus, electrolytics, pulse film, MOSFET drain/source, `L_series`, bypass, rails, bleeder, ACS772 *current* conductor.
+**2. High-current pulse path** — supply input, bank, film, MOSFETs, `L_series`, rails, bleeder, the ACS772 conductor, the ballast path.
 
-- Never through solderless-breadboard springs (amp-class contacts; extra inductance wrecks ≥200 kHz and spikes the FETs).
-- Current rides on short, thick **external** conductors — copper bar, laminated strip, or a few paralleled heavy wires — bolted to wide pads. Board copper only provides landing pads, not the pulse path. “Floating bars” above or beside a simple single-sided board is the intended construction.
-- Close the loop *C_tank → half-bridge → L_series / bypass → rails → return* in as small an area as you can physically fold. Wires are acceptable for a first jig if they are short, fat, and laid flat as a go/return pair or sandwich. A long flying lead to the barrel is unbudgeted inductance.
-- Bleeder must be hardwired (not a jumper that can fall out). The Hall sensor body can sit next to the logic; its heavy current path stays on the bars.
+- Never through breadboard springs.
+- Short, thick external conductors bolted to wide pads, laid as go-and-return pairs.
+- Film cans directly across the FET legs; electrolytics right beside them.
+- Bleeder hard-wired.
 
-The two sides touch only at FET gates (and `Rgs`), isolated-supply returns, sense taps, and the bypass-coil drive. That is enough for a later PCB to stay simple: control and landing pads on the board, bus bars for current.
+The two meet only at the FET gates and their Kelvin returns, the sense taps, and the relay coil.
 
 ---
 
 ## Builder advice
 
-- Order extras of MOSFETs, the isolated driver, and at least two spare film cans. Those are the parts you will stress on first shots.
-- Buy the driver, MOSFETs, ACS772, and pulse film from Digi-Key or Mouser. Counterfeit gate-drive optos and Hall sensors are common on marketplaces.
-- **Confirm the UCC21551 suffix.** `A` = 6.7 V VDD min (correct for 12 V isolated modules). `C` = 13.5 V min and will sit in UVLO forever on 12 V.
-- If any v0.1 `IRFP4568` / isolated 12 V bricks / ACS772 / copper / hardware are already on the shelf, reuse them and subtract from this list.
-- Keep a small stock of 1–2 mm copper plate and the custom flexible strip for high-current joints.
-- Do not order the PCB, a full-bridge FET set, or an ignition-tick HV box until the half-bridge rings into a dummy load.
+- Buy the driver, MOSFETs, ACS772 and film capacitors from Digi-Key or Mouser. Counterfeits are common on marketplaces.
+- **The UCC21551 suffix.** `A` is correct for 12 V rails. Its lockout is about 6 V, so it needs the external supervisor. `C` will not start on 12 V.
+- Measure the ESR of every can before the first shot. It sets peak current more than anything else on this list.
+- Start with two cans, 2 µH and 5 V into a strap.
+- Do not order the PCB or a second leg until the half-bridge has fired cleanly at 30 V.

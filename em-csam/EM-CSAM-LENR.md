@@ -148,7 +148,7 @@ Ordinary lattice compression alone is quantitatively insufficient under standard
 
 ## 2. Motivation for a Purpose-Built Experiment
 
-A micro-railgun barrel already produces strong, rapidly varying magnetic fields and Lorentz forces on conductive powder. That environment is incidental to its desigopeninvertern as a launcher. If the same magnetic/mechanical stresses can create the hypothesized configurations, then a device optimized to *keep the powder inside* and subject it to repeated pulses would be a more direct test bed than a launcher.
+A micro-railgun barrel already produces strong, rapidly varying magnetic fields and Lorentz forces on conductive powder. That environment is incidental to its design as a launcher. If the same magnetic/mechanical stresses can create the hypothesized configurations, then a device optimized to *keep the powder inside* and subject it to repeated pulses would be a more direct test bed than a launcher.
 
 The concept is therefore inverted: instead of accelerating powder out of the system, contain a small inventory of gas-loaded powder and repeatedly deform it magnetically at high repetition rate while extracting heat and monitoring for nuclear signatures.
 

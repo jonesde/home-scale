@@ -1,4 +1,6 @@
 # EM-CSAM Driver – Schematic Description v0.1
+
+> **Superseded (November 2026).** This is the v0.1 low-side-dump driver, kept for reference. The live design is [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md); the reasons are in [`DesignReview-2026-11.md`](DesignReview-2026-11.md). Do not order parts or lay out a board from this file.
 (Textual schematic / checklist for KiCad or equivalent)
 
 ## Sheet 1 – Power Stage

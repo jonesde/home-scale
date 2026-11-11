@@ -1,263 +1,276 @@
+# Unified Resonant Bridge – Driver Architecture
+EM-CSAM Micro-Railgun · Version 0.2
 
-# Resonant Launch Drive Concept for EM-CSAM Micro-Railgun
-High-frequency (≥200 kHz) resonant main pulse with separate preconditioning driver
+One half-bridge, one capacitor bank and one series inductor that condition a slug and then launch it with a single shaped pulse.
+
+**What changed in 0.2.** The launch is now one unipolar pulse at the circuit's real resonance (about 1–4 kHz), not a ≥200 kHz burst. The same parts are used; their jobs changed. Section 3 gives the reasons, and [`DesignReview-2026-11.md`](DesignReview-2026-11.md) gives the full analysis. Source IDs resolve in [`References.md`](References.md). Numbers come from [`tools/shot_model.py`](tools/shot_model.py) and are **not measured**. The original concept is kept, briefly, in §12.
+
+Companions: [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md) (nets, values, bring-up) and [`UnifiedResonantShoppingList.md`](UnifiedResonantShoppingList.md) (parts).
 
 ## 1. Purpose and Design Goals
 
-Deliver the main launch energy as a high-current, high-frequency (target ≥200 kHz) resonant or resonant-assisted pulse so that:
+- Deliver about 1 C and tens of joules to the rails in 0.2–0.7 ms at 1–4 kA, from a 48–60 V class bus (≤30 V for first light).
+- Condition the slug first, with a current-limited source, until its resistance is low enough to launch ([`EM-CSAM-ConceptTechnical.md`](EM-CSAM-ConceptTechnical.md) §3.5).
+- Meter each shot by bus voltage and pulse length, and record current and slug voltage for every shot.
+- Stay home-buildable: through-hole parts, external copper bars, one small logic board.
+- Keep the half-bridge so that later modes (chopped flat-top, series-resonant AC) need no new power stage.
 
-- Skin effect is strong in the rails and in the conductive slurry/armature.
-- Lorentz force (\(F = \frac12 L'I^2\)) is produced by high peak current rather than high voltage.
-- Total energy (joules) remains metered by the storage capacitance and the number/duration of resonant cycles.
-- Preconditioning retains independent, high-control waveform capability at lower frequency / lower current.
+## 2. Topology
 
-The classic high-voltage Tesla-coil secondary is deliberately avoided. Instead, resonant-transformer and resonant-discharge principles are applied in a low-impedance, high-current regime.
-
-## 2. Phase Structure
-
-1. **Preconditioning** – separate driver, lower frequency (originally 10–50 kHz class), modest current. Inductive or resistive heating, slurry conditioning, viscosity and conductivity control. Full waveform flexibility retained.
-2. **Optional ignition tick** – short high-voltage or high-frequency assist for oxide breakdown or carrier initiation if a given material requires it.
-3. **Main launch burst** – resonant high-current stage at ≥200 kHz. Skin-effect regime, rapid energy deposition, Lorentz acceleration.
-4. Preconditioning path is isolated or blanked before the main switch closes.
-
-## 3. Physical Arrangement
-
-### Rails / barrel
-Unchanged parallel-rail micro-barrel (0.5 mm-class bore, ~100 mm length typical). Rails serve as both mechanical guides and final current conductors.
-
-### Preconditioning path
-Two practical options:
-- Low-current AC / H-bridge connected across the same rails through sequencing or isolation switches, or
-- Short solenoid / helical winding around the breech section for pure inductive heating of the incoming slurry.
-
-### Main resonant stage (compact block at breech)
-- Pulse capacitor bank (energy store).
-- Intentional series inductance sized for the target resonant frequency.
-- Fast solid-state switch or bridge.
-- Extremely short, low-inductance buswork between capacitors, inductor, switch, and rail breech terminals.
-
-The entire high-current loop is kept physically small and close to the barrel so parasitic inductance does not dominate.
-
-## 4. Conceptual Circuit – Direct Resonant Discharge
-
-Rails are placed directly in the resonant loop:
+`L_series` is **in series** with the rails. Earlier drawings showed it as a parallel branch; that was a drawing error.
 
 ```
- +Vbus / charged capacitor bank
- │
-─┴─  C_tank (pulse capacitors – main energy store)
- │
- ●─────────────────────────────────────●
- │                                     │
- L_series (intentional resonant L)     Rails + armature (L_rails + R_load)
- │                                     │
- ●─────────────────────────────────────●
- │
- Switch (MOSFET/IGBT or half/full bridge)
- │
- GND / return
+            F1     D1      R1
+SUPPLY+ ──[fuse]──▷|────[10 Ω]────┬───────────┬──────────┬─────────── BUS+
+                                  │           │          │
+                               C_bus       C_film     TVS, bleeder
+                            (electrolytic) (4×10 µF)     │
+                                  │           │          │
+SUPPLY− ──────────────────────────┴─────┬─────┴──────────┴─────────── RETURN (one star point)
+                                        │
+BUS+ ── Q_HS (4–8 in parallel) ──●── L_series ── RAIL A ══ slug ══ RAIL B ── Rogowski ── ACS772 ── RETURN
+                                 │ SW
+RETURN ── Q_LS (4–8 in parallel) ┘
+
+BUS+ ── K2 ── R_ballast ── RAIL A          (conditioning path, first build)
 ```
 
-**Components in the resonating part of the circuit**
-- **C_tank** – energy-storage pulse capacitors. Joules set by \(\frac12CV^2\).
-- **L_series** – discrete inductor chosen so that
-  \(f \approx 1/(2\pi\sqrt{L_\text{total}C}) \ge 200\,\text{kHz}\)
-  where \(L_\text{total} = L_\text{series} + L_\text{rails} + L_\text{parasitic}\).
-- **Rails + armature** – load inductance and resistance; part of the resonator. Resistance provides heating and phase-explosion effects; current produces Lorentz force.
-- **Switch** – initiates the resonant discharge. A bridge allows bipolar or multi-cycle bursts; a unidirectional switch with free-wheel path is simpler for single-polarity pulses.
-- Free-wheeling diode or synchronous path for clean current ringing or clamping.
+- **Bank (`C_bus`).** The electrolytics are the pulse-forming capacitor and the energy store.
+- **Film (`C_film`).** Four 10 µF cans at the FET legs decouple the commutation loop. They hold 2.4 mC; they are not an energy store and not a tank.
+- **`L_series`.** An air-core inductor of 0.5–3 µH that, with the bank, shapes the pulse and limits its rate of rise.
+- **High side (`Q_HS`).** The launch switch.
+- **Low side (`Q_LS`).** Carries the freewheel tail. For first light its gates are held off and it acts as a diode group.
 
-The moving armature changes both L and R during the shot, producing a frequency chirp. Short bursts (a few to a few tens of cycles) or a deliberately moderate-Q design keep this manageable.
+## 3. Why launch is no longer "≥200 kHz resonant"
 
-## 5. Tight-Coupled (Transformer) Variant
+### 3.1 The circuit has no such resonance
 
-An additional winding is introduced to form a resonant pulse transformer optimized for current rather than voltage.
+All the capacitance is across the DC bus, and only `L_series` is in series with the load. That is a synchronous buck converter with no output capacitor. Its resonances are:
 
-### Arrangement
-- **Primary tank**: C_tank + L_primary + solid-state bridge (DRSSTC-style drive).
-- **Secondary**: few-turn, heavy-gauge winding (or a single-turn / bus-bar secondary) placed for tight coupling to the primary and connected directly to the rail breech terminals.
-- Coupling coefficient k is made as high as practical (far tighter than a classic Tesla coil) so energy transfers in one or a few half-cycles rather than many loosely coupled cycles.
+| Loop | Frequency | Meaning |
+|---|---|---|
+| Bank + `L_series` + rails | 0.67 kHz (six cans, 2 µH) to 4.2 kHz (two cans, 150 nH) | **The launch pulse.** Usually over-damped or near-critical. |
+| Film cans + stray inductance to the bank | ~100 kHz | Parasitic bus ringing, to be damped. |
+| Optional small series capacitor + `L_series` | 50–300 kHz | The high-frequency experiment (§4.4). |
 
-```
-Primary:   C_tank — L_primary — H-bridge / switch
-↕  mutual coupling k (tight)
-Secondary: few-turn heavy winding  →  rails + armature
-```
+For the bank itself to resonate at 200 kHz the loop inductance would have to be 22–67 pH.
 
+### 3.2 What a 200 kHz burst would do
 
-### Why it can be useful
-- Galvanic isolation options between the high-energy capacitor bank and the rails.
-- Extra degree of freedom in impedance matching: primary characteristic impedance can be chosen for convenient switch and capacitor ratings while the secondary matches the low-impedance rail load.
-- Primary can be wound for convenient voltage/current stress on the semiconductors; secondary is optimized purely for high current into the rails.
-- Physical placement of the primary can be around or immediately adjacent to the breech, integrating the magnetic circuit with the barrel geometry if desired.
-- Still supports the same ≥200 kHz target and skin-effect regime on the rail side.
+- It would be 100–200 hard-switched commutations per shot at 1–2 kA.
+- Each turn-off disposes of ½·Lσ·I² from the commutation loop (about 35 mJ at 1.5 kA and 30 nH) and spikes the FETs by Lσ·di/dt.
+- Switching loss adds roughly 140 K of junction rise over a 0.5 ms burst.
+- Paralleled FETs do not share avalanche energy ([PP-PARALLEL](References.md#4-pulsed-power-practice)).
 
-### Trade-offs
-- One additional magnetic component and the need to control coupling and leakage inductance.
-- Slightly more complex mechanical packaging on the toolhead.
-- Leakage inductance appears in series with the rails and must be budgeted into the resonant-frequency calculation.
+### 3.3 What it would buy
 
-For most early experiments the direct resonant-discharge topology is simpler. The tight-coupled variant becomes attractive when isolation, semiconductor stress management, or deliberate integration of a drive winding with the barrel is wanted.
+Nothing in this load.
 
-## 6. Design Notes and Constraints
+| Hoped-for effect | What the numbers say |
+|---|---|
+| Skin effect in the slug | Skin depth at 200 kHz is 1.1 mm at 10⁻⁶ Ω·m and 3.6 mm at 10⁻⁵ Ω·m. The slug is 0.5–1 mm. |
+| Skin effect in the rails | Copper skin depth falls from 2.1 mm at 1 kHz to 0.15 mm. Rail resistance rises several-fold, the rail edge heats, and L′ drops. |
+| High current from low voltage | The reactive drop ωLI is 251 V at 2 kA into 100 nH. |
+| Same thrust | Force goes as I², whose mean is half its peak, so AC gives half the impulse per peak amp. |
 
-- **Loop area** – keep the high-current resonant path extremely compact. Parasitic inductance lowers frequency and increases voltage overshoot.
-- **Skin effect** – intentional at ≥200 kHz; aids surface heating and current concentration in the slurry/armature.
-- **Load variation** – armature motion and phase changes detune the resonance. Mitigate with short bursts, moderate Q, or adaptive drive if later refinement is justified.
-- **Energy metering** – still set by capacitor bank size and voltage, plus how many resonant cycles are allowed before the switch opens or a crowbar engages.
-- **Preconditioning independence** – retained fully; the launch stage sacrifices some waveform flexibility for the high-frequency / high-current regime.
-- **Compatibility** – rails remain a simple replaceable pair; resonant components sit in a compact breech-side module; same modular toolhead philosophy is preserved.
+### 3.4 What the parts do naturally
 
-## 7. Status
+The transit time for 100 mm at 300–500 m/s is 0.4–0.7 ms. A bank of 9–28 mF with 0.5–3 µH discharges in exactly that range. The pulse the kinematics need is the pulse the bought parts make.
 
-This is a conceptual architecture that applies resonant-transformer and resonant-discharge principles in a low-impedance, high-current regime suitable for the micro-railgun launch pulse. It deliberately inverts the classic high-voltage Tesla-coil secondary while retaining the useful ideas of resonance, frequency selection, and solid-state drive.
+## 4. Operating Modes
 
-Next experimental steps would be:
-1. Measure or estimate L_rails for the chosen barrel geometry.
-2. Size C_tank and L_series (or L_primary) for ≥200 kHz and the desired joule budget.
-3. Prototype the direct topology first; evaluate the tight-coupled variant only if isolation or packaging advantages appear necessary.
+| Mode | What the bridge does | Status |
+|---|---|---|
+| Conditioning | Bridge idle. Ballast-limited current from a low bus through `K2` and `R_ballast` | First build |
+| Launch, dump | High side on once; bank + `L_series` shape the pulse; low-side gates held off | First light |
+| Launch, truncated | High side off under load at a programmed time | After overshoot is measured |
+| Launch, chopped | Hysteretic 20–50 kHz for a flat top | Later revision |
+| High-frequency experiment | Series capacitor fitted; true series-resonant inverter | Optional |
 
-The approach is compatible with the existing multi-tier (precondition → optional ignition → launch) electrical plan and with the modular mechanical design of the print head and rails.
+### 4.1 Conditioning
 
----
----
----
+**Job.** Take the slug from insulator to a few tenths of a milliohm without exploding it.
 
-# Alternate Driver Board Design – Unified Resonant Bridge
-EM-CSAM Micro-Railgun
-Single half-/full-bridge for preconditioning + ≥200 kHz resonant launch
+**Why current-limited.** Powder contacts sinter with positive feedback. Under a voltage source the power V²/R rises as the resistance falls, and the transition runs away in microseconds ([PC-ALLEN08](https://cris.vtt.fi/en/publications/electrical-sintering-of-nanoparticle-structures/)). With a series resistor much larger than the slug, power into the slug *falls* as it sinters ([PC-HUMMELGARD11](https://pmc.ncbi.nlm.nih.gov/articles/PMC3044741)).
 
-## 1. Design Intent
+**First build.** A power resistor of 1–10 Ω and a relay contact from the bus to rail A, with the bus at 5–28 V. The fritting plateau needs about 0.4 V per particle contact, 4–8 V across this gap ([PC-FALCON05](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)).
 
-Provide one compact, low-inductance power stage that performs both:
+- Slug voltage comes from the muzzle Kelvin tap; current from the ACS772. Their ratio is the slug resistance, which is the endpoint.
+- Keep current at or below about 20 A without augmentation. 20 A already pushes a 1 mg slug with 80 µN (8 g) against a paste hold force of 0.2–2 mN.
+- A bench supply is not a current source on this timescale: its output capacitor is a voltage source. It needs the ballast too.
 
-- **Preconditioning** – lower frequency (target band ~10–50 kHz), moderate current, controlled waveform for slurry heating and conditioning.
-- **Main launch** – short high-current resonant burst at ≥200 kHz for strong skin effect and Lorentz acceleration.
+**Why not PWM through `L_series`.** With 2 µH, a 30 V bus and a 2.5 µs current sensor, the current overshoots by V·t_d/L ≈ 50 A before any loop can react, and the duty cycle into a milliohm load is shorter than the dead time.
 
-Energy is stored in a pulse-capacitor bank. An external, swappable series inductor sets the launch resonant frequency. A bypass path removes that inductor from the circuit during preconditioning. The same MOSFET (or IGBT) bridge serves both modes under MCU timing control.
+**Later.** A solid-state conditioning stage needs its own inductor of at least 50 µH with peak-current control, or a comparator loop faster than about 0.3 µs.
 
-Goals remain the same as the earlier driver concept: home-buildable, modular, measurable, scalable, and compatible with a moving toolhead and replaceable micro-rail barrels.
+### 4.2 Launch, dump (first light)
 
-## 2. High-Level Topology
+- The bank is charged to a set voltage. That voltage is the energy knob.
+- The high side turns on once, at zero current. `L_series` limits the rise.
+- Current peaks as the bank empties, then freewheels through the low-side body diodes and decays with a time constant of about L/R.
+- The high side turns off after the bank current has ended, so it switches almost nothing.
+- **Low-side gates stay off** (driver input B strapped low). There is then no shoot-through path at all. Synchronous rectification would gain nothing here: at 350 A per FET the channel drop exceeds the diode drop.
 
-```
-DC bus (wall-derived or battery) → charging path → Pulse capacitor bank
-│
-Half- or Full-Bridge
-(paralleled MOSFETs)
-│
-┌───────────────────────────┼───────────────────────────┐
-│                           │                           │
-Bypass path                 L_series                    Direct low-L
-(closed for                   (swappable                   path to rails
-preconditioning)               launch inductor)
-│                           │                           │
-└───────────────────────────┴───────────────────────────┘
-│
-Rails +
-armature
-```
+**Bank reversal.** If the bank reaches zero while the high side is still on, the low-side diodes take over and hold the bank at about −1.3 to −1.8 V until it is recharged. Electrolytics tolerate that briefly. Keep the charger connected so the bank recovers.
 
+### 4.3 Launch, truncated and chopped
 
-- **Preconditioning mode**: bypass closed, L_series out of circuit, bridge runs at moderate current and lower frequency.
-- **Launch mode**: bypass open, L_series in circuit, bridge delivers a short resonant high-current burst at ≥200 kHz.
+- **Truncated:** the high side opens at a programmed time while current is still flowing. It gives finer impulse control and a shorter tail. It is a hard turn-off, so the voltage budget of §5.3 applies.
+- **Chopped:** repeated truncation to hold a flat current. At 30 V only about 0.3 ms of headroom exists at 1.4 kA because 12 V is lost in loop resistance, so it belongs with a 48 V bus and a fast comparator.
 
-## 3. Power Stage
+### 4.4 High-frequency experiment
 
-### 3.1 Bridge configuration
-- Prefer a **half-bridge** for simplicity or a **full-bridge** if bipolar / multi-cycle control or higher effective voltage is desired.
-- Paralleled power MOSFETs (or IGBTs if lower frequency and higher voltage are chosen later).
-- Target starting point: device positions for 4–8 paralleled switches per switch position (scalable by population).
-- Gate drive: strong, isolated or level-shifted drivers with tight layout, adequate dead time, and desaturation / over-current protection.
-- Free-wheel / synchronous paths explicit so resonant current can ring or be clamped cleanly.
+This keeps the original idea alive as something that can be tested safely.
 
-### 3.2 Capacitor bank
-- Pulse-rated film or low-ESR electrolytic / hybrid bank.
-- Modular footprint: design for up to 12 parallel capacitor positions (populate as needed).
-- Charged from the DC bus through a current-limited or resonant-charging stage.
-- Bus voltage initially in the previously discussed 48–60 V class; final value set by joule budget, device ratings, and resonant rise margin.
+- Fit a small pulse film capacitor (0.22–2.2 µF) in series at the `L_series` pads. The half-bridge then drives a true series-resonant circuit: 225 kHz for 1 µF with 0.5 µH, 107 kHz for 2.2 µF with 1 µH.
+- Current is true AC, so it gives no net thrust from a magnet and half the self-field thrust of the same peak DC.
+- Drive **above** resonance. Below it the body diodes recover hard.
+- Limit current to 300 A by keeping the bus at or below 15 V and by counting cycles. The ACS772 reads low at these frequencies.
+- Populate at most two FETs per leg. Gate power with four at 300 kHz exceeds the 2 W isolated supplies.
+- The capacitor–inductor node reaches I·Z₀, which is 200–400 V at 300 A, on exposed copper. Insulate it.
+- Check the capacitor's peak-current (dV/dt) rating before use.
 
-### 3.3 Series launch inductor (L_series)
-- External, swappable component connected via dedicated low-inductance terminals or short heavy bus bars.
-- Value chosen so that, together with rail inductance and residual parasitics,
-  \( f \approx 1/(2\pi\sqrt{L_\text{total}C}) \ge 200\,\text{kHz} \) in launch mode.
-- Air-core or appropriate powdered-core construction to avoid saturation at high peak current.
-- Multiple inductors can be kept on hand for frequency experiments.
+**What it can answer:** whether a high-frequency current conditions a slug differently from the same RMS current at DC, and how much hotter the rail edges run.
 
-### 3.4 Bypass path
-- Low-resistance path that shorts across L_series during preconditioning.
-- Implementation options: paralleled MOSFETs, a robust relay/contactor, or a shorting bar for early prototypes.
-- Must handle the preconditioning current continuously and not introduce large parasitic inductance when open.
+## 5. Limits
 
-## 4. Preconditioning vs Launch Modes
+### 5.1 Current per FET
 
-| Parameter              | Preconditioning                          | Launch                                      |
-|------------------------|------------------------------------------|---------------------------------------------|
-| Frequency              | ~10–50 kHz (adjustable)                  | ≥200 kHz resonant burst                     |
-| Current                | Moderate (original 5–20 A class or scaled) | High peak (hundreds–thousands of A)        |
-| Duration               | Tens of ms or longer possible           | Short burst (few to tens of cycles)         |
-| L_series               | Bypassed                                 | In circuit                                  |
-| Control goal           | Controlled heating / conductivity        | Metered joules + skin-effect current pulse  |
-| Waveform               | PWM, tone burst, or simple AC            | Resonant ring / gated burst                 |
+| Pulse | Per IRFP4568 | 4+4 | 6+6 | 8+8 |
+|---|---|---|---|---|
+| 0.5 ms | 450 A | 1.4 kA | 2.1 kA | 2.8 kA |
+| 1 ms | 350 A | 1.1 kA | 1.7 kA | 2.2 kA |
 
-The MCU selects mode by setting frequency, current limit, burst length, and bypass state.
+- Totals include a derate of about 20 % for unequal sharing.
+- 450 A for 0.5 ms is about a 100 K junction rise (ZthJC ≈ 0.063 K/W at 500 µs, hot on-resistance ≈ 11 mΩ). IDM of 684 A is not a design current. Source: [DS-IRFP4568](https://www.infineon.com/dgdl/irfp4568pbf.pdf?fileId=5546d462533600a4015356310e811e5b); the thermal impedance is calculated and should be checked against the datasheet curve.
+- Gate drive must be at least 10 V at these currents.
 
-## 5. Layout and Mechanical Constraints
+### 5.2 Bus-voltage ceiling
 
-- **Lowest possible parasitic inductance** in the high-current loop (caps → bridge → L_series or bypass → rail terminals).
-- Heavy copper pours and/or external laminated bus bars for the main power paths.
-- Capacitor bank, bridge devices, and rail-facing terminals kept physically close.
-- L_series terminals designed for easy inductor exchange without disturbing the rest of the board.
-- Gate-drive and signal circuitry separated from the power loop; careful attention to return paths and shielding.
-- Board form factor remains compatible with toolhead mounting: longer/thinner preferred, power in from the top, rail connections at the bottom (consistent with earlier mechanical layout).
-- Provision for current sensing (shunt or CT), voltage monitoring, and temperature sensors on devices and bus.
+Peak current into a shorted barrel is proportional to bus voltage. The range below is for ESR of 25 → 15 mΩ per can.
 
-## 6. Control and Sequencing
+| Bank and inductor | Amps per volt | Voltage for 1.4 kA | Current at 30 V |
+|---|---|---|---|
+| Six cans, 2 µH | 66–73 | 19–21 V | 2.0–2.2 kA |
+| Six cans, 1 µH | 78–88 | 16–18 V | 2.3–2.6 kA |
+| Two cans, 2 µH | 35–42 | 34–40 V | 1.1–1.2 kA |
+| Two cans, 1 µH | 41–50 | 28–34 V | 1.2–1.5 kA |
 
-MCU (BTT or equivalent) responsibilities:
-1. Charge management / bus voltage monitoring.
-2. Preconditioning: close bypass, set moderate current limit, generate lower-frequency drive, run for programmed time or until a measured condition is met.
-3. Transition: open bypass, arm high-current protection settings.
-4. Launch: fire resonant burst of programmed length / cycle count.
-5. Optional ignition tick insertion between preconditioning and launch if required by material.
-6. Fault handling: over-current, desaturation, over-voltage, over-temperature → immediate inhibit.
+**Rule:** never charge above the voltage at which a dead short stays inside the FET limit. Two cans with 2 µH is safe for 4+4 across the whole 0–30 V range and is the first-light configuration.
 
-Firmware treats frequency, duty, burst length, and bypass state as first-class parameters so different materials and barrel geometries can be explored without hardware changes.
+### 5.3 Hard turn-off voltage
 
-## 7. Protection and Measurability
+Opening the high side under load raises the drain voltage by three terms:
 
-- Fast over-current / desaturation detection on the bridge devices.
-- Mode-dependent current limits (lower for preconditioning, higher for launch).
-- Snubbers or clamps sized for resonant voltage rise.
-- Bus under- and over-voltage detection.
-- Temperature monitoring on switches and key bus points.
-- Accessible test points for rail voltage, bridge current, and gate signals.
-- Clear separation of power and signal grounds with controlled single-point or star connections as appropriate.
+\[
+V_\text{DS,peak} \approx V_\text{bus} + I\sqrt{\frac{L_\text{bank}}{C_\text{film}}} + L_\sigma \frac{di}{dt}
+\]
 
-## 8. Scaling and Population Options
+- **Bank-to-film pump.** Current in the stray inductance between the electrolytics and the film cans carries on into the film cans. With 60 nH and 40 µF that is 58 V at 1.5 kA.
+- **Commutation spike.** The current fall is set mainly by source inductance inside the gate loop, not by the gate resistor. Estimated 50–180 V for four FETs across 25–45 nH.
+- **Budget:** keep the sum under about 120 V on 150 V parts. Plausible at ≤30 V and 1.4 kA; unproven at 56 V.
+- Keep the electrolytics close to the film cans, and measure both inductances from ringing before using truncated mode ([`TestPlan.md`](TestPlan.md), T2).
 
-- Capacitor positions: design for 12, populate the number required for the joule budget.
-- Switch positions: design for 8 (or more) parallel devices per leg; populate to match peak launch current.
-- L_series: external and swappable — primary experimental frequency control.
-- Bypass: start simple (manual or relay) for prototypes; move to solid-state for production-rate firing.
-- Board can remain single-sided with external bus bars for home fabrication, following the earlier home-makable philosophy.
+### 5.4 Exit current
 
-## 9. Compatibility with Existing Mechanical Design
+If the slug leaves with current still flowing, ½·L·I² becomes a muzzle arc aimed at the deposit.
 
-- Rail connection interface unchanged (bolted or bus-bar connection to the breech ends of the parallel rails).
-- Resonant components and bridge sit in a compact module immediately behind or on the toolhead.
-- Same modular barrel / clamshell print-head approach is preserved.
-- Preconditioning may still use the rails themselves or an optional breech solenoid; the board only needs to supply the drive.
+- Choose bank, inductance and voltage so the current has ended before exit. The script reports exit current and the energy behind it.
+- The freewheel tail lasts about L/R. A large `L_series`, including augmenting turns, lengthens it.
+- Model examples: 0.01 J at exit for six cans at 18 V with a 0.5 mg slug; 0.66 J with eight augmenting turns at 22 V; 4.4 J at 55 V.
 
-## 10. Development Sequence
+### 5.5 Bus voltage
 
-1. Build and verify the bridge + capacitor bank as a low-inductance high-current stage.
-2. Add bypass and external L_series terminals; confirm preconditioning mode at low frequency / moderate current.
-3. Install a first-guess L_series, measure resonant frequency into a dummy or real barrel load, and adjust L or C to reach ≥200 kHz.
-4. Implement burst-length control and protection thresholds for launch mode.
-5. Integrate with material feed and full precondition → launch sequencing.
-6. Iterate inductor values and burst parameters per material and barrel geometry.
+56 V maximum with the 5KP58A (58 V standoff, 64.4 V minimum breakdown).
 
-## 11. Status
+## 6. Augmentation and the Driver
 
-This alternate driver board collapses the earlier separate preconditioning and launch power paths into a single, flexible half- or full-bridge stage. Frequency agility, a swappable series inductor, and a bypass path provide the required multi-tier behavior while reducing parts count and board complexity. The design retains the modular, low-inductance, home-buildable, and scalable character of the original concept and remains fully compatible with the resonant-launch and micro-railgun mechanical architecture already outlined.
+Augmentation is described in [`EM-CSAM-ConceptTechnical.md`](EM-CSAM-ConceptTechnical.md) §3.6 and built into the head ([`RailgunHeadPrototype.md`](RailgunHeadPrototype.md)). What it asks of the driver:
+
+- **Permanent magnets** ask nothing electrically. They add about 0.4 mN per amp at 0.8 T. Conditioning must happen in the magnet-free zone at the breech, because any unipolar current in the field pushes the slug.
+- **Series augmenting turns** are part of `L_series`: wind 4–8 flat turns over and under the rails and count their inductance (about 2.6 µH for eight) and resistance (about 6 mΩ) in the loop. They cut the current needed for a given force, which is what four FETs per leg are short of. They lengthen the freewheel tail (§5.4).
+
+| Six cans, idealised | 1 mg | 0.5 mg | Peak |
+|---|---|---|---|
+| 18 V, 1 µH, plain | 106 m/s | 207 m/s | 1.38 kA |
+| 18 V, 1 µH, 0.8 T magnet | 139 m/s | 336 m/s | 1.38 kA |
+| 22 V, 8 turns + magnet | 320 m/s | 526 m/s | 1.00 kA |
+
+The earlier bypass relay across `L_series` is gone. Its contact resistance (75 mΩ initial) cannot shunt a milliohm coil, and a closed or welded contact at launch would remove the inductance that limits the current.
+
+## 7. Control and Sequencing
+
+A small dedicated sequencer (RP2040 class) is required. Printer firmware cannot time 100–700 µs pulses with hardware limits and a fast abort. The printer controller sends "fire" and parameters across an isolated link.
+
+Sequence for one shot:
+
+1. **Pre-flight.** Gate supplies above 10 V. Bus voltage at or below the ceiling for the populated FET count. Rail-to-rail resistance open with no slug (the bore metallises with use).
+2. **Feed and compact** the slug.
+3. **Condition.** Close the ballast path; log slug voltage and current; stop on target resistance, energy limit or time limit.
+4. **Charge** to the launch voltage.
+5. **Launch.** One high-side pulse. Abort if no current appears within about 30 µs.
+6. **Record.** Current from the Rogowski channel, muzzle voltage, bank voltage before and after, photogate times.
+7. **Recover.** Re-zero the ACS772. Recharge.
+
+Voltage, pulse length and the conditioning limits are parameters, so materials and barrels can be explored without hardware changes.
+
+## 8. Protection and Measurability
+
+- **Hardware maximum on-time** on the high-side command (about 2 ms), independent of firmware. It sits on the driver's input A, not on EN.
+- **Fast over-current latch** fed from the Rogowski channel.
+- **Gate-supply supervisor:** both isolated rails above 10 V, or EN stays low. The driver's own lockout is about 6 V and will not protect the FETs.
+- **Dead-time interlock** set by a resistor on the driver's DT pin; never left open.
+- **DC fuse** at the source, rated for the bus voltage. The charge resistor is never jumpered on a battery.
+- **Bleeder** fitted permanently, plus a low-value dump resistor. The bleeder's time constant is 14–42 s.
+- **Launch current is not visible to the ACS772** (±200 A). It measures conditioning current only.
+- **Test points** for bus voltage, switch node, gate signals, muzzle voltage and the Rogowski signal.
+- **People:** enclosure, backstop, eye protection, E-stop and fume extraction are part of the driver, not accessories. A 1 mg slug at 300 m/s will penetrate an eye, and the oil mist can ignite.
+
+Values and wiring are in [`UnifiedResonantSchematic.md`](UnifiedResonantSchematic.md).
+
+## 9. Layout and Mechanical Constraints
+
+- **Two circuits.** Logic, gate drive and sensing on a small board; pulse current on external copper bars. They meet only at the gates, the isolated-supply returns, the sense taps and the relay coil.
+- **Commutation loop** (film cans → high side → low side → film cans) as small as it can be folded. This sets the turn-off spike.
+- **Bank close to the film cans.** This sets the pump term of §5.3.
+- **One star point** at the low-side sources and film negative. The low-side gate return is a Kelvin pair from the FET sources, with no second bond.
+- **`L_series` on two-bolt pads**, or as the augmenting turns on the head.
+- **Room for a second leg** in the rail B return, for a later full bridge.
+- Board form factor still suits toolhead mounting: power in at one end, rails out at the other.
+
+## 10. Scaling and Population
+
+- **Capacitors:** two cans for first light, six for useful shots, twelve footprints for 48 V work.
+- **FETs:** 4+4 to start (1.4 kA). 6+6 or 8+8 for the reference case in the concept document.
+- **`L_series`:** swappable; 2 µH for first light, 1 µH or augmenting turns later.
+- **Voltage:** ≤30 V on a bench supply first; 48–56 V with a pack and a DC-rated charge switch later.
+
+**Two-switch asymmetric bridge.** Considered and not adopted. It has no shoot-through path and can terminate a pulse with −V, but it needs sixteen FETs for the same current, and running first light with the low-side gates held off gives the same shoot-through immunity with eight.
+
+## 11. Development Sequence
+
+1. Logic board alone: gate timing, dead time, supply droop, enable defaults, on-time limit.
+2. Bars with two cans and 2 µH, bench supply at 5 V, into a copper strap. Calibrate the Rogowski channel against the ACS772.
+3. Step the voltage up to the ceiling. Measure ring frequency and overshoot.
+4. Solid armatures in a real barrel: velocity against ∫I²dt, with and without magnets.
+5. Conditioning curves on real paste.
+6. Full condition → launch sequence.
+7. More cans, more FETs, more voltage, as the measurements allow.
+
+The full procedure is [`TestPlan.md`](TestPlan.md).
+
+## 12. Historical: the Original Resonant-Launch Concept
+
+Version 0.1 of this document proposed delivering the launch energy as a high-frequency (≥200 kHz) resonant burst, by analogy with a solid-state Tesla coil turned to low impedance, with a tightly coupled transformer variant. The aims were strong skin effect in the rails and slug, and high current from a low-voltage bank.
+
+What survives of it:
+
+- **Resonance does shape the launch**, at the bank's own frequency rather than at 200 kHz.
+- **A swappable series inductor** is still the main tuning part.
+- **The half-bridge** is still the power stage for every mode.
+- **High-frequency drive** is kept as the series-capacitor experiment of §4.4, where it can be studied at a few hundred amps.
+- **The transformer-coupled variant** is not pursued. It needs AC through the rails, with the costs in §3.3.
+
+## 13. Status
+
+A conceptual architecture, re-baselined after review, with every number awaiting measurement. The power stage is unchanged from 0.1; the operating modes, limits, sensing and protection are new.
