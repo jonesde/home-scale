@@ -137,8 +137,8 @@ A percolated Cu film that still transmits in the visible is starved buffer or ox
 | Knob | Toward a magnetostrictive write | Null |
 |---|---|---|
 | Peak *B* | Through Ni alignment / technical write field | Below alignment: *λ* hidden |
-| Particle size | Above the blocking class (not only 10 nm) | Superparamagnetic: no static *λ*, no remanence |
-| *T* | Well below Ni *T*<sub>C</sub> (627 °C) | Approach *T*<sub>C</sub> or melt |
+| Particle size | Above the blocking class for Ni (about 34 nm at room temperature and 100 s; see [superparamagnetism](../library/superparamagnetism.md)) | Superparamagnetic: no static *λ*, no remanence |
+| *T* | Well below Ni *T*<sub>C</sub> (628–631 K, about 355 °C; an earlier version of this note said 627 °C) | Approach *T*<sub>C</sub> or melt |
 | Host | Ni vs Pd in the same coil | Pd should be the weak magnetic writer |
 
 Post-shot VSM / powder-pattern remanence is the readout. A coil around the barrel during a Ni shot is a **write field in flight** for [bonded-magnets](bonded-magnets.md).

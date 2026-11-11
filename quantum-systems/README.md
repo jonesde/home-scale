@@ -2,7 +2,7 @@
 
 Working reference for testing a finite-state-machine reading of quantum and condensed-matter effects. Scope is utility and internal consistency only. **These are theories and design notes, not tested protocols.** Read [SAFETY.md](SAFETY.md) before the application files. No foundational or interpretive claims beyond the working assumptions below.
 
-**Browse the library:** [index](library/INDEX.md) · [conventions](library/README.md) · [taxonomy](library/TAXONOMY.md) · [derived sheets](library/derived/README.md) · [applications](application/README.md) · [orientation](AGENTS.md) · [postmortem](PostMortem.md)
+**Browse the library:** [index](library/INDEX.md) · [conventions](library/README.md) · [taxonomy](library/TAXONOMY.md) · [derived sheets](library/derived/README.md) · [applications](application/README.md) · [orientation](AGENTS.md) · [determinism](Determinism.md)
 
 The methodology specification follows.
 
@@ -18,7 +18,9 @@ The methodology specification follows.
 
 ## 1. Core Methodology
 
-Quantum Systems Analysis (QSA) models quantum entities as finite state machines (or deterministic, rule-bound systems) whose complete internal configuration and constraints, once known, yield full predictability of behavior.
+Quantum Systems Analysis (QSA) models quantum entities as finite state machines (or deterministic, rule-bound systems). The working premise is **mechanical predictability of states and behaviors**: a system's internal configuration and constraints, together with its rules, fix what it does next. The same configuration under the same constraints gives the same behavior.
+
+That is a statement about the rules, not about what an observer can find out. It does not assert that the internal configuration of a given system can be measured, or that a single event can be forecast in practice. What the library records as predictable is narrower and checkable: which states are stable, where an output switches, and how it falls off, each to the precision of the cited measurements. [`Determinism.md`](Determinism.md) sets the premise against the theorems and experiments that constrain it.
 
 Apparent randomness or non-determinism is treated as the result of incomplete knowledge of those internal rules, node states, couplings, and environmental constraints.
 
@@ -53,7 +55,7 @@ Quantify the operational limits of the quantum media using established experimen
 
 The library is the primary instrument for testing the QSA approach on its own terms:
 - **Utility** — Does the mapping produce clear, usable performance specifications?
-- **Internal consistency** — Do the extracted constraints, scales, and failure modes form a coherent picture under the finite-state-machine + full-predictability-once-understood assumption?
+- **Internal consistency** — Do the extracted constraints, scales, and failure modes form a coherent picture under the finite-state-machine + mechanical-predictability assumption?
 
 Each entry is a self-contained artifact. No entry asserts claims beyond the data and the mapping. Inconsistencies, gaps, or failures of the mapping are recorded explicitly.
 
@@ -91,11 +93,14 @@ Record any gaps, tensions, missing constraints, or places where the finite-state
 ### 4.7 Overall Confidence in the QSA Mapping
 High / Medium / Low, with a one-sentence justification focused on how well the extracted specifications fit the observed boundaries and failure modes.
 
+### After the seven sections
+**Related entries**, then **Sources**: a table of the references the file's numbers rest on, each with a link, how it was checked, and one line on what it supports. The seven sections stay as locked; the conventions for evidence tags in §4.3, citation keys, and labelling each failure mode a threshold or a crossover are in [`library/README.md`](library/README.md#sourcing-standard).
+
 ---
 
 ## 5. Working Rules for Library Construction
 
-1. Every quantitative claim on an **effect** must be traceable to experimental boundaries or well-established measured parameters.
+1. Every quantitative claim on an **effect** must be traceable to experimental boundaries or well-established measured parameters. Traceable means cited: a key next to the number and a reference that was opened, not recalled.
 2. Effect and design language remains limited to constraints, resources, synchronization, failure thresholds, and emergent output.
 3. Interpretive overlays that are not required by the data are omitted.
 4. When the mapping is incomplete, the incompleteness is stated explicitly rather than filled by conjecture. Extracted implication rows do not close a gap with a particle story (the origin of 2*e*, the value of *R_K*, a pairing or Chern narrative).
@@ -110,8 +115,10 @@ High / Medium / Low, with a one-sentence justification focused on how well the e
 The effect library lives in [`library/`](library/INDEX.md). The copy-paste starter is [`library/_template.md`](library/_template.md). Operating rules for files, frontmatter, and the index are in [`library/README.md`](library/README.md).
 
 - Template defined and locked (this document).
-- Catalog: 60 formal entries (six families). Mapping confidence is recorded per file — 30 High, 30 Medium, 0 Low.
+- Catalog: 60 formal entries (six families). Mapping confidence is recorded per file — 29 High, 31 Medium, 0 Low.
 - Medium mapping means the collapse is assigned but a hardware scale is still statistical, mesoscale, or taken rather than derived. Tighten those before adding a second wave.
+- Sourcing: the first-wave numbers were written from model recall. Files are being converted to fetched references one family at a time; [`library/INDEX.md`](library/INDEX.md) lists which are done. Until a file is sourced, its "High" data confidence is a claim, not a check.
+- The working premise itself is examined in [`Determinism.md`](Determinism.md): which theorems and experiments constrain a deterministic account, and why most of this catalog cannot bear on the question.
 - Analysis layer: `python3 analysis/rebuild.py` builds local `qs-analysis.db` (`effect` → `implication` → `design` / `node` → `requirement`) from the text in [`analysis/`](analysis/) and [`library/nodes/`](library/nodes/). The `.db` is not in the repo. Notes: [`analysis/README.md`](analysis/README.md).
 - Add or revise effect files one at a time; update [`library/INDEX.md`](library/INDEX.md) in the same change. Node cards update [`library/nodes/INDEX.md`](library/nodes/INDEX.md), not the effect catalog.
 

@@ -4,7 +4,7 @@ Markdown in [`library/`](../library/) is the science source of truth. This direc
 
 Working database: `qs-analysis.db` at the repo root. It is a local build artifact (gitignored). Commit the text: `fragments/*.jsonl`, `implication.csv`, `predicted_implication.csv`, `design*.csv`, `schema.sql`.
 
-Load: 60 `effect` · 176 `effect_constraint` · 498 `implication` (457 extracted, 41 predicted) · 12 `design` · 11 `node` (all `forced`) · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node`. 97 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
+Load: 60 `effect` · 176 `effect_constraint` · 498 `implication` (457 extracted, 41 predicted) · 12 `design` · 11 `node` (all `forced`) · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 130 `source` (7 of 60 effects sourced) · 168 `implication_source`. 97 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
 
 Rebuild (stdlib Python 3 only — no pip):
 
@@ -33,6 +33,8 @@ Edit `fragments/*.jsonl` for extracted implications. Edit `predicted_implication
 | `node` | one constituent (elementary / composite / quasiparticle) | `library/nodes/` frontmatter |
 | `implication_node` | which extracted claims force / witness / contrast a node | curated `implication_node.csv` |
 | `design_node` | which machines consume a node, and as what role | curated `design_node.csv` |
+| `source` | one reference listed in an effect file's `## Sources` table | effect Markdown (mechanical) |
+| `implication_source` | which references an extracted claim's observed fact rests on | `sources` field on fragment rows |
 
 Table names are singular. IDs are slugs. **Design** means an assembled machine specification, not agency. **`requirement` here is not `implication.role = requirement`**: that role is what an *effect* needs from the machine; this table is what an *assembled machine* then demands.
 
@@ -64,8 +66,12 @@ If a “requirement” can be restated as a single existing implication, do not 
 | `confidence` | Row-level; a High file can still have a Medium clause |
 | `notes` | Caveats, cross-cites |
 | `updated` | `YYYY-MM-DD` |
+| `basis` | How the observed fact is known: `measured` / `model` / `convention` / `computed`. Empty until the effect file is sourced |
+| `form` | Failure rows only: `threshold` (switches at a definite value) or `crossover` (falls off continuously). Empty until classified |
 
-`aspect` and `resource` are two axes. Magnet latch-cell: `aspect=scale`, `resource=volume` (or `length` if the quoted size is ~30 nm). Plasma period: `aspect=latency`, `resource=time`. Plasma edge: `aspect=speed`, `resource=frequency`. Zero hold-power: `aspect=power`, `resource=energy`, `value_si=0`.
+Fragment rows may also carry `sources`, a list of keys from the effect file's Sources table (`["S1", "S4"]`). It is written to `implication.csv` as `S1;S4` and loaded into `implication_source`. The meaning of the tags and the Sources table format are in the [library sourcing standard](../library/README.md#sourcing-standard).
+
+`aspect` and `resource` are two axes. Magnet latch-cell: `aspect=scale`, `resource=volume` (or `length` if a diameter is quoted). Plasma period: `aspect=latency`, `resource=time`. Plasma edge: `aspect=speed`, `resource=frequency`. Zero hold-power: `aspect=power`, `resource=energy`, `value_si=0`.
 
 `inference_kind`:
 
@@ -252,6 +258,56 @@ ORDER BY role, design_key;
 
 ---
 
+## Sourcing queries
+
+Which effects are sourced, and how well each reference was checked:
+
+```sql
+SELECT effect_slug, access, COUNT(*) AS n
+FROM source
+GROUP BY effect_slug, access
+ORDER BY effect_slug, access;
+```
+
+Implications whose observed fact came through a model rather than straight off an instrument:
+
+```sql
+SELECT impl_key, value_text, description
+FROM implication
+WHERE basis = 'model'
+ORDER BY impl_key;
+```
+
+Failure modes that are a continuous fall-off rather than a sharp switch:
+
+```sql
+SELECT impl_key, value_text, description
+FROM implication
+WHERE role = 'failure' AND form = 'crossover'
+ORDER BY impl_key;
+```
+
+Claims that lean on a reference nobody could open:
+
+```sql
+SELECT i.impl_key, s.source_key, s.reference
+FROM implication_source isrc
+JOIN source s ON s.effect_slug = isrc.effect_slug AND s.source_key = isrc.source_key
+JOIN implication i ON i.impl_key = isrc.impl_key
+WHERE s.access IN ('snippet', 'cited-only')
+ORDER BY i.impl_key;
+```
+
+Effects still running on recalled numbers (the work list):
+
+```sql
+SELECT family, slug FROM effect
+WHERE slug NOT IN (SELECT effect_slug FROM source)
+ORDER BY family, slug;
+```
+
+---
+
 ## Future tables (not in this schema)
 
 - **`boundary`** — one row per §4.3 measured number (the science catalog, independent of the QSA translation). Today those numbers sit in `observed_text` / `value_text` only when they load-bear an implication.
@@ -266,3 +322,5 @@ ORDER BY role, design_key;
 - `qs-analysis.db-wal` and `qs-analysis.db-shm` are transient; do not commit them.
 - `seed_effect.sql` is generated. Edit frontmatter, not that file.
 - Edit `fragments/*.jsonl` when an extracted mapping changes. Edit `predicted_implication.csv` and `design_implication.csv` when a downward claim changes. Then rerun `rebuild.py`.
+- `computed_checks.py` holds the arithmetic behind every "Computed here" number in a sourced effect file. The rebuild runs it first and fails if a recomputed value has drifted from the figure the library quotes. Change the number in the file and in that script together.
+- The rebuild reads each effect file's `## Sources` table. It fails on a `[S#]` citation with no row, a duplicate key, a malformed row, an unknown Checked value, or a fragment that cites a key its file does not define. It warns on a listed reference that is never cited and on a sourced effect that still has non-gap implication rows with no `basis` tag.

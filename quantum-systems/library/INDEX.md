@@ -4,7 +4,9 @@ Entries are utility and internal-consistency tests, not interpretive claims. Fam
 
 Every catalog row links to a file. Column meanings: [library README](README.md). Family definitions: [TAXONOMY.md](TAXONOMY.md).
 
-**Status:** 60 formal · 0 draft · 0 queued. Mapping: 30 High · 30 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) and [pyroelectric fusion](pyroelectric-fusion.md) (Medium).
+**Sourcing:** 7 of 60 files carry opened references, evidence tags and threshold/crossover labels: the seven magnetic entries under Latched order ([standard](README.md#sourcing-standard)). The other 53, including the two ferroelectric entries in that family, still hold numbers recalled by a language model; treat their "High" data rating as unverified until they are converted.
+
+**Status:** 60 formal · 0 draft · 0 queued. Mapping: 29 High · 31 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) and [pyroelectric fusion](pyroelectric-fusion.md) (Medium).
 
 Logically derived spec sheets, a shared-requirement audit, and an analog-slot map live in [`derived/`](derived/README.md) — not catalog rows. Conventional topics that stay **clauses** rather than files are listed under [Handbook topics not filed as effects](#handbook-topics-not-filed-as-effects). Device applications: [`../application/`](../application/README.md).
 
@@ -37,14 +39,14 @@ An energy barrier holds a directional or configurational state at zero continuou
 
 | Effect | Slug | Status | Data | Mapping | Dominant collapse | Notes |
 |---|---|---|---|---|---|---|
-| [Permanent magnet (directional latch)](permanent-magnet-latch.md) | `permanent-magnet-latch` | formal | High | High | T > Tc; KV ≲ 25 kT; lattice shock | NdFeB holds a directional force with no power draw; soft iron does not |
-| [Superparamagnetism](superparamagnetism.md) | `superparamagnetism` | formal | High | High | KV ≲ kT ln(τm/τ0); ~25 kT is a lab-time convention | Volume collapse of the same latch; NdFeB blocks near 30 nm; the factor 25 is a timescale contour |
-| [Ferromagnetic hysteresis](ferromagnetic-hysteresis.md) | `ferromagnetic-hysteresis` | formal | High | High | Loop area / Hc → 0 (soft limit); also T > Tc | Write–erase cycle; hold costs zero, write costs the loop area; Hc ≪ Ha is the mesoscale gap |
+| [Permanent magnet (directional latch)](permanent-magnet-latch.md) | `permanent-magnet-latch` | formal | High | High | T > Tc (exchange threshold); reverse field; shock; KV ≲ 25 kT only at a few nm | NdFeB holds a directional force with no power draw; soft iron does not; real coercivity is under a fifth of the anisotropy field |
+| [Superparamagnetism](superparamagnetism.md) | `superparamagnetism` | formal | High | High | KV ≲ kT ln(τm/τ0), a crossover; 25 kT is the 100 s convention | Thermal loss of direction in a small grain; Nd₂Fe₁₄B about 3.5 nm, magnetite 20–50 nm at room temperature; depends on the observer's clock |
+| [Ferromagnetic hysteresis](ferromagnetic-hysteresis.md) | `ferromagnetic-hysteresis` | formal | High | High | T > Tc (threshold); coercivity itself is a continuum over six decades, so the soft limit is a crossover | Write–erase cycle; hold costs zero; the major-loop area is one protocol's write cost, with a measured floor near kT for a single-domain bit; Hc is 15–20 % of Ha in sintered Nd-Fe-B |
 | [Ferroelectric remanence](ferroelectric-remanence.md) | `ferroelectric-remanence` | formal | High | Medium | T > Tc; coercive E exceeded; grain / film too small | Electrical twin: remnant P at E = 0; Ec and the depolarization buffer stay mesoscale |
-| [Antiferromagnetic order](antiferromagnetic-order.md) | `antiferromagnetic-order` | formal | High | High | T > TN | Latched opposing sublattices; net macro moment ~0 — a latch whose emergent output is zero force |
-| [Exchange bias](exchange-bias.md) | `exchange-bias` | formal | High | Medium | T > TB of the AFM pin (TB ≤ TN) | Second latch pinning the first; Hex and TB/TN remain interface / grain data |
-| [Shape anisotropy](shape-anisotropy.md) | `shape-anisotropy` | formal | High | High | Aspect ratio → 1 (demag barrier vanishes) | Geometry / demag barrier; needles latch without large K1; spheres do not |
-| [Magnetic domains](magnetic-domains.md) | `magnetic-domains` | formal | High | Medium | Single-domain size, or saturation (walls expelled) | How a large body partitions the aligned population; wall width ~√(A/K) is a measured buffer |
+| [Antiferromagnetic order](antiferromagnetic-order.md) | `antiferromagnetic-order` | formal | High | High | T > TN; spin-flop field in uniaxial crystals | Ordered opposing sublattices; net macro moment ~0; Curie–Weiss θ up to five times TN in the monoxides |
+| [Exchange bias](exchange-bias.md) | `exchange-bias` | formal | High | Medium | T > TB of the pin, a rate-dependent crossover (TB ≤ TN of the layer); AFM thinner than a few nm | Second ordered body pinning the first; can stabilize a grain that is superparamagnetic alone; interface energy remains unspecified |
+| [Shape anisotropy](shape-anisotropy.md) | `shape-anisotropy` | formal | High | Medium | Aspect ratio → 1, a continuous zero (half the needle limit is reached near aspect ratio 2) | Geometry / demag barrier; an Fe needle reaches at most 0.92 MJ/m³, a semi-hard latch; real particles reverse at 15–19 % of the ideal field |
+| [Magnetic domains](magnetic-domains.md) | `magnetic-domains` | formal | High | Medium | T > Tc (threshold); single-domain size and saturation are crossovers | How a large body partitions the aligned population; wall width by formula 4–63 nm, measured 4–9 nm in Nd₂Fe₁₄B; exchange stiffness is inferred, and tabulations differ 2.4× |
 | [Ferroelectric domains](ferroelectric-domains.md) | `ferroelectric-domains` | formal | High | Medium | Single-domain size, or applied E expels walls | Polar twin of magnetic domains; nm-class walls; charged walls possible; Pr can remain after the pattern is gone |
 
 ---

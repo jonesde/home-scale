@@ -84,9 +84,9 @@ This is the reality check. Interesting effects do **not** scale down to a single
 | Effect | Floor (smaller is not more function) | Ceiling / upper bound (more is not more function) |
 |---|---|---|
 | **Mirror / sheet conductor / SPR** | Starve below ~5–10 nm *continuous* Ag/Al, or island at any nominal thickness. Visible mirror wants ~10–20 nm connected class. A lone atom has no connected screening buffer. | Once the film is percolated and optically thick at that *λ*, extra metal is mass (or a new layer). RF skin *inflates* as *f* → 0 — a foil that mirrors can still be electrically thin at DC. Do not quote optical 10–20 nm as RF skin. |
-| **Hard magnet** | NdFeB-class blocking is a tens-of-nm contour at room temperature / lab time; magnetite smaller. Below that: no remanence on the service clock. | *T* → *T<sub>C</sub>* of **that** host (not BaTiO₃, not a hydride line). Huge grains go multi-domain; you still have a magnet until thermal erase or shock. Service life sets the *kT* multiplier (seconds vs years). |
+| **Hard magnet** | Thermal stability of a grain is a contour that depends on the waiting time: a few nanometres for Nd₂Fe₁₄B at room temperature and 100 s, 20–50 nm for magnetite. Below it: no remanence on the service clock. (An earlier version of this pitch had these the wrong way round and ten times too large for NdFeB.) | *T* → *T<sub>C</sub>* of **that** host (not BaTiO₃, not a hydride line). Huge grains go multi-domain; you still have a magnet until thermal erase or shock. Service life sets the *kT* multiplier (seconds vs years). |
 | **Insulating magnet / SMC** | Same magnetic floor, plus stay *below* electrical percolation. | If the splat field percolates electrically, you printed a conducting magnet and bought eddy currents. That can be what you wanted. It is a different part. |
-| **Polar remanence** | Dead-layer / depolarization envelope. No portable ferroelectric *KV* number. Thinner is not a smaller bit; it is an empty well. | *T* → *T<sub>C</sub>* of **that** ceramic (BaTiO₃ ≈ 393 K class). Do not import 30 nm NdFeB. |
+| **Polar remanence** | Dead-layer / depolarization envelope. No portable ferroelectric *KV* number. Thinner is not a smaller bit; it is an empty well. | *T* → *T<sub>C</sub>* of **that** ceramic (BaTiO₃ ≈ 393 K class). Do not import a magnetic blocking size. |
 | **Exchange-pin history bit** | Superparamagnetic FM grain cannot hold *H<sub>ex</sub>*. | Trip band is *T<sub>B</sub>* < *T* < *T<sub>C</sub>*(FM). *T<sub>B</sub>* is the pin’s number. A bake through FM *T<sub>C</sub>* erases both layers and is a worse crayon. |
 | **Hydride shutter** | Metal phase still needs the percolation cliff. Island hydride is a starved buffer, not a shutter. | Cycle life and the pin (stuck open or shut). Overshoot toward host *T<sub>m</sub>* is `coupled-grid-loss`, not a cleverer switch. Packaging of the H inventory is the product ceiling. |
 | **Casimir / conducting-plate force** | Starve the faces and the conducting-plate class should die with *R*. | Gap *d* is capacity of the force (0.1–1 μm class). Opening the gap into the noise is not percolation. Patch charge is the practical ceiling. |
@@ -231,7 +231,7 @@ Humanoid-adjacent reading of D–H, still speculative: linear joints whose stato
 - **Stands on.** [depolarization-fuse](depolarization-fuse.md).
 - **Stretch.** Using thinness as a one-way process witness, not as FeRAM.
 - **First trial.** Ceramics / thin-film shop. Thickness series at fixed *T* < *T<sub>C</sub>*.
-- **Dies if.** Neutrons appear (wrong file) or a 30 nm NdFeB number is imported as the polar floor.
+- **Dies if.** Neutrons appear (wrong file) or a magnetic blocking size is imported as the polar floor.
 
 #### N. Orientation inhibit
 
@@ -336,10 +336,10 @@ Full isolation sequences live in the application files. This brief does not dupl
 | Cliff | Class | Do not quote as |
 |---|---|---|
 | Ag/Al visible connected buffer | ~10–20 nm continuous; starve ≲ 5–10 nm continuous or islands | RF skin, London *λ* |
-| NdFeB blocking, RT / lab time | tens of nm (~30 nm class) | Ferroelectric thickness, hydride *T* |
-| Magnetite blocking | smaller than NdFeB | “all magnets, 30 nm” |
+| Nd₂Fe₁₄B blocking, RT / 100 s | 3.4–3.6 nm sphere (computed in the library from sourced *K*₁) | Ferroelectric thickness, hydride *T* |
+| Magnetite blocking, RT | 20–50 nm, larger than Nd₂Fe₁₄B | “all magnets, one size” |
 | BaTiO₃ *T<sub>C</sub>* | ≈ 393 K class | NdFeB Curie, *T<sub>B</sub>* |
-| Ni *T<sub>C</sub>* | 627 °C class | A hydride phase line |
+| Ni *T<sub>C</sub>* | 628–631 K (about 355 °C) | A hydride phase line |
 | Cu skin | ~tens of μm at ~1 μs; ~0.7–0.9 mm at ~100 μs; ~2 mm at the 0.2–0.7 ms launch pulse | Optical 10–20 nm |
 | Bonding velocity | 200–800 m/s class, material-specific | A fusion knob |
 | Casimir gap window | 0.1–1 μm class | The optical percolation thickness |

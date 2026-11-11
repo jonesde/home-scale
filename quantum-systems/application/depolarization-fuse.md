@@ -27,7 +27,7 @@ The polar latch needs a volume that can stand the depolarization field. Below th
 | Thermal erase | > *T<sub>C</sub>* | Any | No |
 | Linear dielectric | n/a | Any | Never remanent |
 
-Used FeRAM lives on the first row. This file lives on the second. Do not quote ~30 nm NdFeB as the ferroelectric number.
+Used FeRAM lives on the first row. This file lives on the second. Do not quote a magnetic blocking size (a few nanometres for Nd₂Fe₁₄B) as the ferroelectric number.
 
 ---
 
@@ -47,7 +47,7 @@ Used FeRAM lives on the first row. This file lives on the second. Do not quote ~
 
 | Parameter | Toward isolating the fuse | Category error |
 |---|---|---|
-| Thickness | Walk a series through the dead-layer / depolarization class | Using 30 nm NdFeB as the number |
+| Thickness | Walk a series through the dead-layer / depolarization class | Using a magnetic blocking size as the number |
 | *T* | Hold < *T<sub>C</sub>* while thinning | Only a *T<sub>C</sub>* bake (that is thermal erase of any thickness) |
 | *E<sub>c</sub>* write | Enough to pole the thick controls | Treating *E<sub>c</sub>* as a derived node number |
 | Electrodes / dead layer | Record as process; it *is* the mesoscale gap | “The polar phase is named, so *P<sub>r</sub>* must remain” |

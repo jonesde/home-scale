@@ -12,10 +12,12 @@ The .db is a local build artifact and is not committed.
 from __future__ import annotations
 
 import csv
+import re
 import sqlite3
 import sys
 from pathlib import Path
 
+from computed_checks import run_checks as run_computed_checks
 from merge_fragments import main as merge_fragments
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -72,6 +74,69 @@ CONSTRAINT_TAGS = {
     "thermal",
 }
 
+# Sourcing standard (library/README.md). A "## Sources" table at the end of an
+# effect file lists the references; "[S3]" in the body cites one of them.
+SOURCE_ACCESS = {"full-text", "abstract", "snippet", "cited-only"}
+BASIS = {"measured", "model", "convention", "computed"}
+FORMS = {"threshold", "crossover"}
+SOURCE_ROW = re.compile(r"^\|\s*(S\d+)\s*\|")
+CITATION = re.compile(r"\[(S\d+)\]")
+MD_LINK = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)")
+
+
+def parse_sources(slug: str, text: str) -> tuple[list[dict], list[str]]:
+    """Read the Sources table of one effect file and check its citations.
+
+    Returns the source rows and the keys that are listed but never cited.
+    A citation with no matching row, a duplicate key, a malformed row, or an
+    unknown access value fails the rebuild.
+    """
+    body, found, tail = text.partition("\n## Sources")
+    rows: list[dict] = []
+    if found:
+        for line in tail.splitlines()[1:]:
+            if line.startswith("## "):
+                break
+            if not SOURCE_ROW.match(line):
+                continue
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if len(cells) != 4:
+                raise SystemExit(
+                    f"{slug}: Sources row {cells[0]} needs 4 cells "
+                    "(Key | Reference | Checked | Supports), found "
+                    f"{len(cells)}; a literal '|' inside a cell is not allowed"
+                )
+            key, reference, access, supports = cells
+            if any(r["source_key"] == key for r in rows):
+                raise SystemExit(f"{slug}: duplicate source key {key}")
+            if access not in SOURCE_ACCESS:
+                raise SystemExit(
+                    f"{slug}: source {key} has unknown Checked value {access!r}; "
+                    f"use one of {sorted(SOURCE_ACCESS)}"
+                )
+            if not reference or not supports:
+                raise SystemExit(f"{slug}: source {key} needs a reference and a summary")
+            link = MD_LINK.search(reference)
+            rows.append(
+                {
+                    "effect_slug": slug,
+                    "source_key": key,
+                    "reference": MD_LINK.sub(r"\1", reference),
+                    "url": link.group(2) if link else None,
+                    "access": access,
+                    "supports": supports,
+                }
+            )
+    defined = {r["source_key"] for r in rows}
+    cited = set(CITATION.findall(body))
+    dangling = sorted(cited - defined, key=lambda k: int(k[1:]))
+    if dangling:
+        raise SystemExit(
+            f"{slug}: cited but not listed under '## Sources': " + ", ".join(dangling)
+        )
+    uncited = sorted(defined - cited, key=lambda k: int(k[1:]))
+    return rows, uncited
+
 
 def parse_frontmatter(text: str) -> dict:
     if not text.startswith("---"):
@@ -103,13 +168,16 @@ def parse_frontmatter(text: str) -> dict:
     return data
 
 
-def load_effects() -> tuple[list[dict], list[tuple[str, str]]]:
+def load_effects() -> tuple[list[dict], list[tuple[str, str]], list[dict], dict[str, list[str]]]:
     effects = []
     constraints = []
+    sources: list[dict] = []
+    uncited: dict[str, list[str]] = {}
     for path in sorted(LIBRARY.glob("*.md")):
         if path.name in SKIP:
             continue
-        fm = parse_frontmatter(path.read_text(encoding="utf-8"))
+        text = path.read_text(encoding="utf-8")
+        fm = parse_frontmatter(text)
         slug = fm["id"]
         if slug != path.stem:
             raise SystemExit(f"{path.name}: id {slug!r} != filename stem")
@@ -135,7 +203,11 @@ def load_effects() -> tuple[list[dict], list[tuple[str, str]]]:
             if tag not in CONSTRAINT_TAGS:
                 raise SystemExit(f"{slug}: unknown constraint tag {tag!r}")
             constraints.append((slug, tag))
-    return effects, constraints
+        rows, unused = parse_sources(slug, text)
+        sources.extend(rows)
+        if unused:
+            uncited[slug] = unused
+    return effects, constraints, sources, uncited
 
 
 def fm_scalar(fm: dict, key: str) -> str | None:
@@ -297,8 +369,10 @@ def load_implications() -> list[dict]:
                 raise SystemExit(f"implication.csv:{i}: empty impl_key")
             value_si = empty_to_none(row.get("value_si"))
             row["value_si"] = float(value_si) if value_si not in (None, "") else None
-            for key in ("operator", "si_unit", "value_text", "notes"):
+            for key in ("operator", "si_unit", "value_text", "notes", "basis", "form"):
                 row[key] = empty_to_none(row.get(key))
+            cited = empty_to_none(row.get("sources"))
+            row["sources"] = cited.split(";") if cited else []
             row["origin"] = "extracted"
             rows.append(row)
     return rows
@@ -340,6 +414,10 @@ def load_predicted(effect_slugs: set[str]) -> list[dict]:
         row["effect_slug"] = slug
         row["source_path"] = path
         row["origin"] = "predicted"
+        # A conjecture has no measured basis and no cited source of its own.
+        row["basis"] = None
+        row["form"] = empty_to_none(row.get("form"))
+        row["sources"] = []
         out.append(row)
     return out
 
@@ -353,8 +431,12 @@ def maybe_merge_fragments() -> None:
 
 def rebuild() -> int:
     maybe_merge_fragments()
-    effects, constraints = load_effects()
+    run_computed_checks()
+    effects, constraints, sources, uncited_sources = load_effects()
     implications = load_implications()
+    source_keys: dict[str, set[str]] = {}
+    for src in sources:
+        source_keys.setdefault(src["effect_slug"], set()).add(src["source_key"])
 
     slugs = {e["slug"] for e in effects}
     predicted = load_predicted(slugs)
@@ -376,6 +458,19 @@ def rebuild() -> int:
                 f"{row['impl_key']}: source_path should be library/{slug}.md"
             )
         per_effect[slug] += 1
+        if row["basis"] is not None and row["basis"] not in BASIS:
+            raise SystemExit(f"{row['impl_key']}: unknown basis {row['basis']!r}")
+        if row["form"] is not None:
+            if row["form"] not in FORMS:
+                raise SystemExit(f"{row['impl_key']}: unknown form {row['form']!r}")
+            if row["role"] != "failure":
+                raise SystemExit(f"{row['impl_key']}: form is only for role=failure rows")
+        for src_key in row["sources"]:
+            if src_key not in source_keys.get(slug, set()):
+                raise SystemExit(
+                    f"{row['impl_key']}: cites {src_key}, which is not in the "
+                    f"Sources table of library/{slug}.md"
+                )
 
     for row in predicted:
         if row["impl_key"] in keys:
@@ -548,14 +643,31 @@ def rebuild() -> int:
         INSERT INTO implication (
           impl_key, origin, effect_slug, source_path, clause, role, aspect, resource,
           observed_text, implied_text, inference_kind, description,
-          operator, value_si, si_unit, value_text, confidence, notes, updated
+          operator, value_si, si_unit, value_text, confidence, notes, updated,
+          basis, form
         ) VALUES (
           :impl_key, :origin, :effect_slug, :source_path, :clause, :role, :aspect, :resource,
           :observed_text, :implied_text, :inference_kind, :description,
-          :operator, :value_si, :si_unit, :value_text, :confidence, :notes, :updated
+          :operator, :value_si, :si_unit, :value_text, :confidence, :notes, :updated,
+          :basis, :form
         )
         """,
         implications + predicted,
+    )
+    conn.executemany(
+        """
+        INSERT INTO source (effect_slug, source_key, reference, url, access, supports)
+        VALUES (:effect_slug, :source_key, :reference, :url, :access, :supports)
+        """,
+        sources,
+    )
+    conn.executemany(
+        "INSERT INTO implication_source (impl_key, effect_slug, source_key) VALUES (?, ?, ?)",
+        [
+            (row["impl_key"], row["effect_slug"], src_key)
+            for row in implications
+            for src_key in row["sources"]
+        ],
     )
     conn.executemany(
         """
@@ -655,6 +767,27 @@ def rebuild() -> int:
         "SELECT COUNT(*) FROM implication WHERE origin = 'predicted'"
     ).fetchone()[0]
     n_ext = n_impl - n_pred
+    n_source = conn.execute("SELECT COUNT(*) FROM source").fetchone()[0]
+    access_counts = dict(
+        conn.execute("SELECT access, COUNT(*) FROM source GROUP BY access")
+    )
+    sourced_effects = {
+        r[0] for r in conn.execute("SELECT DISTINCT effect_slug FROM source")
+    }
+    n_cited_impl = conn.execute(
+        "SELECT COUNT(DISTINCT impl_key) FROM implication_source"
+    ).fetchone()[0]
+    n_basis = conn.execute(
+        "SELECT COUNT(*) FROM implication WHERE basis IS NOT NULL"
+    ).fetchone()[0]
+    n_failure = conn.execute(
+        "SELECT COUNT(*) FROM implication WHERE role = 'failure' AND origin = 'extracted'"
+    ).fetchone()[0]
+    form_counts = dict(
+        conn.execute(
+            "SELECT form, COUNT(*) FROM implication WHERE form IS NOT NULL GROUP BY form"
+        )
+    )
     rel_counts = dict(
         conn.execute(
             "SELECT relation, COUNT(*) FROM design_implication GROUP BY relation"
@@ -722,6 +855,27 @@ def rebuild() -> int:
     print(f"  implication_node:    {n_in}")
     print(f"  design_node:         {n_dn}")
     print(f"  pairs in both junctions: {overlap}")
+    print(
+        f"  sourced effects:     {len(sourced_effects)} of {n_effect} "
+        f"({n_source} references {access_counts})"
+    )
+    print(f"  implications citing a source: {n_cited_impl} of {n_ext} extracted")
+    print(f"  implications with a basis tag: {n_basis} of {n_ext} extracted")
+    print(
+        f"  failure rows classified: {sum(form_counts.values())} of {n_failure} "
+        f"{form_counts}"
+    )
+    for slug, unused in sorted(uncited_sources.items()):
+        print(f"  warning: {slug}: listed but never cited: {', '.join(unused)}")
+    partly = sorted(
+        s for s in sourced_effects
+        if any(
+            r["effect_slug"] == s and r["basis"] is None and r["role"] != "gap"
+            for r in implications
+        )
+    )
+    if partly:
+        print("  warning: sourced effect with untagged (no basis) non-gap rows:", ", ".join(partly))
     print(f"  extracted implications unused as evidence: {len(unmapped)}")
     if designs_without_down:
         print("  warning: design with no downward edges:", ", ".join(designs_without_down))

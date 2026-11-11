@@ -39,7 +39,10 @@ Search the files with GitHub search or local `rg` across `library/*.md`. Cross-c
 | Links | Relative Markdown only, and only to files that exist |
 | Body | Locked 7-part template from the top-level README |
 | Related | After the seven sections; queued slugs as `code`, not broken links |
-| Status | `draft` = template not yet complete or mapping still open; `formal` = all seven sections filled and claims sourced |
+| Sources | After Related; the table described under [Sourcing standard](#sourcing-standard) |
+| Status | `draft` = template not yet complete or mapping still open; `formal` = all seven sections filled |
+
+`formal` does not yet mean sourced. Sourcing is tracked separately: a file is **sourced** when it has a Sources table and every number in §4.3–§4.4 carries a citation key. The first-wave files were written from model recall with no references; they are being converted one family at a time, and [INDEX.md](INDEX.md) says which are done.
 
 Adding, renaming, or deleting a file means updating [INDEX.md](INDEX.md) in the same change. No orphan files. No index row with a link to a missing file. Queued rows have no file and no link.
 
@@ -49,7 +52,7 @@ Copy [_template.md](_template.md) to start a new entry.
 
 ## Frontmatter
 
-Keep this schema small. Traceability belongs in §4.3 next to the numbers, not in a `sources:` blob.
+Keep this schema small. Traceability belongs in §4.3 next to the numbers (a `[S3]` key), with the reference itself in the Sources table at the end of the file, not in a frontmatter `sources:` blob.
 
 ```yaml
 ---
@@ -101,7 +104,7 @@ Conventional handbook names that stay **clauses** (not files) are listed in [IND
 
 Same rules as the top-level README, restated so they sit next to the files:
 
-1. Every quantitative claim on an effect is traceable to an experimental boundary or a well-established measured parameter. Node identity specs (mass, charge, spin) may be taken from a pinned PDG / CODATA edition; they are not collapse cliffs.
+1. Every quantitative claim on an effect is traceable to an experimental boundary or a well-established measured parameter. Traceable means a citation key and a Sources row ([Sourcing standard](#sourcing-standard)). Node identity specs (mass, charge, spin) may be taken from a pinned PDG / CODATA edition; they are not collapse cliffs.
 2. Effect language is limited to constraints, resources, synchronization, failure thresholds, and emergent output. Node cards may state identity specs without calling those a latch or a family.
 3. Interpretive overlays that the data do not require are omitted.
 4. Incomplete mappings are stated as incomplete. No conjecture to close a gap. A cataloged particle with no library collapse is unforced, not mapped.
@@ -109,10 +112,76 @@ Same rules as the top-level README, restated so they sit next to the files:
 
 ---
 
+## Sourcing standard
+
+Set by the magnet pilot of 2026-11. It exists because the first-wave numbers were recalled by a language model and some were wrong (a factor of ten in the NdFeB blocking size, kelvin written as Celsius). Three tiers stay visibly separate in every file: **sourced fact** (§4.3–§4.4), **mapping** (§4.5–§4.7), and **speculation** (predicted rows in the analysis layer, never in the effect file).
+
+### 1. Fetch, do not recall
+
+A number is entered only after a document that states it has been opened. A model's memory of a handbook is not a source. If the best reference cannot be opened, cite it anyway and say so in the Checked column.
+
+### 2. Evidence tag on every §4.3 bullet
+
+Each bullet starts with one tag. The point is to keep what an instrument read apart from what a theory produced, since this project does not take the theory as given.
+
+| Tag | Meaning |
+|---|---|
+| **Measured** | Read directly off an experiment: a transition temperature, a loop shift, a resonance line. |
+| **Model** (name it) | Obtained by passing measurements through a named model, such as a wall width computed from *A* and *K*. |
+| **Convention** | A definition, or an agreed cut on a continuous quantity (25 *kT*, ten-year retention). |
+| **Computed here** | Arithmetic done in this file from cited inputs. Show the inputs. Every such number also has a line in [`../analysis/computed_checks.py`](../analysis/computed_checks.py), and the rebuild fails if the two disagree. |
+
+### 3. Citation keys and the Sources table
+
+Put `[S1]`, `[S2]`, … next to the number. Keys are local to the file. The file ends with:
+
+```markdown
+## Sources
+
+| Key | Reference | Checked | Supports |
+|---|---|---|---|
+| S1 | [Authors, *Journal* vol, page (year)](https://…) | full-text | One line: which numbers or statements in this file rest on it. |
+```
+
+`Checked` records how the document itself was verified when the row was written:
+
+| Value | Meaning |
+|---|---|
+| `full-text` | The document was opened and the value read in it. |
+| `abstract` | Only the abstract or landing page was opened; the value appears there. |
+| `snippet` | Only a search-result excerpt was seen. Weak; upgrade when possible. |
+| `cited-only` | Not opened (paywalled or unavailable). Cited as the standard reference, normally alongside an opened source that states the same value. |
+
+A tertiary source (an encyclopedia, a vendor page) is allowed only when nothing better could be opened, and the Supports cell says "tertiary". A load-bearing number that rests only on `snippet` or `cited-only` rows is named in the file's Data-confidence line.
+
+No literal `|` inside a cell. The rebuild reads this table into `source`, fails on a citation key with no row, and warns on a row that is never cited.
+
+### 4. Threshold or crossover on every failure mode
+
+Each bullet under "Dominant failure modes" in §4.5 is labelled.
+
+| Label | Meaning |
+|---|---|
+| **Threshold** | The output switches at a definite value: a phase transition or an energy gate. Sharp in the large-system limit. |
+| **Crossover** | The output falls off continuously. Give the functional form and its characteristic scale, and name the convention behind any single number quoted. |
+
+Do not call a crossover a cliff. Most size limits in the first wave are crossovers: an exponential or power law cut at an agreed point.
+
+### 5. The same tags in the analysis layer
+
+Fragment rows for a sourced file carry three optional fields: `basis` (`measured` / `model` / `convention` / `computed`), `form` (`threshold` / `crossover`, failure rows only), and `sources` (a list of keys from the file's table). The rebuild fails on a key the file does not define.
+
+### 6. Check the conclusions, not only the numbers
+
+When a file is sourced, each predicted row and each curated requirement status that leans on it is checked against the literature. A predicted row gets a note beginning `Lit check <date>:` and one of **established** (already a measured fact, so not a prediction), **contradicted**, **untested**, or **not checkable**.
+
+---
+
 ## Suggested order of work
 
 The catalog is 60 formal entries. Prefer, in order:
 
+0. Source an unsourced family to the standard above. Until that is done its numbers are unverified.
 1. Tighten a Medium mapping — especially a missing mesoscale step or a statistical buffer that can be given a sharper experimental envelope.
 2. Add a new file only when it has a sharp measured collapse and is not already covered as a clause on an existing entry.
 3. Update [INDEX.md](INDEX.md) in the same change as the file.

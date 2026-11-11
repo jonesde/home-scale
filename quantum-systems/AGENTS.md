@@ -37,7 +37,8 @@ Do not dilute these.
 
 - Constraint reasoning only **for effects**: what the system cannot do + the threshold where the macro effect collapses.
 - Effect and design language is limited to constraints, resources, synchronization, failure thresholds, and emergent output. Node cards may state taken identity specs (mass, charge, spin).
-- Every quantitative claim on an effect must be traceable to an experimental boundary or a well-established measured parameter. Node identity specs may be taken from a pinned PDG / CODATA edition.
+- Every quantitative claim on an effect must be traceable to an experimental boundary or a well-established measured parameter. Traceable means a `[S#]` key next to the number and a row in the file's Sources table, written after the document was opened, not from recall ([sourcing standard](library/README.md#sourcing-standard)). Node identity specs may be taken from a pinned PDG / CODATA edition.
+- Three tiers stay separate: sourced fact (§4.3–§4.4), mapping (§4.5–§4.7), speculation (predicted rows). A failure mode is labelled a **threshold** or a **crossover**; a continuous fall-off cut by a convention is not a cliff.
 - Incomplete mappings stay incomplete. Do not fill a gap with conjecture in an *extracted* row. Conjecture belongs in `predicted_implication.csv` and only on the downward arrow (`design_implication.relation = predicts`).
 - A family is a filing spine (dominant collapse type). A design is a hypothesized machine. Do not invent a seventh family to hide a mismatch; record the mismatch on the entry until several effects share the leftover collapse.
 - Do not add a thirteenth design for every interface or textbook chapter. Add one only when a cluster of implications has a collapse and a hardware stack that no existing design owns. Integer QHE is draft `edge-channel`; a 1D constriction is draft `landauer-channel` (contrast, not a member). Dilute BEC is draft `phase-space-condensate`.
@@ -280,6 +281,7 @@ WHERE dn.node_key = 'electron' AND dn.role = 'edge';
 
 ### Prefer this order of work
 
+0. Source an unsourced family. Its numbers are recalled, not verified, until that is done.
 1. Tighten a Medium mapping on an existing formal file.
 2. Attach or correct implication fragments so they still quote the file.
 3. Adjust design membership / downward edges / requirements; rebuild; update derived notes to match.
@@ -301,6 +303,7 @@ Paths are relative to this directory (`quantum-systems/`).
 | [SAFETY.md](SAFETY.md) | How to read the repo. Hazard classes. What applications are not. |
 | [AGENTS.md](AGENTS.md) | This file: orientation, terms, file map, schema, research recipes. |
 | [Summary.md](Summary.md) | Current-state handover: inventory, first-wave machines, next work. Formal library files win if they disagree. |
+| [Determinism.md](Determinism.md) | The deterministic premise against the theorems, theory programs, and experiments that bear on it, and where this library is and is not relevant to that question. |
 | `qs-analysis.db` | Local SQLite build. Gitignored. Rebuild with `python3 analysis/rebuild.py`. |
 | `.gitignore` | Ignores the `.db`, WAL/SHM/journal, and `analysis/__pycache__/`. |
 
@@ -354,6 +357,7 @@ Queryable reading of the mappings. Commit the text; do not commit the `.db`.
 | [analysis/schema.sql](analysis/schema.sql) | Canonical DDL. | only with a matching README + rebuild change |
 | [analysis/rebuild.py](analysis/rebuild.py) | One-shot rebuild: merge fragments → `implication.csv`, seed effects and nodes from frontmatter, load CSVs, write `../qs-analysis.db`. Stdlib only. | code |
 | [analysis/merge_fragments.py](analysis/merge_fragments.py) | Concatenate `fragments/*.jsonl` → `implication.csv`. | code |
+| [analysis/computed_checks.py](analysis/computed_checks.py) | The arithmetic behind every "Computed here" number in a sourced effect file. Rebuild fails if a recomputed value drifts from the quoted one. | **yes**, together with the effect file |
 | [analysis/seed_effect.sql](analysis/seed_effect.sql) | Generated from frontmatter. | **no** — edit library frontmatter |
 | [analysis/implication.csv](analysis/implication.csv) | Generated merge of fragments. | **no** — edit fragments |
 | `analysis/fragments/{family}.jsonl` | Extracted implications, one JSON object per line, grouped by family. | **yes** |
@@ -402,19 +406,21 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-Load (after a clean rebuild): 60 `effect` · 176 `effect_constraint` · 498 `implication` (457 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node`.
+Load (after a clean rebuild): 60 `effect` · 176 `effect_constraint` · 498 `implication` (457 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 130 `source` (7 of 60 effects sourced) · 168 `implication_source`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 
 ```
 effect (slug PK)
   ├── effect_constraint (slug, tag)
+  ├── source (effect_slug, source_key)  -- one row per reference in the file's Sources table
   └── implication.effect_slug          -- extracted always; predicted optional
 
 implication (impl_key PK, origin)
   ├── implication_design  (impl_key, design_key)   -- evidence UP
   ├── design_implication  (design_key, impl_key)   -- commitment DOWN
-  └── implication_node    (impl_key, node_key)     -- forces / witnesses / contrast
+  ├── implication_node    (impl_key, node_key)     -- forces / witnesses / contrast
+  └── implication_source  (impl_key, source_key)   -- references the observed fact rests on
 
 design (design_key PK)
   ├── implication_design
@@ -464,6 +470,14 @@ requirement (req_key PK)
 | `operator` | `eq` · `min` · `max` · `approx` · `range` · NULL |
 | `value_si` / `si_unit` / `value_text` | Optional number, its SI unit, and the human interval or symbol. |
 | `confidence` | Row-level. A High file can still have a Medium clause. |
+| `basis` | How the observed fact is known: `measured` · `model` · `convention` · `computed`. NULL until the effect file is sourced. |
+| `form` | Failure rows only: `threshold` · `crossover`. NULL until classified. |
+
+Fragment rows may also carry `sources`, a list of keys from the effect file's Sources table; it loads into `implication_source`.
+
+### `source`
+
+Read from the `## Sources` table at the end of each effect file. `source_key` (`S1`, `S2`, … local to the file) · `reference` · `url` · `access` (`full-text` · `abstract` · `snippet` · `cited-only`: how the document itself was checked) · `supports` (one-line summary).
 
 `aspect` and `resource` are two axes. Latch cell: `aspect=scale`, `resource=volume`. Plasma period: `aspect=latency`, `resource=time`. Plasma edge: `aspect=speed`, `resource=frequency`. Zero hold-power: `aspect=power`, `resource=energy`, `value_si=0`.
 
@@ -504,8 +518,11 @@ requirement (req_key PK)
 - `origin = forced` node with zero `implication_node` edges.
 - `origin = cataloged` used as `implication_node.membership = forces`.
 - `origin = predicted` node used as `implication_node` evidence.
+- A `[S#]` citation in an effect file with no row in its Sources table; a duplicate key; a malformed row; an unknown Checked value.
+- A fragment row citing a source key its effect file does not define; an unknown `basis` or `form`; `form` on a row that is not a failure.
+- A "Computed here" number that no longer matches its recomputation in `analysis/computed_checks.py`.
 
-Warnings (do not fail): design with no requirements; design with no downward edges; effect with fewer than four implication rows; extracted implications unused as evidence; `cataloged` node with no design and no implication edge; `forced` node used by no design; predicted node with no downward predicted implication.
+Warnings (do not fail): a listed reference that is never cited; a sourced effect that still has non-gap implication rows with no `basis` tag; design with no requirements; design with no downward edges; effect with fewer than four implication rows; extracted implications unused as evidence; `cataloged` node with no design and no implication edge; `forced` node used by no design; predicted node with no downward predicted implication.
 
 Not in this schema (on purpose): a `boundary` table of every §4.3 number; pairwise `implication_relation` edges that are not “same machine” or “contrast via a design”; auto-extraction from Markdown.
 
@@ -519,6 +536,7 @@ python3 analysis/rebuild.py
 ```
 
 - **Science change** → edit `library/{slug}.md` (and `INDEX.md` if status/mapping/collapse/notes changed). Then edit the matching fragment row so `observed_text` still quotes the file.
+- **Sourcing a file** → open each reference, tag every §4.3 bullet, add `[S#]` keys and the Sources table, label each failure mode threshold or crossover, add `basis` / `form` / `sources` to its fragment rows, put any computed number in `analysis/computed_checks.py`, and check the predicted rows and requirement statuses that lean on the file. Full rules: [library/README.md](library/README.md#sourcing-standard).
 - **Extracted mapping change** → edit `analysis/fragments/*.jsonl`, not `implication.csv`.
 - **Conjecture** → `predicted_implication.csv` + a `design_implication` row with `relation = predicts`.
 - **Machine assembly** → `design.csv` and the three junction/requirement CSVs. Then update `library/derived/` so the sheets still match.

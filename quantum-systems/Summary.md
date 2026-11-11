@@ -1,6 +1,6 @@
 # QSA working summary
 
-**Date:** 2026-08-20  
+**Date:** 2026-08-20; sourcing pilot added 2026-11-11  
 **Purpose:** Current state and locked rules so work can continue without rereading the whole tree. Not a second methodology spec.
 
 **Canonical sources**
@@ -13,7 +13,8 @@
 | Family assignment | [library/TAXONOMY.md](library/TAXONOMY.md) |
 | Analysis layer and example SQL | [analysis/README.md](analysis/README.md) |
 | How to read applications | [SAFETY.md](SAFETY.md) |
-| After-action on the first compressed day | [PostMortem.md](PostMortem.md) |
+| The deterministic premise against theorems and experiments | [Determinism.md](Determinism.md) |
+| Sourcing rules (evidence tags, citation keys, threshold vs crossover) | [library/README.md](library/README.md#sourcing-standard) |
 
 If this file disagrees with a formal library entry, the library file wins.
 
@@ -24,7 +25,7 @@ If this file disagrees with a formal library entry, the library file wins.
 Quantum Systems Analysis (QSA) is a utility and internal-consistency instrument only.
 
 - Quantum entities are modeled as finite state machines (or deterministic rule-bound systems).
-- Full predictability is assumed once the internal rules, node states, and constraints are fully known.
+- Mechanical predictability of states and behaviors: a system's internal configuration, constraints and rules together fix what it does next. This is a claim about the rules, not about what an observer can find out or forecast.
 - Apparent randomness is treated as incomplete knowledge.
 - Macroscopic effects are the averaged, synchronized output of large numbers of constrained microscopic machines.
 - Method = constraint reasoning from experimental failure thresholds + performance metrics.
@@ -36,7 +37,7 @@ The methodology and library template live in this repo’s [README.md](README.md
 
 ## 2. Locked working assumptions (do not dilute)
 
-- Quantum effects are produced by a finite-state-machine model with full predictability **IFF** fully understood.
+- Quantum effects are produced by a finite-state-machine model whose states and behaviors are mechanically predictable: the same configuration under the same constraints gives the same behavior. No claim is made that the configuration can be learned in practice.
 - Constraint reasoning only: what the system cannot do + exact thresholds where the macro effect collapses.
 - Emergent architecture from synchronized microscopic routines.
 - Performance metrics drawn exclusively from experimental boundaries.
@@ -54,8 +55,9 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 | Layer | Count | Where |
 |---|---|---|
 | Formal effects | 60 (six families) | [library/INDEX.md](library/INDEX.md) |
-| Mapping confidence | 30 High · 30 Medium · 0 Low | per-file frontmatter |
-| Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) and [pyroelectric-fusion](library/pyroelectric-fusion.md) (Medium) | same |
+| Mapping confidence | 29 High · 31 Medium · 0 Low (shape-anisotropy moved to Medium when sourced) | per-file frontmatter |
+| Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) and [pyroelectric-fusion](library/pyroelectric-fusion.md) (Medium). Unverified outside the sourced files | same |
+| Sourced effects | 7 of 60 (the magnetic entries of latched-order) | [library/INDEX.md](library/INDEX.md) |
 | Extracted implications | 457 | `analysis/fragments/*.jsonl` |
 | Predicted implications | 41 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
 | Designs | 12 (8 formal; four drafts) | [analysis/design.csv](analysis/design.csv) |
@@ -98,7 +100,9 @@ Shared requirements often share a **kind** of cliff, not a **number**. See [libr
 
 ## 5. What to do next
 
-Prefer, in order:
+First, before anything below: convert the remaining 53 effect files to the [sourcing standard](library/README.md#sourcing-standard), one family at a time. The first-wave numbers were recalled by a language model. The magnet pilot found a factor-of-ten error in the NdFeB blocking size (copied into the requirement table, the spec sheets and three applications), a reversed comparison with magnetite, a Curie temperature in the wrong unit, one prediction contradicted by published experiments, and two predictions that were already measured facts. Assume the other families hold errors of the same kinds.
+
+Then prefer, in order:
 
 1. Tighten a Medium mapping — statistical buffer, mesoscale step (*H*<sub>c</sub> ≪ *H*<sub>a</sub>, *E*<sub>c</sub>, pinning after *H*<sub>c1</sub>), or a taken rather than derived constant.
 2. Correct fragment rows so `observed_text` still quotes the file; rebuild; keep derived sheets in sync. The μCF-era design-down predicted hunt is done (41 predicted rows). Do not mint a second wave unless a new machine or a new formal file creates a coupled test that slate missed.
@@ -112,7 +116,8 @@ Applications stay mappings and falsifiers, not protocols. EM-LENR waits on Steve
 
 ## 6. Continuity notes
 
-- All quantitative claims must remain traceable to experimental boundaries.
+- All quantitative claims must remain traceable to experimental boundaries. Traceable means a citation key and a reference that was opened.
+- A limit that falls off continuously is a crossover, not a cliff. Label it and give its functional form.
 - When a mapping is incomplete, state the incompleteness explicitly.
 - Language discipline is non-negotiable: constraints, resources, synchronization, failure thresholds, emergent output only.
 - The sole evaluation criteria remain utility of the extracted specifications and internal consistency of the mappings.

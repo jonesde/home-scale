@@ -42,11 +42,11 @@ collective-screening · gapped-condensate
 
 **Audit.** Same failure class (starve the responding depth). Not the same formula. Do not quote 10 nm as London *λ*.
 
-### `latch-cell-is-the-cliff` — consistency, satisfied, 2 designs
+### `latch-cell-is-the-cliff` — consistency, tension, 2 designs
 
 anisotropy-latch · polar-latch
 
-**Audit.** Shared logic: grain / polar volume is the cliff, sample envelope is capacity. Polar side has **no portable *KV*** yet. Using 30 nm NdFeB as a ferroelectric number is over-claim.
+**Audit (revised 2026-11-11, status now `tension`).** Shared logic: the grain or polar volume sets thermal stability; the sample envelope is capacity. Sourcing the magnetic side showed two problems with the word *cliff*. The limit is a crossover, τ = τ₀ exp(*KV*/*kT*), whose quoted size depends on the waiting time. And for Nd₂Fe₁₄B that size is 3.4–3.6 nm, two orders below the single-domain size, so it is not what limits a real magnet; the mesoscale coercivity step is. The earlier figure of ~30 nm was an arithmetic error. Polar side has **no portable *KV*** yet.
 
 ---
 
@@ -182,7 +182,7 @@ The machine needs a connected responding depth of order its own screening or coh
 
 #### `latch-cell-is-the-cliff`
 
-For a latch, the sharp hardware cliff is the grain or polar volume that can hold the barrier against *kT*. The sample envelope (the magnet in the hand, the ceramic disk) is capacity. The magnetic side has a portable ~30 nm / 25 *kT* contour (timescale, not a universal energy). The polar side does not yet have an equivalent *KV*. Using NdFeB’s 30 nm as a ferroelectric number is over-claim.
+For a latch, thermal stability is set by the grain or polar volume that can hold the barrier against *kT*. The sample envelope (the magnet in the hand, the ceramic disk) is capacity. On the magnetic side the limit is a crossover, not a cliff: retention time falls as exp(*KV*/*kT*), and 25 *kT* is the convention for a 100 s wait. For Nd₂Fe₁₄B at room temperature that is a 3.4–3.6 nm sphere (the earlier ~30 nm was an arithmetic error). The polar side does not yet have an equivalent *KV*. Status is `tension` because the requirement was written as a sharp cliff and as the operative limit, and sourcing supports neither.
 
 ### Shared number (or a true zero)
 

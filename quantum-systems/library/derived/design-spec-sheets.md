@@ -32,16 +32,16 @@ Incompatible with “this hardware is N = 1 electron” (that is `energy-gate` /
 
 ## anisotropy-latch
 
-A grain that keeps a direction of magnetization after the writing field is removed, at **zero continuous power**. The cliff is the grain’s anisotropy energy versus thermal kicks (*KV* above a timescale contour), not the size of the part in the hand. Sample envelope is capacity. Heat through Curie, shrink through the superparamagnetic line, or destroy the lattice and the held direction is gone. Unlocked Curie *χ* is the population this latch *replaces*, not its barrier.
+A grain that keeps a direction of magnetization after the writing field is removed, at **zero continuous power**. Two resources: exchange makes the grain one moment and sets the Curie point; anisotropy holds that moment along an axis (*KV*). Thermal stability of a grain is a crossover that depends on the waiting time, and for Nd₂Fe₁₄B it sits at a few nanometres, far below any real grain; what limits a real magnet is the mesoscale coercivity. Sample envelope is capacity. Heat through Curie, shrink far enough, shock or decrepitate the lattice and the held direction is gone. Unlocked Curie *χ* is the population this latch *replaces*, not its barrier.
 
 | Spec | Commitment | Source class |
 |---|---|---|
-| Buffer | Grain / cluster with *KV* above the thermal-escape line | NdFeB ~30 nm / 2.3×10⁻²⁶ m³ at ~25 *kT* (timescale contour) |
+| Buffer | Grain / cluster with *KV* above the thermal-escape line | Nd₂Fe₁₄B 3.4–3.6 nm sphere / 2.1–2.4×10⁻²⁶ m³ at 25 *kT* (100 s convention; crossover) |
 | Clock | Precession ~28 GHz/T; write is wall motion, not that carrier | γ/2π |
-| Barrier | Magnetocrystalline or shape anisotropy, *K₁V* | *K₁* ≈ 4.5 MJ/m³ (Nd₂Fe₁₄B) |
-| Hold-power | 0 W | Energy is the *M*–*H* loop area |
-| Dominant erase | *T* > *T*<sub>C</sub>; *KV* too small; lattice shock | Curie / superparamagnetism / mechanical |
-| Open | Technical *H*<sub>c</sub> ≪ *H*<sub>a</sub> is mesoscale | `mesoscale-coercivity` |
+| Barrier | Magnetocrystalline or shape anisotropy, *K₁V* | *K₁* = 4.3–4.9 MJ/m³ (Nd₂Fe₁₄B) |
+| Hold-power | 0 W | Energy is spent on writing. The major-loop area is one protocol's cost; a single-domain bit has been reset at about 1.45 *kT* |
+| Dominant erase | *T* > *T*<sub>C</sub> (threshold, set by exchange); *KV* too small (crossover); shock at 6–22 GPa; hydrogen decrepitation | Curie / superparamagnetism / mechanical / chemical |
+| Open | Technical *H*<sub>c</sub> is 16–18 % of *H*<sub>a</sub> in sintered Nd-Fe-B; mesoscale, and the operative limit | `mesoscale-coercivity` |
 
 Sample size is capacity, not a second cliff. Unlocked Curie *χ* is not this barrier.
 
@@ -49,7 +49,7 @@ Sample size is capacity, not a second cliff. Unlocked Curie *χ* is not this bar
 
 ## polar-latch
 
-The electrical twin of the anisotropy latch: remnant polarization at *E* = 0, still 0 W hold. The barrier is a lattice-locked double well below the ferroelectric Curie point. There is not yet a portable grain-size number analogous to NdFeB’s ~30 nm. A large polar body partitions; walls are a measured nm-class buffer, and a field can expel the pattern while remanent *P* remains. Charged walls need screening (the electrostatic extra vs magnetism). A pyroelectric temperature ramp on this crystal can write a high face voltage; that field engine dies at the host *T*<sub>C</sub> even if deuterium is still present.
+The electrical twin of the anisotropy latch: remnant polarization at *E* = 0, still 0 W hold. The barrier is a lattice-locked double well below the ferroelectric Curie point. There is not yet a portable grain-size number analogous to the magnetic blocking size. A large polar body partitions; walls are a measured nm-class buffer, and a field can expel the pattern while remanent *P* remains. Charged walls need screening (the electrostatic extra vs magnetism). A pyroelectric temperature ramp on this crystal can write a high face voltage; that field engine dies at the host *T*<sub>C</sub> even if deuterium is still present.
 
 | Spec | Commitment | Source class |
 |---|---|---|

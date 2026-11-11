@@ -86,6 +86,12 @@ CREATE TABLE implication (
     CHECK (confidence IN ('high', 'medium', 'low')),
   notes           TEXT,
   updated         TEXT NOT NULL,
+  -- How the observed fact is known. NULL = not yet classified (unsourced file).
+  basis           TEXT
+    CHECK (basis IS NULL OR basis IN ('measured', 'model', 'convention', 'computed')),
+  -- Failure rows only: a sharp switch, or a continuous fall-off cut by a convention.
+  form            TEXT
+    CHECK (form IS NULL OR form IN ('threshold', 'crossover')),
   CHECK (
     (origin = 'extracted'
       AND effect_slug IS NOT NULL
@@ -104,6 +110,31 @@ CREATE INDEX idx_implication_aspect    ON implication(aspect, resource);
 CREATE INDEX idx_implication_inference ON implication(inference_kind);
 CREATE INDEX idx_implication_conf      ON implication(confidence);
 CREATE INDEX idx_implication_clause    ON implication(clause);
+
+-- One row per reference listed in an effect file's "## Sources" table.
+-- Keys (S1, S2, …) are local to the file.
+CREATE TABLE source (
+  effect_slug  TEXT NOT NULL REFERENCES effect(slug) ON DELETE CASCADE,
+  source_key   TEXT NOT NULL,
+  reference    TEXT NOT NULL,
+  url          TEXT,
+  -- How the document itself was checked when the row was written.
+  access       TEXT NOT NULL
+    CHECK (access IN ('full-text', 'abstract', 'snippet', 'cited-only')),
+  supports     TEXT NOT NULL,
+  PRIMARY KEY (effect_slug, source_key)
+);
+
+-- Which references an extracted implication's observed fact rests on.
+CREATE TABLE implication_source (
+  impl_key     TEXT NOT NULL REFERENCES implication(impl_key),
+  effect_slug  TEXT NOT NULL,
+  source_key   TEXT NOT NULL,
+  PRIMARY KEY (impl_key, source_key),
+  FOREIGN KEY (effect_slug, source_key) REFERENCES source(effect_slug, source_key)
+);
+
+CREATE INDEX idx_source_access ON source(access);
 
 -- Assembled reverse-engineered machine (not agency).
 CREATE TABLE design (

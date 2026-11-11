@@ -30,6 +30,10 @@ FIELDS = [
     "confidence",
     "notes",
     "updated",
+    # Optional sourcing fields (see library/README.md, "Sourcing standard").
+    "basis",
+    "form",
+    "sources",
 ]
 
 
@@ -49,6 +53,9 @@ def load_rows() -> list[dict]:
                 val = obj.get(key)
                 if val is None:
                     row[key] = ""
+                elif isinstance(val, list):
+                    # "sources": ["S1", "S3"] is stored as "S1;S3" in the CSV.
+                    row[key] = ";".join(str(v) for v in val)
                 else:
                     row[key] = val
             rows.append(row)

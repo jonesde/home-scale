@@ -30,7 +30,7 @@ This is the block [`ferroelectric-domains`](../ferroelectric-domains.md) fills.
 | Strain channel | [`magnetostriction`](../magnetostriction.md) | [`piezoelectricity`](../piezoelectricity.md); 90° walls on domains | filled; other family (`lattice-modes`) |
 | Δ*T* bound-charge pump | — | only visible via [`pyroelectric-fusion`](../pyroelectric-fusion.md) | **hole** (engine vs nuclear gate) |
 
-Shared *kind* across the two columns: `zero-hold-power`, `thermal-cliff`. Not shared *number*. Do not quote NdFeB ~30 nm or 585 K as a ferroelectric wall or Curie figure. Polar wall width is nm-class (~0.5 nm 180°, few nm 90°), not magnetic √(*A*/*K*) tens-of-nm.
+Shared *kind* across the two columns: `zero-hold-power`, `thermal-cliff`. Not shared *number*. Do not quote a magnetic blocking size (a few nanometres for Nd₂Fe₁₄B) or 585 K as a ferroelectric wall or Curie figure. Polar wall width is nm-class (~0.5 nm 180°, few nm 90°), not magnetic √(*A*/*K*) tens-of-nm.
 
 ---
 
