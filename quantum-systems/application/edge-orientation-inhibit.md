@@ -22,13 +22,14 @@ envelope: cryogenic high-B lab until higher-T graphene packaging exists
 
 ## 1. Claim
 
-Integer QHE hardware is a 2DEG + perpendicular *B* that opens a bulk gap + an edge path. With *B* in the plane the perpendicular component is zero and the artifact does not occur. Between the two orientations the plateaus follow the normal component *B* cos *θ* (measured; see the 2026-11-11 note above). A ballistic 1D constriction at *B* = 0 shows \(2e^2/h\) steps and is a different machine (`predicted:edge-channel:qpc-is-not-this-edge`, `predicted:quantum-point-contact:steps-survive-at-zero-b`).
+Integer QHE hardware is a 2DEG + perpendicular *B* that opens a bulk gap + an edge path. With *B* in the plane the perpendicular component is zero and the artifact does not occur. Between the two orientations the plateaus follow the normal component *B* cos *θ* (measured; see the 2026-11-11 note above). A ballistic 1D constriction at *B* = 0 shows \(2e^2/h\) steps and is a different machine (measured: `quantum-point-contact:consistency_gap:not-qhe`, `quantum-point-contact:emergent_output:two-e-squared-over-h`).
 
 The cyclotron line on the same wafer shares *ω<sub>c</sub>* = *eB/m* and is not the plateau (`predicted:cyclotron-resonance:same-omega-c-not-a-plateau`). *R<sub>Q</sub>* as a tunnel floor is not *R<sub>K</sub>* (`predicted:coulomb-blockade:rq-is-not-rk`).
 
 | Configuration | Output | Machine |
 |---|---|---|
 | 2DEG, *B* ⊥, *ν* in a gap | *R<sub>H</sub>* = *R<sub>K</sub>/ν*, *R<sub>xx</sub>* → 0 | `edge-channel` |
+| Same bar, *B* tilted by *θ* | Plateaus at the field where *B* cos *θ* matches (measured) | `edge-channel`, shifted |
 | Same bar, *B* in-plane | Plateau gone | Inhibit (this file) |
 | Split-gate QPC, *B* = 0 | \(n\times 2e^2/h\) steps | `landauer-channel` |
 | Microwave on, *ω* = *ω<sub>c</sub>* | *m\** absorption line | Cyclotron; not the plateau |
@@ -41,7 +42,7 @@ The cyclotron line on the same wafer shares *ω<sub>c</sub>* = *eB/m* and is not
 
 **On.** Perpendicular *B* opens the Landau / mobility gap. Current lives on the edge. *kT* and Hall field stay below the gap.
 
-**Inhibit.** Rotate *B* in-plane, or walk *ν* off a plateau, or overrun the gap with *T* or current, or destroy the 2DEG. The lock disappears.
+**Inhibit.** Rotate *B* in-plane (the plateaus follow *B* cos *θ* on the way, so the inhibit is the end of a continuous shift, not a switch), or walk *ν* off a plateau, or overrun the gap with *T* or current, or destroy the 2DEG. The lock disappears.
 
 **Do not convert.** Pinching the same 2DEG into a short constriction without *B* is not “the plateau at zero field.” It is `landauer-channel`. Gating an island until *E<sub>c</sub>* > *kT* is `energy-gate` (charging), not *R<sub>K</sub>*.
 
@@ -51,7 +52,7 @@ The cyclotron line on the same wafer shares *ω<sub>c</sub>* = *eB/m* and is not
 
 | Parameter | Toward a clean inhibit | Category error |
 |---|---|---|
-| *B* orientation | Perpendicular (on) vs in-plane (off) | Demanding *B* to open QPC steps |
+| *B* orientation | Perpendicular (on) to in-plane (off); in between, plateaus track *B* cos *θ* | Demanding *B* to open QPC steps |
 | Filling *ν* | Sit in a gap, then walk off | Calling off-plateau “the ohm drifted” |
 | *T*, current | Stay below the Landau/mobility gap | Graphene high-*T* plateaus as a second family |
 | Constriction gate | Contrast column at *B* = 0 | Filing those steps as *R<sub>K</sub>/ν* |

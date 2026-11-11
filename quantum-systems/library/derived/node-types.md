@@ -23,7 +23,7 @@ Derived from `design_node` ⋈ `node` and `implication_node`.
 | `neutron` | elementary | 2112 | energy-gate `product` (no design for the UCN well) | photodisintegration; gravity well; CEνNS |
 | `neutrino` | elementary | 12 | energy-gate `input` | CEνNS |
 | `positron` | elementary | −11 | energy-gate `product` | 511 keV line |
-| `phonon` | quasiparticle | — | oscillator-grid `mode` | *ω_D*; *ℓ*; melt of the host grid |
+| `phonon` | quasiparticle | — | oscillator-grid `mode` | top of the measured spectrum (not *ω_D*); *ℓ*; melt of the host grid |
 | `ion` | composite | — | oscillator-grid `matrix`; both latches `matrix` | 3*N* modes; *T_m* |
 | `nucleus` | composite | — | energy-gate `recoil` | no partner ⇒ pair channel closed |
 | `directional-moment` | quasiparticle | — | anisotropy / polar / exchange-pin `latch-cell` | *KV* / polar well vs unlocked Curie |

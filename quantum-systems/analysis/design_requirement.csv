@@ -24,7 +24,7 @@ gapped-condensate,fluxoid-increment-2e,must,h/2e taken.
 gapped-condensate,bec-not-this-condensate,must,BEC stays a contrast.
 gapped-condensate,average-replaced-by-order,should,γT dies when the gap opens.
 chargeless-superflow,zero-hold-power,must,Persistent circulation.
-chargeless-superflow,thermal-cliff,must,Tλ = 2.17 K.
+chargeless-superflow,thermal-cliff,must,Tλ = 2.1768 K.
 chargeless-superflow,chargeless-no-london-lambda,must,No electromagnetic screening length.
 chargeless-superflow,gapped-name-loose,must,Collapse is ρs not 2Δ.
 chargeless-superflow,bec-not-this-condensate,should,Dilute cousin not this liquid.
@@ -37,7 +37,7 @@ oscillator-grid,thermal-cliff,must,Melting is grid loss.
 oscillator-grid,finite-mode-count,must,3N and ωD.
 oscillator-grid,melting-not-derived,must,Tm taken.
 oscillator-grid,underived-grid-couplings,must,Moduli λs d α taken.
-oscillator-grid,coupled-grid-loss,must,Shear κ and Mössbauer f die together at Tm.
+oscillator-grid,coupled-grid-loss,must,As written: shear κ and Mössbauer f fail together at Tm. In tension: only the shear leg holds.
 ensemble-average,no-universal-n,must,Statistical buffer only.
 ensemble-average,defined-constants-not-extracted,must,k and σ are defined.
 ensemble-average,average-replaced-by-order,must,Latch or gap replaces the contributing population.

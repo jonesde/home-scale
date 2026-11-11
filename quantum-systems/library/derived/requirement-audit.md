@@ -24,7 +24,7 @@ anisotropy-latch · polar-latch · gapped-condensate · chargeless-superflow · 
 | anisotropy-latch | Host *T*<sub>C</sub> (Fe 1043 K; Nd₂Fe₁₄B ~585 K) |
 | polar-latch | Ferroelectric *T*<sub>C</sub> (BaTiO₃ ~393 K) |
 | gapped-condensate | Superconducting *T*<sub>c</sub> (Nb 9.25 K … YBCO ~92 K) |
-| chargeless-superflow | *T*λ = 2.17 K |
+| chargeless-superflow | *T*λ = 2.1768 K |
 | oscillator-grid | *T*<sub>m</sub> (ice 273 K … W 3695 K) |
 | exchange-pin | *T*<sub>B</sub> of the pin, **not** FM *T*<sub>C</sub> |
 | phase-space-condensate | *T<sub>c</sub>(n)* — density-set, not *T<sub>λ</sub>* or Curie |
@@ -286,7 +286,7 @@ The Landau / mobility gap that protects a Hall plateau is not a superconducting 
 
 #### `coupled-grid-loss`
 
-Shear speed, crystal phonon *κ*, and Mössbauer recoilless *f* fail together at *T<sub>m</sub>* when the grid stops being a grid. Liquid longitudinal sound and liquid heat transport are different channels. Imposed only by `oscillator-grid`. The number is each host’s melt point — same *kind* as `thermal-cliff`, not Curie or *T<sub>λ</sub>*.
+As first written: shear speed, crystal phonon *κ*, and Mössbauer recoilless *f* fail together at *T<sub>m</sub>* when the grid stops being a grid. Status is now **tension**. The shear leg holds at acoustic frequencies. The *κ* leg holds only for the phonon share; a molten metal still conducts heat. The Mössbauer leg does not hold: *f* falls continuously, starts falling in the solid, and survives in a glass. Liquid longitudinal sound and liquid heat transport are different channels. Imposed only by `oscillator-grid`. The number is each host’s melt point — same *kind* as `thermal-cliff`, not Curie or *T<sub>λ</sub>*.
 
 ### Single-design specs
 

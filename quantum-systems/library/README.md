@@ -175,7 +175,7 @@ Fragment rows for a sourced file carry three optional fields: `basis` (`measured
 
 ### 6. Check the conclusions, not only the numbers
 
-When a file is sourced, each predicted row and each curated requirement status that leans on it is checked against the literature. A predicted row gets a value in its `lit_check` column: `established` (already a measured fact, so not a prediction), `contradicted`, `untested`, or `not-checkable`, with the source and date in its note.
+When a file is sourced, each predicted row and each curated requirement status that leans on it is checked against the literature. A predicted row gets a value in its `lit_check` column: `established` (already a measured fact, so not a prediction), `contradicted`, `untested`, or `not-checkable`, with the source and date in its note. `established` and `contradicted` are transit states, not resting places: an established row is retired into the fact row that states it (the design edge becomes `entails`), and a contradicted row is reworded to what was found, or retired if nothing untested remains. The moves are listed in [`../analysis/README.md`](../analysis/README.md#re-filed-predictions).
 
 ### 7. Depth of review
 

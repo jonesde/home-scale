@@ -97,7 +97,7 @@ A palladium column needs no high pressure. The 2.0 kPa plateau is \(10^{-3}\) of
 | Hydride misfit, Pd | \(3.5\times10^{-2}\) | Lattice parameter 3.889 Å to 4.025 Å (HM §4.3); 870–1000 times the nickel magnetostriction |
 | Hydride misfit, Ni | \(5.9\times10^{-2}\) | 3.5238 Å to 3.731 Å, above 6 kbar only (HM §4.3); 1500–1700 times |
 
-Stress is a separate question from strain. A free body magnetostricts without stress; stress appears only where the strain is constrained, and its ceiling is \(E\lambda_s\), 7.0–8.8 MPa in nickel, which is 4.3–5.4 % of the 163 MPa yield constant (MS §4.3 and §4.5, "clamping"). A loose powder particle is close to the free case. The same reasoning applies to uniform heating of a free particle; thermal stress needs a gradient or a constraint.
+Stress is a separate question from strain. A free body magnetostricts without stress; stress appears only where the strain is constrained, and its ceiling is \(E\lambda_s\), 7.0–8.8 MPa in nickel, which is 4.3–5.4 % of the 163 MPa yield constant (MS §4.3 and §4.5, "clamping"). A loose powder particle is close to the free case. By the same reasoning, uniform heating of a free particle is stress-free and thermal stress needs a gradient or a constraint (inference made here from the elasticity definitions; no source was opened for it).
 
 The field needed is also sourced: an isolated nickel sphere needs about 0.23 T applied to saturate (MS §4.3).
 
@@ -107,7 +107,7 @@ The field needed is also sourced: an isolated nickel sphere needs about 0.23 T a
 
 Ni against Pd against Cu remains a useful control design for three properties: a magnetic host, a hydride former, a plain conductor. It can show whether an effect needs a ferromagnet, needs a hydride phase, or appears in any conductor heated the same way.
 
-It cannot attribute a nickel-only effect to magnetostriction. Nickel differs from palladium in hydrogen content by a factor of \(3.8\times10^{4}\), in hydrogen diffusivity by a factor of 1500, in magnetic hysteresis heating, and in how its permeability changes the eddy-current coupling. Controls that address magnetostriction directly are sourced in MS §4.3: nickel above its Curie point (631 K), where the strain is zero; a peak field below and above the 0.23 T saturation field of a sphere; and Ni with 7 at. % Ga, whose magnetostriction is −10 ppm against −35.
+It cannot attribute a nickel-only effect to magnetostriction. Nickel differs from palladium in hydrogen content by a factor of \(3.8\times10^{4}\), in hydrogen diffusivity by a factor of 1500, and, by inference made here with no sourced number, in magnetic hysteresis heating and in how its permeability changes the eddy-current coupling. Controls that address magnetostriction directly are sourced in MS §4.3: nickel above its Curie point (631 K), where the strain is zero; a peak field below and above the 0.23 T saturation field of a sphere; and Ni with 7 at. % Ga, whose magnetostriction is −10 ppm against −35.
 
 ### 4.3 Clocks
 

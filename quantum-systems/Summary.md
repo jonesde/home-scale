@@ -58,8 +58,8 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 | Mapping confidence | 27 High · 36 Medium · 0 Low (shape-anisotropy and reflection moved to Medium when sourced; the two new entries are Medium) | per-file frontmatter |
 | Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) and [pyroelectric-fusion](library/pyroelectric-fusion.md) (Medium). Unverified outside the sourced files | same |
 | Sourced effects | 63 of 63 (see the Sourced column of the index) | [library/INDEX.md](library/INDEX.md) |
-| Extracted implications | 486 | `analysis/fragments/*.jsonl` |
-| Predicted implications | 41 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
+| Extracted implications | 488 | `analysis/fragments/*.jsonl` |
+| Predicted implications | 20 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
 | Designs | 12 (8 formal; four drafts) | [analysis/design.csv](analysis/design.csv) |
 | Nodes | 11 forced | [library/nodes/INDEX.md](library/nodes/INDEX.md) |
 | Requirements | 38 | [analysis/requirement.csv](analysis/requirement.csv) |
@@ -81,7 +81,7 @@ Those two, plus [photoelectric-threshold](library/photoelectric-threshold.md), a
 
 | `design_key` | Status | One line |
 |---|---|---|
-| `collective-screening` | formal | Connected charged population; dies by buffer starvation or clock overrun |
+| `collective-screening` | formal | Connected charged population; fails by clock overrun or loss of dc continuity; thinning lowers its outputs continuously |
 | `anisotropy-latch` | formal | Barrier-protected directional memory; 0 W hold |
 | `polar-latch` | formal | Electrical twin; remnant *P* at *E* = 0; a large body partitions |
 | `gapped-condensate` | formal | Charged protected mode; *R* = 0 and expulsion are split artifacts |
@@ -105,7 +105,7 @@ All 63 effect files now meet the [sourcing standard](library/README.md#sourcing-
 Then prefer, in order:
 
 1. Tighten a Medium mapping — statistical buffer, mesoscale step (*H*<sub>c</sub> ≪ *H*<sub>a</sub>, *E*<sub>c</sub>, pinning after *H*<sub>c1</sub>), or a taken rather than derived constant.
-2. Correct fragment rows so `observed_text` still quotes the file; rebuild; keep derived sheets in sync. The μCF-era design-down predicted hunt is done (41 predicted rows). Do not mint a second wave unless a new machine or a new formal file creates a coupled test that slate missed.
+2. Correct fragment rows so `observed_text` still quotes the file; rebuild; keep derived sheets in sync. The μCF-era design-down predicted hunt is done. Of its 41 rows, 18 turned out to be measured facts and 3 were contradicted with nothing left to test; those 21 were retired into fact rows on 2026-11-11, and 3 more were reworded to what the literature supports. 20 predicted rows remain: 13 definitional exclusions and 7 untested. Do not mint a second wave unless a new machine or a new formal file creates a coupled test that slate missed.
 3. Add a new effect only when the collapse is sharp and is not already a clause on an existing entry. Update [library/INDEX.md](library/INDEX.md) in the same change.
 4. Add a thirteenth design only when a hardware stack and collapse are not already owned. Do not invent one for every interface. Drafts `phase-space-condensate` and `landauer-channel` own the BEC and QPC leftovers; do not fold them into He-4 or `edge-channel`.
 5. Add a `cataloged` node only under the admission filter in [library/nodes/README.md](library/nodes/README.md) (parent of a forced node, or already named as hardware). Do not vendor PDG. The dark-sector list stays out until a file names those species.

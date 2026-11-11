@@ -111,7 +111,7 @@ Sourcing changed five things. The alkali energies in the first version were meas
 
 The mapping takes the measured edge as the clock specification. It does not derive the period from a more primitive node update, and the free-electron formula it leaned on needs a material-specific correction in four of the six metals tabulated. The same class of gap is recorded on reflection for the decay length.
 
-Contrast case: [photoelectric-threshold](photoelectric-threshold.md) is a single-electron energy gate in the same metals. The plasma edge is collective and set by carrier density and screening; the work function is not. The two can sit near each other in energy (Ag edge 3.8–3.9 eV; Ag work function 4.26–4.74 eV) without being the same constraint.
+Contrast case: [photoelectric-threshold](photoelectric-threshold.md) is a single-electron energy gate in the same metals. The plasma edge is collective and set by carrier density and screening; the work function is not. The two can sit near each other in energy (Ag edge 3.8–3.9 eV; Ag work function 4.26–4.74 eV across crystal faces, 4.33 eV polycrystalline as filed in photoelectric-threshold) without being the same constraint.
 
 ### 4.7 Overall Confidence in the QSA Mapping
 

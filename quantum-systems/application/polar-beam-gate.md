@@ -28,7 +28,7 @@ Two gates in series, two machines:
 | Field engine | `polar-latch` | Pyroelectric Δ*P* on an isolated face writes a potential. Dies at host *T*<sub>C</sub> (`predicted:pyroelectric-fusion:dies-above-host-tc`). Remanent *P* at *E* = 0 is the supporting resource, not the nuclear output. |
 | Nuclear conversion | `energy-gate` | Ordinary beam-target D–D once ions are above about 20 keV (16.3 mb at 100 keV). No muon. *N* small. Product leaves. |
 
-This is **not** [muon-catalyzed fusion](../library/muon-catalyzed-fusion.md). Pyroelectric neutrons, when they exist, track a thermal ramp, not *τ<sub>μ</sub>* (`predicted:pyroelectric-fusion:muon-free-still-not-mucf`). A muon-free hydride coil is **neither** machine.
+This is **not** [muon-catalyzed fusion](../library/muon-catalyzed-fusion.md). Pyroelectric neutrons, when they exist, track a thermal ramp, not *τ<sub>μ</sub>* (measured: `pyroelectric-fusion:consistency_gap:not-mucf-not-lenr`). A muon-free hydride coil is **neither** machine.
 
 Used neutron sources (sealed DT tubes, ²⁵²Cf) are out of scope. The QSA object is the stacked-gate split.
 

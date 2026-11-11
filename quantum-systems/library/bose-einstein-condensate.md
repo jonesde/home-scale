@@ -1,6 +1,6 @@
 ---
 id: bose-einstein-condensate
-title: Bose–Einstein Condensate (Density-Set Coherence Cliff)
+title: Bose–Einstein Condensate (Density-Set Coherence Threshold)
 status: formal
 family: gapped-coherence
 constraints:
@@ -19,11 +19,11 @@ related:
 updated: 2026-11-11
 ---
 
-# Bose–Einstein Condensate (Density-Set Coherence Cliff)
+# Bose–Einstein Condensate (Density-Set Coherence Threshold)
 
 ### 4.1 Effect Name
 
-Bose–Einstein condensate (density-set coherence cliff)
+Bose–Einstein condensate (density-set coherence threshold)
 
 ### 4.2 Macroscopic Observation
 

@@ -1,17 +1,16 @@
 design_key,impl_key,relation,strength,notes
 collective-screening,reflection:hardware_scale:connected-film,entails,must,Own buffer.
 collective-screening,reflection:clock_latency:plasma-period,entails,must,Own clock.
-collective-screening,reflection:failure_mode:thin-film,entails,must,Buffer starvation.
+collective-screening,reflection:failure_mode:thin-film,entails,must,Reflectance falls continuously with thickness; no threshold.
 collective-screening,reflection:emergent_output:zero-extra-power,entails,must,No extra hold-power.
 collective-screening,reflection:consistency_gap:underived-delta,entails,must,Design commits to the gap being real.
 collective-screening,skin-effect:hardware_scale:screening-delta,entails,must,Low-frequency face of the same buffer.
 collective-screening,plasma-frequency-cutoff:clock_latency:plasma-period,entails,must,One plasma clock.
-collective-screening,surface-plasmon-resonance:failure_mode:thickness-window,predicts,must,Sibling artifact of the same thickness cliff.
+collective-screening,surface-plasmon-resonance:failure_mode:thickness-window,entails,must,"Thickness window and fill-fraction regimes, both crossovers. Re-filed 2026-11-11 from predicted:surface-plasmon-resonance:island-film-no-dip: a measured fact, not a prediction."
 collective-screening,plasma-frequency-cutoff:failure_mode:above-omega-p,predicts,must,Sibling artifact of the same clock overrun.
-collective-screening,predicted:surface-plasmon-resonance:dies-above-plasma-edge,predicts,should,Spectral twin: plasma-transparent film loses the SPR dip.
-collective-screening,predicted:surface-plasmon-resonance:island-film-no-dip,predicts,must,Percolation starves Kretschmann SPR.
+collective-screening,surface-plasmon-resonance:failure_mode:above-plasma-edge,entails,should,"Re-filed 2026-11-11 from predicted:surface-plasmon-resonance:dies-above-plasma-edge: a measured fact, not a prediction."
 collective-screening,predicted:skin-effect:same-n-kills-optical-and-rf,predicts,should,One n moves R and δ together.
-collective-screening,predicted:faraday-rotation:metal-collapses-above-edge,predicts,should,Magnetized readout dies with the population.
+collective-screening,predicted:faraday-rotation:metal-film-smooth-across-edge,predicts,should,Reworded: rotation fades smoothly above the edge; metal film untested.
 collective-screening,photoelectric-threshold:hardware_scale:single-electron,incompatible,must,N=1 is not this machine's hardware.
 collective-screening,predicted:photoelectric-threshold:not-the-plasma-edge,predicts,must,φ is not ωp.
 anisotropy-latch,permanent-magnet-latch:hardware_scale:latch-cell,entails,must,Grain is the cliff.
@@ -21,7 +20,7 @@ anisotropy-latch,permanent-magnet-latch:emergent_output:zero-hold-power,entails,
 anisotropy-latch,permanent-magnet-latch:consistency_gap:mesoscale-coercivity,entails,must,Commits to the Hc gap.
 anisotropy-latch,superparamagnetism:failure_mode:under-volume,predicts,must,Volume collapse of the same latch.
 anisotropy-latch,superparamagnetism:energy_barrier:kv,entails,must,Same barrier written as KV.
-anisotropy-latch,predicted:exchange-bias:no-hex-below-kv,predicts,should,A starved grain cannot be pinned.
+anisotropy-latch,exchange-bias:energy_barrier:unidirectional-pin,entails,should,Corrected 2026-11-11: replaces the contradicted conjecture predicted:exchange-bias:no-hex-below-kv.
 anisotropy-latch,predicted:magnetostriction:no-static-lambda-when-unblocked,predicts,should,No held M ⇒ no static λ.
 anisotropy-latch,curie-paramagnetism:energy_barrier:unlocked-no-latch,incompatible,must,Unlocked χ is not the latch barrier.
 anisotropy-latch,predicted:curie-paramagnetism:chi-not-a-latch-spec,predicts,must,Named exclusion.
@@ -30,8 +29,7 @@ polar-latch,ferroelectric-remanence:energy_barrier:polar-well,entails,must,
 polar-latch,ferroelectric-remanence:failure_mode:curie,entails,must,
 polar-latch,ferroelectric-remanence:emergent_output:zero-hold-power,entails,must,
 polar-latch,ferroelectric-remanence:consistency_gap:ec-depolarization,entails,must,Commits to the mesoscale gap.
-polar-latch,ferroelectric-remanence:failure_mode:superparaelectric,predicts,must,Volume twin of KV collapse.
-polar-latch,predicted:ferroelectric-remanence:depolarization-kills-thin-pr,predicts,should,Thin-film depolarization conjecture.
+polar-latch,ferroelectric-remanence:failure_mode:superparaelectric,entails,must,"Net polarization is lost through under-screening: a crossover, not a volume limit. Re-filed 2026-11-11 from predicted:ferroelectric-remanence:depolarization-kills-thin-pr: a measured fact, not a prediction."
 polar-latch,piezoelectricity:failure_mode:ferroelectric-tc,predicts,should,Strain channel dies with the polar phase.
 polar-latch,ferroelectric-domains:hardware_scale:wall-width,entails,must,A large polar body partitions; walls are a measured buffer.
 polar-latch,ferroelectric-domains:failure_mode:saturation,entails,must,E can expel the pattern while Pr remains.
@@ -47,16 +45,16 @@ gapped-condensate,flux-quantization:emergent_output:phi0,entails,must,
 gapped-condensate,josephson-effect:hardware_scale:sis-window,entails,must,
 gapped-condensate,meissner:failure_mode:thin-film,predicts,must,Starve λ ⇒ incomplete expulsion.
 gapped-condensate,type-ii-critical-field:failure_mode:unpinned-flux-flow,predicts,must,Pinning is a resource.
-gapped-condensate,predicted:flux-quantization:no-fluxoid-thinner-than-xi,predicts,should,Need a ξ-class cross-section.
-gapped-condensate,predicted:josephson-effect:lock-fails-above-gap-frequency,predicts,should,Lock rides on 2Δ/h.
-gapped-condensate,predicted:superconductivity:unpinned-vortices-kill-persistent-current,predicts,must,Persistent I needs pinned vortices.
+gapped-condensate,flux-quantization:energy_barrier:phase-slip,entails,should,Corrected 2026-11-11: replaces the contradicted conjecture predicted:flux-quantization:no-fluxoid-thinner-than-xi.
+gapped-condensate,predicted:josephson-effect:steps-persist-above-gap-frequency,predicts,should,Reworded: the lock survives above 2Δ/h with reduced amplitude; untested by measurement.
+gapped-condensate,superconductivity:failure_mode:above-ic,entails,must,"Re-filed 2026-11-11 from predicted:superconductivity:unpinned-vortices-kill-persistent-current: a measured fact, not a prediction."
 gapped-condensate,bose-einstein-condensate:consistency_gap:family-tension,incompatible,must,No pairing gap ⇒ not this condensate.
 gapped-condensate,predicted:quantum-hall-effect:not-a-pairing-condensate,predicts,should,QHE stays off this machine.
 chargeless-superflow,superfluid-helium-4:hardware_scale:connected-liquid,entails,must,
 chargeless-superflow,superfluid-helium-4:energy_barrier:t-lambda,entails,must,
 chargeless-superflow,superfluid-helium-4:emergent_output:circulation-quantum,entails,must,h/m4 not h/2e.
 chargeless-superflow,superfluid-helium-4:emergent_output:zero-hold-power,entails,must,
-chargeless-superflow,superfluid-helium-4:consistency_gap:gapped-name-loose,entails,must,Commits to the loose family name.
+chargeless-superflow,superfluid-helium-4:consistency_gap:gapped-name-loose,entails,must,"Commits to the loose family name. Re-filed 2026-11-11 from predicted:superfluid-helium-4:tl-is-not-tc-n: a measured fact, not a prediction."
 chargeless-superflow,predicted:meissner:no-expulsion-in-he4,predicts,must,No charge ⇒ no χ=−1.
 chargeless-superflow,predicted:bose-einstein-condensate:no-fountain-in-dilute-cloud,predicts,must,Dilute BEC is not a superleak / fountain.
 energy-gate,photoelectric-threshold:hardware_scale:single-electron,entails,must,N=1.
@@ -66,8 +64,8 @@ energy-gate,ionization-threshold:energy_barrier:ionization-energy,entails,must,
 energy-gate,pair-production:failure_mode:no-recoil-partner,entails,must,
 energy-gate,pair-production:energy_barrier:two-mc2,entails,must,
 energy-gate,semiconductor-gap-absorption:energy_barrier:gap,predicts,must,Same gate family.
-energy-gate,predicted:work-function-thermionic:same-face-same-phi,predicts,should,Same-sample φ identity.
-energy-gate,predicted:photoconductivity:edge-equals-absorption-eg,predicts,must,Onset tracks absorption edge.
+energy-gate,work-function-thermionic:energy_barrier:work-function,entails,should,"Re-filed 2026-11-11 from predicted:work-function-thermionic:same-face-same-phi: a measured fact, not a prediction."
+energy-gate,photoconductivity:failure_mode:under-threshold,entails,must,"Re-filed 2026-11-11 from predicted:photoconductivity:edge-equals-absorption-eg: a measured fact, not a prediction."
 energy-gate,photoelectric-threshold:consistency_gap:underived-phi,entails,must,Most gate energies are taken.
 energy-gate,muon-catalyzed-fusion:hardware_scale:muon-plus-two-nuclei,entails,must,Nuclear hydrogen gate needs the muon.
 energy-gate,muon-catalyzed-fusion:failure_mode:no-muon,entails,must,No muon ⇒ channel closed.
@@ -77,7 +75,7 @@ energy-gate,deuteron-photodisintegration:energy_barrier:binding,entails,must,Nuc
 energy-gate,pyroelectric-fusion:failure_mode:no-field-or-no-d,entails,should,Beam-target D–D still needs a field and D.
 gapped-condensate,quantum-point-contact:consistency_gap:not-qhe,predicts,should,QPC stays off this machine.
 gapped-condensate,aharonov-bohm:consistency_gap:not-pair-quantum,predicts,should,h/e stays off the pair increment.
-oscillator-grid,mossbauer-effect:failure_mode:no-lattice,entails,should,Recoilless channel dies with the grid.
+oscillator-grid,mossbauer-effect:failure_mode:no-lattice,entails,should,"Recoilless channel dies with the grid. Re-filed 2026-11-11 from predicted:mossbauer-effect:f-dies-at-tm: a measured fact, not a prediction."
 polar-latch,pyroelectric-fusion:hardware_scale:crystal-plus-d,predicts,should,Polar engine can write a beam voltage.
 edge-channel,quantum-hall-effect:hardware_scale:2deg,entails,must,2DEG.
 edge-channel,quantum-hall-effect:clock_latency:cyclotron,entails,must,ωc.
@@ -88,60 +86,55 @@ edge-channel,quantum-hall-effect:failure_mode:thermal-current,entails,must,
 edge-channel,quantum-hall-effect:emergent_output:rk-plateau,entails,must,RH = h/νe².
 edge-channel,quantum-hall-effect:consistency_gap:underived-rk,entails,must,RK taken.
 edge-channel,predicted:quantum-hall-effect:not-a-pairing-condensate,predicts,must,Not the pairing condensate.
-edge-channel,predicted:edge-channel:qpc-is-not-this-edge,predicts,must,QPC stays off this machine.
+edge-channel,quantum-point-contact:consistency_gap:not-qhe,entails,must,"Re-filed 2026-11-11 from predicted:edge-channel:qpc-is-not-this-edge: a measured fact, not a prediction."
 edge-channel,predicted:edge-channel:qshe-cousin-if-filed,predicts,should,Second core member not yet filed.
 phase-space-condensate,bose-einstein-condensate:hardware_scale:phase-space-density,entails,must,
 phase-space-condensate,bose-einstein-condensate:energy_barrier:tc-n,entails,must,
 phase-space-condensate,bose-einstein-condensate:failure_mode:above-tc,entails,must,
-phase-space-condensate,bose-einstein-condensate:failure_mode:density-drop,entails,must,
+phase-space-condensate,bose-einstein-condensate:failure_mode:density-drop,entails,must,"Re-filed 2026-11-11 from predicted:bose-einstein-condensate:trap-off-is-null: a measured fact, not a prediction."
 phase-space-condensate,bose-einstein-condensate:emergent_output:mode-occupation,entails,must,
 phase-space-condensate,bose-einstein-condensate:consistency_gap:family-tension,entails,must,
 phase-space-condensate,predicted:bose-einstein-condensate:no-fountain-in-dilute-cloud,predicts,must,Not chargeless-superflow.
 landauer-channel,quantum-point-contact:hardware_scale:ballistic-constriction,entails,must,
 landauer-channel,quantum-point-contact:energy_barrier:subband-edges,entails,must,
 landauer-channel,quantum-point-contact:failure_mode:pinch-off,entails,must,
-landauer-channel,quantum-point-contact:emergent_output:two-e-squared-over-h,entails,must,
-landauer-channel,quantum-point-contact:consistency_gap:not-qhe,entails,must,
-landauer-channel,predicted:edge-channel:qpc-is-not-this-edge,predicts,must,Same split seen from this side.
-phase-space-condensate,predicted:bose-einstein-condensate:trap-off-is-null,predicts,must,Atomic form of not-zero-hold-power.
+landauer-channel,quantum-point-contact:emergent_output:two-e-squared-over-h,entails,must,"Re-filed 2026-11-11 from predicted:quantum-point-contact:steps-survive-at-zero-b: a measured fact, not a prediction."
+landauer-channel,quantum-point-contact:consistency_gap:not-qhe,entails,must,"Re-filed 2026-11-11 from predicted:edge-channel:qpc-is-not-this-edge: a measured fact, not a prediction."
 phase-space-condensate,predicted:bose-einstein-condensate:no-meissner-no-london,predicts,must,Not a London superconductor.
-phase-space-condensate,predicted:superfluid-helium-4:tl-is-not-tc-n,predicts,must,Tλ is not Tc(n).
-chargeless-superflow,predicted:superfluid-helium-4:tl-is-not-tc-n,predicts,should,Same split seen from the He-4 side.
-landauer-channel,predicted:quantum-point-contact:steps-survive-at-zero-b,predicts,must,No Landau ladder required.
-landauer-channel,predicted:coulomb-blockade:diamonds-are-not-landauer-steps,predicts,must,Charging is a different machine.
-energy-gate,predicted:coulomb-blockade:diamonds-are-not-landauer-steps,predicts,should,Same split seen from the gate side.
+phase-space-condensate,superfluid-helium-4:consistency_gap:gapped-name-loose,entails,must,"Re-filed 2026-11-11 from predicted:superfluid-helium-4:tl-is-not-tc-n: a measured fact, not a prediction."
+landauer-channel,coulomb-blockade:failure_mode:thermal-or-open,entails,must,"Re-filed 2026-11-11 from predicted:coulomb-blockade:diamonds-are-not-landauer-steps: a measured fact, not a prediction."
+energy-gate,coulomb-blockade:failure_mode:thermal-or-open,entails,should,"Re-filed 2026-11-11 from predicted:coulomb-blockade:diamonds-are-not-landauer-steps: a measured fact, not a prediction."
 edge-channel,predicted:cyclotron-resonance:same-omega-c-not-a-plateau,predicts,should,Same eB/m; different output.
-edge-channel,predicted:coulomb-blockade:rq-is-not-rk,predicts,must,RQ floor is not a Hall plateau.
+edge-channel,predicted:coulomb-blockade:rq-is-not-rk,predicts,must,The h/e² scale of charge quantization is not a Hall plateau.
 energy-gate,predicted:coulomb-blockade:rq-is-not-rk,predicts,should,Same h/e² bricks; different role.
 energy-gate,predicted:deuteron-photodisintegration:photon-is-not-a-muon,predicts,must,Opposite arrow on the same two nucleons.
-energy-gate,predicted:pyroelectric-fusion:muon-free-still-not-mucf,predicts,must,Pyro neutrons do not die with τμ.
 energy-gate,predicted:coulomb-blockade:ec-is-not-phi,predicts,must,Charging is not the surface work function.
 energy-gate,predicted:coherent-neutrino-scattering:no-ibd-threshold,predicts,should,Coherence window, not a 1.8 MeV gate.
-oscillator-grid,predicted:mossbauer-effect:f-dies-at-tm,predicts,must,Third melt twin.
 polar-latch,predicted:pyroelectric-fusion:dies-above-host-tc,predicts,must,Field engine dies with the polar host.
-collective-screening,predicted:casimir-force:starved-faces-kill-force,predicts,should,Screening starvation starves Casimir contrast.
+collective-screening,predicted:casimir-force:islanded-faces-reduce-not-remove,predicts,should,Reworded: poorer screening lowers the force; it does not remove it.
 energy-gate,deuteron-photodisintegration:failure_mode:under-threshold,entails,must,Under-threshold non-occurrence of the unbinding gate.
-energy-gate,pyroelectric-fusion:consistency_gap:not-mucf-not-lenr,entails,must,Commits to the split from μCF and the hydride cell.
+energy-gate,pyroelectric-fusion:consistency_gap:not-mucf-not-lenr,entails,must,"Commits to the split from μCF and the hydride cell. Re-filed 2026-11-11 from predicted:pyroelectric-fusion:muon-free-still-not-mucf: a measured fact, not a prediction."
 oscillator-grid,mossbauer-effect:consistency_gap:line-not-underthreshold,entails,should,14.4 keV is the payload, not an energy-gate cliff.
 oscillator-grid,phonon-dispersion:hardware_scale:crystalline-grid,entails,must,
 oscillator-grid,phonon-dispersion:clock_latency:allowed-clock-table,entails,must,ω(q).
 oscillator-grid,debye-cutoff:hardware_scale:three-n-modes,entails,must,3N.
 oscillator-grid,melting:failure_mode:tm-cliff,entails,must,Grid loss.
 oscillator-grid,melting:consistency_gap:lindemann-not-derived,entails,must,
-oscillator-grid,predicted:speed-of-sound:shear-dies-at-melt,predicts,must,G → 0 at Tm.
-oscillator-grid,predicted:thermal-conductivity-phonon:kappa-dies-at-tm,predicts,must,Crystal κ dies with the grid.
-oscillator-grid,predicted:phonon-dispersion:soft-mode-before-tm,predicts,should,Optional precursor; first-order melts may skip it.
+oscillator-grid,speed-of-sound:failure_mode:no-shear-fluid,entails,must,"Re-filed 2026-11-11 from predicted:speed-of-sound:shear-dies-at-melt: a measured fact, not a prediction."
+oscillator-grid,thermal-conductivity-phonon:failure_mode:grid-loss,entails,must,"Re-filed 2026-11-11 from predicted:thermal-conductivity-phonon:kappa-dies-at-tm: a measured fact, not a prediction."
+oscillator-grid,phonon-dispersion:failure_mode:soft-mode,entails,should,Corrected 2026-11-11: replaces the contradicted conjecture predicted:phonon-dispersion:soft-mode-before-tm.
 ensemble-average,thermal-equilibrium-temperature:hardware_scale:one-over-sqrt-n,entails,must,Statistical buffer.
 ensemble-average,thermal-equilibrium-temperature:consistency_gap:underived-k-and-n,entails,must,k not extracted.
 ensemble-average,stefan-boltzmann:consistency_gap:defined-sigma,entails,must,σ defined.
 ensemble-average,curie-paramagnetism:failure_mode:order-lock,predicts,must,Latch replaces the average.
 ensemble-average,electron-heat-capacity:failure_mode:superconducting-gap,predicts,must,Gap replaces γT.
-ensemble-average,predicted:thermal-equilibrium-temperature:few-spin-no-stable-t,predicts,must,Negative experiment for the missing N-cliff.
+ensemble-average,thermal-equilibrium-temperature:failure_mode:underpopulated,entails,must,"Re-filed 2026-11-11 from predicted:thermal-equilibrium-temperature:few-spin-no-stable-t: a measured fact, not a prediction."
 ensemble-average,predicted:ensemble-average:shot-noise-is-not-this-machine,predicts,should,Shot noise is a different machine; no effect file yet.
-exchange-pin,exchange-bias:hardware_scale:nested-latches,entails,must,Bilayer is the hardware.
-exchange-pin,exchange-bias:failure_mode:blocking,entails,must,TB not FM Tc.
+exchange-pin,exchange-bias:hardware_scale:nested-latches,entails,must,"Bilayer is the hardware. Re-filed 2026-11-11 from predicted:ferromagnetic-hysteresis:unshifted-loop-without-afm: a measured fact, not a prediction."
+exchange-pin,exchange-bias:failure_mode:blocking,entails,must,"TB not FM Tc. Re-filed 2026-11-11 from predicted:exchange-bias:hex-gone-above-tb-while-fm-latched: a measured fact, not a prediction."
 exchange-pin,exchange-bias:emergent_output:zero-hold-power,entails,must,
 exchange-pin,exchange-bias:consistency_gap:interface-jex,entails,must,
-exchange-pin,predicted:exchange-bias:hex-gone-above-tb-while-fm-latched,predicts,must,The split that justifies a ninth design.
-exchange-pin,predicted:ferromagnetic-hysteresis:unshifted-loop-without-afm,predicts,must,No pin ⇒ Hex → 0.
-exchange-pin,predicted:exchange-bias:no-hex-below-kv,predicts,should,Also predicted from the parent latch.
+exchange-pin,exchange-bias:energy_barrier:unidirectional-pin,entails,should,Corrected 2026-11-11: replaces the contradicted conjecture predicted:exchange-bias:no-hex-below-kv.
+gapped-condensate,josephson-effect:failure_mode:above-gap-frequency,entails,should,Amplitude peaks at 2Δ/h and rolls off; the 2e/h ratio is unchanged (model result).
+collective-screening,casimir-force:hardware_scale:gap,entails,should,"Corrected 2026-11-11: thin or visibly transparent faces give a reduced force, not none."
+collective-screening,faraday-rotation:failure_mode:verdet-gone,entails,should,Corrected 2026-11-11: plasma rotation is measured above the plasma edge and fades as λ².

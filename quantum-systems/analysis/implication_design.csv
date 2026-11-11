@@ -1,7 +1,7 @@
 impl_key,design_key,membership,notes
 reflection:hardware_scale:connected-film,collective-screening,core,Connected buffer
 reflection:clock_latency:plasma-period,collective-screening,core,Collective clock
-reflection:failure_mode:thin-film,collective-screening,core,Buffer starvation
+reflection:failure_mode:thin-film,collective-screening,core,Thickness crossover
 reflection:failure_mode:above-plasma-edge,collective-screening,core,Clock overrun
 reflection:emergent_output:phase-reversed-R,collective-screening,core,
 reflection:emergent_output:zero-extra-power,collective-screening,core,
@@ -304,5 +304,5 @@ quantum-point-contact:failure_mode:pinch-off,landauer-channel,core,
 quantum-point-contact:emergent_output:two-e-squared-over-h,landauer-channel,core,
 quantum-point-contact:consistency_gap:not-qhe,landauer-channel,core,
 quantum-point-contact:clock_latency:transit,landauer-channel,supporting,
-
-
+surface-plasmon-resonance:failure_mode:above-plasma-edge,collective-screening,core,Spectral existence condition of the bound mode
+josephson-effect:failure_mode:above-gap-frequency,gapped-condensate,supporting,Amplitude roll-off above 2Δ/h (model)

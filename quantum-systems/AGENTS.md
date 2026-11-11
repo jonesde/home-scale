@@ -409,7 +409,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-Load (after a clean rebuild): 63 `effect` · 188 `effect_constraint` · 527 `implication` (486 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 617 `source` (63 of 63 effects sourced) · 1053 `implication_source`.
+Load (after a clean rebuild): 63 `effect` · 188 `effect_constraint` · 508 `implication` (488 extracted, 20 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 617 `source` (63 of 63 effects sourced) · 1056 `implication_source`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 
@@ -544,7 +544,7 @@ python3 analysis/rebuild.py
 - **Science change** → edit `library/{slug}.md` (and `INDEX.md` if status/mapping/collapse/notes changed). Then edit the matching fragment row so `observed_text` still quotes the file.
 - **Sourcing a file** → open each reference, tag every §4.3 bullet, add `[S#]` keys and the Sources table, label each failure mode threshold or crossover, add `basis` / `form` / `sources` to its fragment rows, put any computed number in `analysis/computed_checks.py`, and check the predicted rows and requirement statuses that lean on the file. Full rules: [library/README.md](library/README.md#sourcing-standard).
 - **Extracted mapping change** → edit `analysis/fragments/*.jsonl`, not `implication.csv`.
-- **Conjecture** → `predicted_implication.csv` + a `design_implication` row with `relation = predicts`. When the literature has been checked, set `lit_check`; an `established` row is a measured fact and belongs in the effect file as well.
+- **Conjecture** → `predicted_implication.csv` + a `design_implication` row with `relation = predicts`. When the literature has been checked, set `lit_check`. A row that comes back `established` is a measured fact: put the fact in the effect file and its fragment row, point the design edge at that row with `relation = entails`, and delete the predicted row. A row that comes back `contradicted` is reworded to what was found; if nothing untested is left it is retired the same way. Record either move in the re-filing table of [analysis/README.md](analysis/README.md#re-filed-predictions).
 - **Fragment rows** → edit through `analysis/fragtools.py` so untouched lines stay byte-identical.
 - **Machine assembly** → `design.csv` and the three junction/requirement CSVs. Then update `library/derived/` so the sheets still match.
 - **New effect** → copy `_template.md`, fill all seven sections, add an INDEX row in the same change, add fragment rows (rebuild fails if a formal file has zero implications).

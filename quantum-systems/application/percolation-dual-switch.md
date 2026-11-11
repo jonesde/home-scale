@@ -8,7 +8,7 @@ envelope: MEMS / thin-film lab; packaged clutch would be the later consumer form
 # Application: Percolation dual switch
 
 **Device.** A single metal film (Ag, Au, Al class) used as both a visible reflector and one face of a sub-μm conducting-plate gap. As first written, the device was the **shared starve**: below percolation, or above the plasma / interband edge, specular *R* and the conducting-plate Casimir class were to die together. The measurements do not show that coupled collapse (note below). What they support is a film with three readouts of which only one, dc conductance, switches.
-**QSA machines.** `collective-screening` (core); Casimir as supporting contrast on the same population (`predicted:casimir-force:starved-faces-kill-force`).
+**QSA machines.** `collective-screening` (core); Casimir as supporting contrast on the same population (`predicted:casimir-force:islanded-faces-reduce-not-remove`).
 **Status.** Working application of `coupled-screening-failure` as a dual output, now with that requirement contradicted as worded. Not an SPR immunoassay chip and not a Casimir metrology bench. **Not a MEMS process spec.**
 **Envelope.** Thin-film / MEMS lab. Stiction is industrial; a packaged clutch is the consumer form if anyone later builds one.
 
@@ -28,7 +28,7 @@ envelope: MEMS / thin-film lab; packaged clutch would be the later consumer form
 |---|---|---|---|
 | Continuous and thick, *ω* below the edge | High | Bulk-like | Present. For thick Au, Cu or Al, 0.48–0.55 of the ideal-plate value at 0.1 μm |
 | Continuous, thinner than the optical decay length | Lower, smoothly (Ag at 550 nm: 39 % at 10 nm, 14 % at 5 nm) | Present | Measured: reduced, not zero (9 nm Pd) |
-| Islanded / below percolation | Lower; island-plasmon band; no step at the transition (measured in Au) | **Lost. This is the threshold** | Not measured. First written as "should collapse" (`predicted:casimir-force:starved-faces-kill-force`); untested |
+| Islanded / below percolation | Lower; island-plasmon band; no step at the transition (measured in Au) | **Lost. This is the threshold** | Not measured. Expected reduced, not zero (`predicted:casimir-force:islanded-faces-reduce-not-remove`, untested); first written as "should collapse", which transparent and thin faces contradict |
 | Continuous but transparent in the visible | Low in the visible | Present | Measured: 40–50 % below Au–Au for indium tin oxide; no significant change for a hydride mirror switched to transparent. First written as "should collapse"; contradicted |
 | Dielectric / no metal | Not this mirror | None | Different, weaker Lifshitz channel if any |
 

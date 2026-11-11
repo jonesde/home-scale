@@ -83,13 +83,13 @@ Not a dilute BEC. Not integer QHE.
 
 ## chargeless-superflow
 
-Liquid ⁴He below the λ-point: superflow and a fountain / superleak without electric charge. No London depth, no Meissner expulsion, no Josephson voltage–frequency lock. Circulation is quantized as *h*/*m*₄, not *h*/2*e*. The 2.17 K cliff is not the density-set *T<sub>c</sub>* of a trapped alkali cloud.
+Liquid ⁴He below the λ-point: superflow and a fountain / superleak without electric charge. No London depth, no Meissner expulsion, no Josephson voltage–frequency lock. Circulation is quantized as *h*/*m*₄, not *h*/2*e*. The λ-point at 2.1768 K is not the density-set *T<sub>c</sub>* of a trapped alkali cloud.
 
 | Spec | Commitment | Source class |
 |---|---|---|
 | Buffer | Connected ⁴He with nonzero *ρ*<sub>s</sub> | Superleak / film as apparatus filter |
 | Clock | No *e*, no *V*–*ν* lock | Circulation quantum *h*/*m*₄ ≈ 9.97×10⁻⁸ m²/s |
-| Barrier | *T*λ = 2.17 K; geometry-dependent *v*<sub>c</sub> | Loss of *ρ*<sub>s</sub>, not a pairing gap |
+| Barrier | *T*λ = 2.1768 K; geometry-dependent *v*<sub>c</sub> | Loss of *ρ*<sub>s</sub>, not a pairing gap |
 | Hold-power | Persistent circulation, 0 W | |
 | Dominant erase | *T* > *T*λ; *v* > *v*<sub>c</sub>; solidification | |
 | Open | Family name “gapped” is loose | `gapped-name-loose` |
@@ -117,7 +117,7 @@ One discrete conversion at a time (*N* = 1): a photon above the work function, a
 
 ## oscillator-grid
 
-The crystal as a finite set of coupled mechanical oscillators (3*N* modes, a Debye ceiling). Allowed clocks are the measured phonon branches. There is no stored configuration unless some other machine latches on this grid. Melting takes the grid away: shear sound, crystal phonon heat current, and Mössbauer recoilless fraction fail together. A liquid still carries a longitudinal speed.
+The crystal as a finite set of coupled mechanical oscillators (3*N* modes, with a highest frequency at the top of the measured spectrum; the Debye frequency is a fitted summary and falls below that top in silicon and diamond). Allowed clocks are the measured phonon branches. There is no stored configuration unless some other machine latches on this grid. Melting takes the grid away. Shear sound stops in a step at *T<sub>m</sub>*, and the crystal's phonon heat current ends there, though a metal goes on conducting heat through its electrons. The Mössbauer recoilless fraction is different: it falls continuously, starts falling in the solid through self-diffusion, and survives in a glass. A liquid still carries a longitudinal speed.
 
 | Spec | Commitment | Source class |
 |---|---|---|
@@ -128,7 +128,7 @@ The crystal as a finite set of coupled mechanical oscillators (3*N* modes, a Deb
 | Dominant erase | *T* → *T*<sub>m</sub> (Bragg gone, *G* → 0); yield / fracture; *ω* > *ω*<sub>D</sub> | Ice 273 K; Al 933 K; W 3695 K |
 | Open | *T*<sub>m</sub> and moduli / *λ*<sub>s</sub> / *d* / *α* taken | Lindemann is a criterion |
 
-Shear sound, crystal phonon *κ*, and Mössbauer *f* die together at melt; a liquid still carries a longitudinal speed. The 14.4 keV line is the payload, not an under-threshold gate.
+Shear sound stops at melting and the crystal's phonon *κ* ends with it; a liquid still carries a longitudinal speed. Mössbauer *f* is not tied to that point: it falls continuously and needs a binding solid, crystalline or glassy. The 14.4 keV line is the payload, not an under-threshold gate.
 
 ---
 

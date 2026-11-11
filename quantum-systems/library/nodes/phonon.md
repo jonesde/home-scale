@@ -26,7 +26,7 @@ Phonon. Quasiparticle / allowed clock of the ion grid. No PDG MC ID — do not i
 ### 2. Taken specifications
 
 - Not a rest-mass species. Statistics treated as boson (mode occupation).
-- Allowed clocks are the measured *ω*(**q**). Ceiling *ω_D* / *Θ_D* is taken from the Debye entry.
+- Allowed clocks are the measured *ω*(**q**). The ceiling is the top of the measured spectrum; *ω_D* / *Θ_D* from the Debye entry is a fitted summary that falls below it in silicon and diamond.
 - Lifetime is the mean free path / scattering time of [`thermal-conductivity-phonon`](../thermal-conductivity-phonon.md), not a PDG width.
 
 ### 3. Forced by

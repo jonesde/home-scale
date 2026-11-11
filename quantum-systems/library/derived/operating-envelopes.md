@@ -82,8 +82,8 @@ Nodes: `electron` `single`; `photon` `input`; `positron` `product`; `nucleus` `r
 
 | | |
 |---|---|
-| **Inside** | Ordered ion grid; drive on an allowed *ω*(**q**) below *ω_D*; *T* below *T_m*; *ℓ* finite for heat current. Long-wave *v_s* = √(*C*/*ρ*). |
-| **Outside** | *ω > ω_D* (mode absent); *T → T_m* (shear, crystal *κ*, and Mössbauer *f* together); yield / fracture; *ℓ* collapsed. |
+| **Inside** | Ordered ion grid; drive on an allowed *ω*(**q**) below the top of the measured spectrum; *T* below *T_m*; *ℓ* finite for heat current. Long-wave *v_s* = √(*C*/*ρ*). |
+| **Outside** | *ω* above the top of the spectrum (mode absent); *T → T_m* (shear sound and the crystal's phonon *κ* end; Mössbauer *f* has already fallen continuously in the solid); yield / fracture; *ℓ* collapsed. |
 
 Nodes: `ion` `matrix`; `phonon` `mode`.
 

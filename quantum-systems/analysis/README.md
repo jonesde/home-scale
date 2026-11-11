@@ -4,7 +4,7 @@ Markdown in [`library/`](../library/) is the science source of truth. This direc
 
 Working database: `qs-analysis.db` at the repo root. It is a local build artifact (gitignored). Commit the text: `fragments/*.jsonl`, `implication.csv`, `predicted_implication.csv`, `design*.csv`, `schema.sql`.
 
-Load: 63 `effect` · 188 `effect_constraint` · 527 `implication` (486 extracted, 41 predicted) · 12 `design` · 11 `node` (all `forced`) · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 617 `source` (63 of 63 effects sourced) · 1053 `implication_source`. 97 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
+Load: 63 `effect` · 188 `effect_constraint` · 508 `implication` (488 extracted, 20 predicted) · 12 `design` · 11 `node` (all `forced`) · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 617 `source` (63 of 63 effects sourced) · 1056 `implication_source`. 97 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
 
 Rebuild (stdlib Python 3 only — no pip):
 
@@ -96,7 +96,7 @@ Two arrows between the same entities:
 
 A pair may exist in both tables. That is not a duplicate: one edge is evidence, the other is commitment.
 
-Predicted implications (`origin = predicted`, `impl_key` starts with `predicted:`) are conjectures minted from a design. They appear only on the downward arrow, always as `relation = predicts`. Rebuild fails if one is used as evidence. `effect_slug` may be an existing effect (claim about a filed phenomenon) or NULL (phenomenon not in the library yet). `observed_text` on a prediction is “what would be observed if this is right.”
+Predicted implications (`origin = predicted`, `impl_key` starts with `predicted:`) are conjectures minted from a design. They appear only on the downward arrow, always as `relation = predicts`. A prediction that the literature settles does not stay here: see [Re-filed predictions](#re-filed-predictions). Rebuild fails if one is used as evidence. `effect_slug` may be an existing effect (claim about a filed phenomenon) or NULL (phenomenon not in the library yet). `observed_text` on a prediction is “what would be observed if this is right.”
 
 `implication_design.membership`: `core` (load-bearing) · `supporting` (consistent, not load-bearing) · `contrast` (bounds the machine from outside).
 
@@ -316,6 +316,44 @@ ORDER BY family, slug;
 ```
 
 ---
+
+## Re-filed predictions
+
+Predicted rows are checked against the literature (`lit_check`). On 2026-11-11 the rows that had come back `established` or `contradicted` were moved out of `predicted_implication.csv`, so that file now holds only conjectures that are untested or not checkable. Each design edge that pointed at a retired row now points at the fact row, with `relation = entails`.
+
+| Retired key (`predicted:` + …) | Literature check | Now stated by |
+|---|---|---|
+| `surface-plasmon-resonance:dies-above-plasma-edge` | established | `surface-plasmon-resonance:failure_mode:above-plasma-edge` |
+| `surface-plasmon-resonance:island-film-no-dip` | established | `surface-plasmon-resonance:failure_mode:thickness-window` |
+| `ferroelectric-remanence:depolarization-kills-thin-pr` | established | `ferroelectric-remanence:failure_mode:superparaelectric` |
+| `superconductivity:unpinned-vortices-kill-persistent-current` | established | `superconductivity:failure_mode:above-ic` |
+| `work-function-thermionic:same-face-same-phi` | established | `work-function-thermionic:energy_barrier:work-function` |
+| `photoconductivity:edge-equals-absorption-eg` | established | `photoconductivity:failure_mode:under-threshold` |
+| `thermal-conductivity-phonon:kappa-dies-at-tm` | established | `thermal-conductivity-phonon:failure_mode:grid-loss` |
+| `speed-of-sound:shear-dies-at-melt` | established | `speed-of-sound:failure_mode:no-shear-fluid` |
+| `thermal-equilibrium-temperature:few-spin-no-stable-t` | established | `thermal-equilibrium-temperature:failure_mode:underpopulated` |
+| `exchange-bias:hex-gone-above-tb-while-fm-latched` | established | `exchange-bias:failure_mode:blocking` |
+| `ferromagnetic-hysteresis:unshifted-loop-without-afm` | established | `exchange-bias:hardware_scale:nested-latches` |
+| `edge-channel:qpc-is-not-this-edge` | established | `quantum-point-contact:consistency_gap:not-qhe` |
+| `quantum-point-contact:steps-survive-at-zero-b` | established | `quantum-point-contact:emergent_output:two-e-squared-over-h` |
+| `bose-einstein-condensate:trap-off-is-null` | established | `bose-einstein-condensate:failure_mode:density-drop` |
+| `superfluid-helium-4:tl-is-not-tc-n` | established | `superfluid-helium-4:consistency_gap:gapped-name-loose` |
+| `coulomb-blockade:diamonds-are-not-landauer-steps` | established | `coulomb-blockade:failure_mode:thermal-or-open` |
+| `pyroelectric-fusion:muon-free-still-not-mucf` | established | `pyroelectric-fusion:consistency_gap:not-mucf-not-lenr` |
+| `mossbauer-effect:f-dies-at-tm` | established | `mossbauer-effect:failure_mode:no-lattice` |
+| `exchange-bias:no-hex-below-kv` | contradicted | `exchange-bias:energy_barrier:unidirectional-pin` |
+| `flux-quantization:no-fluxoid-thinner-than-xi` | contradicted | `flux-quantization:energy_barrier:phase-slip` |
+| `phonon-dispersion:soft-mode-before-tm` | contradicted | `phonon-dispersion:failure_mode:soft-mode` |
+
+Three contradicted rows kept an untested remainder and were reworded and renamed, with `lit_check = untested`. The first wording and what contradicted it are in each row's note.
+
+| First key | Reworded key | What changed |
+|---|---|---|
+| `faraday-rotation:metal-collapses-above-edge` | `faraday-rotation:metal-film-smooth-across-edge` | Rotation in a plasma is measured far above the plasma frequency and fades as λ²; the metal-film case is untested. |
+| `josephson-effect:lock-fails-above-gap-frequency` | `josephson-effect:steps-persist-above-gap-frequency` | The calculated response peaks at the gap frequency and rolls off; the ratio 2e/h is unchanged. No measurement above the gap frequency was opened. |
+| `casimir-force:starved-faces-kill-force` | `casimir-force:islanded-faces-reduce-not-remove` | Transparent and thin faces give a reduced force, not none; islanded faces are untested. |
+
+For a contradicted row the fact row states the finding that replaced the conjecture, not the conjecture.
 
 ## Future tables (not in this schema)
 
