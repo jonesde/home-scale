@@ -6,7 +6,10 @@ Every default below is an ASSUMPTION until measured (see em-csam/TestPlan.md):
 
   esr       25 mOhm per 4700 uF can at 1-10 kHz (Nichicon publishes no HF ESR)
   r_fixed   4 mOhm  (conducting FET group + bars/joints + air-core coil)
-  r_rail    34 mOhm/m for both rails together (skin-limited, ~1 kHz pulse)
+  r_rail    34 mOhm/m for both rails together: current in the outer 2 mm of two 0.5 mm-thick
+            copper rails. Conservative. A 0.2-0.7 ms pulse diffuses 3-5 mm into copper, so it
+            largely fills a 3-4 mm rail; the DC value of a 4 x 0.5 mm pair is 17 mOhm/m.
+            Table 12 shows what that range does to the result.
   lprime    0.4 uH/m (plausible range 0.3-0.5 for flat side-by-side rails)
   r_slug    0.2 mOhm (a well-sintered slug; loose paste is orders of magnitude higher)
   v_diode   1.3 V (LS body diodes carrying the freewheel tail)
@@ -40,6 +43,10 @@ ACTION_MELT = {"Cu": 8.0e16, "Al": 2.5e16, "Fe": 1.3e16, "Zn": 1.1e16, "Sn": 1.7
 DENSITY = {"Cu": 8960, "Al": 2700, "Fe": 7870, "Zn": 7140, "Sn": 7300}
 # Cold-spray critical velocity windows at 20 um, m/s (Schmidt et al. 2009). Fe uses the 316L window.
 V_CRIT = {"Sn": (160, 180), "Zn": (360, 380), "Cu": (460, 500), "Al": (620, 660), "Fe": (700, 750)}
+# Measured critical velocity, m/s, where one was opened (Cu, 5-22 um powder; see
+# quantum-systems/application/EM-CSAM.md section 2.3).
+V_CRIT_MEASURED = {"Cu": 570}
+LPRIME, LPRIME_RANGE = 0.4e-6, (0.3e-6, 0.5e-6)   # planning value and range, H/m
 # (density, cp, T_melt K, indicative tensile strength Pa) for the Schmidt 2006 formula.
 # Strengths are picked inside handbook ranges so the formula lands in the published windows;
 # use the function for the trend with temperature, not for absolute values.
@@ -252,11 +259,18 @@ def tables():
         r = shot(b=0.8, mass=0.5e-6, r_slug=r_slug)
         print(f"  R_slug={r_slug * 1e3:6.1f} mOhm: v={r['v']:4.0f} m/s  slug={r['e_slug'] :5.2f} J = {r['e_slug_per_kg'] / 1e6:5.2f} MJ/kg ({r['state']})")
 
-    print("\n## 10. Action margin: melt-onset velocity per mm of solid slug vs cold-spray critical velocity (L'=0.45)")
+    print(f"\n## 10. Action margin: melt-onset velocity per mm of solid slug vs cold-spray critical velocity "
+          f"(L'={LPRIME * 1e6:.1f}, range {LPRIME_RANGE[0] * 1e6:.1f}-{LPRIME_RANGE[1] * 1e6:.1f} uH/m)")
     for mat in ("Cu", "Al", "Zn", "Fe", "Sn"):
-        vmax = ACTION_MELT[mat] * 1e-3 * 0.45e-6 / (2 * DENSITY[mat])
+        vmax, vlo, vhi = (ACTION_MELT[mat] * 1e-3 * lp / (2 * DENSITY[mat]) for lp in (LPRIME,) + LPRIME_RANGE)
         lo, hi = V_CRIT[mat]
-        print(f"  {mat}: melt onset at {vmax:5.0f} m/s per mm of slug; critical velocity {lo}-{hi}; margin {vmax / ((lo + hi) / 2):4.2f}")
+        mid = (lo + hi) / 2
+        line = (f"  {mat}: melt onset at {vmax:5.0f} m/s per mm of slug ({vlo:.0f}-{vhi:.0f}); critical velocity {lo}-{hi}; "
+                f"margin {vmax / mid:4.2f} ({vlo / mid:.2f}-{vhi / mid:.2f})")
+        if mat in V_CRIT_MEASURED:
+            vm = V_CRIT_MEASURED[mat]
+            line += f"; against the measured {vm}: {vmax / vm:4.2f} ({vlo / vm:.2f}-{vhi / vm:.2f})"
+        print(line)
 
     print("\n## 11. Critical velocity vs particle temperature (Schmidt 2006 formula, indicative)")
     for mat in ("Sn", "Zn", "Cu", "Al", "316L", "Ti"):
@@ -267,6 +281,7 @@ def tables():
     print("\n## 12. Sensitivity of the magnet case (6 cans 18 V 1 uH, 0.5 mg) to the assumptions")
     for name, kw in (("baseline", {}), ("L'=0.3", dict(lprime=0.3e-6)), ("L'=0.5", dict(lprime=0.5e-6)),
                      ("ESR 15 mOhm/can", dict(esr=0.015)), ("ESR 50 mOhm/can", dict(esr=0.05)),
+                     ("rails 17 mOhm/m", dict(r_rail=0.017)), ("rails 68 mOhm/m", dict(r_rail=0.068)),
                      ("magnet 0.6 T", dict(b=0.6)), ("no magnet", dict(b=0.0))):
         args = dict(b=0.8, mass=0.5e-6)
         args.update(kw)
@@ -313,6 +328,7 @@ def main(argv=None):
     s.add_argument("--esr", type=float, default=0.025, help="ESR per can, ohm")
     s.add_argument("--r-fixed", type=float, default=0.004)
     s.add_argument("--r-slug", type=float, default=0.0002)
+    s.add_argument("--r-rail", type=float, default=0.034, help="both rails together, ohm/m")
     s.add_argument("--b", type=float, default=0.0, help="magnet field in the bore, T")
     s.add_argument("--b-start", type=float, default=0.02, help="where the magnet zone starts, m")
     s.add_argument("--maug", type=float, default=0.0, help="total augmenting coupling M', H/m")
@@ -328,7 +344,7 @@ def main(argv=None):
         return selftest()
     if a.cmd == "shot":
         r = shot(cans=a.cans, volts=a.volts, l0=a.l0, mass=a.mass, lprime=a.lprime, esr=a.esr,
-                 r_fixed=a.r_fixed, r_slug=a.r_slug, b=a.b, b_start=a.b_start, maug=a.maug,
+                 r_fixed=a.r_fixed, r_rail=a.r_rail, r_slug=a.r_slug, b=a.b, b_start=a.b_start, maug=a.maug,
                  r_aug=a.r_aug, barrel=a.barrel, t_on=a.t_on, fets=a.fets)
         print(fmt_shot(r))
         print(f"bank: {r['charge']:.2f} C used of {r['charge_avail']:.2f} C, {r['e_stored']:.1f} J stored, "

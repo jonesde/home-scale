@@ -197,19 +197,22 @@ where \(M'\) is any augmenting coupling (§3.6). Velocity and temperature are lo
 
 | Material | Melt onset, m/s per mm of slug | Critical velocity, m/s | Margin |
 |---|---|---|---|
-| Copper | ~2000 | 460–500 | 4.2 |
-| Aluminium | ~2080 | 620–660 | 3.3 |
-| Zinc | ~350 | 360–380 | 0.9 |
-| Iron | ~370 | 700–750 (316L) | 0.5 |
-| Tin | ~50 | 160–180 | 0.3 |
+| Copper | ~1790 (1340–2230) | 460–500 | 3.7 (2.8–4.7) |
+| Copper, measured powder | ~1790 (1340–2230) | 570 | 3.1 (2.4–3.9) |
+| Aluminium | ~1850 (1390–2320) | 620–660 | 2.9 (2.2–3.6) |
+| Zinc | ~310 (230–390) | 360–380 | 0.8 (0.6–1.0) |
+| Iron | ~330 (250–410) | 700–750 (316L) | 0.5 (0.3–0.6) |
+| Tin | ~47 (35–58) | 160–180 | 0.3 (0.2–0.3) |
+
+Model result at the planning value L′ = 0.4 µH/m; the bracket is the range L′ = 0.3–0.5 (`shot_model.py tables`, §10).
 
 Action values from [RG-TUCKER75](https://www.osti.gov/servlets/purl/4229184-1IbmTb/) (disputed by one later paper; treat as ±tens of percent). Windows from [CS-SCHMIDT09](https://www.researchgate.net/figure/alues-of-critical-velocity-for-bonding-assuming-a-particle-size-of-20-lm-Material-Melting_tbl1_225516724).
 
 - Copper and aluminium have room. Iron and tin melt before they reach a bonding velocity, which is the old README's point about steel.
 
 - **Read the table with these qualifiers (added 2026-11-11; detail and arithmetic in [`quantum-systems/application/EM-CSAM.md`](../quantum-systems/application/EM-CSAM.md) §2.2–§2.4).**
-  - The table is computed at L′ = 0.45 µH/m. At the planning value of 0.4 used elsewhere in these notes, copper melt onset is about 1800 m/s per mm of slug (1350–2250 over L′ = 0.3–0.5) and aluminium about 1870.
-  - The copper window of 460–500 m/s is a tabulated 20 µm value. The one measured critical velocity opened for copper powder is 570 m/s; against that the copper margin is about 3.1–3.2, not 4.2.
+  - The table was first computed at L′ = 0.45 µH/m (copper ~2000 m/s, margin 4.2). It was regenerated on 2026-11-11 at the planning value of 0.4 with the 0.3–0.5 range shown.
+  - The copper window of 460–500 m/s is a tabulated 20 µm value. The one measured critical velocity opened for copper powder is 570 m/s (5–22 µm powder); the second copper row uses it.
   - Iron is compared with the 316L window because no critical velocity for iron or carbon steel is sourced. Nickel has none either. The zinc and tin windows and action values come from one table and one report that could not be re-opened; they are the least-supported rows, and they are the first two rungs of the test ladder.
   - By enthalpy, copper tolerates a slug resistance of 0.19–0.31 mΩ at 500–300 m/s before melt onset, 11–19 times the 0.017 mΩ solid slug. No sourced copper compact reaches that window without sintering or reduction.
 - A porous slug divides the margin by its resistivity ratio. Augmentation multiplies it by \((L'+2M')/L'\).

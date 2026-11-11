@@ -184,7 +184,7 @@ Klipper-class firmware schedules steps well but is not a tool for 100–700 µs 
 
 - **Why the spread matters:** thin rails are transparent to flux, so only the flux crossing the gap pushes the slug; the rest pushes on rail metal. Right behind a moving slug the current has had only microseconds to spread, which favours the higher values.
 - **Design consequence:** rails wider than about 3–4 mm lower L′. Narrower rails are worth trying for that reason.
-- **Correction (2026-11-11):** this finding originally added that wider rails "carry no extra pulse current (the pulse only penetrates about 2 mm)". That used the steady 1 kHz skin depth for a single pulse. A single 0.5 ms pulse diffuses into copper with an error-function profile, not to an edge: the depth is 2.1 mm, 3.3 mm or 5.2 mm depending on the cut used (0.8, 1.27 or 2 times √(Dt); the 1/e point is 3.3 mm), and after 0.2–0.7 ms the field at 3 mm is still 20–49 % of its surface value ([EM-MORITZ11](https://arxiv.org/abs/1103.1800); [skin-effect](../quantum-systems/library/skin-effect.md)). The earlier "about 2 mm" was the steady 1 kHz skin depth, the smallest of these. The rail-resistance default in the model (34 mΩ/m, "skin-limited") is therefore a conservative assumption, uncertain by about a factor of two until T2 measures it. Right behind the moving slug the current is confined much more tightly than that: the velocity skin depth 2√(D·a/V) for a 1 mm slug is about 0.73 mm at 100 m/s and 0.33 mm at 500 m/s in copper, whatever the pulse length (model formula, [RG-WOODS96](https://apps.dtic.mil/sti/tr/pdf/ADA320642.pdf); no direct measurement opened). That layer, not the pulse depth, sets rail-face heating at the contact.
+- **Correction (2026-11-11):** this finding originally added that wider rails "carry no extra pulse current (the pulse only penetrates about 2 mm)". That used the steady 1 kHz skin depth for a single pulse. A single 0.5 ms pulse diffuses into copper with an error-function profile, not to an edge: the depth is 2.1 mm, 3.3 mm or 5.2 mm depending on the cut used (0.8, 1.27 or 2 times √(Dt); the 1/e point is 3.3 mm), and after 0.2–0.7 ms the field at 3 mm is still 20–49 % of its surface value ([EM-MORITZ11](https://arxiv.org/abs/1103.1800); [skin-effect](../quantum-systems/library/skin-effect.md)). The earlier "about 2 mm" was the steady 1 kHz skin depth, the smallest of these. The rail-resistance default in the model (34 mΩ/m, current in the outer 2 mm of 0.5 mm-thick rails) is therefore a conservative assumption, uncertain by about a factor of two until T2 measures it. It matters little: in the model's magnet case, 17 mΩ/m (the DC value of a 4 × 0.5 mm pair) gives 346 m/s and 68 mΩ/m gives 317 m/s, against 336 m/s at the default (`shot_model.py tables`, §12). Right behind the moving slug the current is confined much more tightly than that: the velocity skin depth 2√(D·a/V) for a 1 mm slug is about 0.73 mm at 100 m/s and 0.33 mm at 500 m/s in copper, whatever the pulse length (model formula, [RG-WOODS96](https://apps.dtic.mil/sti/tr/pdf/ADA320642.pdf); no direct measurement opened). That layer, not the pulse depth, sets rail-face heating at the contact.
 - **Fixed in:** `EM-CSAM-ConceptTechnical.md` §3.2, `RailMaterial.md`, TestPlan T0 and T3.
 
 ### B2. Slug resistance is the gate
@@ -217,18 +217,21 @@ For a solid slug 1 mm long, the velocity at which Joule heating reaches melt ons
 
 | Material | Melt onset, m/s per mm of slug | Critical velocity, m/s | Margin |
 |---|---|---|---|
-| Copper | ~2000 | 460–500 | 4.2 |
-| Aluminium | ~2080 | 620–660 | 3.3 |
-| Zinc | ~350 | 360–380 | 0.9 |
-| Iron | ~370 | 700–750 (316L) | 0.5 |
-| Tin | ~50 | 160–180 | 0.3 |
+| Copper | ~1790 (1340–2230) | 460–500 | 3.7 (2.8–4.7) |
+| Copper, measured powder | ~1790 (1340–2230) | 570 | 3.1 (2.4–3.9) |
+| Aluminium | ~1850 (1390–2320) | 620–660 | 2.9 (2.2–3.6) |
+| Zinc | ~310 (230–390) | 360–380 | 0.8 (0.6–1.0) |
+| Iron | ~330 (250–410) | 700–750 (316L) | 0.5 (0.3–0.6) |
+| Tin | ~47 (35–58) | 160–180 | 0.3 (0.2–0.3) |
+
+Model result at the planning value L′ = 0.4 µH/m; the bracket is the range L′ = 0.3–0.5 (`shot_model.py tables`, §10).
 
 Action values from [RG-TUCKER75](https://www.osti.gov/servlets/purl/4229184-1IbmTb/); windows from [CS-SCHMIDT09](https://www.researchgate.net/figure/alues-of-critical-velocity-for-bonding-assuming-a-particle-size-of-20-lm-Material-Melting_tbl1_225516724).
 
 - **Reading:** copper and aluminium have room. Iron and tin melt before they reach a bonding velocity, which matches the old README note about steel. A porous slug divides the margin by its resistivity ratio; augmentation multiplies it by (L′ + 2M′)/L′.
 - **Correction (2026-11-11):** read the table with these qualifiers (detail and arithmetic in [`quantum-systems/application/EM-CSAM.md`](../quantum-systems/application/EM-CSAM.md) §2.2–§2.4).
-  - The table is computed at L′ = 0.45 µH/m. At the planning value of 0.4 used elsewhere in these notes, copper melt onset is about 1800 m/s per mm of slug (1350–2250 over L′ = 0.3–0.5) and aluminium about 1870.
-  - The copper window of 460–500 m/s is a tabulated 20 µm value. The one measured critical velocity opened for copper powder is 570 m/s; against that the copper margin is about 3.1–3.2, not 4.2.
+  - The table was first computed at L′ = 0.45 µH/m (copper ~2000 m/s, margin 4.2). It was regenerated on 2026-11-11 at the planning value of 0.4 with the 0.3–0.5 range shown.
+  - The copper window of 460–500 m/s is a tabulated 20 µm value. The one measured critical velocity opened for copper powder is 570 m/s (5–22 µm powder); the second copper row uses it.
   - Iron is compared with the 316L window because no critical velocity for iron or carbon steel is sourced. Nickel has none either. The zinc and tin windows and action values come from one table and one report that could not be re-opened; they are the least-supported rows, and they are the first two rungs of the test ladder.
   - By enthalpy, copper tolerates a slug resistance of 0.19–0.31 mΩ at 500–300 m/s before melt onset, 11–19 times the 0.017 mΩ solid slug. No sourced copper compact reaches that window without sintering or reduction.
 - **Fixed in:** `EM-CSAM-ConceptTechnical.md` §3.5.
@@ -439,6 +442,7 @@ What still looks unoccupied: a **solid or sintered** milligram armature, at **ki
 |---|---|---|
 | ESR 25 mΩ per can at 1–10 kHz | Peak current, velocity, voltage ceilings | Discharge each can into a known resistor (T0). Above 50 mΩ, expect about 25 % less velocity. |
 | L′ = 0.4 µH/m | All velocities | LCR meter with a sliding short (T0); velocity fit against ∫I²dt (T3). |
+| Rail resistance 34 mΩ/m for the pair | Velocity, weakly (+3 % at half, −6 % at double) | Four-wire resistance of the rail pair, and the current decay into a strap at two barrel positions (T2). |
 | Commutation loop 20–45 nH; bank-to-film 60 nH; source inductance 8–13 nH | Turn-off budget (A7) | Ring frequency and overshoot at low current (T2). |
 | ZthJC from an older Foster model | FET current limit (A6) | Fig. 13 of the current datasheet; case temperature after a shot. |
 | ±20 % current sharing among paralleled FETs | 4+4 = 1.4 kA | Per-device drain-source voltage or temperature (T2). |

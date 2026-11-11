@@ -149,7 +149,7 @@ Critical velocities for cold-spray bonding at 20 µm particle size ([CS-SCHMIDT0
 |---|---|---|
 | Tin | 160–180 | Yes |
 | Zinc | 360–380 | Marginal |
-| Copper | 460–500 | No; margin about 4× |
+| Copper | 460–500 | No; margin about 3–4× |
 | Aluminum | 620–660 | No; margin about 3× |
 | 316L steel | 700–750 | Yes (iron) |
 | Titanium | 700–890 (measured 505–750 by powder) | — |

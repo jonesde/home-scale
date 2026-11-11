@@ -91,8 +91,8 @@ check(_B3_22, "Fe action at 500 m/s over burst action (%)", 100 * _b3_action_fra
 check(_B3_22, "Fe melting-complete over melt-onset action", _B3_ACTION_FE_MELTED / _B3_ACTION["Fe"], 1.15, 0.01)
 check(_B3_22, "current density, 1 kA through 1 mm x 0.5 mm (kA/mm2)", 1e3 / (_B3_SLUG * _B3_BORE) / 1e9, 2, 0.001)
 check(_B3_22, "current density, 4 kA through 1 mm x 0.5 mm (kA/mm2)", 4e3 / (_B3_SLUG * _B3_BORE) / 1e9, 8, 0.001)
-check(_B3_22, "hardware table at L' 0.45, Cu (m/s; quoted as about 2000)", _b3_v_melt("Cu", 0.45e-6), 2000, 0.02)
-check(_B3_22, "hardware table at L' 0.45, Fe (m/s; quoted as about 370)", _b3_v_melt("Fe", 0.45e-6), 370, 0.02)
+check(_B3_22, "earlier hardware table at L' 0.45, Cu (m/s; was quoted as about 2000)", _b3_v_melt("Cu", 0.45e-6), 2000, 0.02)
+check(_B3_22, "earlier hardware table at L' 0.45, Fe (m/s; was quoted as about 370)", _b3_v_melt("Fe", 0.45e-6), 370, 0.02)
 check(_B3_22, "Cu heat to melt onset, 673 - 207 (kJ/kg)", _b3_melt_onset_kj("Cu"), 466, 0.001)
 for _v, _onset, _liquid in ((300.0, 0.31, 0.45), (500.0, 0.19, 0.27)):
     check(_B3_22, f"R for melt onset at {_v:g} m/s (mOhm)", _b3_r_for_heat(466.0, _v) * 1e3, _onset, 0.03)
@@ -182,7 +182,7 @@ check(_B3_DEP, "six unit cells of 0.40 nm (nm)", 6 * 0.40, 2.4, 0.001)
 
 # --- em-csam hardware notes: qualifiers added 2026-11-11 ---------------------
 _HW3 = "em-csam/EM-CSAM-ConceptTechnical.md §3.5, DesignReview-2026-11.md B4"
-check(_HW3, "Cu melt onset per mm at L' = 0.45 (m/s), the table's value", 8.0e16 * 1e-3 * 0.45e-6 / (2 * 8960), 2000)
+check(_HW3, "Cu melt onset per mm at L' = 0.45 (m/s), the earlier table's value", 8.0e16 * 1e-3 * 0.45e-6 / (2 * 8960), 2000)
 check(_HW3, "Cu melt onset per mm at L' = 0.40 (m/s)", 8.0e16 * 1e-3 * 0.40e-6 / (2 * 8960), 1800)
 check(_HW3, "Cu margin against the measured 570 m/s at L' = 0.40", 8.0e16 * 1e-3 * 0.40e-6 / (2 * 8960) / 570, 3.15)
 check(_HW3, "Paschen minimum over bank voltage, 327 V / 55 V", 327 / 55, 6, 0.06)

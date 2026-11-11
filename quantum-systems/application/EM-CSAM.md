@@ -90,7 +90,7 @@ If the armature is a **powder compact**, the skin clock applies to the slug as a
 - The velocity scales with ℓ, so a 0.5 mm slug has half these figures. Augmentation raises them by (*L*′ + 2*M*′)/*L*′, and a magnet raises them further.
 - The same check in current density: 1–4 kA through 1 mm × 0.5 mm is 2–8 kA/mm². The library gives melt onset within 0.2–0.7 ms at 20–11 kA/mm² in copper and at 8.0–4.3 kA/mm² in iron.
 - Zinc and tin, the first two metals of the hardware ladder, have no action value in the library. The hardware notes take 1.1 and 0.17 × 10¹⁶ from the same 1975 report.
-- The hardware notes print this table at *L*′ = 0.45 with the actions rounded (Cu about 2000 m/s, Fe about 370 m/s). The planning value of 0.4 gives the lower figures above.
+- The hardware notes first printed this table at *L*′ = 0.45 with the actions rounded (Cu about 2000 m/s, Fe about 370 m/s). They were regenerated on 2026-11-11 at the planning value of 0.4 with the 0.3–0.5 range, and now agree with the figures above to rounding (Cu 1790 against 1800, Fe 330 against 325; the script uses rounded action values).
 
 Two limits. The formula assumes uniform current density, and the velocity skin effect concentrates the current at the rear of a solid slug, so the local action there is higher than the mean. And the wire data are for dense metal; a compact is covered by the enthalpy route below.
 
