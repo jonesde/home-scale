@@ -381,8 +381,8 @@ Device-centered uses. Not procedures. Unqualified readers stop at SAFETY.md.
 | Path | Device | Machines it applies |
 |---|---|---|
 | [application/README.md](application/README.md) | Index of applications. | — |
-| [application/thin-film-optics.md](application/thin-film-optics.md) | Mirrors, TCO, SPR chips | `collective-screening` (calibration case) |
-| [application/bonded-magnets.md](application/bonded-magnets.md) | Bonded NdFeB, tape, ferrofluid | `anisotropy-latch` (handbook calibration) |
+| [application/thin-film-optics.md](application/thin-film-optics.md) | Mirrors, TCO, SPR chips | `collective-screening` (formerly the calibration case) |
+| [application/bonded-magnets.md](application/bonded-magnets.md) | Bonded NdFeB, tape, ferrofluid | `anisotropy-latch` (calibration against sourced values) |
 | [application/hydrogen-embrittlement.md](application/hydrogen-embrittlement.md) | Charged high-strength metal parts | Trapped hydrogen (per-atom binding, Arrhenius release), no nuclear layer |
 | [application/hydride-storage.md](application/hydride-storage.md) | Metal-hydride bed / tank | Hysteretic hydride transition vs trapped residue |
 | [application/EM-LENR.md](application/EM-LENR.md) | Contained pulsed-coil cell (Steven E. Jones) | Configuration hypothesis tested on trapped hydrogen and on the hydride transition; nuclear search last |
@@ -390,11 +390,11 @@ Device-centered uses. Not procedures. Unqualified readers stop at SAFETY.md.
 | [application/switchable-hydride-mirror.md](application/switchable-hydride-mirror.md) | H-switchable screening film | `collective-screening` × interstitial occupancy |
 | [application/polar-beam-gate.md](application/polar-beam-gate.md) | Polar HV + beam-target D–D | `polar-latch` × `energy-gate` |
 | [application/muon-hydrogen-gate.md](application/muon-hydrogen-gate.md) | Extra-node H-isotope cycle | `energy-gate` + muon |
-| [application/exchange-pin-thermal-history.md](application/exchange-pin-thermal-history.md) | *H*<sub>ex</sub> trip through *T<sub>B</sub>* | Draft `exchange-pin` |
-| [application/percolation-dual-switch.md](application/percolation-dual-switch.md) | Starve *R* and Casimir contrast together | `collective-screening` |
+| [application/exchange-pin-thermal-history.md](application/exchange-pin-thermal-history.md) | Loop shift lost above *T<sub>B</sub>* and set again on cooling | Draft `exchange-pin` |
+| [application/percolation-dual-switch.md](application/percolation-dual-switch.md) | Reflectance, dc conductance and Casimir force on one film; only dc conductance switches | `collective-screening` |
 | [application/coherence-window-recoil.md](application/coherence-window-recoil.md) | CEνNS vs IBD on one flux | `energy-gate` as CEνNS |
 | [application/edge-orientation-inhibit.md](application/edge-orientation-inhibit.md) | In-plane *B* kills the plateau | Draft `edge-channel` |
-| [application/depolarization-fuse.md](application/depolarization-fuse.md) | *P<sub>r</sub>* dies in a thin polar film | `polar-latch` failure side |
+| [application/depolarization-fuse.md](application/depolarization-fuse.md) | Net polarization against screening of the faces | `polar-latch` failure side |
 
 Hardware notes for the railgun live outside this directory, at [`../em-csam/`](../em-csam/README.md). Do not copy those notes in as protocols.
 
@@ -409,7 +409,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-Load (after a clean rebuild): 63 `effect` · 188 `effect_constraint` · 527 `implication` (486 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 438 `source` (30 of 63 effects sourced) · 602 `implication_source`.
+Load (after a clean rebuild): 63 `effect` · 188 `effect_constraint` · 527 `implication` (486 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 460 `source` (33 of 63 effects sourced) · 650 `implication_source`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 

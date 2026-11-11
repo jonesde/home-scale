@@ -57,7 +57,7 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 | Formal effects | 63 (six families; three added in the 2026-11 sourcing pass: electrical-contacts, electrical-resistivity, hydrogen-in-metals) | [library/INDEX.md](library/INDEX.md) |
 | Mapping confidence | 28 High · 35 Medium · 0 Low (shape-anisotropy and reflection moved to Medium when sourced; the two new entries are Medium) | per-file frontmatter |
 | Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) and [pyroelectric-fusion](library/pyroelectric-fusion.md) (Medium). Unverified outside the sourced files | same |
-| Sourced effects | 30 of 63 (see the Sourced column of the index) | [library/INDEX.md](library/INDEX.md) |
+| Sourced effects | 33 of 63 (see the Sourced column of the index) | [library/INDEX.md](library/INDEX.md) |
 | Extracted implications | 486 | `analysis/fragments/*.jsonl` |
 | Predicted implications | 41 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
 | Designs | 12 (8 formal; four drafts) | [analysis/design.csv](analysis/design.csv) |
@@ -89,7 +89,7 @@ Those two, plus [photoelectric-threshold](library/photoelectric-threshold.md), a
 | `energy-gate` | formal | Discrete conversion; *N* = 1 per event |
 | `oscillator-grid` | formal | Ion grid as coupled oscillators |
 | `ensemble-average` | formal | Stable macro number from a large population; no universal *N* |
-| `exchange-pin` | draft | Nested AFM/FM pin; collapse is *T*<sub>B</sub>, not FM *T*<sub>C</sub> |
+| `exchange-pin` | draft | Nested AFM/FM pin; the shift is lost above *T*<sub>B</sub> (a rate-dependent crossover), not at the FM *T*<sub>C</sub>, and is set again on cooling |
 | `edge-channel` | draft | 2DEG + bulk gap + edge path; integer *R_H = h/νe²*; QPC is contrast |
 | `phase-space-condensate` | draft | Dilute BEC; \(T_c(n)\); not 0 W; not He-4 |
 | `landauer-channel` | draft | 1D constriction; \(2e^2/h\); no *B* required |

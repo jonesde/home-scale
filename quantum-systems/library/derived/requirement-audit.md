@@ -266,7 +266,7 @@ Use these as **coupled tests**, not as extra knobs.
 
 #### `coupled-screening-failure`
 
-A film starved in connected thickness should lose ordinary reflectivity, go transmitting toward and above the plasma edge, lose a Kretschmann SPR dip, and lose conducting-plate Casimir contrast in the same window. If one artifact dies and a sibling in that list survives, the “one screening population” assembly is wrong.
+As written: a film starved in connected thickness should lose ordinary reflectivity, go transmitting toward and above the plasma edge, lose a Kretschmann SPR dip, and lose conducting-plate Casimir contrast in the same window. Sourcing (2026-11-12) put this in `tension`: reflectance has no thickness threshold, and the Casimir force is reduced but present for thin or visibly transparent faces. The three readouts share one dielectric function but fall off smoothly and at different rates; only dc percolation is sharp.
 
 #### `average-replaced-by-order`
 

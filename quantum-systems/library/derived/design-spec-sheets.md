@@ -57,7 +57,7 @@ The electrical twin of the anisotropy latch: remnant polarization at *E* = 0, st
 | Clock | Ionic / soft-mode class (THz), write is *P*–*E* sweep / wall motion | Not a hold clock |
 | Barrier | Lattice-locked double well below *T*<sub>C</sub> | Write at *E*<sub>c</sub> |
 | Hold-power | 0 W at *E* = 0 | Remanent *P*; static domain pattern |
-| Dominant erase | *T* > *T*<sub>C</sub>; *E* > *E*<sub>c</sub>; volume too small; *E* can also expel walls without killing *P<sub>r</sub>* | BaTiO₃ *T*<sub>C</sub> ≈ 393 K; LiTaO₃ ~890 K |
+| Dominant erase | *T* > *T*<sub>C</sub>; *E* > *E*<sub>c</sub>; poorly screened or thin films lose net *P* (a crossover); *E* can also expel walls without killing *P<sub>r</sub>* | BaTiO₃ *T*<sub>C</sub> ≈ 393 K; LiTaO₃ 874–958 K |
 | Open | *E*<sub>c</sub> / dead layer | Electrical twin of mesoscale coercivity |
 
 A pyroelectric D–D neutron burst dies with the host *T*<sub>C</sub> even if deuterium remains. Filing ferroelectric domains does not close `polar-depolarization-buffer`.

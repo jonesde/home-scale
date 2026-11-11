@@ -226,6 +226,11 @@ For a solid slug 1 mm long, the velocity at which Joule heating reaches melt ons
 Action values from [RG-TUCKER75](https://www.osti.gov/servlets/purl/4229184-1IbmTb/); windows from [CS-SCHMIDT09](https://www.researchgate.net/figure/alues-of-critical-velocity-for-bonding-assuming-a-particle-size-of-20-lm-Material-Melting_tbl1_225516724).
 
 - **Reading:** copper and aluminium have room. Iron and tin melt before they reach a bonding velocity, which matches the old README note about steel. A porous slug divides the margin by its resistivity ratio; augmentation multiplies it by (L′ + 2M′)/L′.
+- **Correction (2026-11-14):** read the table with these qualifiers (detail and arithmetic in [`quantum-systems/application/EM-CSAM.md`](../quantum-systems/application/EM-CSAM.md) §2.2–§2.4).
+  - The table is computed at L′ = 0.45 µH/m. At the planning value of 0.4 used elsewhere in these notes, copper melt onset is about 1800 m/s per mm of slug (1350–2250 over L′ = 0.3–0.5) and aluminium about 1870.
+  - The copper window of 460–500 m/s is a tabulated 20 µm value. The one measured critical velocity opened for copper powder is 570 m/s; against that the copper margin is about 3.1–3.2, not 4.2.
+  - Iron is compared with the 316L window because no critical velocity for iron or carbon steel is sourced. Nickel has none either. The zinc and tin windows and action values come from one table and one report that could not be re-opened; they are the least-supported rows, and they are the first two rungs of the test ladder.
+  - By enthalpy, copper tolerates a slug resistance of 0.19–0.31 mΩ at 500–300 m/s before melt onset, 11–19 times the 0.017 mΩ solid slug. No sourced copper compact reaches that window without sintering or reduction.
 - **Fixed in:** `EM-CSAM-ConceptTechnical.md` §3.5.
 
 ### B5. Augmentation is the missed lever

@@ -4,7 +4,7 @@ Entries are utility and internal-consistency tests, not interpretive claims. Fam
 
 Every catalog row links to a file. Column meanings: [library README](README.md). Family definitions: [TAXONOMY.md](TAXONOMY.md).
 
-**Sourcing:** 30 of 63 files carry opened references, evidence tags and threshold/crossover labels ([standard](README.md#sourcing-standard)); the Sourced column says which, and how deeply each was checked. A row marked — still holds numbers recalled by a language model; treat its "High" data rating as unverified until the file is converted.
+**Sourcing:** 33 of 63 files carry opened references, evidence tags and threshold/crossover labels ([standard](README.md#sourcing-standard)); the Sourced column says which, and how deeply each was checked. A row marked — still holds numbers recalled by a language model; treat its "High" data rating as unverified until the file is converted.
 
 **Status:** 63 formal · 0 draft · 0 queued. Mapping: 28 High · 35 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) and [pyroelectric fusion](pyroelectric-fusion.md) (Medium).
 
@@ -83,13 +83,13 @@ A discrete energetic or field gate. Below threshold the conversion does not occu
 | [X-ray absorption edge](x-ray-absorption-edge.md) | `x-ray-absorption-edge` | formal | High | High | — | hν below the shell binding energy | Element-specific inner-shell gates; Cu K-edge 8.979 keV |
 | [Ionization threshold](ionization-threshold.md) | `ionization-threshold` | formal | High | High | standard | E < I | Gas stays neutral below the binding energy; H 13.598 eV, He 24.587 eV |
 | [Pair production](pair-production.md) | `pair-production` | formal | High | High | — | Eγ < 1.022 MeV; no nearby nucleus | Photon → e⁺e⁻ only above 2mec² and with a momentum sink |
-| [Muon-catalyzed fusion](muon-catalyzed-fusion.md) | `muon-catalyzed-fusion` | formal | High | High | — | No muon; decay at τμ; α-sticking | Handbook H-isotope nuclear gate; N = 1 muon + two nuclei; not a latch |
+| [Muon-catalyzed fusion](muon-catalyzed-fusion.md) | `muon-catalyzed-fusion` | formal | High | High | standard | No muon; muon decay and α-sticking, which add (about 150 fusions per muon at best) | Published experiment; needs a muon and a host D₂/DT molecule; releases about 2.6 GeV per muon against an estimated 5–10 GeV to make one |
 | [Dielectric breakdown](dielectric-breakdown.md) | `dielectric-breakdown` | formal | Medium | Medium | deep | Field below breakdown; the value is statistical and set by pressure × gap (Paschen), gap size and pulse length | Air 3 MV/m holds for mm–cm gaps only; Paschen minimum 327–352 V near 7.5 µm at 1 atm; below about 5–10 µm field emission lowers the voltage again |
 | [Electrical contacts](electrical-contacts.md) | `electrical-contacts` | formal | Medium | Medium | deep | Contact voltage reaches the softening or melting voltage (Cu melts at 0.43 V); surface films puncture at 10⁷–10⁸ V/m | Constriction resistance at a-spots; bead chains plateau at 0.2–0.4 V per contact by micro-welding; nothing is measured for a powder slurry |
 | [Photoconductivity](photoconductivity.md) | `photoconductivity` | formal | High | High | — | hν < Eg or trap depth | Same gap gate as absorption, read out as current; gain set by lifetime / transit time |
 | [Coulomb blockade](coulomb-blockade.md) | `coulomb-blockade` | formal | High | High | — | kT ≳ Ec or RT ≲ h/e² | Single-electron charging gate; island aF–fF |
-| [Deuteron photodisintegration](deuteron-photodisintegration.md) | `deuteron-photodisintegration` | formal | High | High | — | Eγ < 2.224 MeV | Photon unbinds d → p+n; opposite arrow to μCF |
-| [Pyroelectric fusion](pyroelectric-fusion.md) | `pyroelectric-fusion` | formal | Medium | High | — | No ΔT / no D; potential too low | Polar crystal accelerates D; 2.45 MeV neutrons; not μCF and not the hydride cell |
+| [Deuteron photodisintegration](deuteron-photodisintegration.md) | `deuteron-photodisintegration` | formal | High | High | standard | Eγ below 2.2259 MeV (binding energy plus recoil) | Photon unbinds d → p+n; opposite arrow to μCF |
+| [Pyroelectric fusion](pyroelectric-fusion.md) | `pyroelectric-fusion` | formal | Medium | High | standard | No ΔT or no D; potential too low is a crossover (D–D cross-section negligible below 20 keV) | Published device (2005, replicated 2006): a polar crystal accelerates D; 10⁴–10⁵ neutrons at 2.45 MeV per thermal cycle of hundreds of seconds |
 | [Coherent neutrino–nucleus scattering](coherent-neutrino-scattering.md) | `coherent-neutrino-scattering` | formal | High | Medium | — | qR ≳ 1; no nucleus | CEνNS N² recoils (COHERENT); coherence window, no IBD threshold |
 
 ---
@@ -141,10 +141,10 @@ Do not add a file to “complete a chapter.” Add one only when the collapse is
 
 | Name | What it is here | See |
 |---|---|---|
-| Superparaelectric collapse | Volume too small for a polar well to hold *P<sub>r</sub>* against *kT* and the depolarization field. Electrical twin of superparamagnetism; no portable ferroelectric *KV*. | [ferroelectric-remanence](ferroelectric-remanence.md), [superparamagnetism](superparamagnetism.md), [ferroelectric-domains](ferroelectric-domains.md) |
+| Thin-film and small-crystal loss of polarization | Net *P* is lost continuously as a film thins or its faces are less well screened; the polar phase itself survives to 1.2 nm films and 5 nm crystals. Not a thermal-volume limit, so not a twin of superparamagnetism (an earlier version filed it as "superparaelectric collapse"). | [ferroelectric-remanence](ferroelectric-remanence.md), [ferroelectric-domains](ferroelectric-domains.md) |
 | Ferroelectric *P*–*E* loop | Write/erase cycle of the polar latch. Magnet side split this out as hysteresis; polar remanence already owns loop area and *E<sub>c</sub>*. | [ferroelectric-remanence](ferroelectric-remanence.md), [ferromagnetic-hysteresis](ferromagnetic-hysteresis.md) |
 | Polar slab depolarization | Geometry / uncompensated *P* empties the well (*E<sub>d</sub>* ~ *P*/ε). Electrical analog of shape anisotropy; still an open mesoscale buffer, not a second file. | [ferroelectric-remanence](ferroelectric-remanence.md), [shape-anisotropy](shape-anisotropy.md), [depolarization-fuse](../application/depolarization-fuse.md) |
-| Optical domain-wall write | Visible light can move ferroelectric walls (photovoltaic / thermal / flexoelectric). A write channel of the partition, not a photon-energy gate. | [ferroelectric-domains](ferroelectric-domains.md), [photoelectric-threshold](photoelectric-threshold.md) |
+| Optical domain-wall write | Visible light is said to move ferroelectric walls (photovoltaic / thermal / flexoelectric); no source was opened for this when the ferroelectric files were sourced. A write channel of the partition, not a photon-energy gate. | [ferroelectric-domains](ferroelectric-domains.md), [photoelectric-threshold](photoelectric-threshold.md) |
 | Charged-wall addressing | Head-to-head / tail-to-tail walls carry bound charge and can conduct. Extra constraint on the polar partition, not a nested pin and not a 13th design. | [ferroelectric-domains](ferroelectric-domains.md), [exchange-bias](exchange-bias.md) |
 | Magneto-optical Kerr | Polarization rotation on *reflection* from a magnetized surface. Faraday’s reflection-side twin; same *eB/m* population, not a second collapse. | [faraday-rotation](faraday-rotation.md), [reflection](reflection.md) |
 | Ferroelasticity (90° walls) | Strain switches with a 90° polar wall. Coupling already owned by piezo + this partition + the elastic grid. | [ferroelectric-domains](ferroelectric-domains.md), [piezoelectricity](piezoelectricity.md), [elasticity](elasticity.md) |

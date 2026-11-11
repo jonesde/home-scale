@@ -1,7 +1,7 @@
 ---
 origin: application
 device: one metal film read out as specular R, dc sheet conductance and conducting-plate attraction while its thickness is walked through percolation
-updated: 2026-11-12
+updated: 2026-11-14
 envelope: MEMS / thin-film lab; packaged clutch would be the later consumer form
 ---
 
@@ -15,6 +15,8 @@ envelope: MEMS / thin-film lab; packaged clutch would be the later consumer form
 > **Hazards (read [SAFETY.md](../SAFETY.md)).** Sub-μm gaps, patch charge, and (if actuated) MEMS snap-in are ordinary lab hazards. This file is a mapping, not a clutch design.
 
 > **Corrected 2026-11-12**, after the sourcing of [reflection](../library/reflection.md) and [casimir-force](../library/casimir-force.md). Three facts changed. (1) Specular *R* has no cliff: it falls smoothly as a continuous film thins, and passes through percolation without a step. (2) Percolation is a threshold in dc conductance. (3) The Casimir force is reduced by a thin or visibly transparent face and is not removed: a 9 nm palladium film gives a smaller force than a thick one, indium tin oxide gives 40–50 % less than gold at 50–150 nm, and a mirror switched from reflecting to transparent gave no significant change at 70–400 nm. No force measurement on an islanded film below percolation was found. The concept is kept. It is restated in §1–§5 as a test of whether the three readouts separate, which is what the measurements indicate, and the original "die together" expectation is marked where it stood.
+
+> **Re-checked 2026-11-14** against [reflection](../library/reflection.md), [casimir-force](../library/casimir-force.md) and [requirement-audit](../library/derived/requirement-audit.md); the numbers stand. Added: what the original clutch would need to be true (§2), the size of the force change that is supported (up to about a factor of two), and a note that roughness and patch limits are unsourced.
 
 ---
 
@@ -42,9 +44,11 @@ The *π²ℏc/240* prefactor stays taken. Do not close it with a node count.
 
 **dc channel.** A deposited film conducts across the substrate only above its percolation thickness: 6–7 nm for unseeded Au, 6–12 nm for unseeded Ag, 1–3 nm on a copper seed.
 
-**Force channel.** The force depends on the response of the faces over a wide band around *c*/2*d*, which is 0.1–1 eV for gaps of 1–0.1 μm. A face that is transparent only in the visible and near infrared has lost part of that band, which is the stated reason the measured force falls by half or less. On that account a face would have to lose its response across the infrared to lose most of the force; no measurement of that case was found. Localized particle plasmons and residual patch charge are different artifacts.
+**Force channel.** The force depends on the response of the faces over a wide band around *c*/2*d*, which is 0.1–1 eV for gaps of 1–0.1 μm. A face that is transparent only in the visible and near infrared has lost part of that band, which is the stated reason the measured force falls by half or less. On that account a face would have to lose its response across the infrared to lose most of the force; no measurement of that case was found. Localized particle plasmons and residual patch charge are different artifacts. No source on roughness or patch potentials was opened for the library, so the limits they set are unsourced here.
 
-**Switch.** Walk thickness through percolation on **all three** readouts. The measurements indicate that the dc channel steps while *R* and the force change smoothly. As a switch, then, the supported device is a dc one with two analog companions, and the supported experiment is the separation of the three. The original device, *R* and force dying together at percolation, depended on a reflectance cliff that does not exist and on a force collapse that is contradicted for transparent faces and untested for islands. An SPR chip that never measures force is [thin-film-optics](thin-film-optics.md). A torsion-balance Casimir run that never changes the film is the library effect, not this application.
+**Switch.** Walk thickness through percolation on **all three** readouts. The measurements indicate that the dc channel steps while *R* and the force change smoothly. As a switch, then, the supported device is a dc one with two analog companions, and the supported experiment is the separation of the three. The original device, *R* and force dying together at percolation, depended on a reflectance cliff that does not exist and on a force collapse that is contradicted for transparent faces and untested for islands. For the original clutch to work, a face would have to lose its conduction across the infrared band around *c*/2*d*, and the force on such a face would have to be measured; neither exists in the opened sources. What is supported is a force that differs by up to about a factor of two between a good metal and a poor or thin conductor: a trim.
+
+An SPR chip that never measures force is [thin-film-optics](thin-film-optics.md). A torsion-balance Casimir run that never changes the film is the library effect, not this application.
 
 ---
 
@@ -55,7 +59,7 @@ The *π²ℏc/240* prefactor stays taken. Do not close it with a node count.
 | Thickness / percolation | Walk through the percolation thickness of the chosen process, checking continuity and sheet resistance at each step | A mass-thickness series that never checks continuity; reading the smooth fall of *R* as a switch |
 | *n* / plasma edge | Starve *n* or drive above the edge | Identifying *φ* with *ω<sub>p</sub>*; expecting the force to follow visible transparency |
 | Gap *d* | Hold in the 0.1–1 μm *class* while the *film* is the knob | Opening *d* and calling that “percolation” |
-| Patch / roughness | Must stay below the Casimir window | Electrostatic swamping sold as Casimir |
+| Patch / roughness (unsourced) | Must stay small against the force at the chosen gap | Electrostatic force read as Casimir |
 | Coupler | SPR optional, as a fourth readout | SPR-only chip |
 
 ---

@@ -35,7 +35,7 @@ Examples: reflection, refraction / dielectric polarization, skin effect, plasma-
 
 An energy barrier holds a directional or configurational state at **zero continuous power**. Energy is spent only to write or erase.
 
-Typical collapse: **thermal over-barrier**, **volume too small to keep the barrier above kT** (superparamagnetic / superparaelectric limit), or **mechanical destruction of the latch matrix**.
+Typical collapse: **thermal over-barrier**, **volume too small to keep the barrier above kT** (the superparamagnetic limit, a crossover that depends on the waiting time; the polar analogue is a screening limit, not a thermal volume), or **mechanical destruction of the latch matrix**.
 
 Examples: permanent magnet, ferromagnetic hysteresis, ferroelectric remanence, superparamagnetism, magnetic domains, ferroelectric domains.
 

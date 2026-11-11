@@ -4,7 +4,7 @@ Markdown in [`library/`](../library/) is the science source of truth. This direc
 
 Working database: `qs-analysis.db` at the repo root. It is a local build artifact (gitignored). Commit the text: `fragments/*.jsonl`, `implication.csv`, `predicted_implication.csv`, `design*.csv`, `schema.sql`.
 
-Load: 63 `effect` · 188 `effect_constraint` · 527 `implication` (486 extracted, 41 predicted) · 12 `design` · 11 `node` (all `forced`) · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 438 `source` (30 of 63 effects sourced) · 602 `implication_source`. 97 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
+Load: 63 `effect` · 188 `effect_constraint` · 527 `implication` (486 extracted, 41 predicted) · 12 `design` · 11 `node` (all `forced`) · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 460 `source` (33 of 63 effects sourced) · 650 `implication_source`. 97 pairs sit in both design junctions (evidence up *and* commitment down). Predicted rows have zero evidence-up edges.
 
 Rebuild (stdlib Python 3 only — no pip):
 

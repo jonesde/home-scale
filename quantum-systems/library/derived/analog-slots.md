@@ -22,7 +22,7 @@ This is the block [`ferroelectric-domains`](../ferroelectric-domains.md) fills.
 |---|---|---|---|
 | Latch (net remnant at 0 W) | [`permanent-magnet-latch`](../permanent-magnet-latch.md) | [`ferroelectric-remanence`](../ferroelectric-remanence.md) | filled both |
 | Write / erase loop | [`ferromagnetic-hysteresis`](../ferromagnetic-hysteresis.md) | folded into remanence (*P*–*E* loop, *E<sub>c</sub>*) | polar combined on purpose |
-| Volume cliff of the *latch* | [`superparamagnetism`](../superparamagnetism.md) | superparaelectric **clause** on remanence | polar stays a clause until a portable *KV* exists |
+| Volume cliff of the *latch* | [`superparamagnetism`](../superparamagnetism.md) | thin-film / screening **clause** on remanence | the polar limit is electrostatic (how well the faces are screened), not a thermal volume; the polar phase survives to 1.2 nm films |
 | Partition of a large body | [`magnetic-domains`](../magnetic-domains.md) | [`ferroelectric-domains`](../ferroelectric-domains.md) | filled both |
 | Geometry barrier | [`shape-anisotropy`](../shape-anisotropy.md) | slab depolarization (*E<sub>d</sub>* ~ *P*/ε) | polar not a file; [`polar-depolarization-buffer`](requirement-audit.md) stays open |
 | Cancelled order | [`antiferromagnetic-order`](../antiferromagnetic-order.md) | antiferroelectric (net *P* ≈ 0, double loop) | **hole** |
@@ -66,7 +66,7 @@ Same split rule as domains: distinct collapse, not already a clause.
 1. **Ordinary pyroelectricity** — Δ*T*-driven face charge / current pulse. Not remanent *P*, not 2.45 MeV neutrons. Today the engine is only visible through pyroelectric-fusion and the polar beam-target application.
 2. **Antiferroelectric order** — cancelled polar latch, analog of antiferromagnetic order.
 
-Do not queue those names in INDEX until the file exists. Do not mint a seventh family for topology. Do not file superparaelectric, polar *P*–*E* as a split of remanence, polar “shape anisotropy,” optical wall motion, charged-wall nanoelectronics, Kerr, or ferroelasticity as their own effects — they are the INDEX handbook-topics table.
+Do not queue those names in INDEX until the file exists. Do not mint a seventh family for topology. Do not file a polar thermal-volume limit (none was found when sourcing), polar *P*–*E* as a split of remanence, polar “shape anisotropy,” optical wall motion, charged-wall nanoelectronics, Kerr, or ferroelasticity as their own effects — they are the INDEX handbook-topics table.
 
 ---
 

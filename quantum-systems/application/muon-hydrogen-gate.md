@@ -1,7 +1,7 @@
 ---
 origin: application
 device: muon-catalyzed hydrogen-isotope fusion cycle as an extra-node energy-gate
-updated: 2026-08-17
+updated: 2026-11-14
 envelope: industrial / accelerator only; no consumer muon source exists
 ---
 
@@ -11,6 +11,9 @@ envelope: industrial / accelerator only; no consumer muon source exists
 **QSA machines.** `energy-gate` (core); `muon` node as `input`. Contrast: [polar-beam-gate](polar-beam-gate.md); [deuteron-photodisintegration](../library/deuteron-photodisintegration.md); the muon-free coil cell in [EM-LENR](EM-LENR.md).
 **Status.** Working application of the extra-node spec, not a restatement of the historical LAMPF/PSI campaign as a product and not a net-energy plant. **Not a beamline SOP.**
 **Envelope.** Accelerator / industrial only. Home-scale waits on a consumer muon source that does not exist.
+**Sources.** Facts are cited to [muon-catalyzed-fusion](../library/muon-catalyzed-fusion.md) (below **MCF**) by source key; its Sources table holds the references.
+
+> **What changed on 2026-11-14.** The library entry was checked against sources and this file was brought into line. (1) The device is an existing published experiment, not a new concept: about 150 fusions per muon were measured in cold, dense d–t at LAMPF (Jones, *Nature* 321, 127 (1986); MCF [S4]), and a diamond-anvil d–t target is running at PSI (MuFusE, arXiv:2606.05333; MCF [S9]). (2) The yield is *Y* ≈ 1/(*ω<sub>s</sub>* + *λ*<sub>0</sub>/*λ<sub>c</sub>*): decay and sticking losses add, and at optimum each limits the yield about equally (MCF [S6]). The earlier "supply × cycle × (1−*ω<sub>s</sub>*)" wording is replaced. (3) Sticking is 0.35–0.6 % and falls with density (MCF [S5][S7]). (4) The fast cycle needs a host D₂ or DT molecule for resonant formation (MCF [S6]). (5) The energy balance is stated: 2.64 GeV released per muon at the record yield against an estimated 5 GeV electrical (10 GeV thermal) to make one muon (MCF [S7][S8]).
 
 > **Hazards (read [SAFETY.md](../SAFETY.md)).** Muon production is an accelerator problem (prompt radiation, activated beamline, cryogenic or high-pressure H-isotope targets). This file is a mapping, not a factory design. Do not scale muon current, target inventory, or pulse energy in search of a nuclear signature. A muon-free hydride is not this machine — do not “make up for” missing muons with pressure or cold work.
 
@@ -22,10 +25,10 @@ The gate requires a **named extra node**. Absence of the muon shuts the channel 
 
 | Resource | Role |
 |---|---|
-| One muon + two H-isotope nuclei | Hardware for one cycle (*N* = 1 muon) |
-| *τ<sub>μ</sub>* = 2.197 μs | Hard stop. Observation after the muon population is gone is not this effect. |
-| Sticking *ω<sub>s</sub>* | Erase of the catalyst onto helium; caps ⟨*n*⟩ |
-| Isotope mix | pp (and electronic molecules) stay closed on this clock |
+| One muon + two H-isotope nuclei, plus a host D₂ or DT molecule | Hardware for one fast cycle (*N* = 1 muon). The host molecule takes up the 0.66 eV released when the muonic ion forms |
+| *τ<sub>μ</sub>* = 2.197 μs | Stop. One cycle takes about 10⁻⁸ s, so decay alone allows about 220 cycles. Observation after the muon population is gone is not this effect. |
+| Sticking *ω<sub>s</sub>* = 0.35–0.6 % | Loss of the muon onto helium, per fusion; adds to the decay loss |
+| Isotope mix | Fusion is observed for every isotope pair except two protons; only ddμ and dtμ form resonantly |
 | Lattice / H/M / defects | **Not** the opener. Contrast with [EM-LENR](EM-LENR.md) |
 
 Opposite arrow on the same two nucleons: a 2.224 MeV *γ* unbinds *d* → *p*+*n* and does not start this cycle (`predicted:deuteron-photodisintegration:photon-is-not-a-muon`).
@@ -34,19 +37,19 @@ Opposite arrow on the same two nucleons: a 2.224 MeV *γ* unbinds *d* → *p*+*n
 
 ## 2. Theory of operation
 
-**Open.** A stopped muon forms a muonic molecule (dtμ / ddμ class). The mass ratio rescales the well so fusion occurs on a timescale below *τ<sub>μ</sub>*. The muon is recycled until it decays or sticks.
+**Open.** A stopped muon forms a muonic molecule (dtμ / ddμ class). The mass ratio of about 207 shrinks the bound orbit by the same factor, and fusion inside the ion takes about a picosecond. The muon is recycled until it decays or sticks.
 
-**Output.** Yield per stopped muon, of order 10² for dense d–t in the handbook class, set by supply × cycle × (1−*ω<sub>s</sub>*). Not a remnant cell at 0 W.
+**Output.** Yield per stopped muon, about 150 at the record and over 100 as the reproduced class for dense d–t, *Y* ≈ 1/(*ω<sub>s</sub>* + *λ*<sub>0</sub>/*λ<sub>c</sub>*). Not a remnant cell at 0 W.
 
 **Erase / collapse.**
 
 - No muon → identically null.  
-- Decay at *τ<sub>μ</sub>* removes the catalyst.  
-- Sticking caps the recycle.  
-- Wrong isotope (pp) stays closed.  
+- Decay at *τ<sub>μ</sub>* removes the catalyst (exponential).  
+- Sticking removes it with probability *ω<sub>s</sub>* per fusion. The two losses add.  
+- Two protons give no observed fusion.  
 - Cosmic-ray flux over a hydride is not this cycle; macroscopic yield tracks *stopped-muon* inventory.
 
-Factory net electrical cost per muon is a different bookkeeping problem. It is not used to locate the gate.
+Energy balance (not used to locate the gate, but it bounds the application): 150 fusions release 2.64 GeV per muon. Estimates of the cost of one stopped muon are about 5 GeV electrical or 10 GeV thermal, with 2–8 GeV quoted; none is a measurement, since no such muon source has been built. Break-even needs about 300 or more fusions per muon, and more once heat is converted to electricity.
 
 ---
 
@@ -55,9 +58,9 @@ Factory net electrical cost per muon is a different bookkeeping problem. It is n
 | Parameter | Toward isolating this gate | Not a substitute |
 |---|---|---|
 | Stopped-muon inventory | **The** supply knob | Lattice compression, bake-out, cold work |
-| Target density | Capacity (raises *λ<sub>c</sub>*) | Opening a muon-free cell |
+| Target density | Capacity (raises *λ<sub>c</sub>*, lowers *ω<sub>s</sub>*) | Opening a muon-free cell |
 | Isotope mix | d–t vs d–d vs protium (ordering of the cycle) | “Any hydrogen” |
-| Sticking / recycle | Witness the *ω<sub>s</sub>* cap | Treating ⟨*n*⟩ as a latch lifetime |
+| Sticking / recycle | Witness the *ω<sub>s</sub>* loss | Treating ⟨*n*⟩ as a latch lifetime |
 | Clock | Count while muons are present | A seconds-scale pyro ramp ([polar-beam-gate](polar-beam-gate.md)) |
 | Photon beam at 2.224 MeV | Contrast only (photodisintegration) | Substituting for the muon |
 
@@ -94,7 +97,7 @@ Factory net electrical cost per muon is a different bookkeeping problem. It is n
 
 ## 7. Links
 
-- [muon-catalyzed-fusion](../library/muon-catalyzed-fusion.md) — library source  
+- [muon-catalyzed-fusion](../library/muon-catalyzed-fusion.md) — library source, with references  
 - [deuteron-photodisintegration](../library/deuteron-photodisintegration.md) — opposite arrow  
 - [polar-beam-gate](polar-beam-gate.md) — muon-free H-isotope burst  
 - [EM-LENR](EM-LENR.md) — isolate a materials state first; this gate stays closed  
