@@ -139,7 +139,7 @@ U1 is a UCC21551**A** on a SOIC-16 adapter. Source for everything below: [DS-UCC
 
 - **Why a resistor.** With ballast much larger than the slug, power into the slug falls as the slug sinters. A stiff source does the opposite and runs away ([PC-ALLEN08](https://cris.vtt.fi/en/publications/electrical-sintering-of-nanoparticle-structures/), [PC-HUMMELGARD11](https://pmc.ncbi.nlm.nih.gov/articles/PMC3044741)).
 - **Bridge state:** both FET groups off. Rail A sits at the slug voltage; `L1` just connects it to the floating switch node.
-- **Compliance:** fritting needs about 4–8 V across this gap ([PC-FALCON05](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)), so the conditioning bus must be above that.
+- **Compliance:** the conditioning bus must exceed the breakdown voltage of the paste across this gap. Bead-chain data give 2–8 V ([PC-FALCON05](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)); a 0.50 mm bed of heavily oxidised copper powder needed 33 V unloaded and about 9–20 V under compaction ([PC-ALIOUAT22](https://doi.org/10.3390/ma15124096)). Until T0 measures the real paste, assume a 30 V bench supply may not be enough for an oxidised, uncompacted fill.
 - **Current cap:** about 20 A without magnets or augmenting turns, so the slug is not pushed off its seat.
 - **Timing:** the relay limits conditioning to steps of about 15 ms. That is acceptable because the ballast is self-limiting. An energy-capped alternative is in [`TestPlan.md`](TestPlan.md) T4.
 - **Later:** a solid-state stage with its own inductor of at least 50 µH and peak-current control.

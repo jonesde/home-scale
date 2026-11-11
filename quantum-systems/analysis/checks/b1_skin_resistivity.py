@@ -234,3 +234,17 @@ check(_PITCH, "2 sqrt(D t) in Cu at 0.2 ms (mm)", 2 * sqrt(D_CU * 0.2e-3) * 1e3,
 check(_PITCH, "2 sqrt(D t) in Cu at 0.7 ms (mm)", 2 * sqrt(D_CU * 0.7e-3) * 1e3, 6.2)
 check(_PITCH, "1.13 sqrt(D t) in Cu at 1 us, low end of the quoted range (mm)", 1.13 * sqrt(D_CU * 1e-6) * 1e3, 0.13)
 check(_PITCH, "1.13 sqrt(D t) in Cu at 100 us, low end of the quoted range (mm)", 1.13 * sqrt(D_CU * 100e-6) * 1e3, 1.3)
+
+# --- em-csam hardware notes (corrections of 2026-11-12) ----------------------
+_HW = "em-csam/EM-CSAM-ConceptTechnical.md, DesignReview-2026-11.md"
+_T = 0.5e-3
+check(_HW, "0.80 sqrt(D t) in Cu at 0.5 ms (mm)", 0.80 * sqrt(D_CU * _T) * 1e3, 2.1)
+check(_HW, "1.27 sqrt(D t) in Cu at 0.5 ms, the 1/e point (mm)", 1.27 * sqrt(D_CU * _T) * 1e3, 3.3)
+check(_HW, "2 sqrt(D t) in Cu at 0.5 ms (mm)", 2 * sqrt(D_CU * _T) * 1e3, 5.2)
+check(_HW, "steady skin depth of Cu at 1 kHz (mm)", skin_depth(RHO_CU_IACS, 1e3) * 1e3, 2.1)
+check(_HW, "velocity skin depth, 1 mm slug at 100 m/s (mm)", 2 * sqrt(D_CU * 1e-3 / 100) * 1e3, 0.73)
+check(_HW, "velocity skin depth, 1 mm slug at 500 m/s (mm)", 2 * sqrt(D_CU * 1e-3 / 500) * 1e3, 0.33)
+check(_HW, "copper bed breakdown, 57 kV/m across 0.5 mm (V)", 57e3 * 0.5e-3, 28, 0.03)
+check(_HW, "copper bed breakdown at 300 MPa, 18 kV/m across 0.5 mm (V)", 18e3 * 0.5e-3, 9)
+check(_HW, "copper bed breakdown at 1 MPa, 39 kV/m across 0.5 mm (V)", 39e3 * 0.5e-3, 20)
+check(_HW, "steady skin depth of pure Al at 1 kHz (mm)", skin_depth(RHO_AL, 1e3) * 1e3, 2.6)

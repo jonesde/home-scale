@@ -30,7 +30,7 @@ This arrangement gives several advantages:
 - Move away from 2×2 mm square wire.
 - Use rectangular copper bar stock for better straightness and easier finishing.
 - Primary recommendation: Tellurium copper (C145). Avoid C110 with oil carriers: it is open to hydrogen embrittlement. See [`RailMaterial.md`](RailMaterial.md).
-- Rail width 3–4 mm. Wider rails carry no more pulse current and lower the inductance gradient.
+- Rail width 3–4 mm. Wider rails lower the inductance gradient. They do still carry some pulse current (the 0.2–0.7 ms pulse reaches 3–6 mm into copper and falls off smoothly; [skin-effect](../quantum-systems/library/skin-effect.md)), so the case for narrow rails rests on L′, not on a skin-depth cut-off. Behind the slug the current sits in a sub-millimetre layer at any rail width (velocity skin effect).
 - Experimental thicknesses: 0.5 mm, 1.0 mm, and 1.5 mm.
 - Target bore height experiments: ~0.5 mm to 1.5 mm (0.5×0.5 mm and 0.5×1 mm are of particular interest for lower drive current).
 

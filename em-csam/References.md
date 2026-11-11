@@ -77,7 +77,17 @@ Retrieved 2026-11-10.
 - **RG-TUCKER75** — Tucker & Toth, Sandia SAND-75-0041. [OSTI](https://www.osti.gov/servlets/purl/4229184-1IbmTb/)
   - *Says:* Action to reach melt from room temperature, converted to A²·s/m⁴: Cu ≈ 8.0×10¹⁶, Al 2.5×10¹⁶, Fe 1.3×10¹⁶, W 2.4×10¹⁶, Zn 1.1×10¹⁶, Sn 1.7×10¹⁵.
   - *Used for:* Action margin per material.
-  - *Access:* Open scan. The copper entry is garbled and was cross-checked against bond-wire fusing data. A 2013 *IEEE Trans. Plasma Sci.* paper found these values do not match its own measurements for Cu, Al and Ti, so treat them as ±tens of percent.
+  - *Access:* Open scan. The copper entry is hard to read in the text layer; on the page image it is 80492 A²·s/mm⁴ at the start of melting, which confirms 8.0×10¹⁶ A²·s/m⁴ (re-read 2026-11-12). It was also cross-checked against bond-wire fusing data. A 2013 *IEEE Trans. Plasma Sci.* paper found these values do not match its own measurements for Cu, Al and Ti, so treat them as ±tens of percent.
+
+- **RG-WOODS96** — Woods, "Analysis of the Armature-Rail Interface in Solid Armature Railguns", Institute for Advanced Technology report IAT.R 0120 (1996). [DTIC](https://apps.dtic.mil/sti/tr/pdf/ADA320642.pdf)
+  - *Says:* Behind a moving contact of length a at speed V the current in the rail is confined to a depth of about 2√(D·a/V), set by the transit time and not by the pulse length.
+  - *Used for:* Velocity skin effect: about 0.73 mm at 100 m/s and 0.33 mm at 500 m/s for a 1 mm slug on copper (arithmetic in `quantum-systems/analysis/checks/`).
+  - *Access:* Open, full text read. A model; no direct measurement was opened.
+
+- **EM-MORITZ11** — Moritz, "Eddy currents in accelerator magnets", arXiv:1103.1800. [arXiv](https://arxiv.org/abs/1103.1800)
+  - *Says:* A field step diffuses into a conductor with an error-function profile; the usual depth rule is 2√(Dt) with D = ρ/μ₀ (after Knoepfel, not opened).
+  - *Used for:* Single-pulse penetration into the rails, in place of the steady skin depth.
+  - *Access:* Open, full text read.
 
 - **RG-MUZZLE** — Muzzle-arc suppression: US 4,714,003 (muzzle shunt loop), US 4,733,595 (ZnO varistor suppressor), US 4,938,113 (arrestor at the muzzle).
   - *Says:* Without a path for the residual current, a large voltage builds at the rail ends and arcs. The shunt's resistance and inductance have to be matched to the launcher.
@@ -170,8 +180,8 @@ The top-level README once said no close cousin had been found. These are the clo
 ## 6. Powder conduction and electrical sintering
 
 - **PC-FALCON05** — Falcon & Castaing, *Am. J. Phys.* 2005 (arXiv cond-mat/0407773). [ar5iv](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)
-  - *Says:* A chain of oxidised metal beads measures 10⁴–10⁷ Ω at low current, then drops irreversibly to 1–10 Ω. The voltage saturates near 0.4 V per contact, and the contact spots reach about 1050 °C (micro-welding).
-  - *Used for:* Why powder paste is an insulator until it is not, and the "0.4 V per contact" rule.
+  - *Says:* A chain of oxidised metal beads measures 10⁴–10⁷ Ω at low current (force-dependent), then drops irreversibly to 1–10 Ω. The voltage saturates per contact at 0.4 V for stainless steel, 0.3 V for brass and 0.2 V for bronze; copper was not measured. The contact spots reach about 1050 °C (micro-welding); the plateau is that regime.
+  - *Used for:* Why powder paste is high-resistance until its contacts weld, and the 0.2–0.4 V per contact range. Corrected 2026-11-12: earlier notes quoted 0.4 V as if it applied to copper.
   - *Access:* Open.
 
 - **PC-CREYSSELS09** — Creyssels, Falcon, Castaing, Powders & Grains 2009, *AIP Conf. Proc.* 1145. [PDF](https://labo.msc.u-paris.fr/~falcon/AIP09.pdf)
@@ -184,8 +194,23 @@ The top-level README once said no close cousin had been found. These are the clo
   - *Access:* Open. No numeric resistivity found.
 
 - **PC-FRITTING** — Fritting technical note. [PA3FWM](https://www.pa3fwm.nl/technotes/tn17a.html)
-  - *Says:* A-fritting is described as needing a few volts for a few microseconds.
+  - *Says:* Gives "1 mA and a few volts" for wetting a contact. It does not give a fritting time; an earlier summary here said "a few volts for a few microseconds", which the note does not say (corrected 2026-11-12).
   - *Access:* Informal note.
+
+- **PC-ALIOUAT22** — Aliouat et al., "Investigation of Electrical Transitions in the First Steps of Spark Plasma Sintering", *Materials* 15, 4096 (2022). [DOI](https://doi.org/10.3390/ma15124096)
+  - *Says:* A bed of 87.5 µm copper powder carrying 1200 nm of oxide sits near 10⁸ Ω, then the voltage climbs to a peak (15.6, 24.3 and 33.4 V for 0.30, 0.40 and 0.50 mm beds) and collapses by five orders of magnitude at about 0.4 mA; no plateau. The breakdown field falls with compaction, 57 kV/m unloaded to 18 kV/m at 300 MPa. The welded bridges are 10–15 µm and a mechanical shock breaks them.
+  - *Used for:* The conditioning-bus voltage needed for an oxidised copper fill, and the fragility of a conditioned slug.
+  - *Access:* Open, full text read. A deliberately thick oxide; a native oxide should need less.
+
+- **PC-DEGEN06** — Degen, Nagler, Horn & Kaesen, "Parametric Study of Contact Fritting for Improved CRes Stability", Southwest Test Workshop 2006. [PDF](https://www.swtest.org/swtw_library/2006proc/PDF/S04_02_Degen.pdf)
+  - *Says:* A-fritting (film puncture) occurs below 2.5 V on aluminium probe pads and is complete in about 150 µs.
+  - *Used for:* The time and voltage scale of film puncture, in place of the PC-FRITTING misquote.
+  - *Access:* Open conference slides; secondary to Holm.
+
+- **PC-FRITFIELD** — Fritting field of surface films: Deringer-Ney, *Ney Contact Manual* (rev. 2022) [PDF](https://deringerney.com/wp-content/uploads/2022/04/Ney-Contact-Manual-Revised-1st-Edition.pdf); US 7,061,259 [patent](https://patents.google.com/patent/US7061259B2/en).
+  - *Says:* Films puncture at 10⁵–10⁶ V/cm (10⁷–10⁸ V/m).
+  - *Used for:* Film puncture as a field threshold, separate from the 0.2–0.4 V thermal plateau.
+  - *Access:* Open secondaries. Holm's *Electric Contacts* itself was not opened.
 
 - **PC-ALLEN08** — Allen et al. (VTT), "Electrical sintering of nanoparticle structures", *Nanotechnology* 19:175201, 2008. [VTT record](https://cris.vtt.fi/en/publications/electrical-sintering-of-nanoparticle-structures/)
   - *Says:* Conductivity rises by more than five orders of magnitude, to 3.7×10⁷ S/m at best. The main transition takes under 2 µs "due to strong positive feedback induced by the voltage boundary condition".
@@ -329,7 +354,9 @@ The top-level README once said no close cousin had been found. These are the clo
 Do not state these as sourced facts.
 
 - A critical velocity for nickel in the Schmidt 2009 table.
-- Holm's often-quoted 10⁸ V/m fritting field.
+- Holm's *Electric Contacts* itself (the fritting field is now sourced as a range through two secondaries, PC-FRITFIELD).
+- A per-contact saturation voltage for copper beads or copper powder, and any contact data for a powder-in-oil or moving slurry armature.
+- A direct measurement of the velocity-skin current layer against speed (model formulas only, RG-WOODS96).
 - A numeric resistivity for uncured solder paste or metal powder in oil.
 - Published high-frequency ESR, or any pulse-discharge rating, for the Nichicon LGU cans.
 - A pulse or joule rating for the HS25 resistor.

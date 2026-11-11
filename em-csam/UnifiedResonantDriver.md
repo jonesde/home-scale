@@ -89,11 +89,11 @@ The transit time for 100 mm at 300–500 m/s is 0.4–0.7 ms. A bank of 9–28 m
 
 ### 4.1 Conditioning
 
-**Job.** Take the slug from insulator to a few tenths of a milliohm without exploding it.
+**Job.** Take the slug from megohms to a few tenths of a milliohm without exploding it, and hold it there until launch.
 
 **Why current-limited.** Powder contacts sinter with positive feedback. Under a voltage source the power V²/R rises as the resistance falls, and the transition runs away in microseconds ([PC-ALLEN08](https://cris.vtt.fi/en/publications/electrical-sintering-of-nanoparticle-structures/)). With a series resistor much larger than the slug, power into the slug *falls* as it sinters ([PC-HUMMELGARD11](https://pmc.ncbi.nlm.nih.gov/articles/PMC3044741)).
 
-**First build.** A power resistor of 1–10 Ω and a relay contact from the bus to rail A, with the bus at 5–28 V. The fritting plateau needs about 0.4 V per particle contact, 4–8 V across this gap ([PC-FALCON05](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)).
+**First build.** A power resistor of 1–10 Ω and a relay contact from the bus to rail A, with the bus at 5–28 V. Two thresholds apply and they are not the same thing. Puncturing the oxide films is a field effect; the contact spots then heat and micro-weld at a self-limiting 0.2–0.4 V per contact (bead chains: stainless 0.4, brass 0.3, bronze 0.2 V; copper not measured), 2–8 V across this gap ([PC-FALCON05](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)). A bed of heavily oxidised copper powder showed no plateau and needed 33 V across 0.50 mm before it collapsed, less under compaction ([PC-ALIOUAT22](https://doi.org/10.3390/ma15124096)). If the paste does not break down at 28 V, compact it or reduce the oxide before raising the bus.
 
 - Slug voltage comes from the muzzle Kelvin tap; current from the ACS772. Their ratio is the slug resistance, which is the endpoint.
 - Keep current at or below about 20 A without augmentation. 20 A already pushes a 1 mg slug with 80 µN (8 g) against a paste hold force of 0.2–2 mN.

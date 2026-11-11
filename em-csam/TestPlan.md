@@ -84,7 +84,7 @@ Measure each wound coil with an LCR meter, or ring it against one of the 10 µF 
 4. Repeat at plunger pressures of roughly 0, 1, 5, 10 and 30 MPa. On this gap 30 MPa is about 7 N per 0.25 mm² of plunger face.
 5. Repeat for each candidate: solder paste; copper powder in oil at two loadings; copper with a flux or self-reducing carrier; copper–tin.
 
-**Look for.** The plateau near 0.4 V per contact, 4–8 V across the gap ([PC-FALCON05](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)), and whether and when it collapses to milliohms. Resistance falling as pressure to about the power −1.8 ([PC-CREYSSELS09](https://labo.msc.u-paris.fr/~falcon/AIP09.pdf)).
+**Look for.** Which of two published behaviours the paste shows. Bead chains hold a plateau of 0.2–0.4 V per contact depending on the metal, 2–8 V across the gap ([PC-FALCON05](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)). A bed of oxidised copper powder showed no plateau: the voltage rose to a peak (33 V across 0.50 mm for a thick oxide, less under compaction) and then collapsed by five orders of magnitude ([PC-ALIOUAT22](https://doi.org/10.3390/ma15124096)). Record the peak voltage, whether there is a plateau, when it collapses to milliohms, and whether a tap or vibration undoes it (the welded bridges are reported to be weak). Resistance falling as pressure to about the power −1.8 ([PC-CREYSSELS09](https://labo.msc.u-paris.fr/~falcon/AIP09.pdf)).
 
 **Exit.** At least one paste, loading and pressure that reaches 1 mΩ or less per millimetre of slug, repeatably, with the time and energy it took. If nothing does, the solid-slug regime needs a different feedstock (pressed pellets, wire) before any more driver work.
 

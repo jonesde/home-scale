@@ -12,7 +12,7 @@ A review of the whole `em-csam/` folder: the concept, the micro-railgun mechanic
 2. **The same parts suit a different pulse.** The electrolytic bank and `L_series` form a damped discharge with a natural frequency of 0.7–4 kHz and a length of 0.2–0.7 ms, which is the transit time the kinematics need. The driver is re-baselined to one unipolar pulse per shot.
 3. **Charge, capacitor ESR and FET heating set the limits.** A shot needs about 1 C whatever the velocity; two cans hold half of that. Four FETs per leg carry about 1.4 kA, not the 2.7 kA their pulse rating suggests.
 4. **Energy per shot is tens of joules.** Efficiency is 0.1–0.5 %, because the motional impedance of a slow slug is a fraction of a milliohm and everything else in the loop is larger.
-5. **Slug resistance decides everything.** Powder in oil is an insulator until the particle contacts break down. A slug has to be at or below a few tenths of a milliohm to launch as a solid; at a few milliohms it boils.
+5. **Slug resistance decides everything.** Powder in oil is high-resistance (megohms) until the particle contacts break down. A slug has to be at or below a few tenths of a milliohm to launch as a solid; at a few milliohms it boils.
 6. **Magnetic augmentation was missing.** At this scale a permanent magnet's field is comparable to the rails' own. Magnets, and a few series turns laid over the rails, are worth roughly 1.5–1.9× in velocity and matter most when FET current is the cap.
 7. **Three different processes were described as one.** A solid slug thrown by Lorentz force, a spray driven by the flashing carrier, and an exploding slug are different regimes with different products.
 8. **Materials.** Copper rails first, not aluminium. PEI and PEEK are poor arc-facing bore walls. Carrier choice should start from conductivity, and metallic or self-reducing carriers were not on the list.
@@ -183,13 +183,15 @@ Klipper-class firmware schedules steps well but is not a tool for 100–700 µs 
 | Flux that actually crosses the gap, current spread 0.5 / 1 / 2 mm into the rail | 0.55 / 0.38 / 0.25 |
 
 - **Why the spread matters:** thin rails are transparent to flux, so only the flux crossing the gap pushes the slug; the rest pushes on rail metal. Right behind a moving slug the current has had only microseconds to spread, which favours the higher values.
-- **Design consequence:** rails wider than about 3–4 mm lower L′ and carry no extra pulse current (the pulse only penetrates about 2 mm). Narrower rails are worth trying.
+- **Design consequence:** rails wider than about 3–4 mm lower L′. Narrower rails are worth trying for that reason.
+- **Correction (2026-11-12):** this finding originally added that wider rails "carry no extra pulse current (the pulse only penetrates about 2 mm)". That used the steady 1 kHz skin depth for a single pulse. A single 0.5 ms pulse diffuses into copper with an error-function profile, not to an edge: the depth is 2.1 mm, 3.3 mm or 5.2 mm depending on the cut used (0.8, 1.27 or 2 times √(Dt); the 1/e point is 3.3 mm), and after 0.2–0.7 ms the field at 3 mm is still 20–49 % of its surface value ([EM-MORITZ11](https://arxiv.org/abs/1103.1800); [skin-effect](../quantum-systems/library/skin-effect.md)). The earlier "about 2 mm" was the steady 1 kHz skin depth, the smallest of these. The rail-resistance default in the model (34 mΩ/m, "skin-limited") is therefore a conservative assumption, uncertain by about a factor of two until T2 measures it. Right behind the moving slug the current is confined much more tightly than that: the velocity skin depth 2√(D·a/V) for a 1 mm slug is about 0.73 mm at 100 m/s and 0.33 mm at 500 m/s in copper, whatever the pulse length (model formula, [RG-WOODS96](https://apps.dtic.mil/sti/tr/pdf/ADA320642.pdf); no direct measurement opened). That layer, not the pulse depth, sets rail-face heating at the contact.
 - **Fixed in:** `EM-CSAM-ConceptTechnical.md` §3.2, `RailMaterial.md`, TestPlan T0 and T3.
 
 ### B2. Slug resistance is the gate
 
 - **Documents say:** the slurry "must support clean current initiation and flow".
-- **Finding:** an oxidised metal powder chain is an insulator at low voltage (10⁴–10⁷ Ω), then breaks down to a few ohms and sits at about 0.4 V per contact while the contact spots reach about 1050 °C ([PC-FALCON05](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)). Across a 0.5 mm gap with 25–50 µm particles that is roughly 4–8 V at any current, until real necks grow. At a kiloamp, 4–8 V is 4–8 kW into a milligram.
+- **Finding:** an oxidised metal powder chain is high-resistance at low voltage (10⁴–10⁷ Ω), then breaks down to a few ohms and sits at about 0.4 V per contact while the contact spots reach about 1050 °C ([PC-FALCON05](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)). Across a 0.5 mm gap with 25–50 µm particles that is roughly 4–8 V at any current, until real necks grow. At a kiloamp, 4–8 V is 4–8 kW into a milligram.
+- **Correction (2026-11-12):** 0.4 V is the stainless-steel value; the same paper gives 0.3 V for brass and 0.2 V for bronze, and copper was not measured, so the range is 2–8 V. The plateau is the micro-welding regime itself. A bed of heavily oxidised copper powder showed no plateau: 0.50 mm rose to 33 V and then collapsed by five orders of magnitude; compaction lowered the threshold and a shock undid the bridges ([PC-ALIOUAT22](https://doi.org/10.3390/ma15124096)). Film puncture (a field threshold) and the thermal plateau are separate steps. Sources and numbers: [electrical-contacts](../quantum-systems/library/electrical-contacts.md).
 - **Window, from the model** (0.5 mg slug, six cans at 18 V, magnet):
 
 | Slug resistance | Joule heat in the slug | State | Velocity |
@@ -200,7 +202,7 @@ Klipper-class firmware schedules steps well but is not a tool for 100–700 µs 
 | 2–5 mΩ | 1.7–3.3 MJ/kg | boiling | 290–244 m/s |
 | ≥20 mΩ | >6 MJ/kg | vapor | <165 m/s |
 
-- **For scale:** a solid copper slug of this size is about 0.02 mΩ. The launchable window is roughly 10–20× bulk resistivity, which is a sintered or pressed compact, not a paste.
+- **For scale:** a solid copper slug of this size is about 0.02 mΩ. The launchable window is roughly 10–20× bulk resistivity, which is a sintered compact, or one pressed and then reduced, not a paste. (Corrected 2026-11-12: pressing alone is not enough; a pressed, unreduced copper compact measured 10⁴–10⁵ Ω·m. See [electrical-resistivity](../quantum-systems/library/electrical-resistivity.md).)
 - **Fixed in:** `EM-CSAM-ConceptTechnical.md` §3.5, `PowderCarrierRailMaterial.md`, TestPlan T0 and T4.
 
 ### B3. Heating and velocity are locked together

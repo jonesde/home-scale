@@ -16,7 +16,7 @@ The first question for practicality is whether the math is right, and how much c
 
 The whole folder was reviewed in November 2026. The findings, with numbers and sources, are in [`DesignReview-2026-11.md`](DesignReview-2026-11.md). The points that qualify the introduction above:
 
-- **Solid copper, yes; copper paste, not yet.** The "copper to 1 km/s without melting" estimate holds for a solid copper slug. A slug of powder in oil is an insulator until its particle contacts break down, and it launches as a solid only once its resistance is down to a few tenths of a milliohm. Above a few milliohms it boils. Getting the slug conductive is the first problem, ahead of everything else.
+- **Solid copper, yes; copper paste, not yet.** The "copper to 1 km/s without melting" estimate holds for a solid copper slug. A slug of powder in oil is high-resistance (megohms) until its particle contacts break down, and it launches as a solid only once its resistance is down to a few tenths of a milliohm. Above a few milliohms it boils. Getting the slug conductive is the first problem, ahead of everything else.
 - **The circuits are simple; the numbers are not small.** A shot needs about a coulomb and tens of joules, at 1–4 kA. Efficiency is a fraction of a percent at these velocities.
 - **Magnets help at this scale.** The rails' own field is weak enough that permanent magnets, and a few extra turns over the rails, add roughly 1.5–1.9× in velocity.
 - **Three processes, not one.** A solid slug thrown by Lorentz force, a spray driven by the flashing carrier, and an exploding slug are different regimes with different deposits.
