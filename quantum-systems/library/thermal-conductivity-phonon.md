@@ -7,8 +7,9 @@ constraints:
   - mechanical-lattice
   - thermal
   - spatial-buffer
-confidence_data: high
+confidence_data: medium
 confidence_mapping: medium
+review_depth: standard
 related:
   - phonon-dispersion
   - speed-of-sound
@@ -17,7 +18,7 @@ related:
   - melting
   - thermal-expansion
   - electron-heat-capacity
-updated: 2026-08-17
+updated: 2026-11-13
 ---
 
 # Phonon Thermal Conductivity (Mean-Free-Path Transport)
@@ -28,74 +29,86 @@ Phonon thermal conductivity (mean-free-path transport)
 
 ### 4.2 Macroscopic Observation
 
-An electrical insulator carries a steady heat current under a temperature gradient. In a good crystal the thermal conductivity \(\kappa\) is small at the lowest temperatures, rises steeply, peaks at an intermediate temperature (often tens of kelvin), and then falls toward room temperature and above. An amorphous solid of similar composition conducts much less heat and lacks that crystal-style peak. Metals are excluded from this entry: their heat current is dominated by the electronic channel.
+An electrical insulator carries a steady heat current under a temperature gradient. In a good crystal the thermal conductivity \(\kappa\) is small at the lowest temperatures, rises steeply, peaks, and falls toward room temperature and above. Diamond is the extreme case. Removing the minority isotope raises its conductivity further. A glass conducts far less, and different glasses behave alike. In a metal most of the heat is carried by electrons; the lattice carries a minor share, which is the part this entry maps.
 
 ### 4.3 Established Quantitative Boundaries
 
-- Descriptive kinetic structure, used as data: \(\kappa = \frac13 C\, v\, \ell\), with \(C\) the phonon heat capacity per volume, \(v\) a mean acoustic speed, and \(\ell\) the phonon mean free path.
-- Low \(T\), clean crystal (Casimir / boundary-scattering limit): \(\ell\) saturates at the specimen size, \(C \propto T^3\) (`debye-cutoff`), so \(\kappa \propto T^3\). The buffer that limits transport is then the sample itself.
-- Intermediate \(T\): \(\kappa\) peaks, then falls as phonon–phonon umklapp scattering shortens \(\ell\). At high \(T\), \(C\) has saturated and \(\ell\) continues to drop, so \(\kappa\) falls (often roughly as \(1/T\) in simple crystals).
-- Crystal vs amorphous: the same chemical substance as a glass shows a much shorter \(\ell\) and no umklapp peak of the crystal kind. Room-temperature class: diamond \(\kappa \sim 10^3\,\mathrm{W\,m^{-1}\,K^{-1}}\); typical oxide glasses \(\kappa \sim 1\,\mathrm{W\,m^{-1}\,K^{-1}}\).
-- Umklapp requires the reciprocal lattice of `phonon-dispersion`. Normal phonon–phonon processes do not by themselves degrade a heat current in the Peierls accounting; umklapp does.
-- This channel collapses if the grid is destroyed (`melting`) or if \(T\to 0\) (\(C\to 0\)). It is not the electronic Wiedemann–Franz channel.
+- **Measured.** Natural diamond at room temperature: about 2200 W m⁻¹ K⁻¹. It contains about 1.07 % ¹³C. A crystal purified to about 0.00024 % ¹³C measures about 3100 W m⁻¹ K⁻¹ at room temperature, comparable to the best values for less pure crystals, which suggests a further scattering mechanism such as vacancies [S1].
+- **Measured.** A 99.9 % ¹²C diamond at 104 K: 410 W cm⁻¹ K⁻¹, the highest thermal conductivity measured for a solid above liquid-nitrogen temperature at the time [S2].
+- **Computed here.** 410 W cm⁻¹ K⁻¹ is 41 000 W m⁻¹ K⁻¹, 19 times the room-temperature value of natural diamond. The isotopically pure crystal conducts 1.4 times as well as natural diamond at room temperature.
+- **Model (Callaway).** The same analysis predicts more than 2000 W cm⁻¹ K⁻¹ near 80 K for a 99.999 % ¹²C crystal [S2]. This is a prediction and was not measured there.
+- **Measured.** Glasses. The thermal conductivity of several non-crystalline solids, measured from 0.05 K to 100 K, agrees within a factor of 5 over the whole range and varies as \(T^{1.8}\) below 1 K. The phonon mean free path derived from it is about \(10^{-4}\) cm at 2 K and falls as \(T^{-4}\) at higher temperature [S3].
+- **Model (first-principles transport).** In vitreous silica above the low-temperature plateau, anharmonicity has a negligible effect on heat transport [S6].
+- **Model (first-principles Boltzmann transport).** In 18 metals at room temperature the phonon contribution is 2–18 W m⁻¹ K⁻¹, between 1 % and 40 % of the total. Copper: 17.6 of 378.5 (measured total 402). Aluminium: 8.1 of 233.9 (237). Nickel: 14.5 of 115.6 (93). Phonon mean free paths in these metals are within 10 nm; electron mean free paths are 5–25 nm. The Sommerfeld value of the Lorenz number is \(2.44 \times 10^{-8}\) W Ω K⁻² [S4].
+- **Computed here.** Phonon share of the calculated total: copper 4.7 %, aluminium 3.5 %, nickel 12.5 %.
+- **Measured.** On melting, the conductivity of a metal drops sharply as the crystalline order disappears, and in liquid metals the lattice contribution is about two orders of magnitude below the electronic one (tertiary) [S5]. The metal remains a good conductor of heat in the liquid.
+- **Model (kinetic theory).** \(\kappa = \tfrac13Cv\ell\), with \(C\) the phonon heat capacity per volume, \(v\) a mean sound speed and \(\ell\) the mean free path. This is the relation used to extract the mean free paths in [S3]. At low temperature in a clean crystal \(\ell\) is limited by the specimen surface and \(\kappa\) follows \(C \propto T^3\); at high temperature phonon–phonon umklapp scattering shortens \(\ell\) roughly as \(1/T\). No source was opened for these two limits; they are textbook statements.
 
-**Data confidence:** High — the \(\kappa(T)\) peak, the low-\(T\) size effect, the crystal / glass contrast, and the diamond-vs-glass class are multiply reproduced. Any one peak temperature or residual-resistivity-style \(\ell\) is sample-dependent (medium).
+**Data confidence:** Medium, lowered from High. The diamond and glass measurements and the metal calculations were read in sources, two of them as abstracts. The boundary-scattering limit, the \(1/T\) law, a general peak temperature and a room-temperature value for an oxide glass were not found in an opened source, and the melting statement rests on a tertiary column.
 
 ### 4.4 Standard Mathematical Description
 
 Recorded as descriptive relations, not as axioms.
 
-- Kinetic formula:
+- Kinetic formula: \(\kappa = \tfrac13Cv\ell\); equivalently an integral of \(C(\omega)v^2\tau(\omega)\) over the spectrum.
+- Boundary limit: \(\ell\) of the order of the specimen size, so \(\kappa \propto T^3\) in an insulator at low temperature.
+- Umklapp: a three-phonon process that changes the total crystal momentum by a reciprocal-lattice vector; normal processes conserve it.
+- Electronic channel in a metal (Wiedemann–Franz): \(\kappa_e = L_0\sigma T\) with \(L_0 = 2.44 \times 10^{-8}\) W Ω K⁻² [S4].
+- Fourier's law, \(\mathbf j_Q = -\kappa\nabla T\), holds when the gradient is gentle on the scale of \(\ell\).
 
-  \[
-  \kappa = \frac13 C\, v\, \ell
-  \]
-
-  Equivalent, in a single-mode relaxation picture, to an integral of \(C(\omega) v^2 \tau(\omega)\) over the phonon spectrum. The factor \(1/3\) is a kinetic average, not a derived node rule.
-
-- Casimir limit (low \(T\), boundary-dominated \(\tau\)): \(\ell \sim L_{\mathrm{sample}}\) (up to a geometric factor of order one). Then \(\kappa \propto C(T) \propto T^3\) in an insulator.
-
-- Umklapp: a three-phonon process that consumes a reciprocal-lattice vector and relaxes crystal momentum. The rate rises with the thermal population of the large-\(q\) modes; the conventional high-\(T\) statement is \(\ell \propto 1/T\).
-
-- Fourier readout: \(\mathbf{j}_Q = -\kappa\nabla T\), valid when the gradient is gentle on the scale of \(\ell\). Ballistic flow across a device thinner than \(\ell\) is outside that continuum statement.
-
-The formula organizes measured \(\kappa\). It does not predict the peak value of a given crystal from first node rules (isotope mix, anharmonicity, dislocation density).
+The formula organizes measured \(\kappa\). It does not predict a crystal's peak value from node-level quantities.
 
 ### 4.5 QSA Mapping
 
-- **Minimum hardware scale / node count / coherence volume.** A lattice that supports propagating acoustic modes, plus a mean free path. In the Casimir limit the spatial buffer *is* the specimen: shrinking \(L\) lowers \(\kappa\) at low \(T\). In a glass the effective \(\ell\) is already microscopic and the crystal-style peak never forms. A metal’s phonon channel is present but is not the macroscopic \(\kappa\) this entry maps.
+- **Minimum hardware scale / node count / coherence volume.** A lattice that carries propagating acoustic modes, and a mean free path. The spatial buffer is \(\ell\): about a micrometre in a glass at 2 K, under 10 nm for phonons in a metal at room temperature. When \(\ell\) reaches the specimen size, the specimen is the buffer.
 
-- **Clock rate / latency.** Carrier speed \(v\) is the long-wave acoustic slope (`speed-of-sound`). The transport clock is the scattering time \(\tau = \ell/v\): boundary-limited and long at low \(T\), umklapp-limited and short at high \(T\). Zone-boundary / Debye periods remain the underlying oscillator clocks (`debye-cutoff`).
+- **Clock rate / latency.** The carrier speed is the sound speed of [speed-of-sound](speed-of-sound.md). The transport clock is the scattering time \(\ell/v\).
 
-- **Energy barriers or thresholds.** No latched barrier. Umklapp is a kinematic threshold in the phonon population (enough large-\(q\) modes occupied) rather than an activation barrier that stores a state. \(T\to 0\) starves \(C\); \(T\to T_m\) removes the grid.
+- **Energy barriers or thresholds.** None stored.
 
 - **Dominant failure modes.**
-  - Mean free path: umklapp, defects, isotopes, or amorphization → \(\ell\) collapses → \(\kappa\) falls. This is the load-bearing failure of the *transport* spec.
-  - Spatial: specimen size below the intrinsic \(\ell\) (Casimir) → \(\kappa\) set by \(L\), not by bulk scattering.
-  - Thermal, low: \(C\to 0\) as \(T\to 0\) → no heat capacity to carry.
-  - Thermal / mechanical, high: melting → the crystalline phonon population is gone.
-  - Channel confusion: measuring a metal and attributing \(\kappa\) to phonons → wrong machine.
+  - **Crossover** — isotopes and defects: \(\kappa\) scales with \(\ell\). 1.07 % of a second isotope lowers diamond from about 3100 to about 2200 W m⁻¹ K⁻¹.
+  - **Crossover** — disorder: in a glass \(\ell\) falls as \(T^{-4}\) above a few kelvin and no crystal-like peak forms.
+  - **Crossover** — temperature: on either side of the peak, as \(C\) vanishes at low temperature and as phonon–phonon scattering grows at high temperature (form \(T^3\) and roughly \(1/T\); not sourced here).
+  - **Crossover** — specimen size at low temperature: \(\kappa\) follows the smallest dimension once it is shorter than the bulk \(\ell\) (no measured scale opened).
+  - **Crossover** — channel: in a metal the lattice carries 1–40 % of the heat, so the measured \(\kappa\) is mostly not this entry's output.
+  - **Threshold** — melting: the crystal's phonon population ends at \(T_m\). In a metal the total conductivity drops and stays large, because the electronic channel continues.
 
-- **Emergent constant or stable output.** A material- and size-dependent \(\kappa(T)\) with the crystal peak-and-fall shape, produced by a synchronized phonon population whose heat current is limited by \(\ell\).
+- **Emergent constant or stable output.** A \(\kappa(T)\) set by heat capacity, sound speed and mean free path: about 2200 W m⁻¹ K⁻¹ in natural diamond at room temperature and 2–18 W m⁻¹ K⁻¹ for the lattice part in metals.
 
 ### 4.6 Internal Consistency Notes
 
-Factoring \(\kappa\) into \(C\), \(v\), and \(\ell\) is consistent with the other lattice-mode entries: `debye-cutoff` owns \(C(T)\), `speed-of-sound` owns \(v\), this file owns the scattering resource \(\ell\). Umklapp as the high-\(T\) killer is consistent with `phonon-dispersion` owning the zone (no reciprocal lattice, no umklapp).
+Factoring \(\kappa\) into \(C\), \(v\) and \(\ell\) is consistent with the other lattice entries: [debye-cutoff](debye-cutoff.md) owns \(C(T)\), [speed-of-sound](speed-of-sound.md) owns \(v\), and this file owns \(\ell\).
 
-The mapping takes the kinetic formula and the Peierls umklapp distinction as descriptive data. It does not yet extract a particular \(\ell(T)\) from node-level anharmonicity. That is the same anharmonicity `thermal-expansion` names without pinning to one hardware number. Mapping confidence is therefore medium: the failing resource (\(\ell\)) is correctly identified; its value is not derived.
+Sourcing changed the entry in three ways. Diamond is 2200 to 3100 W m⁻¹ K⁻¹ at room temperature; the first version gave the order of magnitude only, and its figure of about 1 W m⁻¹ K⁻¹ for oxide glasses could not be sourced and was removed. Metals were excluded outright in the first version; they are now included with the lattice share stated, because every metal has this channel and it is 12 % of the total in nickel. And the statement that the channel "collapses" at melting needed care: the phonon population of the crystal does end, but in a metal the conductivity that is measured falls and does not vanish, since electrons carry it on both sides.
 
-Electronic thermal conductivity and the Wiedemann–Franz ratio belong with the electron population, not here.
+The glass result in [S6] is a caution for the mapping: in a strongly disordered solid, heat transport is not limited by anharmonic scattering, so the umklapp account applies to crystals only.
+
+The mapping takes the kinetic formula as descriptive. It does not obtain \(\ell(T)\) from node-level anharmonicity, which [thermal-expansion](thermal-expansion.md) also leaves unquantified.
 
 ### 4.7 Overall Confidence in the QSA Mapping
 
-**Medium** — the Casimir, umklapp, and crystal/glass collapses are well measured and identify \(\ell\) as the transport resource, but \(\kappa = \frac13 C v \ell\) and the umklapp rate are taken as descriptive rather than extracted from node rules.
+**Medium** — the isotope, disorder and channel-share results identify the mean free path as the transport resource, but the temperature and size limits are unsourced here and \(\ell\) is not derived.
 
 ## Related entries
 
 - [phonon-dispersion](phonon-dispersion.md) — zone structure that makes umklapp possible
-- [speed-of-sound](speed-of-sound.md) — carrier speed \(v\)
-- [debye-cutoff](debye-cutoff.md) — \(C(T)\) and the mode ceiling
-- [elasticity](elasticity.md) — the same moduli that set \(v\)
-- [melting](melting.md) — destruction of the phonon-carrying grid
-- [thermal-expansion](thermal-expansion.md) — anharmonicity, the same resource that feeds umklapp
-- [electron-heat-capacity](electron-heat-capacity.md) — electronic channel, not this \(\kappa\)
+- [speed-of-sound](speed-of-sound.md) — carrier speed
+- [debye-cutoff](debye-cutoff.md) — heat capacity and the mode ceiling
+- [elasticity](elasticity.md) — the moduli that set the speed
+- [melting](melting.md) — end of the crystal's phonon population
+- [thermal-expansion](thermal-expansion.md) — the same anharmonicity
+- [electron-heat-capacity](electron-heat-capacity.md) — the electronic channel that dominates in metals
+
+## Sources
+
+Rules and the meaning of the Checked column: [README.md](README.md#sourcing-standard).
+
+| Key | Reference | Checked | Supports |
+|---|---|---|---|
+| S1 | [Cheng et al., "Ultrahigh thermal conductivity in isotopically ultrapure single-crystal diamond", arXiv:2609.24191](https://arxiv.org/abs/2609.24191) | full-text | Natural diamond about 2200 W/m/K; 1.07 % carbon-13; purified crystal about 3100 W/m/K at room temperature. Preprint. |
+| S2 | [Wei, Kuo, Thomas, Anthony and Banholzer, *Phys. Rev. Lett.* 70, 3764 (1993)](https://doi.org/10.1103/PhysRevLett.70.3764) | abstract | 410 W/cm/K at 104 K in 99.9 % carbon-12 diamond; Callaway-model prediction near 80 K. |
+| S3 | [Zeller and Pohl, *Phys. Rev. B* 4, 2029 (1971)](https://doi.org/10.1103/PhysRevB.4.2029) | abstract | Glasses from 0.05 K to 100 K: agreement within a factor of 5, exponent 1.8 below 1 K, mean free path at 2 K and its temperature dependence. |
+| S4 | [Tong, Li, Ruan and Bao, "A comprehensive first-principles analysis of phonon thermal conductivity and electron-phonon coupling in different metals", arXiv:1907.01364](https://arxiv.org/abs/1907.01364) | full-text | Phonon and electron conductivities of 18 metals with measured totals; mean free paths; Lorenz number. |
+| S5 | [Lasance, "Thermal conductivity of liquid metals", *Electronics Cooling* (May 2008)](https://www.electronics-cooling.com/2008/05/thermal-conductivity-of-liquid-metals/) | full-text | Tertiary: sharp drop of conductivity on melting; lattice contribution two orders below the electronic one in liquid metals. |
+| S6 | [Simoncelli, Mauri et al., "Thermal conductivity of glasses above the plateau: first-principles theory and applications", arXiv:2209.11201](https://arxiv.org/abs/2209.11201) | full-text | Anharmonicity negligibly affects heat transport in vitreous silica. |

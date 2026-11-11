@@ -8,6 +8,7 @@ constraints:
   - field-threshold
 confidence_data: high
 confidence_mapping: medium
+review_depth: standard
 related:
   - permanent-magnet-latch
   - superparamagnetism
@@ -15,7 +16,7 @@ related:
   - antiferromagnetic-order
   - thermal-equilibrium-temperature
   - faraday-rotation
-updated: 2026-08-17
+updated: 2026-11-13
 ---
 
 # Curie Paramagnetism (Unlocked-Spin Ensemble)
@@ -26,88 +27,92 @@ Curie paramagnetism (unlocked-spin ensemble)
 
 ### 4.2 Macroscopic Observation
 
-A paramagnetic salt, a dilute magnetic ion in a host, or a piece of oxygen-bearing gas acquires a magnetization along an applied field and loses that magnetization when the field is removed. The susceptibility falls as the thermometer reading rises. There is no remnant moment and no hysteresis loop of the kind a hard magnet keeps at zero field. Cooling toward an ordering temperature replaces this reversible \(1/T\) response with a latched ferromagnetic, ferrimagnetic, or antiferromagnetic state. Heating toward very high \(T\) drives the susceptibility toward zero: the same field produces less and less moment. Ordinary laboratory fields at room temperature stay inside the linear envelope; only large \(B/T\) saturates the response.
+A paramagnetic salt or a dilute magnetic ion in a host acquires a magnetization along an applied field and loses it when the field is removed. The susceptibility falls as the temperature rises. There is no remanent moment and no hysteresis loop. Cooling toward an ordering temperature replaces this reversible \(1/T\) response with a ferromagnetic, ferrimagnetic or antiferromagnetic state. Ordinary laboratory fields at room temperature stay in the linear range; at about a kelvin, a few tesla saturate the moment.
 
 ### 4.3 Established Quantitative Boundaries
 
-- Curie law for an unlocked local-moment population:
+- **Measured.** Curie's law, \(\chi = C/T\), was found by fitting experimental data. It holds at high temperature and weak field; at low temperature and strong field the magnetization saturates [S3].
+- **Model (non-interacting moments).** The Curie constant is \(C = \mu_0 n g^{2}\mu_B^{2}J(J+1)/3k\) for number density \(n\) and angular momentum \(J\) [S3]; \(J = S\) when the orbital moment is quenched, as measured for \(\mathrm{Cr^{3+}}\) [S2].
+- **Measured.** Constants (CODATA 2022): \(\mu_B = 9.2740100657\times10^{-24}\) J T⁻¹ [S1]; the electron precession scale is 28 024.951 MHz T⁻¹ [S5].
+- **Computed here.** \(\mu_B/k = 0.6717\) K T⁻¹ with the exact \(k\). The field at which \(\mu_B B = kT\) is 447 T at 300 K and 1.49 T at 1 K. At 1 T and 300 K, \(\mu_B B/kT = 2.2\times10^{-3}\), and the fractional departure of a spin-½ moment from linearity, \(x^{2}/3\), is \(1.7\times10^{-6}\). The precession scale is 28.02 GHz T⁻¹.
+- **Computed here.** Size of \(C\). For one mole of \(S = \tfrac12\), \(g = 2\) moments the molar Curie constant is \(4.71\times10^{-6}\) m³ K mol⁻¹, or 0.375 cm³ K mol⁻¹ in cgs units. For \(S = \tfrac72\) (\(\mathrm{Gd^{3+}}\)) the factor \(g^{2}S(S+1)\) is 21 times larger.
+- **Measured.** Saturation. \(\mathrm{Cr^{3+}}\) in potassium chromium alum reaches 99.5 % of saturation at 1.29 K in 50 000 G. The curve agrees with the Brillouin function for \(g = 2\) (orbital moment quenched) and is markedly incompatible with the classical Langevin function. Iron ammonium alum and gadolinium sulfate octahydrate were also taken to saturation [S2].
+- **Computed here.** 50 000 G is 5 T. For \(S = \tfrac32\), \(g = 2\) at 5 T and 1.29 K the Brillouin argument \(g\mu_BSB/kT\) is 7.8 and \(B_{3/2} = 99.6\) %, against the measured 99.5 %. The same ion at 1 T and 300 K is at 0.37 % of saturation.
+- **Model (mean field).** With interactions, \(\chi = C/(T - \theta)\) above the ordering temperature (Curie–Weiss). The law fails close to the Curie point, where the susceptibility follows a critical power law, and holds well above it with \(\theta\) somewhat different from the ordering temperature [S4]. Below the ordering temperature the ferromagnet has a spontaneous magnetization [S4].
+- **Measured.** Ordering temperatures are material-specific; values are in the ordered-state entries ([permanent-magnet latch](permanent-magnet-latch.md), [antiferromagnetic order](antiferromagnetic-order.md)).
+- **Model (Fermi–Dirac statistics).** Conduction electrons in a metal give a susceptibility that goes to a constant at low temperature instead of \(1/T\) (Pauli paramagnetism) [S3]. It is not Curie paramagnetism.
 
-  \[
-  \chi = \frac{C}{T}
-  \]
-
-  Curie–Weiss form when mean interactions are present but have not yet locked the population:
-
-  \[
-  \chi = \frac{C}{T-\theta}
-  \]
-
-  \(\theta>0\) is a ferromagnetic tendency; \(\theta<0\) is an antiferromagnetic tendency. \(C\) and \(\theta\) are material-specific.
-- The linear \(\chi\) envelope fails when \(\mu B\) is no longer small compared with \(kT\). With \(\mu_B/k\approx 0.672\,\mathrm{K\,T^{-1}}\), \(kT/\mu_B\) at \(300\,\mathrm{K}\) is several hundred tesla, so a \(1\,\mathrm{T}\) laboratory field sits deep in the linear regime. At a kelvin, tesla-scale fields reach saturation (Brillouin / Langevin rollover).
-- Ordering collapses the unlocked ensemble:
-  - ferromagnetic / ferrimagnetic lock at \(T_C\) (see [permanent-magnet latch](permanent-magnet-latch.md), [ferromagnetic hysteresis](ferromagnetic-hysteresis.md));
-  - antiferromagnetic lock at \(T_N\) (see [antiferromagnetic order](antiferromagnetic-order.md)).
-  Below those temperatures \(\chi\) is no longer \(C/T\).
-- High-\(T\) collapse of the *useful* output: \(\chi\to 0\) as \(T\to\infty\). The population is still unlocked; the same \(B\) simply produces a vanishing moment.
-- Pauli paramagnetism of a metal is a different envelope: a Fermi-surface average, nearly independent of \(T\), analogous to the linear [electron heat capacity](electron-heat-capacity.md). It must not be filed as Curie \(1/T\).
-
-**Data confidence:** High — Curie’s law, Curie–Weiss fits, Brillouin saturation, and the replacement of \(\chi=C/T\) by order at \(T_C\) or \(T_N\) are standard magnetometry. \(C\) and \(\theta\) for any one compound are medium (sample- and fit-range-dependent); the functional collapses are not.
+**Data confidence:** High — the constants are CODATA values, the saturation curve is a primary measurement read in its abstract, and the recomputed Brillouin value agrees with it to 0.1 %. The formula for \(C\), the Curie–Weiss limits and the Pauli statement rest on tertiary pages; they are textbook results. \(C\) and \(\theta\) of a given compound are not filed.
 
 ### 4.4 Standard Mathematical Description
 
 Recorded as descriptive relations, not as axioms.
 
-- Isolated-moment Curie constant (spin \(S\), Landé \(g\)):
+- Curie law and constant:
 
   \[
-  C = \frac{\mu_0 n\,g^{2}\mu_B^{2}S(S+1)}{3k}
+  \chi = \frac{C}{T},\qquad C = \frac{\mu_0 n\,g^{2}\mu_B^{2}J(J+1)}{3k}
   \]
 
-  Recorded as the descriptive prefactor that sets the scale of \(\chi\); \(C\) is taken from fit or from a known ionic configuration, not derived here from a more primitive node rule.
-- Magnetization of an unlocked population in a field: \(M = n\mu\,B_S(x)\) with \(x = g\mu_B S B/kT\) and \(B_S\) the Brillouin function. Small \(x\) recovers \(\chi=C/T\); large \(x\) saturates at \(n\mu\).
-- Curie–Weiss: replace \(T\) by \(T-\theta\) in the linear envelope, with \(\theta\) a measured intercept. \(\theta\) is not a second independent thermometer; it marks the temperature where this unlocked description stops being the right envelope.
+- Magnetization of non-interacting moments: \(M = n g\mu_B J\,B_J(x)\) with \(x = g\mu_B J B/kT\) and
 
-These relations describe the averaged moment of a population that is free to follow the field. They do not describe a latched remnant, and they do not derive \(k\).
+  \[
+  B_J(x) = \frac{2J+1}{2J}\coth\!\Big(\frac{2J+1}{2J}x\Big) - \frac{1}{2J}\coth\!\Big(\frac{x}{2J}\Big)
+  \]
+
+  Small \(x\) gives \(\chi = C/T\); large \(x\) saturates. For \(J = \tfrac12\) this is \(\tanh x\) [S3].
+- Curie–Weiss: \(\chi = C/(T - \theta)\), a mean-field form with \(\theta\) a fitted intercept [S4].
 
 ### 4.5 QSA Mapping
 
-- **Minimum hardware scale / node count / coherence volume.** A large population of unlocked moments sharing a bath \(T\), observed as a net \(M\) in an applied \(B\). The hardware scale is statistical: one spin is not a susceptibility; the macro \(\chi\) is the averaged response of the population. There is no universal \(N\) cliff. Dilute moments still follow Curie once \(N\) is large enough for the magnetometer; concentrated moments follow Curie–Weiss until they lock. Volume enters this family as count, not as an anisotropy barrier. The barrier-times-volume collapse of a *latched* grain is [superparamagnetism](superparamagnetism.md), a different family.
+- **Minimum hardware scale / node count / coherence volume.** A population of moments that are free to follow the field and share a bath temperature. The scale is statistical: \(\chi\) is the averaged response, and no minimum count is defined. Volume enters as a count. The thermal reversal of a single-domain grain with an anisotropy barrier is [superparamagnetism](superparamagnetism.md), a different family.
 
-- **Clock rate / latency.** Single-moment Larmor / attempt clocks are the same gigahertz-per-tesla scale already recorded on the [magnet latch](permanent-magnet-latch.md) (\(\gamma/2\pi\approx 28\,\mathrm{GHz\,T^{-1}}\)). The Curie reading is a time-averaged projection along \(B\). Observation faster than the bath exchange, or faster than the moment’s relaxation in the host, is not \(\chi=C/T\).
+- **Clock rate / latency.** Single moments precess at 28.02 GHz T⁻¹. The Curie reading is a time average of the projection along the field, valid for observation slower than the moments' relaxation to the bath. No relaxation time is filed.
 
 - **Energy barriers or thresholds.**
-  - Operating condition of this effect: *no* latching barrier. The moments remain unlocked.
-  - Field threshold for the linear envelope: \(\mu B\sim kT\). Above it the Brillouin function saturates and \(\chi\) is no longer \(C/T\).
-  - Thermal threshold out of the family: cooling through \(\theta\), \(T_C\), or \(T_N\) installs a latch or a staggered order and this entry no longer applies.
+  - Operating condition: no barrier holds the moments. The response is reversible.
+  - Scale for leaving the linear range: \(\mu_B B \sim kT\), which is 447 T at 300 K and 1.49 T at 1 K.
+  - Ordering temperature: below it the population is ordered and this entry no longer applies.
 
 - **Dominant failure modes.**
-  - Thermal, low \(T\): order sets in at \(T_C\) or \(T_N\) (or the Curie–Weiss intercept \(\theta\)) → the unlocked ensemble is replaced by a latched or staggered state. \(\chi=C/T\) dies because the machine has changed family.
-  - Thermal, high \(T\): \(\chi\to 0\) → the average is still Curie, but the useful moment for a given \(B\) has vanished into the instrument floor.
-  - Field: \(\mu B\gtrsim kT\) → saturation; linear susceptibility is the wrong envelope.
-  - Population: too few independent moments in the sampled volume → \(M\) is a telegraph of individual flips, not a susceptibility.
-  - Mis-filing: treating a hard magnet’s remnant \(M(B=0)\) as Curie. Remanence is the latch, not this average.
+  - **Threshold** — ordering: at \(T_C\) or \(T_N\) the free population is replaced by an ordered state with a spontaneous or staggered magnetization. A phase transition. The Curie–Weiss form already fails in the critical region just above it.
+  - **Crossover** — field saturation: \(M/M_\mathrm{sat} = B_J(g\mu_BJB/kT)\), a function of \(B/T\) only. 0.37 % at 1 T and 300 K; 99.5 % measured at 5 T and 1.29 K. No critical field.
+  - **Crossover** — high temperature: \(\chi \propto 1/T\) falls without limit; the moment produced by a given field eventually drops below any instrument floor.
+  - **Crossover** — small population: the relative fluctuation of the summed moment grows as \(1/\sqrt{N}\); no measured scale is filed.
 
-- **Emergent constant or stable output.** A reversible susceptibility \(\chi=C/T\) (or \(C/(T-\theta)\)), linear in \(B\) at small \(x\), with zero remnant at \(B=0\), as the averaged projection of an unlocked-moment population.
+- **Emergent constant or stable output.** A reversible susceptibility \(\chi = C/T\), or \(C/(T - \theta)\), linear in field at small \(B/T\), with zero remanence at zero field.
 
 ### 4.6 Internal Consistency Notes
 
-The contrast with the [permanent-magnet latch](permanent-magnet-latch.md) is the load-bearing internal-consistency test for this entry. A latched grain holds a directional moment at zero continuous field and zero continuous power; an unlocked Curie population holds nothing at \(B=0\) and presents a moment only while the field is applied. Soft iron above its useful coercivity but below \(T_C\) is *not* Curie paramagnetism — it is still a ferromagnetic collective, just a poorly latched one. [Ferromagnetic hysteresis](ferromagnetic-hysteresis.md) owns that distinction.
+The contrast with the [permanent-magnet latch](permanent-magnet-latch.md) is the consistency test for this entry. A latched grain holds a moment at zero field and zero power. A Curie population holds nothing at zero field. A soft ferromagnet below its Curie point is still an ordered collective, however low its coercivity; [ferromagnetic hysteresis](ferromagnetic-hysteresis.md) owns that case. Treating a hard magnet's remanence as a Curie response is a filing error, not a failure mode of this effect.
 
-[Superparamagnetism](superparamagnetism.md) is the other contrast: a small ferromagnetic grain *above* its blocking temperature behaves as one giant unlocked moment (Langevin / superparamagnetic), and *below* it becomes a latch. That grain has an anisotropy barrier and a volume threshold. A true Curie ion does not. Filing both as “1/T magnetism” would erase the barrier that the latch family is built on.
+[Superparamagnetism](superparamagnetism.md) is the other contrast. A small ferromagnetic grain above its blocking temperature responds as one large free moment, with a magnetization curve that scales with \(H/T\) like the Brillouin curve here. The difference is the barrier: the grain has an anisotropy energy \(KV\) and a relaxation time \(\tau_0\exp(KV/kT)\), so whether it appears free depends on the measurement time. That entry is a crossover in time. A Curie ion has no such barrier in this description.
 
-Pauli paramagnetism shares this family’s statistical character (a Fermi-surface slice, like \(\gamma T\)) but not the \(1/T\) envelope. It is noted so it is not forced into \(C/T\); it is not given a fake home in this file.
+Sourcing changed little in substance. The constants were right. The saturation statement now rests on a measured point, 99.5 % at 1.29 K and 5 T, which the Brillouin function reproduces and the classical Langevin function does not; the first version named the two functions as alternatives. The failure-mode list was relabelled: ordering is the one threshold, and saturation, the high-temperature fall and the small-population limit are crossovers. "Mis-filing" was removed from the failure modes and kept as the note above. An oxygen-bearing gas was named as an example in the first version; no source for it was opened and it was dropped.
 
-The mapping does not compute \(C\) or \(\theta\) from node rules, and it does not invent a universal spin count. Those are the same honest gaps as on the other ensemble-average entries.
+The mapping does not compute \(C\) or \(\theta\) and names no minimum spin count. Pauli paramagnetism shares the statistical character of this family and is closer to the [electron heat capacity](electron-heat-capacity.md) entry; it is not given a home here.
 
 ### 4.7 Overall Confidence in the QSA Mapping
 
-**Medium** — the \(C/T\) envelope, Brillouin saturation, and the \(T\to T_C/T_N\) replacement by order are sharp, and the unlocked-versus-latched contrast closes against the magnet entries; the hardware scale remains statistical, with no single \(N\) cliff.
+**Medium** — the \(C/T\) form, Brillouin saturation and the replacement by order at \(T_C\) or \(T_N\) are sourced, and the free-against-latched contrast holds against the magnet entries; the hardware scale is statistical, with no minimum count.
 
 ## Related entries
 
-- [Permanent magnet (directional latch)](permanent-magnet-latch.md) — locked contrast case; remnant \(M\) at \(B=0\)
-- [Superparamagnetism](superparamagnetism.md) — small-grain latch that looks unlocked only above its blocking temperature
-- [Ferromagnetic hysteresis](ferromagnetic-hysteresis.md) — write / erase cycle of the ordered state this ensemble dies into
-- [Antiferromagnetic order](antiferromagnetic-order.md) — staggered lock at \(T_N\); \(\chi\) is no longer \(C/T\)
-- [Thermal equilibrium temperature](thermal-equilibrium-temperature.md) — the bath average that sets the \(1/T\) scale
-- [Faraday rotation](faraday-rotation.md) — optical readout that can ride on either an unlocked or a latched moment population
+- [Permanent magnet (directional latch)](permanent-magnet-latch.md) — the latched contrast: remanent moment at zero field
+- [Superparamagnetism](superparamagnetism.md) — a grain with a barrier that responds as a free moment only on long enough time scales
+- [Ferromagnetic hysteresis](ferromagnetic-hysteresis.md) — the loop of the ordered state
+- [Antiferromagnetic order](antiferromagnetic-order.md) — staggered order below \(T_N\)
+- [Thermal equilibrium temperature](thermal-equilibrium-temperature.md) — the bath that sets the \(1/T\) scale
+- [Faraday rotation](faraday-rotation.md) — optical readout of a moment population, free or latched
+
+## Sources
+
+Rules and the meaning of the Checked column: [README.md](README.md#sourcing-standard).
+
+| Key | Reference | Checked | Supports |
+|---|---|---|---|
+| S1 | [NIST, CODATA 2022 value of the Bohr magneton](https://physics.nist.gov/cgi-bin/cuu/Value?mub) | full-text | Bohr magneton 9.2740100657 × 10⁻²⁴ J/T. |
+| S2 | [Henry, *Phys. Rev.* 88, 559 (1952)](https://doi.org/10.1103/PhysRev.88.559) | abstract | Cr³⁺ alum at 99.5 % saturation at 1.29 K and 50 000 G; agreement with the Brillouin function for g = 2 and disagreement with the Langevin function; Fe³⁺ and Gd³⁺ salts saturated. |
+| S3 | [Wikipedia, "Curie's law"](https://en.wikipedia.org/wiki/Curie%27s_law) | full-text | Tertiary: the law as an experimental fit valid at high temperature and weak field; Curie constant formula; tanh form for two-level moments; constant susceptibility of a Fermi gas. |
+| S4 | [Wikipedia, "Curie–Weiss law"](https://en.wikipedia.org/wiki/Curie%E2%80%93Weiss_law) | full-text | Tertiary: Curie–Weiss form above the Curie temperature, its mean-field origin and failure near the Curie point. |
+| S5 | [NIST, CODATA 2022 electron gyromagnetic ratio in MHz/T](https://physics.nist.gov/cgi-bin/cuu/Value?gammaebar) | full-text | 28 024.951 3861 MHz/T. |

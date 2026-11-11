@@ -29,8 +29,8 @@ A shot is a **write** on several machines at once:
 | Rail–armature interface and particle contacts | `electrical-contacts` | Film puncture, then heating of the contact spots to softening and melting voltage. Solid versus arcing contact. |
 | Gas gaps and slurry voids | `dielectric-breakdown` | Paschen breakdown of the gas route. Process lever **and** confound. |
 | Lorentz body force, impact, plastic strain | `oscillator-grid` | Yield vs melt vs fracture. Bonding is a yield/oxide-rupture event, not a *T*<sub>m</sub> event if you stay “cold.” |
-| *B* in a Ni/Fe particle | `magnetostriction` + latch | Strain locked to *M* if *B* exceeds alignment and *T* < *T*<sub>C</sub> and the grain is blocked. |
-| H-rich carrier or residual moisture on steel/Ti | interstitial latch | Unwanted write of [embrittlement](hydrogen-embrittlement.md). |
+| *B* in a Ni/Fe particle | `magnetostriction` + latch | Strain follows the alignment of *M* below *T*<sub>C</sub> (631 K for Ni). It is small: Ni saturates at −35 to −40 ppm, which fully clamped is 7–9 MPa, about 5 % of yield, and a free particle takes it with no stress ([magnetostriction](../library/magnetostriction.md)). |
+| H-rich carrier or residual moisture on steel/Ti | trapped hydrogen ([hydrogen-in-metals](../library/hydrogen-in-metals.md)) | Unwanted write of [embrittlement](hydrogen-embrittlement.md). |
 | Impact of already-latched magnetic powder | `anisotropy-latch` | Shock can erase remanence (mechanical failure path). |
 
 The manufacturing goal (coherent deposit, low substrate heat) and the experimental goal (isolate one of those writes) use the **same knobs**, turned for different verdicts.
@@ -156,10 +156,10 @@ A percolated Cu film that still transmits in the visible is thin compared with i
 
 **Tune.**
 
-| Knob | Toward a magnetostrictive write | Null |
+| Knob | Toward magnetized, strained powder | Null |
 |---|---|---|
 | Peak *B* | Through Ni alignment / technical write field | Below alignment: *λ* hidden |
-| Particle size | Above the blocking class for Ni (about 34 nm at room temperature and 100 s; see [superparamagnetism](../library/superparamagnetism.md)) | Superparamagnetic: no static *λ*, no remanence |
+| Particle size | Above the blocking class for Ni (about 34 nm at room temperature and 100 s; see [superparamagnetism](../library/superparamagnetism.md)) | Superparamagnetic: no remanence |
 | *T* | Well below Ni *T*<sub>C</sub> (628–631 K, about 355 °C; an earlier version of this note said 627 °C) | Approach *T*<sub>C</sub> or melt |
 | Host | Ni vs Pd in the same coil | Pd should be the weak magnetic writer |
 
@@ -173,7 +173,7 @@ Post-shot VSM / powder-pattern remanence is the readout. A coil around the barre
 
 **Tune.** Carrier **off** hydrogen (isoparaffinic, dry gas) vs **on** (glycerol, moisture). Post-spray bake as **erase**. Compare toughness / delayed crack, not just deposit density.
 
-If bake restores toughness, you wrote the interstitial latch while making a part. That is a successful QSA observation and a manufacturing defect.
+If bake restores toughness, the process charged hydrogen into traps while making a part. That is a successful QSA observation and a manufacturing defect.
 
 ### 3.5 Hydride-forming powder — [hydride-storage](hydride-storage.md)
 
@@ -195,9 +195,9 @@ If bake restores toughness, you wrote the interstitial latch while making a part
 
 **What.** The ¼″ cell + ⅜″ coil already specified. Powder stays in. This is not CSAM deposition; it is the same driver family used as a repetitive writer.
 
-**Question.** Host × gas × pulse pattern of the interstitial latch, **without** opening the energy-gate.
+**Question.** Does pulsing change a measurable hydrogen state (a thermal desorption peak, or the Pd hydride hysteresis), with no nuclear search?
 
-**Tune.** Follow EM-LENR §§5–6. Ni first. Plasma off. Hold-power after *I* = 0.
+**Tune.** Follow [EM-LENR](EM-LENR.md) §§5–6. Pd first (Ni takes up almost no hydrogen at these pressures). Plasma off. Repeat the readout with the coil dark.
 
 Steven owns whether that latch is the LENR configuration. You own whether the coil writes *something* that bake-out / size / *B*-threshold can erase.
 

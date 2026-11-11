@@ -341,7 +341,7 @@ First-wave families (counts from the current catalog):
 | Family | *n* | Dominant collapse |
 |---|---|---|
 | `collective-field-response` | 10 | Spatial under-provisioning or loss of collective phase |
-| `latched-order` | 9 | Thermal over-barrier, volume too small for *KV*, or lattice destroyed |
+| `latched-order` | 10 | Thermal over-barrier, volume too small for *KV*, or lattice destroyed |
 | `gapped-coherence` | 10 | Gap closure or coherence-length / *H*<sub>c</sub> / *I*<sub>c</sub> violation |
 | `threshold-conversion` | 14 | Under-threshold input (conversion does not occur) |
 | `lattice-modes` | 10 | Mode cutoff, mfp destroyed, or loss of crystalline order |
@@ -357,6 +357,7 @@ Queryable reading of the mappings. Commit the text; do not commit the `.db`.
 | [analysis/schema.sql](analysis/schema.sql) | Canonical DDL. | only with a matching README + rebuild change |
 | [analysis/rebuild.py](analysis/rebuild.py) | One-shot rebuild: merge fragments → `implication.csv`, seed effects and nodes from frontmatter, load CSVs, write `../qs-analysis.db`. Stdlib only. | code |
 | [analysis/merge_fragments.py](analysis/merge_fragments.py) | Concatenate `fragments/*.jsonl` → `implication.csv`. | code |
+| [analysis/sync_counts.py](analysis/sync_counts.py) | Rewrites the count lines in the docs from the database after a rebuild reports count drift. | code |
 | [analysis/fragtools.py](analysis/fragtools.py) | Helper for editing fragment rows in place; rewrites only the rows it changes. | code |
 | [analysis/computed_checks.py](analysis/computed_checks.py) | The arithmetic behind every "Computed here" number in a sourced effect file. Rebuild fails if a recomputed value drifts from the quoted one. | **yes**, together with the effect file |
 | `analysis/checks/*.py` | Further checks, one file per cluster of effects, executed by `computed_checks.py`. New checks go here. | **yes** |
@@ -382,9 +383,9 @@ Device-centered uses. Not procedures. Unqualified readers stop at SAFETY.md.
 | [application/README.md](application/README.md) | Index of applications. | — |
 | [application/thin-film-optics.md](application/thin-film-optics.md) | Mirrors, TCO, SPR chips | `collective-screening` (calibration case) |
 | [application/bonded-magnets.md](application/bonded-magnets.md) | Bonded NdFeB, tape, ferrofluid | `anisotropy-latch` (handbook calibration) |
-| [application/hydrogen-embrittlement.md](application/hydrogen-embrittlement.md) | Charged high-strength metal parts | Interstitial latch, no nuclear layer |
-| [application/hydride-storage.md](application/hydride-storage.md) | Metal-hydride bed / tank | Capacity vs pinned H |
-| [application/EM-LENR.md](application/EM-LENR.md) | Contained pulsed-coil cell (Steven E. Jones) | Defect-pinned interstitial latch; energy-gate last |
+| [application/hydrogen-embrittlement.md](application/hydrogen-embrittlement.md) | Charged high-strength metal parts | Trapped hydrogen (per-atom binding, Arrhenius release), no nuclear layer |
+| [application/hydride-storage.md](application/hydride-storage.md) | Metal-hydride bed / tank | Hysteretic hydride transition vs trapped residue |
+| [application/EM-LENR.md](application/EM-LENR.md) | Contained pulsed-coil cell (Steven E. Jones) | Configuration hypothesis tested on trapped hydrogen and on the hydride transition; nuclear search last |
 | [application/EM-CSAM.md](application/EM-CSAM.md) | Micro-railgun deposition head | Impact, skin, breakdown, magnetostriction |
 | [application/switchable-hydride-mirror.md](application/switchable-hydride-mirror.md) | H-switchable screening film | `collective-screening` × interstitial occupancy |
 | [application/polar-beam-gate.md](application/polar-beam-gate.md) | Polar HV + beam-target D–D | `polar-latch` × `energy-gate` |
@@ -408,7 +409,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-Load (after a clean rebuild): 62 `effect` · 184 `effect_constraint` · 517 `implication` (476 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 295 `source` (18 of 62 effects sourced) · 413 `implication_source`.
+Load (after a clean rebuild): 63 `effect` · 188 `effect_constraint` · 527 `implication` (486 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 438 `source` (30 of 63 effects sourced) · 602 `implication_source`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 

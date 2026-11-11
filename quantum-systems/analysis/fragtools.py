@@ -120,3 +120,33 @@ def rows_for(slug: str) -> list[dict]:
                 if row["effect_slug"] == slug:
                     out.append(row)
     return out
+
+
+def set_csv_row(path, key: str, updates: dict | None = None, append_notes: str | None = None) -> None:
+    """Change one row of a hand-kept CSV (first column is the key) and leave every other line as it is.
+
+    `updates` maps column name to new value; `append_notes` is added to the notes cell.
+    Only the target line is re-serialised, so the hand quoting of other rows survives.
+    """
+    import csv
+    import io
+
+    path = Path(path)
+    lines = path.read_text(encoding="utf-8").split("\n")
+    header = next(csv.reader([lines[0]]))
+    for i, line in enumerate(lines[1:], start=1):
+        if line.startswith(key + ","):
+            row = next(csv.reader([line]))
+            if len(row) != len(header):
+                raise SystemExit(f"{path.name}: row {key} has {len(row)} cells, header has {len(header)}")
+            for column, value in (updates or {}).items():
+                row[header.index(column)] = value
+            if append_notes:
+                j = header.index("notes")
+                row[j] = (row[j] + " " + append_notes).strip()
+            buf = io.StringIO()
+            csv.writer(buf, lineterminator="").writerow(row)
+            lines[i] = buf.getvalue()
+            path.write_text("\n".join(lines), encoding="utf-8")
+            return
+    raise SystemExit(f"{path.name}: no row with key {key}")

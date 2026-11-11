@@ -1,373 +1,271 @@
-# Application: EM-LENR — Defect-Pinned Interstitial Latch
+# Application: EM-LENR — Configuration Hypothesis for Hydrogen in a Pulsed Metal Powder
 
 **Source problem:** configuration dependence of reported LENR / gas-loaded-metal anomalies.
-**QSA role:** first end-to-end use of the effect library and the `effect → implication → design → requirement` analysis layer.
-**Status:** Working application. Utility and internal-consistency test only. No nuclear process is asserted. **Not a tested protocol.**
-**Updated:** 2026-08-17
+**QSA role:** an application of the effect library to an unisolated problem, graded against sourced hydrogen and magnet facts.
+**Status:** Working application. A hypothesis and a test plan. No nuclear process is asserted. **Not a tested protocol.**
+**Updated:** 2026-11-13
 
-> **Hazards (read [SAFETY.md](../SAFETY.md)).** H₂/D₂, fine metal powder, and pressure in one vessel are a fire, leak, and dust-explosion stack. A wet bed (H₂O/D₂O or an organic) adds steam, splash, and — if anything actually dissociates — a flammable headspace you did not meter as gas. kA-class pulses injure at arm’s length even at tens of volts. BeCu is named only for shops that already control beryllium; otherwise stay on copper. This file is a mapping, not a procedure. Do not scale inventory, pressure, pulse energy, or liquid volume in search of a nuclear signature. Do not skip to a neutron search.
+> **Hazards (read [SAFETY.md](../SAFETY.md)).** H₂/D₂, fine metal powder, and pressure in one vessel are a fire, leak, and dust-explosion stack. A wet bed adds steam and a flammable headspace. kA-class pulses injure at arm's length even at tens of volts. BeCu is named only for shops that already control beryllium; otherwise stay on copper. This file is a mapping, not a procedure. Do not scale inventory, pressure, pulse energy, or liquid volume in search of a nuclear signature. Do not skip to a neutron search.
 
-**Credit.** The physical problem, the configuration hypothesis, and the experimental direction are Steven E. Jones’s. The notes that this file analyzes were developed in collaboration with the author of this repository. Electromagnetic cold-spray additive manufacturing (EM-CSAM) entered only as a related thought experiment — a railgun barrel as an incidental high-*dB/dt*, high-strain environment — not as the subject of this application. This document is QSA analysis of that work, not a claim of authorship of it.
+**Credit.** The physical problem, the configuration hypothesis, and the experimental direction are Steven E. Jones's. The notes this file analyzes were developed in collaboration with the author of this repository ([`../../em-csam/EM-CSAM-LENR.md`](../../em-csam/EM-CSAM-LENR.md), kept as the historical record). The EM-CSAM micro-railgun entered only as a related thought experiment. This document is QSA analysis of that work, not a claim of authorship of it.
 
-This file is the live theory-of-operation and parameter document. The prior notes remain the historical record ([`../../em-csam/EM-CSAM-LENR.md`](../../em-csam/EM-CSAM-LENR.md)).
+**Sources.** Hydrogen facts are cited to [hydrogen-in-metals](../library/hydrogen-in-metals.md) (below **HM**) by section; strain and field facts to [magnetostriction](../library/magnetostriction.md) (**MS**); blocking to [superparamagnetism](../library/superparamagnetism.md). Their Sources tables hold the references. Arithmetic introduced here is guarded in [`analysis/checks/b2_hydrogen.py`](../analysis/checks/b2_hydrogen.py).
 
----
-
-## 1. Scope and claim
-
-Reported anomalous heat or nuclear signatures in Pd–D, Ni–H/D, and related systems are treated as **possibly real and not yet isolated**. The experimental record is consistent with a missing hardware variable, not with a well-defined energy-gate that sometimes opens at random.
-
-**Claim of this application.** The unisolated object is a **defect-pinned latched order of the interstitial hydrogen / deuterium population** — the same machine class as [`anisotropy-latch`](../analysis/README.md) and [`exchange-pin`](../analysis/README.md), applied to occupancy and strain rather than to spin. Bulk loading ratio (H/M, D/M) is capacity, not the latch. A nuclear conversion, if it ever occurs, is a separate `energy-gate` that can open only inside a provisioned cell.
-
-That claim is a mapping, not a demonstration. It is useful if it produces:
-
-- a short list of knobs with a predicted direction of tune,
-- a host split (Ni vs Pd vs non-absorbing ferromagnet) that the source notes did not have,
-- collapse tests that look like blocking, not like bulk β-phase fraction,
-- a clean hold-power test after the coil is dark.
-
-If those tests fail, the mapping is wrong. Record that; do not patch it with a new nuclear story.
-
-Language stays inside the library rules: constraints, resources, synchronization, failure thresholds, emergent output. No agency.
+> **What changed on 2026-11-13, and why.** The earlier version was written before any hydrogen fact in the library was sourced. Checking it against sources changed six things.
+> 1. The "blocking" analogy (a trapped hydrogen cluster held by a barrier that grows with its volume, as \(KV\) does in a magnetic grain) is withdrawn. Trapped hydrogen is bound per atom. The volume-proportional barrier that the sources do support belongs to the coherent hydride transition, which the earlier version set aside as "capacity".
+> 2. Nickel was ranked first and described as loading hydrogen. Under 20–300 bar near room temperature it holds \(10^{-4}\) hydrogen atoms per metal atom and forms no hydride. The host table is corrected and palladium is the first host.
+> 3. Magnetostriction was named as the scribe. It is the smallest strain in the cell. The write channel is now given as computed strains.
+> 4. The success criterion had no dependent variable. Readouts are now defined: thermal desorption, the pressure–composition isotherm, lattice parameter, resistance.
+> 5. Cells that cannot exist (a preloaded nickel hydride at ambient pressure) are removed, and several "predictions" are reclassified as established or contradicted (§8).
+> 6. The 2019 multi-laboratory null result is cited (§9).
 
 ---
 
-## 2. Why the LENR record sits on a latch, not on an average or a gate
+## 1. Scope and hypothesis
 
-Jones’s configuration hypothesis is kept. QSA names the machine.
+**The configuration hypothesis (Jones).** Reported anomalies in Pd–D, Ni–H and related systems depend on a specific arrangement of hydrogen in the metal that has not been isolated, and average loading alone does not predict them.
 
-| Persistent feature of the record | QSA reading | Library home |
+This file takes the hypothesis as a materials question and asks what it could be about, given what is measured. It asserts no nuclear process. It is useful if it names a state that can be written, detected after the drive is off, and erased, with instruments that already exist. If the tests in §6 fail, the mapping is wrong. Record that; do not patch it with a new nuclear story.
+
+The discipline of the earlier version is kept: baselines before physics, a materials state before any nuclear search, falsifiers written in advance.
+
+The project vocabulary is used as a speculative mapping: **capacity** (equilibrium occupancy set by pressure and temperature), **write** (a process that changes where hydrogen sits), **hold** (the state remains with the drive off), **erase** (heating removes it).
+
+---
+
+## 2. Two sourced objects the hypothesis could be about
+
+The sources support two different objects. They are kept separate here.
+
+| | (a) Trapped hydrogen | (b) Coherent hydride transition |
 |---|---|---|
-| High H/M is required but not sufficient | Sample envelope is **capacity**. The cliff is a **cell volume**. | `ensemble-average` vs `anisotropy-latch` |
-| Defects, interfaces, multilayers, cold work | Barrier matrix / pin, not uniform interstitial sites | `exchange-pin`, `magnetic-domains` (as partition analog) |
-| Dynamic trajectories, cycling, moving fronts | Write / erase cycle | `ferromagnetic-hysteresis` |
-| Clean, annealed, equilibrium hosts are usually null | Soft limit: barrier → 0 | hysteresis soft-limit |
-| Extreme intermittency, even in one lab | Volume-and-time collapse: too-small a cell thermally erases on the observation window | `superparamagnetism` |
-| Anomaly can linger after the drive | Zero continuous hold-power | latch / pin outputs |
-| Bulk *T* and phase diagrams do not predict it | Pin collapse is a **blocking** temperature, not the host Curie or hydride phase line | `exchange-pin` (*T*<sub>B</sub> ≠ *T*<sub>C</sub>) |
+| What it is | Hydrogen at vacancies, dislocations, grain boundaries, voids | First-order α→β transition of a hydride former |
+| Barrier | Binding energy per atom. Pd: 0.31, 0.23, 0.15 eV for vacancy clusters, single vacancies, and vacancies at high occupancy. bcc iron defects: 9–78 kJ mol⁻¹ | Coherency strain energy, proportional to the transforming volume |
+| Dependence on amount held | Binding falls as a site fills; a vacancy holds up to six atoms | Barrier grows with particle volume |
+| Hold | Remains after the gas is removed; occupancy follows the lattice concentration | Either phase persists between the desorption and absorption pressures |
+| Erase | Arrhenius release, \(e^{-E_a/RT}\) per atom; no critical temperature | Cross the other branch of the loop, or exceed the critical temperature (566 K in bulk Pd) |
+| Size dependence | None sourced as a threshold. Smaller specimens retain less hydrogen | Pd: absorption branch size-dependent below 30 nm; sloped transitions below 15 nm; coherent below about 50 nm; \(T_c(L) = 566 - 2381/L\) K |
+| Measured by | Thermal desorption: peak temperature, area, shift with heating rate | Pressure–composition isotherm: plateau pressures and hysteresis width |
+| Where it exists | Any metal with defects | Pd at about 2 kPa; Ni only above 6 kbar |
 
-Machines that do **not** own the missing variable:
+All entries are from HM §4.3 ("Trapping", "Palladium–hydrogen", "Size effects in palladium") and HM §4.6.
 
-- **`ensemble-average`.** H/M, resistance ratio, and lattice expansion are the averages already measured. They have no universal *N*-cliff. The anomaly, if real, is what happens when a latch or gap *replaces* that average.
-- **`energy-gate` alone.** Isolated D–D / p–p conversion is a discrete gate. Ordinary lattice compression does not open it. An under-threshold gate cannot explain metallurgical history or intermittency.
-- **`energy-gate` as [muon-catalyzed fusion](../library/muon-catalyzed-fusion.md).** The handbook hydrogen-isotope nuclear gate. It requires a muon. Collapse is missing muon / decay / sticking, not blocking of a defect cell. This apparatus has no muon source. Cosmic-ray flux does not track bake-out or cold work. Do not file that cycle as this cell (`predicted:muon-catalyzed-fusion:muon-free-cell-is-null`). Device reading: [muon-hydrogen-gate](muon-hydrogen-gate.md).
-- **`energy-gate` as [pyroelectric fusion](../library/pyroelectric-fusion.md).** Ordinary beam-target D–D opened by a pyroelectric high-voltage engine. This apparatus has no pyroelectric accelerator. Do not file a pulsed-coil hydride as that crystal. Pyroelectric neutrons, when they exist, track a thermal ramp, not *τ<sub>μ</sub>* (`predicted:pyroelectric-fusion:muon-free-still-not-mucf`). Device reading: [polar-beam-gate](polar-beam-gate.md).
-- **`energy-gate` as [deuteron photodisintegration](../library/deuteron-photodisintegration.md).** A 2.224 MeV *γ* unbinds *d* → *p*+*n*. That photon is not a muon catalyst (`predicted:deuteron-photodisintegration:photon-is-not-a-muon`). Do not irradiate this cell, and do not read a 2.45 MeV D–D line as photodisintegration.
-- **Bulk `collective-screening` of the Pd electron gas.** Connected buffer and plasma clock of a uniform metal. Too spatially uniform to carry the defect / recipe dependence.
-- **`gapped-condensate`.** No measured pairing gap, London *λ*, or Meissner of the hydride at these temperatures. Same category error as folding a dilute BEC into the charged condensate.
+Reading of the hypothesis against these:
 
-A collective mode of **clustered interstitials inside a defect cavity** is not in the library. It is a predicted sibling of `collective-screening`, not a substitute for isolating the latch. Isolate the latch first.
+- The earlier version's latch, "cell volume × barrier ≳ *kT* ln(*τ*/τ₀)", described object (b) and assigned it to object (a). Object (b) is the hydride transition itself, which that version dismissed as "bulk β-phase fraction" and "capacity".
+- If the hypothesis is about (a), the state is an ordinary trapped population whose amount and binding energies depend on defect history. Standard metallurgy already describes it. The open question is only whether a pulse changes it in a way that soaking, cold work and heating do not.
+- If the hypothesis is about (b), the host must be a hydride former at the working pressure. That is palladium. The size dependence the earlier version looked for is measured there, without any pulse, in single nanocrystals.
+- A third sourced object, vacancies bound to hydrogen at up to 30 at. % (superabundant vacancies), forms under hydrogen fugacity at the GPa level (HM §4.3). It is outside this apparatus.
+
+No opened source gives a trapped population a barrier that scales with its volume (HM §4.6). The \(KV\) form stays where it is sourced: the magnetic moment of a grain ([superparamagnetism](../library/superparamagnetism.md) §4.3) and the coherent hydride transition.
 
 ---
 
-## 3. Theory of operation
+## 3. Hosts
 
-### 3.1 The machine
+Values at 298 K. Solubilities for Ni, Fe and Cu are computed in HM §4.3 from fits measured above 500 K, so they are extrapolations.
 
-Three nested hardware layers:
+| Host | State under H₂ | H/M | Hydride | Magnetic | What a column can test | What it cannot |
+|---|---|---|---|---|---|---|
+| **Pd** | Hydride former | 0.68 at 1 atm | Plateau 2.0 kPa (H₂), 9.8 kPa (D₂); misfit 3.5–3.7 % linear | Not ferromagnetic (not sourced in the library) | Objects (a) and (b). Whether a pulse shifts the plateau, the hysteresis width, or the desorption spectrum | Any magnetostrictive channel |
+| **Ni** | Dilute solid solution | \(1.8\times10^{-5}\) at 1 bar; \(8.0\times10^{-5}\) at 20 bar; \(1.3\times10^{-4}\) at 50 bar; \(3.1\times10^{-4}\) at 300 bar | Forms above 6 kbar, decomposes near 3.4 kbar | Ferromagnet; Curie point 631 K | Object (a) only, in a magnetic host: whether a pulse changes the trapped population | Object (b); size-dependent hysteresis; any test that needs high occupancy |
+| **Fe** | Dilute solid solution | \(5.7\times10^{-8}\) at 1 bar | Not addressed in the library | Ferromagnet | A magnetic host with 310 times less lattice hydrogen than Ni and much faster transport | Object (b) |
+| **Cu** | Dilute solid solution | \(2.3\times10^{-9}\) at 1 bar | — | No | Plain-conductor baseline for eddy and Joule heating | Anything about hydrogen |
 
-1. **Oscillator-grid (scribe).** The host ion lattice. Pulses, shocks, and magnetostrictive strain write defects, open transient volume, and then collapse or pin it. Owned by [`oscillator-grid`](../library/phonon-dispersion.md) / [`magnetostriction`](../library/magnetostriction.md) / [`elasticity`](../library/elasticity.md).
-2. **Interstitial latch (the missing object).** A high-occupancy, defect- or interface-associated arrangement of H or D, held by a strain / surface / vacancy barrier at **zero continuous power**. Cell volume must sit above a blocking line (KV analog). Too small → thermal erasure on laboratory time. Too soft a matrix → no remanence (soft-limit analog).
-3. **Pin (optional, sharpens the collapse).** A second structure — grain boundary, misfit interface, multilayer, vacancy cluster — whose collapse temperature is **not** the bulk hydride phase line. This is why `exchange-pin` was split from `anisotropy-latch`: *T*<sub>B</sub> of the pin is not *T*<sub>C</sub> of the parent.
+Consequences for nickel (HM §4.3, "Dilute solubility" and "Nickel–hydrogen"):
 
-A nuclear energy-gate, if present, is a **fourth** layer that only sees the interior of a provisioned cell. This application does not tune for that gate until the latch can be written and erased on command.
+- Raising the pressure from 20 to 300 bar raises H/Ni by \(\sqrt{15} = 3.9\). There is no threshold in that range. The hydride needs 20 times the pressure of a 300 bar vessel.
+- Nickel cannot be "loaded" or "preloaded" as a hydride in this apparatus. A nickel hydride made at kilobar pressure decomposes below about 3.4 kbar, so a preloaded nickel hydride under an inert headspace at ambient pressure does not exist as a stable inventory.
+- Uptake cannot be verified by mass or pressure drop. One gram of nickel at 300 bar holds 5.3 µg of hydrogen (2.6 µmol H₂); in a 1 cm³ gas space that is 0.065 bar out of 300, a relative change of \(2.2\times10^{-4}\). Gas adsorbed on the powder surface is not quantified in the library and would add to any measured uptake.
+- What a nickel column can show is a difference in the thermal desorption spectrum between pulsed and unpulsed powder. It can show nothing about a hydride.
 
-### 3.2 Write cycle
+Ranking for this apparatus: **Pd first**, because both objects exist there at pressures below one atmosphere and published values give a reference. **Ni second**, for object (a) in a magnetic host. **Cu** as the conductor baseline. **Fe** optional.
 
-A useful pulse does four things in order. None of them is “compress the lattice until nuclei fuse.”
+A palladium column needs no high pressure. The 2.0 kPa plateau is \(10^{-3}\) of the 20 bar prototype ceiling in the earlier version. The high-pressure cells of that version buy a factor of 3.9 in nickel occupancy and are dropped from the plan.
 
-| Step | What happens | QSA clause |
+---
+
+## 4. The write channel
+
+### 4.1 Strains a pulse delivers
+
+| Source of strain | Magnitude | Inputs and reference |
 |---|---|---|
-| 1. Align / stress | In Ni: *B* aligns *M*; magnetostriction strains the grid. In any conductor: eddy currents and Lorentz body forces add a second, less specific stress. | `magnetostriction` requires ordered *M* **and** a deformable lattice. Pd has the lattice and not the ordered moment. |
-| 2. Open | Local volumes, vacancies, and interfaces open or move. Gas chemical potential (pressure, *T*) drives H/D into those volumes. | Capacity: high average occupancy is the reservoir. |
-| 3. Collapse / pin | The grid snaps back or the interface reconstructs. A high-occupancy cluster is left in a well. | Latch write. Energy is the loop area, not a hold-power. |
-| 4. Hold or erase | If cell volume × barrier ≳ *kT* ln(*τ*/τ₀), the configuration persists after the coil is dark. If not, it is gone on the observation window. | Superparamagnetic analog. Hold-power test. |
+| Saturation magnetostriction of Ni | \(3.5\)–\(4.0\times10^{-5}\) | Measured polycrystalline values −35 and −40 ppm (MS §4.3) |
+| Thermal expansion of Ni | \(1.34\times10^{-5}\) per kelvin | Expansivity \(13.4\times10^{-6}\) K⁻¹ (MS §4.3). One kelvin is 0.38 of the 35 ppm magnetostriction; 2.6–3.0 K equals all of it |
+| Elastic strain of Nickel 200 at yield | \(8.2\times10^{-4}\) | 163 MPa over 199.5 GPa; 23 times the magnetostriction (MS §4.3) |
+| Hydride misfit, Pd | \(3.5\times10^{-2}\) | Lattice parameter 3.889 Å to 4.025 Å (HM §4.3); 870–1000 times the nickel magnetostriction |
+| Hydride misfit, Ni | \(5.9\times10^{-2}\) | 3.5238 Å to 3.731 Å, above 6 kbar only (HM §4.3); 1500–1700 times |
 
-Plasma (arc, glow, surface discharge) is a **parallel write channel**: ion injection and surface reconstruction. It is not required by the latch mapping. It is a confound for calorimetry. Early runs keep it off; later runs turn it on as its own factor.
+Stress is a separate question from strain. A free body magnetostricts without stress; stress appears only where the strain is constrained, and its ceiling is \(E\lambda_s\), 7.0–8.8 MPa in nickel, which is 4.3–5.4 % of the 163 MPa yield constant (MS §4.3 and §4.5, "clamping"). A loose powder particle is close to the free case. The same reasoning applies to uniform heating of a free particle; thermal stress needs a gradient or a constraint.
 
-### 3.3 Host split (load-bearing)
+The field needed is also sourced: an isolated nickel sphere needs about 0.23 T applied to saturate (MS §4.3).
 
-The source notes ranked Pd–D first on historical association. For **this** write channel the ranking inverts.
+**Conclusion.** Magnetostriction is the smallest strain in the cell. A pulse that heats a nickel particle by 3 K strains it as much as full magnetic saturation does, and the stress available from a fully clamped grain is about a twentieth of yield. It cannot be assumed to create defects or to be the scribe. Lorentz and eddy-current body forces are not computed here; no sourced number for them is in the library.
 
-| Host | Magnetic latch | Magnetostrictive scribe | Interstitial capacity | Role in this apparatus |
+### 4.2 What the host comparison can still separate
+
+Ni against Pd against Cu remains a useful control design for three properties: a magnetic host, a hydride former, a plain conductor. It can show whether an effect needs a ferromagnet, needs a hydride phase, or appears in any conductor heated the same way.
+
+It cannot attribute a nickel-only effect to magnetostriction. Nickel differs from palladium in hydrogen content by a factor of \(3.8\times10^{4}\), in hydrogen diffusivity by a factor of 1500, in magnetic hysteresis heating, and in how its permeability changes the eddy-current coupling. Controls that address magnetostriction directly are sourced in MS §4.3: nickel above its Curie point (631 K), where the strain is zero; a peak field below and above the 0.23 T saturation field of a sphere; and Ni with 7 at. % Ga, whose magnetostriction is −10 ppm against −35.
+
+### 4.3 Clocks
+
+| Clock | Value at 298 K | Consequence |
+|---|---|---|
+| Coil pulse | 10–100 µs (carried from the source notes) | The write envelope |
+| Hydrogen diffusion in Ni | \(D = 5.1\times10^{-14}\) m² s⁻¹; 0.71 nm in 10 µs, 2.3 nm in 100 µs; 1 µm in 20 s; 100 µm in 55 h | Lattice hydrogen in nickel does not move during a pulse. Soak times are seconds for micrometre grains and days for 100 µm grains |
+| Hydrogen diffusion in Pd | \(D = 7.7\times10^{-11}\) m² s⁻¹; 28 nm in 10 µs, 88 nm in 100 µs; 1 µm in 13 ms | Hydrogen can cross a nanoparticle during a pulse and a micrometre grain between pulses |
+| Hydrogen diffusion in Fe | 850 nm in 100 µs | Fast transport, almost no content |
+| Detrapping | \(e^{-E_a/RT}\) per atom; a 50 kJ mol⁻¹ trap releases 1750 times faster at 473 K than at 298 K | The hold and erase clock. Traps deeper than 50 kJ mol⁻¹ are called irreversible at room temperature by convention |
+| Magnetic blocking of a Ni grain | Tabulated blocking diameter 34 nm for \(KV = 25\,kT\) | A statement about the moment of the grain on a 100 s window, and a crossover. It is not a hydrogen clock |
+| Thermometer or calorimeter | Seconds | Reads the average temperature only |
+
+Diffusion values are from HM §4.3 ("Diffusion"); blocking from [superparamagnetism](../library/superparamagnetism.md) §4.3.
+
+The earlier version required the pulse to be "long enough for gas to enter an opened volume". In nickel that cannot happen on the pulse clock: hydrogen moves 2.3 nm in 100 µs. Any hydrogen a pulse rearranges in nickel is hydrogen that was already within nanometres of the site.
+
+---
+
+## 5. Parameters and observables
+
+### 5.1 Readouts (the dependent variables)
+
+| Readout | Quantity recorded | Object | Reference value or caveat |
+|---|---|---|---|
+| Thermal desorption spectrum | Peak temperatures, peak areas, shift of each peak with heating rate (gives \(E_a\)) | (a) | Method and limits in HM §4.3: peak assignment can be speculative; small specimens lose hydrogen quickly, faster in vacuum than in argon. Nickel holds ppm-level hydrogen, so the blank matters |
+| Pressure–composition isotherm (Pd) | Absorption and desorption plateau pressures at fixed temperature; hysteresis width \(\ln(p_\mathrm{abs}/p_\mathrm{des})\); H/Pd at 1 atm | (b) | 2.0 kPa (H₂) and 9.8 kPa (D₂) at 298 K; 0.68 at 1 atm. No bulk hysteresis ratio was found as a number in an opened source |
+| Lattice parameter by diffraction | \(a\) before and after; phase fractions | (b) | Pd 3.889 Å; β phase \(a = 3.9321 + 0.1719\,x\) Å. Nickel should stay at 3.5238 Å; 3.731 Å would mean hydride |
+| Resistance | Change on loading and after pulsing | Both | Secondary readout. No calibration is sourced in the library |
+| Coil *I*(t), *V*(t); cell *T*(t) | Pulse energy and temperature rise | Control | Needed to build the heat-matched control of §5.2 |
+| Grain-size distribution, microscopy | Size and defect state | Both | Measured, not taken from a vendor label |
+| Neutron channel, calorimetry | — | Search | Phase 5 only |
+
+### 5.2 Controls every pulsed cell needs
+
+- **Heat-matched, no field.** Because 2.6–3.0 K of heating equals the full magnetostrictive strain, each pulsed cell is paired with a cell given the same temperature history without the field.
+- **Soak only.** Same gas, pressure, temperature and time, no pulse.
+- **Inert gas.** Same pulse train in helium or argon, then the same desorption run.
+- **Cold work without a coil** (milled or pressed powder of the same lot). This tells whether a pulse does anything that ordinary deformation does not.
+
+### 5.3 Knobs
+
+| Parameter | Setting | Reason |
+|---|---|---|
+| Host | Pd, then Ni, with Cu baseline | §3 |
+| Gas | H₂ first; D₂ as a paired column; inert control | In Pd, D₂ needs about 5 times the plateau pressure |
+| Pressure | Pd: sweep through the plateau, below 1 atm. Ni: one fixed modest pressure | No threshold exists for Ni; pressure is a \(\sqrt{p}\) crossover |
+| Temperature | Near ambient; a scan only as an Arrhenius measurement | Release is continuous in temperature |
+| Powder size | Pd: a series from about 10 nm to above 100 nm | The published size dependence of the hydride transition lies at 15–50 nm and is the baseline |
+| Defect state | Annealed and cold-worked lots of one chemistry | Trap population depends on defect history |
+| Peak field | Below and above 0.23 T on Ni | Turns the magnetostrictive strain on and off |
+| Pulse width, repetition, train length | 10–100 µs; 1, 10, 10², 10³ shots as separate cells | A dependence on shot count is a dependence on accumulated deformation or heat; the controls separate them |
+| Plasma, current through the bed | Off | A confound for every readout; Phase 4 |
+
+Not to optimize: neutron yield, excess heat, pulse energy, pressure, or fineness of powder.
+
+---
+
+## 6. Experimental matrix
+
+Run down the list. A warm cell is not a reason to skip ahead.
+
+**Phase 0 — Instrument.** Empty cell and Cu powder in inert gas with the full pulse train: *I*(t), *T*(t), pickup on every channel. Desorption blanks of each as-received powder. If the blanks are not reproducible, stop.
+
+**Phase 1 — Reference state, no pulse.**
+
+| Cell | Host | Gas | Measurement | Question |
 |---|---|---|---|---|
-| **Ni** | Yes (ferromagnet) | Yes (*λ*<sub>s</sub> ~ 10⁻⁵ class) | H and D both load | **Primary.** Pulse writes strain through a filed machine. |
-| **Pd** | No (Pauli paramagnet) | No *M*-locked *λ* of this kind | Excellent D/H host | **Control for “is *B*→*λ* load-bearing?”** Historical Pd–D writes were electrochemical / gas-trajectory, not coil writes. |
-| **Fe / low-alloy steel** | Yes | Yes | Poor H host at these *T*, *P* relative to Pd/Ni; embrittlement | **Strain without interstitial capacity** (near-null for the latch, not for heating). |
-| **Cu** | No | No | Negligible | **Eddy / Joule baseline.** Cell wall is already Cu in the prototype. |
+| 1 | Pd, coarse | H₂ | Isotherm, lattice parameter | Does this lot reproduce 2.0 kPa and 0.68? |
+| 2 | Pd, size series | H₂ | Isotherm | Does the lot reproduce the published narrowing of hysteresis with size? |
+| 3 | Ni, annealed and cold-worked | H₂ soak | Desorption spectrum | What is the unpulsed trapped population of each lot? |
+| 4 | Ni | Inert | Desorption spectrum | Blank |
 
-If Ni + H/D + pulse shows a configuration signature and Pd in the same coil does not, the magnetostrictive write is load-bearing. If both do, Lorentz / eddy / pressure cycling is doing the writing and the Ni advantage collapses. If a ferromagnetic non-absorber shows the same “anomaly,” the signal is mechanical or magnetic heating.
+**Phase 2 — Pulse as a factor.** Each row is run with the four controls of §5.2.
 
-Fine powder is not automatically better. A grain below the blocking line cannot hold the latch (`predicted:exchange-bias:no-hex-below-kv`, `predicted:magnetostriction:no-static-lambda-when-unblocked`). There is a **window**: small enough for high interfacial area and for the pulse to work the whole grain; large enough that *KV* (or the interstitial analog) stays above the thermal-escape line on the measurement window.
-
-### 3.4 Clocks
-
-| Clock | Scale | Role |
-|---|---|---|
-| Coil pulse | µs–ms | Write envelope. Must be long enough for wall / dislocation motion and for gas to enter an opened volume; short enough that the event is a pulse, not a bake. |
-| Acoustic transit of a grain | ns–µs for µm–mm particles | Grid response. |
-| H/D hop / diffusion into a fresh defect | highly *T*- and path-dependent; can be the slow step | If hops are slower than the open interval, step 2 fails. Raise *T* or lengthen the pulse, or raise *P* (chemical potential). |
-| Thermal escape of an under-volume cell | τ₀ exp(*KV*/*kT*), τ₀ ~ 10⁻¹¹ s class | Hold / erase. This is the intermittency clock. |
-| Calorimeter / thermometer | seconds | Must not be mistaken for the write clock. Observation slower than equilibration reads *T*; that is the ensemble-average machine, not the latch. |
-
-### 3.5 Failure envelope (predicted)
-
-The latch mapping dies in ways that are **not** “the nuclear gate stayed closed”:
-
-- *T* above a blocking / unpinning line → configuration gone, bulk hydride may remain.
-- Grain / island / film below a volume cliff → no remanence of the configuration on lab time.
-- Soft, well-annealed host → nothing to pin; pulse only heats.
-- *B* below the write field on Ni → *M* not aligned → *λ* hidden (`magnetostriction` unaligned-*M* failure).
-- *P* / chemical potential too low → opened volumes refill with vacancy, not with H/D.
-- Pulse so slow or so hot that the host sinters or melts → grid destroyed; latch matrix gone. That is `coupled-grid-loss` (shear, crystal *κ*, and Mössbauer *f* fail together at *T*<sub>m</sub>), not a Curie / *T*<sub>λ</sub> / nuclear cliff.
-- Pulse so fast and so small-opening that gas never enters → write of empty defects.
-
-A nuclear-null in all of those collapse cells, **plus** a nuclear-null in the provisioned cell, is a failed application of the energy-gate layer, not a failed isolation of the latch. Keep those verdicts separate.
-
----
-
-## 4. Apparatus (carried forward, inverted)
-
-The EM-CSAM micro-railgun was the thought-experiment that suggested incidental high *dB/dt* and high strain rate. It is the wrong primary instrument for this problem: one write, powder leaves, calorimetry is hostile.
-
-**Primary instrument:** contained powder, external pulsed coil, no net ejection. Cell and coil geometry follow the modular sketches in the source notes.
-
-| Element | First article | Upgrade |
-|---|---|---|
-| Cell | ¼″ Cu HVAC tube, Schrader fill, flare or compression closure | Rated high-pressure copper-alloy cell only under a real vessel review. **BeCu only in a beryllium-controlled shop;** otherwise stay on Cu and prototype pressure. |
-| Coil | ⅜″ OD form sliding over the cell, 12 AWG high-temp magnet wire, 30–80 turns, long solenoid first | Swappable forms; short concentrated coils later; never a closed eddy loop in the fixture |
-| Drive | kA-class short-to-moderate pulses, current in the **coil only** | Reproducible pulse trains; single-shot and low-duty modes for diagnostics |
-| Inventory | Grams or less of powder | Same. Small volume is a control advantage, not a compromise. |
-| Gas | H₂ / D₂ / inert; prototype 20–50 bar | 60–80 bar on ½″ ACR Cu if that cell is used; 150–300 bar on the machined cell |
-
-Plasma is minimized on the first matrix (external coil, no intentional current through the powder). A later matrix routes current through the bed on purpose.
-
-Hydrogen + fine metal powder + pulsed current + pressure is an ordinary industrial hazard set. Small inventory reduces inventory at risk; it does not make the stack hobby-safe. Schrader / HVAC fittings are not hydrogen service. This file does not replace a safety review and is not a procedure.
-
----
-
-## 5. Parameters: which way to turn them
-
-Direction is relative to **isolating the latch**, not to maximizing a hoped-for nuclear yield. “Up” means increase that quantity.
-
-### 5.1 Materials
-
-| Parameter | First setting | Tune toward isolation | Tune away (usually a confound) |
-|---|---|---|---|
-| Host | **Ni** powder | Then Pd (magnetic-write control), then Fe/steel (strain, poor H capacity), then Cu powder if needed (eddy baseline) | Starting on Pd because the literature did |
-| Gas | H₂ on Ni first (handling); D₂ as a paired column, not the first gas | Inert (He/Ar) on the same Ni as the empty-reservoir control | Mixing gases in one cell |
-| Powder size | A **bimodal or stepped series**, not “as fine as possible.” Include a cut above ~50–100 nm and a cut that crosses into the 10–30 nm class | Walk size across a suspected blocking line at fixed *T*, *P*, pulse | Only nano, or only coarse filings |
-| Defect budget | Cold-worked / high-surface Ni, not vacuum-annealed large crystals | One annealed control lot of the same chemistry | Unknown metallurgical history |
-| Loading | Verify *some* uptake (mass, *P* drop, resistivity if practical) before calling a cell “loaded” | Cross a high-occupancy threshold, then **stop using H/M as the knob** | Chasing a magic H/M as the primary variable |
-
-### 5.2 Thermodynamic state
-
-| Parameter | First setting | Tune toward isolation | Collapse / null if the mapping is right |
-|---|---|---|---|
-| Pressure | Prototype ceiling (20–50 bar) for mechanical shakedown | **Up** into 60–80 then 150–300 bar to raise chemical potential for step 2 | Very low *P*: opened volumes stay empty |
-| Temperature | Near ambient for first pulse maps | A **coarse *T* scan** looking for a blocking-like drop of any configuration signature, *not* for a fusion Q(T) | High *T*: thermal erase and sintering. Cryogenic: hops freeze, step 2 fails |
-| Soak before pulsing | Long enough that bulk loading is not still ramping | Then compare “soak + pulse” vs “pulse from a freshly filled cell” | Treating soak time as equivalent to write cycles |
-
-### 5.3 Pulse (the write waveform)
-
-| Parameter | First setting | Tune toward isolation | Collapse / null if the mapping is right |
-|---|---|---|---|
-| Peak *B* / current | Tesla-class at the powder if the coil and driver can do it; otherwise the highest reproducible *B* that does not melt the cell | **Up** through Ni’s technical write / alignment field so *λ* is not hidden | Below alignment: magnetostrictive channel off |
-| Pulse width | Start ~10–100 µs class (between acoustic transit and thermal soak) | Walk **both ways**. Too short: gas never enters. Too long: bake / sinter | DC or 50/60 Hz soak: not a write pulse |
-| *dB/dt* | High enough for a real pulse, low enough to avoid intentional breakdown | A two-point split: “mechanical / magnetostrictive” vs “discharge-rich” | Uncontrolled arcing as the default |
-| Repetition rate | Low duty first (thermal baseline visible between pulses) | Then trains. Look for **cycle-count** dependence (hysteresis), not just RMS power | High duty that only raises average *T* |
-| Train length | 1, 10, 10², 10³ shots as separate cells or well-separated blocks | If the signature needs many cycles, that is a write-loop, not a one-shot gate | One heroic pulse as the only condition |
-| After-period | Record for several thermal time constants after the coil is dark | **Hold-power test.** A latched configuration can persist; Joule heat decays | Cutting the record when the current stops |
-
-### 5.4 Geometry and electrical path
-
-| Parameter | First setting | Tune toward isolation | Tune away |
-|---|---|---|---|
-| Current path | **Coil only** | Later: intentional current-through-powder as the plasma-present matrix | Current through Schrader / end-cap by accident |
-| Cell ID / fill | Shallow bed, not a rammed slug | Leave headspace so particles can move a little; a welded brick only heats | Tight packing that turns the bed into a single eddy slug |
-| Coil length | Long solenoid (more uniform *B*) | Short coil later if a field gradient is wanted | Fixture that is a shorted turn |
-| Plasma | Off (external coil, no glow) | On, as its own factor, after a low-plasma baseline exists | Plasma as the unnamed default |
-
-### 5.5 What *not* to optimize first
-
-- Neutron yield or “excess watts.” Those are search channels on an unisolated machine. Do not scale inventory, pressure, or pulse energy to chase them.
-- Maximum pulse energy. Reproducible *B*(t) beats a bigger bang.
-- Finest powder. That walks straight into the volume-collapse side of the latch.
-- Highest pressure before the latch protocol exists. Pressure is a chemical-potential assist, not the effect.
-- A wet cell or an electrolysis current before the dry gas matrix exists. Occupancy delivery is a later column, not a substitute for Phases 1–3.
-
-### 5.6 Occupancy without a live gas headspace
-
-Step 2 is chemical potential of **interstitial H/D**, not “there is hydrogen somewhere in the room.” A liquid, a preloaded hydride, and a gas cylinder are three ways to provision that reservoir. None of them is the latch.
-
-| Mode | What the handler holds | What the latch sees | When to try it |
-|---|---|---|---|
-| **A.** Preloaded dry hydride | Sealed powder, inert headspace | Lattice H already inside the grain; short hop to a new trap | First, after gas-phase isolation. “Stable until operate.” |
-| **B.** Hydride in a **dry** carrier | Slurry (metering, dust) | Same as A if the carrier is not an H source | If a liquid is needed for handling |
-| **C.** Liquid as the H inventory | H₂O/D₂O film, metered flash, or a lab organic | Only after an **unbinding** gate (catalysis, flash+dissociation, electrolysis) | Last, and only if A/B are not enough or the requirement is specifically water |
-
-Flash evaporation (an EM-CSAM clock) dumps vapor into the open window of the coil pulse. Steam ≠ atomic H unless that unbinding gate opens. Electrolysis writes occupancy **and** reconstructs the surface; it is Phase 4b, not Phase 0.
-
-Tritium is the same capacity species as H/D. It is not more handleable. No T column.
-
----
-
-
-
-## 6. Experimental matrix (isolation sequence)
-
-Run **down** this list. Do not skip to nuclear search because a cell got warm.
-
-### Phase 0 — Instrument, not physics
-
-Empty cell and Cu-powder cell, inert gas, same pulse train. Map *I*(t), *T*(t), and any pickup on the neutron channel. This is the eddy / Joule / EMI baseline. If this already looks “anomalous,” stop.
-
-### Phase 1 — Write channel exists
-
-| Cell | Host | Gas | Pulse | Question |
+| Cell | Host | Gas | Pulse | Dependent variable |
 |---|---|---|---|---|
-| 1 | Ni | inert | coil, low plasma | Strain / heating only |
-| 2 | Ni | H₂ | same | Interstitial reservoir added |
-| 3 | Pd | H₂ or D₂ | same | Magnetic-write channel removed |
-| 4 | Fe / steel | H₂ | same | Strain, poor H capacity |
-| 5 | Ni | H₂ | **no pulse**, same *T*, *P*, time | Trajectory vs soak |
+| 5 | Pd | H₂, held inside the hysteresis loop | Train | Plateau pressures, hysteresis width and lattice parameter, before and after |
+| 6 | Pd | H₂ | Train | Desorption peaks and areas against cell 1 |
+| 7 | Ni | H₂ | Train, field above 0.23 T | Desorption peaks and areas against cell 3 |
+| 8 | Ni | H₂ | Train, field below saturation | Same; separates field from magnetostrictive strain |
+| 9 | Cu | H₂ | Train | Same; conductor baseline |
 
-A configuration-level success is **not** heat. It is a difference that tracks host magnetism × gas uptake × pulse, and that is absent in 1, 3, 4, and 5 in the pattern the mapping requires (see §3.3). Mass, *P* drop, post-run diffraction / resistivity, and *T*(t) shape (including the after-period) are the first readouts.
+A positive result is a new or shifted desorption peak, or a shifted plateau or hysteresis width, that exceeds the scatter of repeats and is absent in the heat-matched and cold-work controls.
 
-### Phase 2 — Blocking and write-field cliffs
+**Phase 3 — Hold and erase.** On any cell with a positive Phase 2 result: stop the coil, then repeat the readout after hours and after days. The hold test is whether the desorption peak or the hysteresis shift is still there with the coil dark. The erase test is whether an anneal removes it and a new pulse train restores it. Measure \(E_a\) of the new peak from the heating-rate shift and compare it with the trap energies of §2.
 
-On Ni + H₂ (or D₂), hold pulse shape fixed and walk:
+**Phase 4 — Other occupancy routes, as separate factors.** Current through the bed or a discharge; electrochemical loading. Electrochemical insertion is sourced for palladium (H/Pd 0.96 in a thin film against 0.68 from gas, HM §4.3). The wet cells of the earlier version are reduced to one question: does the Phase 2 result survive when hydrogen is supplied electrochemically. The preloaded nickel hydride cell is removed (§3). A preloaded palladium hydride is possible only in a hydrogen atmosphere above its desorption pressure.
 
-1. Powder size across a decade that includes tens of nm and hundreds of nm.
-2. *T* from well below room temperature (if available) through a range that approaches sintering, looking for a **drop** of the Phase-1 signature, not a fusion-like rise.
-3. Peak *B* from below Ni alignment to well above it.
-
-A latch mapping wants a **cliff** in size and/or *T*, and a **threshold** in *B*. A smooth “more energy in, more heat out” curve is the ensemble-average / Joule machine.
-
-### Phase 3 — Hold-power
-
-On a cell that showed a Phase-2 cliff: run the write train, then **stop the coil** and keep recording. Compare to a Joule-matched inert cell.
-
-- Signature dies with *I*²*R* → heating transient.
-- Signature persists or relaxes on a longer, *T*-dependent clock → consistent with a written state.
-
-### Phase 4 — Plasma as a factor
-
-Repeat the winning Ni + gas + pulse cell with intentional current through the bed or a discharge-prone gap. If the Phase-2 cliffs vanish and only a hot plasma remains, the latch was never isolated; the discharge wrote a different (or no) configuration and destroyed calorimetry.
-
-### Phase 4b — Liquid / internal occupancy (additional things to try)
-
-Only after Phases 0–3 exist. If the dry gas mapping failed, a liquid does not save it. The coil stays the scribe. These cells change **only** how chemical potential is provisioned.
-
-“Run on water” is an upstream `energy-gate` (unbind H₂O) stacked in front of the interstitial latch. Under-threshold, opened volumes refill with vacancy or with steam, not with H. A water molecule in the pore is the wrong buffer for step 2.
-
-**Do not start here on electrolysis + D₂O because Fleischmann–Pons did.** That buries the latch under four writes (electrochemical occupancy, surface reconstruction, heat/gas evolution, and often plasma) before the coil ever gets a clean column.
-
-| Cell | Inventory | Pulse | Question |
-|---|---|---|---|
-| G | Ni, dry, **preloaded** hydride, inert headspace | coil | Internal store. Does the Phase-1–3 signature survive with **no live gas**? |
-| L0 | Ni, dry, empty, inert | coil | Empty-reservoir control (Phase 1 cell 1) |
-| L1 | Ni + thin H₂O or D₂O film, **no** current through the bed | coil | Does a wet film provision step 2, or only steam/heat? |
-| L2 | Same wet film, flash timed to the pulse (side heater or coil eddy) | coil + flash | Clock: must the dump overlap the open window? |
-| L3 | Preloaded hydride in a **dry** carrier slurry | coil | Liquid handleability without a second H source |
-| L4 | Empty powder + dry carrier | coil | Carrier-only confound |
-| L5 | Formic / methanol on Ni, no electrolysis | coil, modest *T* | Catalytic unbinding as the upstream gate |
-| L6 | Winning wet cell + **low** electrolysis current | coil + *I*_bed | Historical occupancy write as a *factor*, not the default |
-| L7 | Pd in the winning liquid / preload mode | coil | Host split must still hold; if Pd matches Ni, *B*→*λ* is not load-bearing |
-
-Order: **G** first (mode A). Then **L3/L4** if a liquid is needed for metering (mode B). Mode C is **L1 → L2 → L5 → L6**, each with L0/L4/L7. Preferred C feedstock if the bottle must be water: a thin H₂O/D₂O film or a metered flash — after G has shown that interstitial H, however delivered, is what the latch wants. Formic/methanol is a cleaner unbinding gate than raw water on Ni at ambient *T*, at the cost of carbon.
-
-Added clocks: flash/boil must overlap or immediately precede the open window; unbinding rate is another hop-clock (too slow ⇒ empty defects); oxide/coke can fake a “blocking” fade.
-
-**Not to do**
-
-- Do not start on electrolysis + D₂O because Fleischmann–Pons did. That buries the latch under four writes.
-- Do not flash-evaporate “to make more pressure” as a nuclear knob. Pressure is capacity.
-- Do not add a muon, a pyroelectric crystal, or tritium to “open” a wet cell.
-- Do not treat water as the energy-gate. A nuclear-null in a wet cell that never unbound H is a failed step 2, not a closed fourth-layer gate.
-- Do not scale liquid inventory, pulse energy, or *I*_bed in search of a signature.
-- Do not use a glycerol / wet carrier as the “dry” slurry in L3 — that is a second, uncontrolled H write ([hydrogen-embrittlement](hydrogen-embrittlement.md)).
-
-Wet-mode falsifiers: L1/L2 match L0 (steam ≠ H); L1 matches G (then use the solid store); signature requires continuous *I*_bed (not a 0 W latch); signature tracks carrier more than host magnetism; wet Ni matches wet Cu (heat/steam); oxide/melt with no bake-reversible residual (`coupled-grid-loss`) is a destroyed grid, not a latched cell.
-
-### Phase 5 — Search, not isolation
-
-Only after a write/erase protocol exists: add a quiet neutron channel and the best calorimetry the small cell allows. Columns: H₂ vs D₂ vs inert, loaded vs unloaded, Ni vs Pd, pulse vs no-pulse, on-train vs after-period.
-
-A nuclear-null here, with the latch isolated, is a result: the energy-gate did not open in this cell. It does not erase Phases 1–3.
-
-A high-strain-rate impact, if used at all, is a **Phase-2 supplement** (single shock write), not Phase 0. It is not an EM-CSAM process step.
+**Phase 5 — Search.** Only after a state has been written, held and erased on command: a quiet neutron channel and the best calorimetry the cell allows, with columns H₂, D₂, inert; pulsed and unpulsed. A null here closes the nuclear question for this hardware. It does not undo a materials result from Phases 1–3.
 
 ---
 
-## 7. Diagnostics (what each one is for)
+## 7. Falsifiers
 
-| Diagnostic | Machine it reads | Notes |
+Written against the readouts of §5.1.
+
+1. **Ni.** The desorption spectrum of pulsed nickel matches the heat-matched control and the cold-worked control in peak temperatures and areas, within the scatter of repeats. Then the pulse writes no trapped state that ordinary processing does not.
+2. **Pd.** Plateau pressures, hysteresis width and lattice parameter after pulsing equal the unpulsed values of the same lot. Then the pulse does not act on the hydride transition.
+3. **Hold.** Every difference is gone by the first readout after the coil is dark, or decays as the cell cools.
+4. **Erase.** A difference exists but has the activation energy and annealing behaviour of the trapped populations of §2, and cold work reproduces it. Then it is ordinary trapping, and the hypothesis adds nothing to known metallurgy.
+5. **Host pattern.** The same difference appears in Cu, or in nickel below the saturation field and above the Curie point alike. Then neither a hydride nor the magnetic state is involved.
+6. **Size.** The size dependence found in pulsed palladium is the published unpulsed one.
+
+Dropped from the earlier list, because standard physics already answers them: "annealed coarse Ni and nano Ni behave the same at the same H/M" (lattice H/M at fixed pressure and temperature is set by Sieverts' law, and fine powder differs from coarse in retention without any pulse); "Ni not special, Pd identical" (the hosts differ by four orders of magnitude in hydrogen content before any pulse).
+
+A nuclear null after a positive materials result is not a falsifier of the materials result.
+
+---
+
+## 8. Status of the earlier version's predictions
+
+| Earlier statement | Status | Basis |
 |---|---|---|
-| Coil *I*(t), *V*(t) | Write waveform | Needed to know whether *B* crossed the alignment / write field |
-| Cell *T*(t), after-period | Ensemble average + hold-power | Decay after *I* = 0 is the first latch-vs-Joule split |
-| Gas *P*, mass, (if possible) resistance | Capacity / loading | Threshold condition, not the primary knob |
-| Post-run XRD / PDF / microscopy | Grid and defect budget | Before/after, not only “did we get heat” |
-| Grain-size distribution | Volume cliff | Must be known, not assumed from the vendor label |
-| Neutron channel | Energy-gate search | Low background; EMI from the pulse is a first-class background |
-| Calorimetry | Last, not first | Ordinary pulse energy will dominate any historical-rate nuclear term |
-
-Local-structure probes *during* a claimed episode remain the right long-term measurement. They are not required to start Phase 1.
-
----
-
-## 8. Predicted implications (conjecture, marked)
-
-These are design-down claims. Several already sit on `design_implication` as `origin = predicted`. They are not extracted library facts.
-
-- A Ni grain below the blocking line does not hold a static magnetostrictive strain or a pinned interstitial configuration on laboratory time.
-- Peak *B* below Ni’s alignment / write field hides *λ* and should starve the magnetostrictive write even at high *P*.
-- Pd in the same coil should be a weaker writer of this latch than Ni if *B*→*λ* is load-bearing.
-- A configuration signature that needs the coil to stay on is heat, not a latch.
-- A plasma-present cell can load surfaces and destroy the thermal baseline without ever provisioning the latch.
-- If a nuclear gate opens at all, it tracks the **presence of the written cell**, not RMS pulse power. That is a Phase-5 claim only.
-- A muon-free hydride is not the μCF cycle; pyroelectric 2.45 MeV neutrons (if anyone runs that crystal) do not die with *τ<sub>μ</sub>*; a 2.224 MeV *γ* is not a muon. None of those gates is this cell. Do not add a muon source, a pyroelectric crystal, or a *γ* beam to “open” it.
-- A preloaded dry hydride under inert headspace should reproduce the gas-phase configuration signature if occupancy, not live *P*, is what step 2 needs.
-- A wet or flashed cell that matches the dry empty cell did not provision interstitial H. Steam is not the reservoir.
-- A signature that requires the electrolysis supply to stay on is not this latch.
+| A grain below a blocking line cannot hold a pinned interstitial configuration | Contradicted as stated | Trap binding is per atom; no volume barrier is sourced (HM §4.6) |
+| Hysteresis of the hydride transition narrows in small particles | Established, for Pd | HM §4.3; a crossover, measured without a pulse |
+| Fine powder holds less | Established, for a different reason | Smaller specimens retain less hydrogen because the path to the surface is short (HM §4.3) |
+| A peak field below the alignment field hides the magnetostriction | Established | The strain follows the magnetization and saturates (MS §4.5). Not a prediction |
+| Nickel loads H and D; verify uptake by mass or pressure drop | Contradicted | §3 |
+| A preloaded dry nickel hydride reproduces the gas-phase result | Contradicted | The hydride decomposes below about 3.4 kbar |
+| Higher pressure opens the effect | Established as a crossover only | \(\sqrt{p}\); a factor of 3.9 from 20 to 300 bar |
+| High temperature erases; cryogenic temperature freezes hops | Established | Arrhenius release and Arrhenius diffusion; no critical temperature |
+| Gas enters an opened volume during the pulse | Contradicted for Ni | 2.3 nm in 100 µs |
+| Magnetostrictive strain writes defects | Unsupported | Smallest strain in the cell; 4–5 % of yield when fully clamped |
+| Pd is a weaker writer than Ni | Not testable as posed | The hosts differ in too many other ways (§4.2) |
+| A signature that needs the coil on is heat | Kept as a criterion | §7, item 3 |
+| Low pressure leaves opened volumes empty; annealed hosts are null; the anomaly lingers after the drive | Hypothesis | No source in the library |
 
 ---
 
-## 9. Falsifiers
+## 9. The record
 
-The mapping is in trouble if, after Phases 0–3 are actually run:
+Berlinguette et al., *Nature* 570, 45 (2019), report a multi-institution programme to re-evaluate cold fusion (HM §4.3, "Anomalous-heat claims").
 
-1. No host × gas × pulse pattern appears that matches §3.3 (Ni not special, Pd identical, non-absorber identical).
-2. The only “cliffs” are thermal: more pulse energy, more *T*, no size or *B*-threshold structure.
-3. The after-period is always a pure cooling curve, and no *T*-dependent persistence shows up on any size cut.
-4. Annealed coarse Ni and nano Ni behave the same at the same H/M and the same *B*(t).
+From the abstract ([PubMed record](https://pubmed.ncbi.nlm.nih.gov/31133686/)): the efforts "have yet to yield any evidence of such an effect". The same abstract says the work gave "new insights into highly hydrided metals and low-energy nuclear reactions" and that "there remains much interesting science to be done in this underexplored parameter space".
 
-Item 4 alone, done carefully, is a strong kill of the volume-threshold clause.
+From a news account of the paper (secondary): three set-ups were tested. Palladium was loaded toward H/Pd 0.875, a level exceeded twice in several dozen tests. 420 samples of nickel powder heated in hydrogen showed no excess heat. Pulsed-plasma loading of palladium showed no enhanced tritium. The full paper was not opened.
 
-A nuclear-null after a successful isolation is **not** a falsifier of the latch. It is a closed energy-gate in this hardware.
+The nickel-powder test is the closest published relative of the nickel column here, and it was null. This file therefore treats the anomaly claims as unconfirmed, and treats the configuration hypothesis as a materials question that can be answered without them.
 
 ---
 
-## 10. Relation to the source notes
+## 10. Relation to the source notes, and status
 
 | Source element | Fate here |
 |---|---|
-| Configuration dependence of reported LENR | Kept; named as a latch / pin |
-| Average loading as necessary but insufficient | Kept; filed as capacity |
-| Dynamic trajectories, defects, interfaces | Kept; filed as write cycle and barrier matrix |
-| EM-CSAM railgun as a related thought experiment | Acknowledged; not the subject. Optional shock writer only |
-| Inverted contained powder + pulsed field | Promoted to primary |
-| Modular ¼″ cell / ⅜″ coil / HVAC path | Kept; BeCu only if the shop already controls beryllium |
-| Pd–D as first host | Inverted for this write channel; Ni first |
-| Plasma optional | Kept; sequenced after a low-plasma baseline |
-| Neutrons as first-line nuclear signature | Kept as Phase-5 search, not as isolation |
-| Ordinary compression insufficient for fusion | Kept; restated as energy-gate not opening from grid strain alone |
-| Electrolysis / “run on water” / handleable liquid | Kept as **capacity delivery**, sequenced after dry isolation. Not a fourth-layer gate. Fleischmann–Pons-style wet electrolysis first would bury the latch under four writes. |
+| Configuration dependence of reported anomalies | Kept as the hypothesis; given two candidate objects |
+| Average loading necessary but insufficient | Kept for Pd as a statement to test; not applicable to Ni, which does not load |
+| Defects, interfaces, cycling | Kept as the trap population, object (a) |
+| Contained powder with an external pulsed coil | Kept as the instrument |
+| Modular ¼″ Cu cell and ⅜″ coil form | Kept for shakedown. Schrader and HVAC fittings are not hydrogen service. Palladium work is done below one atmosphere |
+| Ni first | Reversed: Pd first |
+| Magnetostriction as the write | Withdrawn as an assumption; tested by the field and Curie controls |
+| High-pressure cells (60–300 bar) | Dropped; no threshold exists for them to reach |
+| Plasma, wet cells, electrolysis | Kept as Phase 4 factors |
+| Neutrons and calorimetry | Kept as Phase 5 |
+| Ordinary compression is insufficient for fusion | Kept; no nuclear process is asserted |
 
----
+The other gate applications remain separate: this cell has no muon source ([muon-hydrogen-gate](muon-hydrogen-gate.md)) and no pyroelectric accelerator ([polar-beam-gate](polar-beam-gate.md)). The handbook relatives of this file are [hydrogen-embrittlement](hydrogen-embrittlement.md) and [hydride-storage](hydride-storage.md).
 
-## 11. Status
-
-This is the first application of the QSA library to a live, unisolated problem. It does not add a nuclear effect to [`library/`](../library/INDEX.md). If Phases 1–3 produce a blocking-like cliff, that cliff is a candidate for a new library entry (interstitial-cluster latch / defect-cavity occupancy), not a reason to edit `energy-gate`.
-
-Next work on this application, if any: run Phase 0 on the hardware that already exists, then a three-host, two-gas, pulse/no-pulse matrix small enough to finish. Liquid / preload cells (Phase 4b) wait on that dry isolation. The solid preloaded hydride (cell G) is the first “stable until operate” try; water is last.
+Next work, if any: Phase 0 on the existing hardware, then Phase 1 on one palladium lot and one nickel lot. Phase 1 uses no pulse and tests whether the instruments reproduce published values. Nothing later is interpretable without it.

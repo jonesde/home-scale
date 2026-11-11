@@ -54,11 +54,11 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 
 | Layer | Count | Where |
 |---|---|---|
-| Formal effects | 62 (six families; two added in the 2026-11 sourcing pass: electrical-contacts, electrical-resistivity) | [library/INDEX.md](library/INDEX.md) |
-| Mapping confidence | 28 High · 34 Medium · 0 Low (shape-anisotropy and reflection moved to Medium when sourced; the two new entries are Medium) | per-file frontmatter |
+| Formal effects | 63 (six families; three added in the 2026-11 sourcing pass: electrical-contacts, electrical-resistivity, hydrogen-in-metals) | [library/INDEX.md](library/INDEX.md) |
+| Mapping confidence | 28 High · 35 Medium · 0 Low (shape-anisotropy and reflection moved to Medium when sourced; the two new entries are Medium) | per-file frontmatter |
 | Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) and [pyroelectric-fusion](library/pyroelectric-fusion.md) (Medium). Unverified outside the sourced files | same |
-| Sourced effects | 18 of 62 (see the Sourced column of the index) | [library/INDEX.md](library/INDEX.md) |
-| Extracted implications | 476 | `analysis/fragments/*.jsonl` |
+| Sourced effects | 30 of 63 (see the Sourced column of the index) | [library/INDEX.md](library/INDEX.md) |
+| Extracted implications | 486 | `analysis/fragments/*.jsonl` |
 | Predicted implications | 41 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
 | Designs | 12 (8 formal; four drafts) | [analysis/design.csv](analysis/design.csv) |
 | Nodes | 11 forced | [library/nodes/INDEX.md](library/nodes/INDEX.md) |
@@ -110,7 +110,7 @@ Then prefer, in order:
 4. Add a thirteenth design only when a hardware stack and collapse are not already owned. Do not invent one for every interface. Drafts `phase-space-condensate` and `landauer-channel` own the BEC and QPC leftovers; do not fold them into He-4 or `edge-channel`.
 5. Add a `cataloged` node only under the admission filter in [library/nodes/README.md](library/nodes/README.md) (parent of a forced node, or already named as hardware). Do not vendor PDG. The dark-sector list stays out until a file names those species.
 
-Applications stay mappings and falsifiers, not protocols. EM-LENR waits on Steven’s review for the nuclear/configuration claim; isolate the interstitial latch first. Eight new device concepts (not used products) live under [application/](application/README.md); the strongest stacks are the switchable hydride mirror, the polar beam-target gate, and the extra-node muon hydrogen gate.
+Applications stay mappings and falsifiers, not protocols. EM-LENR waits on Steven’s review for the nuclear/configuration claim; it now tests the hypothesis on two sourced objects (trapped hydrogen and the hydride transition), palladium first. Eight new device concepts (not used products) live under [application/](application/README.md); the strongest stacks are the switchable hydride mirror, the polar beam-target gate, and the extra-node muon hydrogen gate.
 
 ---
 

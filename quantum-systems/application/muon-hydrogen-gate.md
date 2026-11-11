@@ -97,4 +97,4 @@ Factory net electrical cost per muon is a different bookkeeping problem. It is n
 - [muon-catalyzed-fusion](../library/muon-catalyzed-fusion.md) — library source  
 - [deuteron-photodisintegration](../library/deuteron-photodisintegration.md) — opposite arrow  
 - [polar-beam-gate](polar-beam-gate.md) — muon-free H-isotope burst  
-- [EM-LENR](EM-LENR.md) — isolate the latch; this gate stays closed  
+- [EM-LENR](EM-LENR.md) — isolate a materials state first; this gate stays closed  

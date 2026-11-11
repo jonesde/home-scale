@@ -20,12 +20,12 @@ Device-centered uses of the QSA library. Concepts are allowed to repeat; the sin
 |---|---|---|---|
 | [thin-film-optics.md](thin-film-optics.md) | Mirrors, TCO, SPR chips | `collective-screening` (was the calibration case; the thickness cliff it calibrated against does not exist, see the file) | Lab coating |
 | [bonded-magnets.md](bonded-magnets.md) | Bonded NdFeB, tape, ferrofluid | `anisotropy-latch` (handbook calibration) | Lab / magnet shop |
-| [hydrogen-embrittlement.md](hydrogen-embrittlement.md) | Charged high-strength metal parts | Interstitial latch, no nuclear layer | Industrial H service |
-| [hydride-storage.md](hydride-storage.md) | Metal-hydride bed / tank | Capacity vs pinned H | Industrial H service |
-| [EM-LENR.md](EM-LENR.md) | Contained pulsed-coil cell (Steven E. Jones) | Defect-pinned interstitial latch; energy-gate last | Lab / industrial; nuclear search last |
+| [hydrogen-embrittlement.md](hydrogen-embrittlement.md) | Charged high-strength metal parts | Trapped hydrogen (per-atom binding, Arrhenius release), no nuclear layer | Industrial H service |
+| [hydride-storage.md](hydride-storage.md) | Metal-hydride bed / tank | Hysteretic hydride transition vs trapped residue | Industrial H service |
+| [EM-LENR.md](EM-LENR.md) | Contained pulsed-coil cell (Steven E. Jones) | Configuration hypothesis tested on trapped hydrogen and on the hydride transition; nuclear search last | Lab / industrial; nuclear search last |
 | [EM-CSAM.md](EM-CSAM.md) | Micro-railgun deposition head + driver | Impact bonding, skin, breakdown, magnetostriction | Shop + same driver as experiment |
 
-EM-LENR waits on Steven’s review for the nuclear/configuration claim. Isolate the interstitial latch first.
+EM-LENR was rewritten on 2026-11-13 against the sourced [hydrogen-in-metals](../library/hydrogen-in-metals.md) entry: palladium first, defined readouts (thermal desorption, isotherm hysteresis), nuclear search last. The configuration hypothesis is Steven’s and still awaits his review.
 
 ---
 
@@ -35,7 +35,7 @@ Used instruments under their usual names (SI ohm, FeRAM, SPR immunoassay, SET, a
 
 | File | Device concept | Machines | Envelope | Strength |
 |---|---|---|---|---|
-| [switchable-hydride-mirror.md](switchable-hydride-mirror.md) | H occupancy turns the screening buffer on/off | `collective-screening` × interstitial H | Lab / industrial film; nearest later home-scale | **Strongest combination** |
+| [switchable-hydride-mirror.md](switchable-hydride-mirror.md) | H occupancy turns the screening buffer on/off | `collective-screening` × interstitial H | Lab / industrial film; nearest later home-scale | An existing laboratory device (1996); the Casimir force was measured not to change on switching |
 | [polar-beam-gate.md](polar-beam-gate.md) | Polar Δ*T* writes HV; ordinary D–D | `polar-latch` × `energy-gate` | Institutional until interlocked | **Strongest stacked gate** |
 | [muon-hydrogen-gate.md](muon-hydrogen-gate.md) | Extra-node H-isotope cycle | `energy-gate` + muon | Accelerator only | **Strongest extra-node spec** |
 | [exchange-pin-thermal-history.md](exchange-pin-thermal-history.md) | *H*<sub>ex</sub> trip through *T<sub>B</sub>*, *M<sub>r</sub>* can remain | Draft `exchange-pin` | Thin-film lab; sealed coupon later | Split that justifies the ninth design |
