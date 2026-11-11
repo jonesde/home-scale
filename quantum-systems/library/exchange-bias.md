@@ -10,6 +10,7 @@ constraints:
   - spatial-buffer
 confidence_data: high
 confidence_mapping: medium
+review_depth: deep
 related:
   - antiferromagnetic-order
   - ferromagnetic-hysteresis

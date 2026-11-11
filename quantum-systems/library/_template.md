@@ -7,6 +7,7 @@ constraints:
   - spatial-buffer
 confidence_data: medium
 confidence_mapping: unmapped
+review_depth: standard
 related: []
 updated: YYYY-MM-DD
 ---

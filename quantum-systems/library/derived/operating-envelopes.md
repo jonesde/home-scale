@@ -17,7 +17,7 @@ Constraint reasoning still locates the machine from the erase row. This note onl
 | | |
 |---|---|
 | **Inside** | Connected metal / polarizable volume ≳ optical *δ* or RF skin; drive *ω* below *ω_p* (or the Ag interband-shifted edge); incident field present. Output is a re-radiated beam / confined AC current. Extra hold-power 0 W. |
-| **Outside** | Thickness / percolation ≲ 5–10 nm, or *ω* above the plasma / interband edge. Conducting-plate Casimir contrast dies with the same starved faces. |
+| **Outside** | Drive above the plasma or interband edge; a film below dc percolation (6–12 nm unseeded Ag, 1–3 nm seeded). Thinning a continuous film lowers reflectance smoothly, with no edge; Casimir attraction falls with it but does not vanish. |
 
 Nodes: `electron` as `population`; `photon` as `input`.
 

@@ -1,6 +1,6 @@
 design_key,req_key,strength,notes
 collective-screening,zero-hold-power,must,No extra power beyond the incident field.
-collective-screening,connected-spatial-buffer,must,10–20 nm connected metal / optical penetration.
+collective-screening,connected-spatial-buffer,must,"Was: 10–20 nm connected metal. Sourced 2026-11-12: no minimum thickness; λ/4πk (Ag 12–15 nm, Al 6.6–8.3 nm) is a decay length. Requirement now in tension."
 collective-screening,one-plasma-clock,must,One ωp class per metal.
 collective-screening,underived-penetration-depth,must,δ and classical skin depth are taken.
 collective-screening,coupled-screening-failure,must,Thickness cliff is shared by R SPR the plasma edge and Casimir conducting contrast.

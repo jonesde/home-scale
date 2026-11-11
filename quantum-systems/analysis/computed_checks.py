@@ -17,6 +17,7 @@ Run alone to print the table:
 from __future__ import annotations
 
 from math import exp, log, pi, sqrt
+from pathlib import Path
 
 # CODATA 2022 exact SI values.
 K_B = 1.380649e-23  # J/K
@@ -225,6 +226,13 @@ check(_SPM, "extra diameter needed for ten years instead of 100 s", (40.3 / 25.3
 check(_SPM, "effective over bulk anisotropy of 5 nm magnetite (356 / 13.5)", 356 / 13.5, 26)
 check(_SPM, "blocking temperature ratio with and without the pin (290 K / 10 K)", 290 / 10, 29)
 
+
+# Later batches keep their checks one file per cluster in analysis/checks/*.py.
+# Each file is executed in this module's namespace, so it can use check(), the
+# constants and the helpers above, and may define helpers of its own. Add a
+# file there rather than growing this one; two editors can then work at once.
+for _path in sorted((Path(__file__).resolve().parent / "checks").glob("*.py")):
+    exec(compile(_path.read_text(encoding="utf-8"), str(_path), "exec"), globals())
 
 def run_checks(verbose: bool = False) -> int:
     failures = []

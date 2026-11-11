@@ -79,6 +79,9 @@ CONSTRAINT_TAGS = {
 SOURCE_ACCESS = {"full-text", "abstract", "snippet", "cited-only"}
 BASIS = {"measured", "model", "convention", "computed"}
 FORMS = {"threshold", "crossover"}
+REVIEW_DEPTHS = {"deep", "standard", "light"}
+LIT_CHECKS = {"established", "contradicted", "untested", "not-checkable"}
+INDEX = LIBRARY / "INDEX.md"
 SOURCE_ROW = re.compile(r"^\|\s*(S\d+)\s*\|")
 CITATION = re.compile(r"\[(S\d+)\]")
 MD_LINK = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)")
@@ -138,6 +141,47 @@ def parse_sources(slug: str, text: str) -> tuple[list[dict], list[str]]:
     return rows, uncited
 
 
+def index_drift(effects: list[dict]) -> list[str]:
+    """Compare the catalog rows of INDEX.md with frontmatter. Hand-kept tables drift."""
+    by_slug = {e["slug"]: e for e in effects}
+    seen: set[str] = set()
+    out: list[str] = []
+    for line in INDEX.read_text(encoding="utf-8").splitlines():
+        cells = [c.strip() for c in line.split("|")]
+        if len(cells) != 10 or not cells[2].startswith("`"):
+            continue
+        slug = cells[2].strip("`")
+        effect = by_slug.get(slug)
+        if effect is None:
+            out.append(f"INDEX.md has a row for unknown slug {slug}")
+            continue
+        seen.add(slug)
+        want = {
+            "Status": effect["status"],
+            "Data": effect["confidence_data"],
+            "Mapping": effect["confidence_mapping"],
+            "Sourced": effect["review_depth"] or "—",
+        }
+        have = dict(zip(("Status", "Data", "Mapping", "Sourced"), cells[3:7]))
+        for column, value in want.items():
+            if have[column].lower() != value.lower():
+                out.append(
+                    f"INDEX.md {slug}: {column} is {have[column]!r}, frontmatter says {value!r}"
+                )
+    for slug in sorted(set(by_slug) - seen):
+        out.append(f"INDEX.md has no row for {slug}")
+    return out
+
+
+def count_drift(expected: list[tuple[Path, str]]) -> list[str]:
+    """Check that the count lines quoted in the docs still match the database."""
+    out = []
+    for path, text in expected:
+        if text not in path.read_text(encoding="utf-8"):
+            out.append(f"{path.relative_to(ROOT)} should contain {text!r}")
+    return out
+
+
 def parse_frontmatter(text: str) -> dict:
     if not text.startswith("---"):
         raise ValueError("missing frontmatter")
@@ -194,8 +238,12 @@ def load_effects() -> tuple[list[dict], list[tuple[str, str]], list[dict], dict[
                 "confidence_mapping": fm["confidence_mapping"],
                 "source_path": f"library/{path.name}",
                 "updated": fm["updated"],
+                "review_depth": fm_scalar(fm, "review_depth"),
             }
         )
+        depth = effects[-1]["review_depth"]
+        if depth is not None and depth not in REVIEW_DEPTHS:
+            raise SystemExit(f"{slug}: unknown review_depth {depth!r}")
         tags = fm.get("constraints") or []
         if isinstance(tags, str):
             tags = [tags]
@@ -204,6 +252,10 @@ def load_effects() -> tuple[list[dict], list[tuple[str, str]], list[dict], dict[
                 raise SystemExit(f"{slug}: unknown constraint tag {tag!r}")
             constraints.append((slug, tag))
         rows, unused = parse_sources(slug, text)
+        if rows and depth is None:
+            raise SystemExit(f"{slug}: has a Sources table but no review_depth in frontmatter")
+        if depth is not None and not rows:
+            raise SystemExit(f"{slug}: review_depth is set but there is no Sources table")
         sources.extend(rows)
         if unused:
             uncited[slug] = unused
@@ -286,7 +338,8 @@ def write_seed_effect(effects: list[dict], constraints: list[tuple[str, str]]) -
     for e in effects:
         lines.append(
             "INSERT INTO effect (slug, title, family, status, confidence_data, "
-            "confidence_mapping, source_path, updated) VALUES ({}, {}, {}, {}, {}, {}, {}, {});".format(
+            "confidence_mapping, source_path, updated, review_depth) "
+            "VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {});".format(
                 sql_quote(e["slug"]),
                 sql_quote(e["title"]),
                 sql_quote(e["family"]),
@@ -295,6 +348,7 @@ def write_seed_effect(effects: list[dict], constraints: list[tuple[str, str]]) -
                 sql_quote(e["confidence_mapping"]),
                 sql_quote(e["source_path"]),
                 sql_quote(e["updated"]),
+                sql_quote(e["review_depth"]) if e["review_depth"] else "NULL",
             )
         )
     for slug, tag in constraints:
@@ -373,6 +427,7 @@ def load_implications() -> list[dict]:
                 row[key] = empty_to_none(row.get(key))
             cited = empty_to_none(row.get("sources"))
             row["sources"] = cited.split(";") if cited else []
+            row["lit_check"] = None
             row["origin"] = "extracted"
             rows.append(row)
     return rows
@@ -418,6 +473,9 @@ def load_predicted(effect_slugs: set[str]) -> list[dict]:
         row["basis"] = None
         row["form"] = empty_to_none(row.get("form"))
         row["sources"] = []
+        row["lit_check"] = empty_to_none(row.get("lit_check"))
+        if row["lit_check"] is not None and row["lit_check"] not in LIT_CHECKS:
+            raise SystemExit(f"{key}: unknown lit_check {row['lit_check']!r}")
         out.append(row)
     return out
 
@@ -626,10 +684,10 @@ def rebuild() -> int:
         """
         INSERT INTO effect (
           slug, title, family, status, confidence_data,
-          confidence_mapping, source_path, updated
+          confidence_mapping, source_path, updated, review_depth
         ) VALUES (
           :slug, :title, :family, :status, :confidence_data,
-          :confidence_mapping, :source_path, :updated
+          :confidence_mapping, :source_path, :updated, :review_depth
         )
         """,
         effects,
@@ -644,12 +702,12 @@ def rebuild() -> int:
           impl_key, origin, effect_slug, source_path, clause, role, aspect, resource,
           observed_text, implied_text, inference_kind, description,
           operator, value_si, si_unit, value_text, confidence, notes, updated,
-          basis, form
+          basis, form, lit_check
         ) VALUES (
           :impl_key, :origin, :effect_slug, :source_path, :clause, :role, :aspect, :resource,
           :observed_text, :implied_text, :inference_kind, :description,
           :operator, :value_si, :si_unit, :value_text, :confidence, :notes, :updated,
-          :basis, :form
+          :basis, :form, :lit_check
         )
         """,
         implications + predicted,
@@ -777,6 +835,18 @@ def rebuild() -> int:
     n_cited_impl = conn.execute(
         "SELECT COUNT(DISTINCT impl_key) FROM implication_source"
     ).fetchone()[0]
+    conn_counts_depth = conn.execute(
+        "SELECT review_depth, COUNT(*) FROM effect WHERE review_depth IS NOT NULL GROUP BY 1"
+    ).fetchall()
+    lit_counts = dict(
+        conn.execute(
+            "SELECT lit_check, COUNT(*) FROM implication WHERE lit_check IS NOT NULL GROUP BY 1"
+        )
+    )
+    n_isrc = conn.execute("SELECT COUNT(*) FROM implication_source").fetchone()[0]
+    conf_counts = dict(
+        conn.execute("SELECT confidence_mapping, COUNT(*) FROM effect GROUP BY 1")
+    )
     n_basis = conn.execute(
         "SELECT COUNT(*) FROM implication WHERE basis IS NOT NULL"
     ).fetchone()[0]
@@ -865,6 +935,14 @@ def rebuild() -> int:
         f"  failure rows classified: {sum(form_counts.values())} of {n_failure} "
         f"{form_counts}"
     )
+    depth_counts = dict(
+        conn_counts_depth
+    )
+    print(f"  review depth:        {depth_counts}")
+    print(
+        f"  predicted rows checked against the literature: "
+        f"{sum(lit_counts.values())} of {n_pred} {lit_counts}"
+    )
     for slug, unused in sorted(uncited_sources.items()):
         print(f"  warning: {slug}: listed but never cited: {', '.join(unused)}")
     partly = sorted(
@@ -885,6 +963,27 @@ def rebuild() -> int:
         print("  warning: cataloged node unforced:", ", ".join(cataloged_unforced))
     if predicted_nodes:
         print("  warning: predicted node present:", ", ".join(predicted_nodes))
+    high, medium, low = (conf_counts.get(k, 0) for k in ("high", "medium", "low"))
+    n_sourced = len(sourced_effects)
+    load_line = [
+        f"{n_effect} `effect`",
+        f"{n_impl} `implication` ({n_ext} extracted, {n_pred} predicted)",
+        f"{n_source} `source` ({n_sourced} of {n_effect} effects sourced)",
+        f"{n_isrc} `implication_source`",
+    ]
+    expected = (
+        [(INDEX, f"**Sourcing:** {n_sourced} of {n_effect} files"),
+         (INDEX, f"Mapping: {high} High · {medium} Medium · {low} Low"),
+         (ROOT / "README.md", f"Catalog: {n_effect} formal entries"),
+         (ROOT / "README.md", f"{high} High, {medium} Medium, {low} Low"),
+         (ROOT / "Summary.md", f"| Formal effects | {n_effect} "),
+         (ROOT / "Summary.md", f"{high} High · {medium} Medium · {low} Low"),
+         (ROOT / "Summary.md", f"| Sourced effects | {n_sourced} of {n_effect}")]
+        + [(ROOT / "AGENTS.md", text) for text in load_line]
+        + [(ANALYSIS / "README.md", text) for text in load_line]
+    )
+    for message in index_drift(effects) + count_drift(expected):
+        print("  warning: drift:", message)
     empty = [s for s, n in per_effect.items() if n < 4]
     if empty:
         print("  warning: fewer than 4 implication rows:", ", ".join(empty))

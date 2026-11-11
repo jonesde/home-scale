@@ -23,7 +23,10 @@ CREATE TABLE effect (
   confidence_mapping  TEXT NOT NULL
     CHECK (confidence_mapping IN ('high', 'medium', 'low', 'unmapped')),
   source_path         TEXT NOT NULL,
-  updated             TEXT NOT NULL
+  updated             TEXT NOT NULL,
+  -- How hard the file's facts were checked. NULL = not yet sourced.
+  review_depth        TEXT
+    CHECK (review_depth IS NULL OR review_depth IN ('deep', 'standard', 'light'))
 );
 
 CREATE TABLE effect_constraint (
@@ -92,6 +95,12 @@ CREATE TABLE implication (
   -- Failure rows only: a sharp switch, or a continuous fall-off cut by a convention.
   form            TEXT
     CHECK (form IS NULL OR form IN ('threshold', 'crossover')),
+  -- Predicted rows only: what the literature says about the conjecture.
+  lit_check       TEXT
+    CHECK (lit_check IS NULL OR lit_check IN (
+      'established', 'contradicted', 'untested', 'not-checkable'
+    )),
+  CHECK (lit_check IS NULL OR origin = 'predicted'),
   CHECK (
     (origin = 'extracted'
       AND effect_slug IS NOT NULL

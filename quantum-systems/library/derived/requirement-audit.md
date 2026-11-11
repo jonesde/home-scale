@@ -31,13 +31,13 @@ anisotropy-latch · polar-latch · gapped-condensate · chargeless-superflow · 
 
 **Audit.** Kinship is real (a thermal resource destroys the ordered / coherent / crystalline population). Equating the numbers is a mapping error. EM-LENR “blocking line” is this *kind*; it is not NdFeB’s 585 K.
 
-### `connected-spatial-buffer` — spec, satisfied, 2 designs
+### `connected-spatial-buffer` — spec, tension, 2 designs
 
 collective-screening · gapped-condensate
 
 | Design | Length class |
 |---|---|
-| collective-screening | Optical δ ~ 10–20 nm; RF skin can be µm–mm |
+| collective-screening | Optical decay length λ/4πk: Ag 12–15 nm, Al 6.6–8.3 nm (an e-folding length, not a minimum); RF skin µm–mm |
 | gapped-condensate | London *λ* ~ 40–50 nm (elements) |
 
 **Audit.** Same failure class (starve the responding depth). Not the same formula. Do not quote 10 nm as London *λ*.
@@ -105,7 +105,7 @@ gapped-condensate (must) · chargeless-superflow (should) · phase-space-condens
 
 | Requirement | Meaning for applications |
 |---|---|
-| `coupled-screening-failure` | A starved Ag film should lose *R*, SPR, go plasma-transparent, and lose conducting-plate Casimir contrast together |
+| `coupled-screening-failure` | **Now in tension, not library-true.** Reflectance, the surface-plasmon dip and Casimir attraction all follow the same dielectric function, but they fall off smoothly and at different rates; only dc percolation is sharp. Do not use as a coupled cliff |
 | `average-replaced-by-order` | When a latch or gap opens, *χ* ~ 1/*T* and *γT* are the wrong readout |
 | `split-r0-and-expulsion` | Type-II mixed state: *R* = 0 can outlive *χ* = −1 |
 | `qpc-is-not-this-edge` | A 1D constriction’s `2e²/h` steps are not a Hall plateau |
@@ -178,7 +178,7 @@ Several machines die when a critical temperature destroys the ordered, coherent,
 
 #### `connected-spatial-buffer`
 
-The machine needs a connected responding depth of order its own screening or coherence length. Starve that depth and the collective output collapses. Optical *δ* (~10–20 nm) and London *λ* (~40–50 nm in elements) are the same *failure class*, not the same formula. Do not call 10 nm a London depth.
+The requirement says a machine needs a connected responding depth of order its own screening or coherence length, and collapses below it. Sourcing the optical case (2026-11-12) contradicts that reading: the optical *δ* (Ag 12–15 nm, Al 6.6–8.3 nm) is the e-folding length of a continuous decay, reflectance falls smoothly with thickness, and a collective response is measured down to one atomic layer. Status is now `tension`. London *λ* (~40–50 nm in elements) is not yet checked. The two are in any case different formulas; do not call 10 nm a London depth.
 
 #### `latch-cell-is-the-cliff`
 

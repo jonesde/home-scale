@@ -64,6 +64,7 @@ constraints:
   - spatial-buffer
 confidence_data: high     # high | medium | low
 confidence_mapping: high  # high | medium | low | unmapped
+review_depth: standard    # deep | standard | light; only on a sourced file
 related:
   - other-slug
 updated: YYYY-MM-DD
@@ -91,6 +92,7 @@ updated: YYYY-MM-DD
 | Status | `formal` / `draft` / `queued` |
 | Data | Confidence in the experimental numbers |
 | Mapping | Confidence in the QSA translation (`—` if unmapped) |
+| Sourced | `deep` / `standard` / `light` once the file meets the sourcing standard; `—` while its numbers are still recalled |
 | Dominant collapse | The threshold that kills the macro effect |
 | Notes | One-line macro fact, so the table is usable without opening a file |
 
@@ -129,7 +131,7 @@ Each bullet starts with one tag. The point is to keep what an instrument read ap
 | **Measured** | Read directly off an experiment: a transition temperature, a loop shift, a resonance line. |
 | **Model** (name it) | Obtained by passing measurements through a named model, such as a wall width computed from *A* and *K*. |
 | **Convention** | A definition, or an agreed cut on a continuous quantity (25 *kT*, ten-year retention). |
-| **Computed here** | Arithmetic done in this file from cited inputs. Show the inputs. Every such number also has a line in [`../analysis/computed_checks.py`](../analysis/computed_checks.py), and the rebuild fails if the two disagree. |
+| **Computed here** | Arithmetic done in this file from cited inputs. Show the inputs. Every such number also has a `check(...)` line, in [`../analysis/computed_checks.py`](../analysis/computed_checks.py) or in a per-cluster file under `../analysis/checks/`, and the rebuild fails if the two disagree. |
 
 ### 3. Citation keys and the Sources table
 
@@ -173,13 +175,27 @@ Fragment rows for a sourced file carry three optional fields: `basis` (`measured
 
 ### 6. Check the conclusions, not only the numbers
 
-When a file is sourced, each predicted row and each curated requirement status that leans on it is checked against the literature. A predicted row gets a note beginning `Lit check <date>:` and one of **established** (already a measured fact, so not a prediction), **contradicted**, **untested**, or **not checkable**.
+When a file is sourced, each predicted row and each curated requirement status that leans on it is checked against the literature. A predicted row gets a value in its `lit_check` column: `established` (already a measured fact, so not a prediction), `contradicted`, `untested`, or `not-checkable`, with the source and date in its note.
+
+### 7. Depth of review
+
+Every sourced file meets sections 1–6. How hard its facts were checked is recorded as `review_depth` in frontmatter and shown in the Sourced column of the index. Depth follows relevance: the entries the EM-CSAM hardware work leans on get the most, EM-LENR next, the rest a lighter pass.
+
+| Depth | Facts | References | Conclusions |
+|---|---|---|---|
+| `deep` | Every number verified in an opened source with a quote; spread across sources reported; primaries or standard reviews preferred | about 12–20 | Every predicted row, requirement status and design note that leans on the file is checked; the mapping is re-examined; applications are corrected |
+| `standard` | Every number checked against at least one opened handbook, review or NIST page | about 5–10 | Predicted rows triaged; mapping changed only where a fact contradicts it |
+| `light` | Numbers checked against one or two authoritative open references | about 2–5 | Predicted rows marked from one source; no mapping rewrite beyond corrections |
+
+A `light` file is not a weak file: its form is complete and its arithmetic is guarded. It is a file where a second source was not sought.
+
+Fragment rows are edited with [`../analysis/fragtools.py`](../analysis/fragtools.py), which rewrites only the rows it changes.
 
 ---
 
 ## Suggested order of work
 
-The catalog is 60 formal entries. Prefer, in order:
+Prefer, in order:
 
 0. Source an unsourced family to the standard above. Until that is done its numbers are unverified.
 1. Tighten a Medium mapping — especially a missing mesoscale step or a statistical buffer that can be given a sharper experimental envelope.

@@ -90,9 +90,9 @@ This is the reality check. Interesting effects do **not** scale down to a single
 | **Exchange-pin history bit** | Superparamagnetic FM grain cannot hold *H<sub>ex</sub>*. | Trip band is *T<sub>B</sub>* < *T* < *T<sub>C</sub>*(FM). *T<sub>B</sub>* is the pin’s number. A bake through FM *T<sub>C</sub>* erases both layers and is a worse crayon. |
 | **Hydride shutter** | Metal phase still needs the percolation cliff. Island hydride is a starved buffer, not a shutter. | Cycle life and the pin (stuck open or shut). Overshoot toward host *T<sub>m</sub>* is `coupled-grid-loss`, not a cleverer switch. Packaging of the H inventory is the product ceiling. |
 | **Casimir / conducting-plate force** | Starve the faces and the conducting-plate class should die with *R*. | Gap *d* is capacity of the force (0.1–1 μm class). Opening the gap into the noise is not percolation. Patch charge is the practical ceiling. |
-| **CSAM write pixel (this head)** | Particles must pass the bore. Nano-only feedstock is skin + melt + H pickup. | ~0.5 mm-class bore is the present pixel. Larger bore buys rate and loses the map. Velocity class 200–800 m/s; Cu can stay solid farther than steel (steel liquifies on the way to 500 m/s class because resistivity dumps heat into a small *C*). |
-| **Pulse as a materials knob** | Too short: gas/carrier never does what you wanted; current in a tens-of-μm Cu skin (~1 μs class). | Too long: a bake. ~100 μs class wets ~0.7–0.9 mm of Cu. More ∫*I*²*dt* is not a finer state. |
-| **This driver’s pulse (hardware note, 2026-11)** | The launch pulse is 0.2–0.7 ms class at 1–4 kHz. A ~1 μs write is outside it. | Skin in Cu is ~2 mm class at that pulse; the slug itself has no skin effect. Conditioning is a separate, current-limited step. |
+| **CSAM write pixel (this head)** | Particles must pass the bore. Nano-only feedstock is melt + oxide + H pickup. | ~0.5 mm-class bore is the present pixel. Larger bore buys rate and loses the map. Velocity class 200–800 m/s; Cu can stay solid farther than steel (steel liquifies on the way to 500 m/s class because resistivity dumps heat into a small *C*). |
+| **Pulse as a materials knob** | Too short: gas/carrier never does what you wanted; a ~1 μs pulse reaches only about 0.13–0.23 mm into Cu. | Too long: a bake. A ~100 μs pulse reaches 1.3–2.3 mm of Cu. More ∫*I*²*dt* is not a finer state. |
+| **This driver’s pulse (hardware note, 2026-11)** | The launch pulse is 0.2–0.7 ms class at 1–4 kHz. A ~1 μs write is outside it. | The field reaches 3–6 mm into Cu at that pulse, falling off smoothly rather than at an edge; the slug itself has no skin effect. Conditioning is a separate, current-limited step. |
 | **Printed logic / photonics (fantasy, §5)** | Tunnel islands and dopants are a different machine (`energy-gate` / Coulomb), not a tinier mirror. Latch bits cannot be smaller than *KV* / depolarization. | Complementary to a CMOS front-end, not a replacement. The paid ceiling today is backend, interposer, and electrical–optical packaging. |
 
 **Process upper bounds of the pitch itself.** Joule-class shots, not a foundry. Bonded-magnet energy product below sintered. mm-class pixels, not lithography. Printed windings are not a sheet. Occupancy shutter waits on a sealed package. None of that kills the shop-scale offer in §1.
@@ -267,7 +267,7 @@ mm splat → µm jet or FIB-cousin → nm directed beam → atom/ion optic. Same
 
 Percolated Cu as interconnect. Starved patches as high-*R* or windows. Insulating-magnet islands as inductor cores next to RF traces.
 
-- **Stands on.** I, D, G. Optical 10–20 nm is not the RF skin — use the skin clock.
+- **Stands on.** I, D, G. The optical decay length (Ag 12–15 nm, Al about 7 nm) is not the RF skin — use the pulse depth.
 - **Stretch.** Registration, via-like continuity in *z*, contamination from the writer.
 - **If money were free.** An interposer coupon: a transmission line, a starved gap, a printed core, S-parameters vs a lithographed twin.
 - **Dies if.** The only continuous Cu is a shorted plane, or the “core” percolates and kills Q.
@@ -340,7 +340,7 @@ Full isolation sequences live in the application files. This brief does not dupl
 | Magnetite blocking, RT | 20–50 nm, larger than Nd₂Fe₁₄B | “all magnets, one size” |
 | BaTiO₃ *T<sub>C</sub>* | ≈ 393 K class | NdFeB Curie, *T<sub>B</sub>* |
 | Ni *T<sub>C</sub>* | 628–631 K (about 355 °C) | A hydride phase line |
-| Cu skin | ~tens of μm at ~1 μs; ~0.7–0.9 mm at ~100 μs; ~2 mm at the 0.2–0.7 ms launch pulse | Optical 10–20 nm |
+| Cu pulse depth (2√(*Dt*) rule; other cuts are 0.4–0.65 of it) | 0.23 mm at 1 μs; 2.3 mm at 100 μs; 3.3–6.2 mm at the 0.2–0.7 ms launch pulse. Steady-AC skin depth is a different rule (66 μm at 1 MHz) | Optical decay length |
 | Bonding velocity | 200–800 m/s class, material-specific | A fusion knob |
 | Casimir gap window | 0.1–1 μm class | The optical percolation thickness |
 | Steel bake-out (erase of charged H) | 150–200 °C class — check the spec | A nuclear clock |

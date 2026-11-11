@@ -10,6 +10,7 @@ constraints:
   - mechanical-lattice
 confidence_data: high
 confidence_mapping: high
+review_depth: deep
 related:
   - permanent-magnet-latch
   - ferromagnetic-hysteresis

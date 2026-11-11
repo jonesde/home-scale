@@ -63,7 +63,7 @@ An effect is a self-contained artifact. It does not assert claims beyond the dat
 
 ### Implication
 
-One atomic mapping claim extracted from (or predicted about) an effect. Grain: a single clause such as “reflection needs a ~10–20 nm connected film” or “the latch dies at *T*<sub>C</sub>.”
+One atomic mapping claim extracted from (or predicted about) an effect. Grain: a single clause such as “reflectance of a continuous Ag film reaches half its bulk value near 12–14 nm” or “the latch dies at *T*<sub>C</sub>.”
 
 Two origins:
 
@@ -146,7 +146,7 @@ Do not add node slugs to [`library/INDEX.md`](library/INDEX.md). Do not mint a d
 | **Hold-power** | Continuous watts (or volts) to *keep* the state. Many machines here are 0 W. |
 | **Mapping** | The QSA translation of an effect into buffer / clock / barrier / failure / output. Confidence is per file *and* per implication row. |
 | **Medium mapping** | Not a failed entry. Collapse is real and the family is assigned, but a hardware scale is statistical, mesoscale, or taken rather than derived. Prefer tightening these over adding a second wave. |
-| **Relabel / derived / envelope / open** | How the implication was inferred from the handbook number. Relabel = same number, QSA name. Derived = computed (10–20 nm → 40–85 planes). Envelope = class or inequality. Open = spec named, no number yet. |
+| **Relabel / derived / envelope / open** | How the implication was inferred from the handbook number. Relabel = same number, QSA name. Derived = computed (25 *kT*/*K*₁ → a 3.5 nm sphere). Envelope = class or inequality. Open = spec named, no number yet. |
 | **Application** | Device-centered use of the library. Concepts may repeat; the library remains the singular science source. |
 | **Derived note** | Spec sheet or requirement audit generated from the analysis layer. **Not** an effect entry. Do not add those slugs to `INDEX.md`. |
 | **Node** | Constituent a machine consumes. Own grain (`library/nodes/`). Not a family. |
@@ -271,9 +271,9 @@ WHERE dn.node_key = 'electron' AND dn.role = 'edge';
 
 **“Is this the same machine?”** Do not join on family alone. Join on `design_key` via `implication_design`, then check `design_implication` for `incompatible` rows. Reflection and photoelectric share a metal surface and sit in different families *and* different designs (`collective-screening` vs `energy-gate`). The downward `incompatible` on `photoelectric-threshold:hardware_scale:single-electron` is the load-bearing fact.
 
-**“What would falsify this mapping?”** Read the application’s isolation tests and the design’s `predicts` / `incompatible` edges. Example: if a starved Ag film loses specular *R* but keeps a Kretschmann SPR dip in the same window, `coupled-screening-failure` is wrong — and the interstitial-latch applications that treat thin-film optics as the calibration case should stop.
+**“What would falsify this mapping?”** Read the application’s isolation tests and the design’s `predicts` / `incompatible` edges. Worked example, now resolved: `coupled-screening-failure` said a starved Ag film must lose specular *R*, its Kretschmann SPR dip and conducting-plate Casimir attraction in one thickness window. Sourcing found no reflectance threshold and a Casimir force that is reduced but present, so the requirement went to `tension`. Original wording: if a starved Ag film loses specular *R* but keeps a Kretschmann SPR dip in the same window, `coupled-screening-failure` is wrong — and the interstitial-latch applications that treat thin-film optics as the calibration case should stop.
 
-**“Can I reuse this number on another device?”** Check [requirement-audit.md](library/derived/requirement-audit.md). `zero-hold-power` is a true shared zero. `thermal-cliff` is a shared *kind*. Do not quote NdFeB’s 585 K as a ferroelectric or superfluid number. Do not quote 10–20 nm optical δ as London λ.
+**“Can I reuse this number on another device?”** Check [requirement-audit.md](library/derived/requirement-audit.md). `zero-hold-power` is a true shared zero. `thermal-cliff` is a shared *kind*. Do not quote NdFeB’s 585 K as a ferroelectric or superfluid number. Do not quote the optical decay length (Ag 12–15 nm) as London λ.
 
 **“Should I add an effect or a clause?”** Add a new file only when the collapse is sharp and is not already a clause on an existing entry. Prefer tightening a Medium mapping (missing mesoscale step or statistical buffer) over a second wave of files.
 
@@ -314,7 +314,7 @@ Science source of truth. One kebab-case file per effect. Copy [_template.md](lib
 | Path | Purpose |
 |---|---|
 | [library/README.md](library/README.md) | Operating manual: frontmatter schema, index columns, language rules. Markdown is the science source; the analysis layer is the query surface. |
-| [library/INDEX.md](library/INDEX.md) | Catalog and build list. 60 formal entries. Families are machine/collapse classes. Handbook topics that stay clauses are a table in that file. |
+| [library/INDEX.md](library/INDEX.md) | Catalog and build list, with a Sourced column giving each file's review depth. Families are machine/collapse classes. Handbook topics that stay clauses are a table in that file. |
 | [library/TAXONOMY.md](library/TAXONOMY.md) | Family definitions, assignment rule, constraint tags. |
 | [library/_template.md](library/_template.md) | Locked 7-part body + frontmatter stub. |
 | `library/{slug}.md` | One effect. Body sections 4.1–4.7. Frontmatter feeds `effect` / `effect_constraint`. |
@@ -343,9 +343,9 @@ First-wave families (counts from the current catalog):
 | `collective-field-response` | 10 | Spatial under-provisioning or loss of collective phase |
 | `latched-order` | 9 | Thermal over-barrier, volume too small for *KV*, or lattice destroyed |
 | `gapped-coherence` | 10 | Gap closure or coherence-length / *H*<sub>c</sub> / *I*<sub>c</sub> violation |
-| `threshold-conversion` | 13 | Under-threshold input (conversion does not occur) |
+| `threshold-conversion` | 14 | Under-threshold input (conversion does not occur) |
 | `lattice-modes` | 10 | Mode cutoff, mfp destroyed, or loss of crystalline order |
-| `ensemble-averages` | 8 | Too few contributors, or observation faster than the averaging window |
+| `ensemble-averages` | 9 | Too few contributors, or observation faster than the averaging window |
 
 ### Analysis layer — `analysis/`
 
@@ -357,7 +357,9 @@ Queryable reading of the mappings. Commit the text; do not commit the `.db`.
 | [analysis/schema.sql](analysis/schema.sql) | Canonical DDL. | only with a matching README + rebuild change |
 | [analysis/rebuild.py](analysis/rebuild.py) | One-shot rebuild: merge fragments → `implication.csv`, seed effects and nodes from frontmatter, load CSVs, write `../qs-analysis.db`. Stdlib only. | code |
 | [analysis/merge_fragments.py](analysis/merge_fragments.py) | Concatenate `fragments/*.jsonl` → `implication.csv`. | code |
+| [analysis/fragtools.py](analysis/fragtools.py) | Helper for editing fragment rows in place; rewrites only the rows it changes. | code |
 | [analysis/computed_checks.py](analysis/computed_checks.py) | The arithmetic behind every "Computed here" number in a sourced effect file. Rebuild fails if a recomputed value drifts from the quoted one. | **yes**, together with the effect file |
+| `analysis/checks/*.py` | Further checks, one file per cluster of effects, executed by `computed_checks.py`. New checks go here. | **yes** |
 | [analysis/seed_effect.sql](analysis/seed_effect.sql) | Generated from frontmatter. | **no** — edit library frontmatter |
 | [analysis/implication.csv](analysis/implication.csv) | Generated merge of fragments. | **no** — edit fragments |
 | `analysis/fragments/{family}.jsonl` | Extracted implications, one JSON object per line, grouped by family. | **yes** |
@@ -406,7 +408,7 @@ python3 analysis/rebuild.py
 sqlite3 qs-analysis.db
 ```
 
-Load (after a clean rebuild): 60 `effect` · 176 `effect_constraint` · 498 `implication` (457 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 130 `source` (7 of 60 effects sourced) · 168 `implication_source`.
+Load (after a clean rebuild): 62 `effect` · 184 `effect_constraint` · 517 `implication` (476 extracted, 41 predicted) · 12 `design` · 11 `node` · 38 `requirement` · 305 `implication_design` · 59 `design_requirement` · 146 `design_implication` (82 entails, 61 predicts, 3 incompatible) · 36 `implication_node` · 23 `design_node` · 295 `source` (18 of 62 effects sourced) · 413 `implication_source`.
 
 Table names are singular. IDs are slugs. Foreign keys are on.
 
@@ -448,6 +450,7 @@ requirement (req_key PK)
 | `confidence_mapping` | `high` · `medium` · `low` · `unmapped` |
 | `source_path` | `library/{slug}.md` |
 | `updated` | `YYYY-MM-DD` |
+| `review_depth` | `deep` · `standard` · `light`. NULL until the file is sourced. Required once it has a Sources table. |
 
 ### `effect_constraint`
 
@@ -472,6 +475,7 @@ requirement (req_key PK)
 | `confidence` | Row-level. A High file can still have a Medium clause. |
 | `basis` | How the observed fact is known: `measured` · `model` · `convention` · `computed`. NULL until the effect file is sourced. |
 | `form` | Failure rows only: `threshold` · `crossover`. NULL until classified. |
+| `lit_check` | Predicted rows only: `established` · `contradicted` · `untested` · `not-checkable`. NULL until checked. |
 
 Fragment rows may also carry `sources`, a list of keys from the effect file's Sources table; it loads into `implication_source`.
 
@@ -521,8 +525,9 @@ Read from the `## Sources` table at the end of each effect file. `source_key` (`
 - A `[S#]` citation in an effect file with no row in its Sources table; a duplicate key; a malformed row; an unknown Checked value.
 - A fragment row citing a source key its effect file does not define; an unknown `basis` or `form`; `form` on a row that is not a failure.
 - A "Computed here" number that no longer matches its recomputation in `analysis/computed_checks.py`.
+- A Sources table with no `review_depth`, or the reverse; an unknown `review_depth` or `lit_check`; `lit_check` on an extracted row.
 
-Warnings (do not fail): a listed reference that is never cited; a sourced effect that still has non-gap implication rows with no `basis` tag; design with no requirements; design with no downward edges; effect with fewer than four implication rows; extracted implications unused as evidence; `cataloged` node with no design and no implication edge; `forced` node used by no design; predicted node with no downward predicted implication.
+Warnings (do not fail): drift between `library/INDEX.md` rows and frontmatter, or between the count lines in the docs and the database; a listed reference that is never cited; a sourced effect that still has non-gap implication rows with no `basis` tag; design with no requirements; design with no downward edges; effect with fewer than four implication rows; extracted implications unused as evidence; `cataloged` node with no design and no implication edge; `forced` node used by no design; predicted node with no downward predicted implication.
 
 Not in this schema (on purpose): a `boundary` table of every §4.3 number; pairwise `implication_relation` edges that are not “same machine” or “contrast via a design”; auto-extraction from Markdown.
 
@@ -538,7 +543,8 @@ python3 analysis/rebuild.py
 - **Science change** → edit `library/{slug}.md` (and `INDEX.md` if status/mapping/collapse/notes changed). Then edit the matching fragment row so `observed_text` still quotes the file.
 - **Sourcing a file** → open each reference, tag every §4.3 bullet, add `[S#]` keys and the Sources table, label each failure mode threshold or crossover, add `basis` / `form` / `sources` to its fragment rows, put any computed number in `analysis/computed_checks.py`, and check the predicted rows and requirement statuses that lean on the file. Full rules: [library/README.md](library/README.md#sourcing-standard).
 - **Extracted mapping change** → edit `analysis/fragments/*.jsonl`, not `implication.csv`.
-- **Conjecture** → `predicted_implication.csv` + a `design_implication` row with `relation = predicts`.
+- **Conjecture** → `predicted_implication.csv` + a `design_implication` row with `relation = predicts`. When the literature has been checked, set `lit_check`; an `established` row is a measured fact and belongs in the effect file as well.
+- **Fragment rows** → edit through `analysis/fragtools.py` so untouched lines stay byte-identical.
 - **Machine assembly** → `design.csv` and the three junction/requirement CSVs. Then update `library/derived/` so the sheets still match.
 - **New effect** → copy `_template.md`, fill all seven sections, add an INDEX row in the same change, add fragment rows (rebuild fails if a formal file has zero implications).
 - **Node identity** → edit `library/nodes/{key}.md` and `library/nodes/INDEX.md`. Junctions: `implication_node.csv`, `design_node.csv`. Do not add the slug to `library/INDEX.md`.

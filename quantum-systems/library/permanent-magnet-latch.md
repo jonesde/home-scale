@@ -10,6 +10,7 @@ constraints:
   - spatial-buffer
 confidence_data: high
 confidence_mapping: high
+review_depth: deep
 related:
   - superparamagnetism
   - ferromagnetic-hysteresis

@@ -18,7 +18,7 @@ Device-centered uses of the QSA library. Concepts are allowed to repeat; the sin
 
 | File | Device | What it applies | Envelope |
 |---|---|---|---|
-| [thin-film-optics.md](thin-film-optics.md) | Mirrors, TCO, SPR chips | `collective-screening` (calibration case) | Lab coating |
+| [thin-film-optics.md](thin-film-optics.md) | Mirrors, TCO, SPR chips | `collective-screening` (was the calibration case; the thickness cliff it calibrated against does not exist, see the file) | Lab coating |
 | [bonded-magnets.md](bonded-magnets.md) | Bonded NdFeB, tape, ferrofluid | `anisotropy-latch` (handbook calibration) | Lab / magnet shop |
 | [hydrogen-embrittlement.md](hydrogen-embrittlement.md) | Charged high-strength metal parts | Interstitial latch, no nuclear layer | Industrial H service |
 | [hydride-storage.md](hydride-storage.md) | Metal-hydride bed / tank | Capacity vs pinned H | Industrial H service |
@@ -39,7 +39,7 @@ Used instruments under their usual names (SI ohm, FeRAM, SPR immunoassay, SET, a
 | [polar-beam-gate.md](polar-beam-gate.md) | Polar Δ*T* writes HV; ordinary D–D | `polar-latch` × `energy-gate` | Institutional until interlocked | **Strongest stacked gate** |
 | [muon-hydrogen-gate.md](muon-hydrogen-gate.md) | Extra-node H-isotope cycle | `energy-gate` + muon | Accelerator only | **Strongest extra-node spec** |
 | [exchange-pin-thermal-history.md](exchange-pin-thermal-history.md) | *H*<sub>ex</sub> trip through *T<sub>B</sub>*, *M<sub>r</sub>* can remain | Draft `exchange-pin` | Thin-film lab; sealed coupon later | Split that justifies the ninth design |
-| [percolation-dual-switch.md](percolation-dual-switch.md) | One starve kills *R* and conducting-plate attraction | `collective-screening` + Casimir contrast | MEMS / thin-film lab | Fourth artifact of `coupled-screening-failure` |
+| [percolation-dual-switch.md](percolation-dual-switch.md) | Three readouts on one film (reflectance, dc conductance, Casimir force); only dc conductance switches | `collective-screening` + Casimir contrast | MEMS / thin-film lab | Test of `coupled-screening-failure`, now in tension |
 | [coherence-window-recoil.md](coherence-window-recoil.md) | CEνNS vs IBD on the same flux | `energy-gate` as CEνNS | Reactor / spallation | Coherence window, not 1.8 MeV |
 | [edge-orientation-inhibit.md](edge-orientation-inhibit.md) | In-plane *B* kills the plateau; not the SI ohm | Draft `edge-channel`; QPC contrast | Cryogenic high-*B* lab | Inhibit, not the resistance quantum |
 | [depolarization-fuse.md](depolarization-fuse.md) | *P<sub>r</sub>* dies thinner than the depolarization envelope | `polar-latch` failure side | Ceramic / thin-film lab; no D | Electrical twin of *KV* collapse |

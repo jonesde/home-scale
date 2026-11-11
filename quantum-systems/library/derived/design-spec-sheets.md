@@ -15,18 +15,18 @@ Each sheet is one reverse-engineered machine: the smallest hardware that still p
 
 ## collective-screening
 
-A connected charged population that screens an incoming field and re-radiates it. That is a visible mirror, an RF skin, a plasma-edge cutoff, and the conducting faces of a Casimir gap. The machine is **driven**, not a memory: there is no stored bit when the incident field is gone. Starve the connected thickness (island film, ≲ 5–10 nm continuous Ag/Al) or drive faster than the plasma / interband clock and the collective output dies. One electron leaving a surface is a different machine (`energy-gate`).
+A charged population that screens an incoming field and re-radiates it. That is a visible mirror, an RF skin, a plasma-edge cutoff, and the conducting faces of a Casimir gap. The machine is **driven**, not a memory: there is no stored bit when the incident field is gone. Sourcing (2026-11-12) removed the minimum-thickness claim: the response grows smoothly with the amount of material the field passes through, with an e-folding length of 12–15 nm in Ag and about 7 nm in Al, and is measured down to one atomic layer. What is sharp is dc percolation of a deposited film and, in the collisionless limit, the plasma edge. One electron leaving a surface is a different machine (`energy-gate`).
 
 | Spec | Commitment | Source class |
 |---|---|---|
-| Buffer | Connected metal / polarizable volume of order the optical penetration or RF skin depth | 10–20 nm Ag/Al optical; classical δ = √(2/ωμσ) at low ω |
+| Buffer | No minimum. Response scales with thickness up to a few decay lengths; a deposited film must be past dc percolation to conduct | Decay length λ/4πk: Ag 12–15 nm, Al 6.6–8.3 nm (visible). Steady skin depth, pulse depth and velocity skin depth are three separate rules at low frequency |
 | Clock | Plasma period / ωp (or Ag interband-shifted optical edge) | Al ~15 eV; Ag edge ~3.9 eV; period ~0.3–0.5 fs |
 | Barrier | None that stores a state. Operating window: ω < ωp and a continuous film ≳ δ | Driven, not latched |
 | Hold-power | Zero *extra* watts beyond the incident field | Mirror is not a lamp |
-| Dominant erase | Thickness / percolation ≲ 5–10 nm, or drive above the plasma / interband edge | Two routes, one machine |
+| Dominant erase | Drive above the plasma or interband edge; loss of dc continuity (6–12 nm unseeded Ag, 1–3 nm seeded). Thinning a continuous film is a smooth crossover, not an erase | Half reflectance near 12–14 nm (Ag), 4.5–6 nm (Al) |
 | Open | δ and √(2/ωμσ) are taken, not derived from a node count | `underived-penetration-depth` |
 
-Incompatible with “this hardware is N = 1 electron” (that is `energy-gate` / photoelectric). Island or plasma-transparent faces also starve conducting-plate Casimir contrast.
+Incompatible with “this hardware is N = 1 electron” (that is `energy-gate` / photoelectric). Thin or visibly transparent faces reduce conducting-plate Casimir attraction by up to about half; they do not remove it.
 
 ---
 

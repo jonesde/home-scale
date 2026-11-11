@@ -54,11 +54,11 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 
 | Layer | Count | Where |
 |---|---|---|
-| Formal effects | 60 (six families) | [library/INDEX.md](library/INDEX.md) |
-| Mapping confidence | 29 High · 31 Medium · 0 Low (shape-anisotropy moved to Medium when sourced) | per-file frontmatter |
+| Formal effects | 62 (six families; two added in the 2026-11 sourcing pass: electrical-contacts, electrical-resistivity) | [library/INDEX.md](library/INDEX.md) |
+| Mapping confidence | 28 High · 34 Medium · 0 Low (shape-anisotropy and reflection moved to Medium when sourced; the two new entries are Medium) | per-file frontmatter |
 | Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) and [pyroelectric-fusion](library/pyroelectric-fusion.md) (Medium). Unverified outside the sourced files | same |
-| Sourced effects | 7 of 60 (the magnetic entries of latched-order) | [library/INDEX.md](library/INDEX.md) |
-| Extracted implications | 457 | `analysis/fragments/*.jsonl` |
+| Sourced effects | 18 of 62 (see the Sourced column of the index) | [library/INDEX.md](library/INDEX.md) |
+| Extracted implications | 476 | `analysis/fragments/*.jsonl` |
 | Predicted implications | 41 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
 | Designs | 12 (8 formal; four drafts) | [analysis/design.csv](analysis/design.csv) |
 | Nodes | 11 forced | [library/nodes/INDEX.md](library/nodes/INDEX.md) |
@@ -68,12 +68,12 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 
 `quantum-hall-effect` is the core of draft `edge-channel` (2DEG + Landau gap + edge path). It stays **contrast** on `gapped-condensate`. A quantum point contact is contrast on `edge-channel`, not a member. The electron `edge` role is now consumed.
 
-The two original handover sketches are now formal entries. Do not use the old preliminary numbers (in particular, reflection is ~40–85 atomic planes, not 100–200):
+The two original handover sketches are now formal entries. Both have since been sourced, and both lost their headline number: the reflection entry's "minimum film of 40–85 atomic planes" does not exist (reflectance falls smoothly with thickness and a collective response is measured at one atomic layer), and the magnet entry's ~30 nm blocking size was an arithmetic error (it is about 3.5 nm):
 
 - [library/reflection.md](library/reflection.md) — collective screening; High mapping
 - [library/permanent-magnet-latch.md](library/permanent-magnet-latch.md) — anisotropy latch; High mapping
 
-Those two, plus [photoelectric-threshold](library/photoelectric-threshold.md), are the calibration trio in `analysis/fragments/gold.jsonl`. Applications that lean on the latch or the interstitial hypothesis should keep recovering those cliffs first ([thin-film-optics](application/thin-film-optics.md), [bonded-magnets](application/bonded-magnets.md)).
+Those two, plus [photoelectric-threshold](library/photoelectric-threshold.md), are the calibration trio in `analysis/fragments/gold.jsonl`. Two of the three calibration "cliffs" turned out to be crossovers when sourced, so treat calibration as recovering the sourced functional form, not a cliff. Applications that lean on the latch or the interstitial hypothesis should keep recovering those sourced dependences first ([thin-film-optics](application/thin-film-optics.md), [bonded-magnets](application/bonded-magnets.md)).
 
 ---
 
@@ -100,7 +100,7 @@ Shared requirements often share a **kind** of cliff, not a **number**. See [libr
 
 ## 5. What to do next
 
-First, before anything below: convert the remaining 53 effect files to the [sourcing standard](library/README.md#sourcing-standard), one family at a time. The first-wave numbers were recalled by a language model. The magnet pilot found a factor-of-ten error in the NdFeB blocking size (copied into the requirement table, the spec sheets and three applications), a reversed comparison with magnetite, a Curie temperature in the wrong unit, one prediction contradicted by published experiments, and two predictions that were already measured facts. Assume the other families hold errors of the same kinds.
+First, before anything below: convert the remaining unsourced effect files (the Sourced column of the index lists them) to the [sourcing standard](library/README.md#sourcing-standard), one family at a time. The first-wave numbers were recalled by a language model. The magnet pilot found a factor-of-ten error in the NdFeB blocking size (copied into the requirement table, the spec sheets and three applications), a reversed comparison with magnetite, a Curie temperature in the wrong unit, one prediction contradicted by published experiments, and two predictions that were already measured facts. Assume the other families hold errors of the same kinds.
 
 Then prefer, in order:
 
