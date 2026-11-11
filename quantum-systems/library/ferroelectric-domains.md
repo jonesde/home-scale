@@ -21,7 +21,7 @@ related:
   - shape-anisotropy
   - type-ii-critical-field
   - elasticity
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Ferroelectric Domains (Partitioned Polar Alignment)

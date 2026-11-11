@@ -1,7 +1,7 @@
 ---
 origin: application
 device: hydrogen-switchable rare-earth / Mg hydride film (metal ↔ transparent)
-updated: 2026-11-13
+updated: 2026-11-11
 envelope: lab / industrial thin-film hydride; home-scale only after sealed low-inventory packaging
 ---
 
@@ -14,7 +14,7 @@ envelope: lab / industrial thin-film hydride; home-scale only after sealed low-i
 
 > **Hazards (read [SAFETY.md](../SAFETY.md)).** H₂ over a thin metal film is still hydrogen service: leak, fire, and (if powdered or decrepitated) dust. Electrochemical loading adds electrolyte and current. This file is a mapping, not a process spec.
 
-> **Changed 2026-11-13.** The prior art is now cited and the device is described as existing. The claim that conducting-plate Casimir attraction switches off with the mirror is withdrawn: it was measured and does not. The optical state is described as following the hydrogen atmosphere. "Same 10–20 nm class as a visible mirror" and "percolation cliff" are removed, because reflectance has no thickness cliff ([reflection](../library/reflection.md) §4.5). The distinction from "electrochromic" is dropped, since the literature uses that word for this device.
+> **Changed 2026-11-11.** The prior art is now cited and the device is described as existing. The claim that conducting-plate Casimir attraction switches off with the mirror is withdrawn: it was measured and does not. The optical state is described as following the hydrogen atmosphere. "Same 10–20 nm class as a visible mirror" and "percolation cliff" are removed, because reflectance has no thickness cliff ([reflection](../library/reflection.md) §4.5). The distinction from "electrochromic" is dropped, since the literature uses that word for this device.
 
 ---
 

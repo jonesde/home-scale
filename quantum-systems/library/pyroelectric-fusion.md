@@ -15,7 +15,7 @@ related:
   - ferroelectric-remanence
   - dielectric-breakdown
   - deuteron-photodisintegration
-updated: 2026-11-14
+updated: 2026-11-11
 ---
 
 # Pyroelectric Fusion (Polar-Field Beam Gate)

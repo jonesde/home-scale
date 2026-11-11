@@ -1,6 +1,6 @@
 design_key,req_key,strength,notes
 collective-screening,zero-hold-power,must,No extra power beyond the incident field.
-collective-screening,connected-spatial-buffer,must,"Was: 10–20 nm connected metal. Sourced 2026-11-12: no minimum thickness; λ/4πk (Ag 12–15 nm, Al 6.6–8.3 nm) is a decay length. Requirement now in tension."
+collective-screening,connected-spatial-buffer,must,"Was: 10–20 nm connected metal. Sourced 2026-11-11: no minimum thickness; λ/4πk (Ag 12–15 nm, Al 6.6–8.3 nm) is a decay length. Requirement now in tension."
 collective-screening,one-plasma-clock,must,One ωp class per metal.
 collective-screening,underived-penetration-depth,must,δ and classical skin depth are taken.
 collective-screening,coupled-screening-failure,must,Thickness cliff is shared by R SPR the plasma edge and Casimir conducting contrast.
@@ -12,7 +12,7 @@ anisotropy-latch,mesoscale-coercivity,must,Hc still underived.
 anisotropy-latch,average-replaced-by-order,should,Unlocked Curie χ is the contrast population.
 polar-latch,zero-hold-power,must,Remanent P at E=0.
 polar-latch,thermal-cliff,must,Ferroelectric Tc.
-polar-latch,latch-cell-is-the-cliff,should,"Was: superparaelectric volume collapse as the electrical twin. Sourced 2026-11-13: no polar thermal-volume limit was found; the polar limit is screening, a crossover."
+polar-latch,latch-cell-is-the-cliff,should,"Was: superparaelectric volume collapse as the electrical twin. Sourced 2026-11-11: no polar thermal-volume limit was found; the polar limit is screening, a crossover."
 polar-latch,polar-depolarization-buffer,must,Ec / depolarization still mesoscale.
 gapped-condensate,zero-hold-power,must,Persistent current at zero continuous voltage.
 gapped-condensate,thermal-cliff,must,Tc.

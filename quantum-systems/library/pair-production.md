@@ -8,6 +8,7 @@ constraints:
   - spatial-buffer
 confidence_data: high
 confidence_mapping: high
+review_depth: light
 related:
   - ionization-threshold
   - photoelectric-threshold
@@ -16,7 +17,7 @@ related:
   - semiconductor-gap-absorption
   - blackbody-spectrum
   - plasma-frequency-cutoff
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Pair Production (Rest-Mass Conversion Gate)
@@ -27,71 +28,64 @@ Pair production (rest-mass conversion gate)
 
 ### 4.2 Macroscopic Observation
 
-A gamma-ray beam passing through matter produces electron–positron pairs once the photon energy is high enough, and only in the presence of a third body (almost always a nucleus) that can take up recoil momentum. Below that energy the pair channel is simply absent: no positrons, no subsequent \(511\,\mathrm{keV}\) annihilation line from this process. Cloud-chamber and spectrometer records show the pair tracks opening above the threshold and remaining closed below it. Isolated photons in empty space do not convert.
+A gamma-ray beam passing through matter produces electron–positron pairs once the photon energy exceeds twice the electron rest energy, and only where a second body, almost always a nucleus, takes up recoil momentum. Below that energy the channel is absent from the attenuation tables. Above it the pair cross section rises from zero and, in heavy elements, becomes the largest contribution to attenuation at a few MeV.
 
 ### 4.3 Established Quantitative Boundaries
 
-- Rest energy of one electron (or positron): \(m_e c^2 = 510.999\,\mathrm{keV} \approx 511\,\mathrm{keV}\). The pair gate in the field of a heavy nucleus is
+- **Measured.** Electron rest energy \(m_ec^2 = 0.51099895069\) MeV [S1].
+- **Computed here.** Energy and momentum conservation give a threshold of \(2m_ec^2(1 + m_e/M)\) for a photon converting in the field of a body of mass \(M\) at rest. For a heavy nucleus this is 1.0220 MeV; the recoil term adds 0.56 keV for a proton and 47 eV for ¹²C [S1]. For an electron as the partner (\(M = m_e\)) it is \(4m_ec^2 = 2.0440\) MeV. As \(M \to 0\) the threshold diverges: a single photon with no partner cannot convert at any energy.
+- **Model (NIST XCOM evaluated cross sections).** In lead the nuclear-field pair coefficient is zero at 1.022 MeV, 3.3 × 10⁻⁸ cm² g⁻¹ at 1.03 MeV, 1.8 × 10⁻³ at 1.5 MeV and 3.67 × 10⁻² at 10 MeV. The electron-field coefficient is zero at 2.044 MeV and 4.8 × 10⁻⁹ cm² g⁻¹ at 2.1 MeV [S2].
+- **Computed here.** From the same tables, pair production is 3.5 % of the total attenuation of lead at 1.5 MeV. Pair production (both fields) equals incoherent scattering at about 4.7 MeV in lead and about 26 MeV in carbon. At 10 MeV the nuclear-field coefficient per unit mass is 9.5 times larger in lead than in carbon.
+- **Model (Tsai; Bethe–Heitler with screening).** The high-energy pair and bremsstrahlung cross sections carry a leading term in \(Z^2\) from the nucleus and a term in \(Z\) from the atomic electrons; at high energy photons lose energy predominantly by pair production [S3].
+- **Measured.** The positron: 15 tracks of positive particles in 1300 cloud-chamber photographs of cosmic rays, with a mass under twenty electron masses [S4].
+- **Measured.** Two photons can supply the partner for each other. 6085 exclusive electron–positron pairs were observed in ultra-peripheral Au+Au collisions, with features consistent with the collision of two photons from the fields of the nuclei [S5].
+- **Computed here.** Annihilation of a pair at rest into two photons gives each photon \(m_ec^2\), 511.0 keV [S1].
 
-  \[
-  E_\gamma^{\mathrm{th}} = 2 m_e c^2 = 1.022\,\mathrm{MeV}.
-  \]
-
-  (A finite nuclear mass \(M\) raises the exact kinematic threshold by a fractional correction of order \(m_e/M\), negligible for ordinary nuclei.)
-- Pair production on an electron (triplet production) opens only at \(4 m_e c^2 = 2.044\,\mathrm{MeV}\). That is the same conversion with a lighter momentum sink.
-- A photon in free space, with no nearby mass to recoil, cannot satisfy energy and momentum together; the channel remains closed at every energy. The “nearby nucleus” is a spatial-buffer condition, not a decorative remark.
-- Above threshold the pair cross section rises from zero and, in high-\(Z\) matter, becomes the dominant attenuation channel at multi-MeV energies. The Bethe–Heitler description scales as \(Z^2\) (nuclear charge squared), which is why lead is a more efficient pair converter than carbon at the same mass thickness.
-- The inverse conversion — annihilation of a stopped positron on an electron — returns two \(511\,\mathrm{keV}\) photons. That line is the macroscopic witness that a pair was produced.
-
-**Data confidence:** High — \(2m_e c^2\), the nuclear-recoil requirement, the annihilation line, and the qualitative \(Z^2\) rise are textbook-stable facts. Detailed screened cross sections are high as a class and medium in any one approximate formula.
+**Data confidence:** High — the thresholds follow from the measured electron mass and are reproduced in the evaluated tables. The cross sections are evaluated theory checked against experiment, not single measurements.
 
 ### 4.4 Standard Mathematical Description
 
 Recorded as descriptive relations, not as axioms.
 
-- Energy gate (nuclear field, \(M \gg m_e\)):
+- Threshold in the field of a mass \(M\):
 
   \[
-  E_\gamma \ge 2 m_e c^2 = 1.022\,\mathrm{MeV}
+  E_\gamma^\mathrm{th} = 2m_ec^2\left(1 + \frac{m_e}{M}\right)
   \]
 
-- Kinematic prohibition in free space: a single photon cannot convert to \(e^+e^-\) while conserving four-momentum. A third body (nucleus, electron, or a second photon) is required.
-- Bethe–Heitler pair production in a nuclear Coulomb field: a calculated cross section, starting from zero at threshold, rising with \(E_\gamma\), and proportional to \(Z^2\) (with screening corrections at high energy). The formula is a fit of QED perturbation theory to the observed channel, not an extra postulate.
-- Two-photon annihilation at rest:
+- A single photon has zero invariant mass and a pair has at least \(2m_e\), so conversion needs a second body: a nucleus, an electron or another photon.
+- Bethe–Heitler cross section in a nuclear Coulomb field: zero at threshold, rising with energy, leading term \(Z^2\) with screening corrections [S3].
+- Annihilation at rest: \(e^+ + e^- \to 2\gamma\) with \(E_\gamma = m_ec^2\).
 
-  \[
-  e^+ + e^- \;\to\; 2\gamma,\qquad E_\gamma = m_e c^2 = 511\,\mathrm{keV}
-  \]
-
-Below \(1.022\,\mathrm{MeV}\), or in the absence of a momentum sink, this conversion does not occur. That non-occurrence is the collapse of the effect. Photoelectric absorption and Compton scattering may still remove photons; they are other channels.
+Below threshold, or with no partner, the conversion does not occur. Photoelectric absorption and scattering still remove photons.
 
 ### 4.5 QSA Mapping
 
-- **Minimum hardware scale / node count / coherence volume.** One photon plus one nearby nucleus (or other recoil partner) is the hardware for one conversion. “Nearby” is a real spatial constraint: the photon must pass through the Coulomb field of a mass that can recoil. A macroscopic conversion rate then scales with the nuclear column density. Empty space, however energetic the photon, is under-provisioned: the spatial buffer is missing and the channel stays closed.
+- **Minimum hardware scale / node count / coherence volume.** One photon and one partner that can recoil. The rate in matter scales with the column density of nuclei and with \(Z^2\). A photon alone is under-provisioned at every energy. No length for "nearby" is filed.
 
-- **Clock rate / latency.** The conversion, when allowed, is a high-energy QED process on timescales far below any laboratory clock. Subsequent slowing of the pair and annihilation are later steps with their own (still short) latencies. They witness the conversion; they are not the gate.
+- **Clock rate / latency.** No conversion time was sourced. The slowing of the pair and the annihilation of the positron are later steps that witness the conversion.
 
-- **Energy barriers or thresholds.** The operating gate is the rest-mass sum \(2m_e c^2\). It is not the unbinding of a pre-existing electron. No amount of infrared light, and no optical photoelectric event, opens this channel.
+- **Energy barriers or thresholds.** The operating gate is the rest energy of the pair, 1.0220 MeV with a nucleus. It is not the unbinding of an existing electron.
 
 - **Dominant failure modes.**
-  - Under-threshold: \(E_\gamma < 1.022\,\mathrm{MeV}\) → pair conversion does not occur.
-  - Spatial: no nearby nucleus (or other recoil partner) → the channel remains closed even for \(E_\gamma > 1.022\,\mathrm{MeV}\).
-  - Wrong partner: an electron as the only recoil partner keeps the gate shut until \(2.044\,\mathrm{MeV}\).
-  - Competition: at a given energy the photon may Compton-scatter or photoabsorb instead. That lowers the pair *yield*; it does not move the pair threshold.
+  - **Threshold** — photon energy below \(2m_ec^2(1 + m_e/M)\): no conversion. The threshold is kinematic and exact. The yield has no step: the lead coefficient is 3.3 × 10⁻⁸ cm² g⁻¹ at 1.03 MeV and rises continuously.
+  - **Threshold** — no recoil partner: the channel is closed at every energy.
+  - **Threshold** — an electron as the only partner: closed below 2.0440 MeV.
+  - **Crossover** — competition: the pair share of attenuation grows continuously, 3.5 % in lead at 1.5 MeV, and passes incoherent scattering at about 4.7 MeV in lead and 26 MeV in carbon.
 
-- **Emergent constant or stable output.** A material- and energy-dependent pair yield above \(1.022\,\mathrm{MeV}\), followed by the \(511\,\mathrm{keV}\) annihilation line, as the synchronized output of many independent photon–nucleus conversions.
+- **Emergent constant or stable output.** A pair yield above 1.022 MeV that depends on material and energy, followed by the 511 keV annihilation line.
 
 ### 4.6 Internal Consistency Notes
 
-This is the sharpest textbook member of the threshold-conversion family: a single number fixed by a measured rest mass, plus an equally sharp spatial clause. The mapping closes without remainder on those two constraints.
+The gate is fixed by one measured rest mass and one kinematic clause, and the mapping closes on those two constraints. Unlike [ionization-threshold](ionization-threshold.md) and [photoelectric-threshold](photoelectric-threshold.md), which unbind an electron that already exists, this conversion creates the charge pair. [X-ray-absorption-edge](x-ray-absorption-edge.md) is a different gate at keV.
 
-It must not be confused with [ionization-threshold](ionization-threshold.md) or [photoelectric-threshold](photoelectric-threshold.md). Those unbind an electron that already exists. Pair production *creates* a charge pair and is forbidden below \(2m_e c^2\) even in a fully ionized plasma. [X-ray-absorption-edge](x-ray-absorption-edge.md) sits on the way up in photon energy and is a different gate (inner-shell binding, keV, no positron).
+Sourcing changed no number; the thresholds, the recoil clause and the \(Z^2\) scaling are confirmed. Three statements are sharper. The threshold is a threshold in existence, with a yield that starts at zero, so there is no jump in attenuation at 1.022 MeV. "Dominant at multi-MeV" is now a crossover energy, 4.7 MeV in lead and 26 MeV in carbon. The two-photon case, left as an extension in the first version, has been observed. The reference to cloud-chamber records of the threshold is dropped; the opened source establishes the positron, not the threshold.
 
-A remaining gap: QSA takes \(m_e c^2 = 511\,\mathrm{keV}\) as a measured node specification. It does not here derive the electron mass from a more primitive resource count. The collapse clauses (\(E_\gamma < 1.022\,\mathrm{MeV}\); no recoil partner) do not depend on that derivation. Two-photon pair production in an intense photon bath is a real additional opening of the same rest-mass gate; it is not required to state the nuclear-field case and is left as a noted extension.
+QSA takes \(m_ec^2\) as a measured node specification and does not derive it.
 
 ### 4.7 Overall Confidence in the QSA Mapping
 
-**High** — the \(1.022\,\mathrm{MeV}\) cliff and the nuclear-recoil requirement are among the cleanest measured gates in the library and translate directly into an energy threshold plus a spatial-buffer condition.
+**High** — the 1.022 MeV threshold and the recoil requirement follow from a measured mass and conservation laws, and translate directly into an energy threshold plus a partner condition.
 
 ## Related entries
 
@@ -102,3 +96,15 @@ A remaining gap: QSA takes \(m_e c^2 = 511\,\mathrm{keV}\) as a measured node sp
 - [semiconductor-gap-absorption](semiconductor-gap-absorption.md) — eV-scale interband conversion; same family, different hardware
 - [blackbody-spectrum](blackbody-spectrum.md) — a thermal photon population; ordinary temperatures sit far below \(2m_e c^2\)
 - [plasma-frequency-cutoff](plasma-frequency-cutoff.md) — collective response of charges *after* they exist; not a rest-mass gate
+
+## Sources
+
+Rules and the meaning of the Checked column: [README.md](README.md#sourcing-standard).
+
+| Key | Reference | Checked | Supports |
+|---|---|---|---|
+| S1 | [NIST, CODATA 2022 recommended values: electron mass energy equivalent in MeV (with the pages for the proton and the atomic mass constant)](https://physics.nist.gov/cgi-bin/cuu/Value?mec2mev) | full-text | Electron rest energy; proton and ¹²C masses for the recoil term. |
+| S2 | [Berger et al., XCOM: Photon Cross Sections Database, NIST Standard Reference Database 8](https://physics.nist.gov/cgi-bin/Xcom/xcom2?Method=Elem&Output2=Hand) | full-text | Evaluated coefficients for lead and carbon, 0.5–100 MeV: pair production in the nuclear and electron fields, incoherent scattering, totals. Values read from the generated tables. |
+| S3 | [Particle Data Group, "Passage of Particles Through Matter", *Review of Particle Physics* (2024)](https://pdg.lbl.gov/2024/reviews/rpp2024-rev-passage-particles-matter.pdf) | full-text | High-energy photons lose energy mainly by pair production; Z² and Z terms in Tsai's formula; nuclear-field and electron-field pair channels. |
+| S4 | [Anderson, "The Positive Electron", *Phys. Rev.* 43, 491 (1933)](https://journals.aps.org/pr/abstract/10.1103/PhysRev.43.491) | abstract | 15 positive tracks in 1300 photographs; mass under twenty electron masses. |
+| S5 | [STAR Collaboration, arXiv:1910.12400 (2019), on electron–positron pairs from photon collisions in Au+Au](https://arxiv.org/abs/1910.12400) | abstract | 6085 exclusive pairs in ultra-peripheral Au+Au collisions, consistent with the Breit–Wheeler process. Journal reference not opened. |

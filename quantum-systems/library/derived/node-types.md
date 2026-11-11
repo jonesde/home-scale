@@ -1,7 +1,7 @@
 ---
 origin: logically-derived
 not_an_effect_entry: true
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Node types (join view)
@@ -16,7 +16,7 @@ Derived from `design_node` ⋈ `node` and `implication_node`.
 
 | Node | kind | `pdgid` | Designs (role) | Forcing collapse (examples) |
 |---|---|---|---|---|
-| `electron` | elementary | 11 | screening `population`; energy-gate `single`; ensemble `average`; gapped-condensate `population`; edge-channel `edge`; landauer-channel `population` (1D modes) | starve / *ω > ω_p*; *N* = 1; Fermi slice; QHE 2DEG; QPC constriction |
+| `electron` | elementary | 11 | screening `population`; energy-gate `single`; ensemble `average`; gapped-condensate `population`; edge-channel `edge`; landauer-channel `population` (1D modes) | thinning film (continuous fall over the decay length, no minimum thickness) / drive above the plasma or interband edge; *N* = 1; Fermi slice; QHE 2DEG; QPC constriction |
 | `photon` | elementary | 22 | energy-gate `input`; screening `input`; ensemble `average` | under-threshold gate; pair hardware; Planck curve |
 | `muon` | elementary | 13 | energy-gate `input` | no muon / *τ_μ* / sticking |
 | `proton` | elementary | 2212 | energy-gate `product` | deuteron photodisintegration |
@@ -46,4 +46,4 @@ Only `latch-cell` (and the pinned condensate, which is a design not a node) hold
 
 ## Not in this join
 
-Cooper pair (`fluxoid-increment-2e` stays a closure). Free quark. Tau, neutrino, *W*, *Z*, Higgs. Predicted dark-sector species. Proton / neutron wait on the cataloged admission filter as parents of `nucleus`.
+Cooper pair (`fluxoid-increment-2e` stays a closure). Free quark. Tau, *W*, *Z*, Higgs. Predicted dark-sector species.

@@ -20,7 +20,7 @@ related:
   - piezoelectricity
   - ferroelectric-remanence
   - plasma-frequency-cutoff
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Dielectric Breakdown (Field-Opened Insulator Conversion)

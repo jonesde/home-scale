@@ -130,7 +130,7 @@ check(
     1750,
 )
 
-# --- application/EM-LENR.md (rewrite of 2026-11-13) and the three related application files
+# --- application/EM-LENR.md (rewrite of 2026-11-11) and the three related application files
 _A = "application/EM-LENR.md"
 check(_A, "Gain in H/Ni from 20 to 300 bar, sqrt(15)", sqrt(300 / 20), 3.9)
 check(_A, "Relative pressure drop, 1 g Ni in 1 cm^3 at 300 bar", (h_ni(T_ROOM, 300e5) / 2 / M_NI) / (300e5 * 1e-6 / (R_GAS * T_ROOM)), 2.2e-4)

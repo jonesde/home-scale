@@ -1,7 +1,7 @@
 ---
 origin: application
 device: pyroelectric polar crystal as a transient HV engine opening beam-target D–D
-updated: 2026-11-14
+updated: 2026-11-11
 envelope: institutional until a packaged, interlocked, low-inventory unit exists
 ---
 
@@ -13,7 +13,7 @@ envelope: institutional until a packaged, interlocked, low-inventory unit exists
 **Envelope.** Institutional / industrial until interlocked low-inventory packaging exists. Home-scale waits on that mitigation.
 **Sources.** Facts are cited to [pyroelectric-fusion](../library/pyroelectric-fusion.md) (below **PF**) by source key; its Sources table holds the references.
 
-> **What changed on 2026-11-14.** The library entry was checked against sources and this file was brought into line. (1) The device is an existing published one, not a new concept: Naranjo, Gimzewski and Putterman, *Nature* 434, 1115 (2005) (PF [S1]), reproduced with two crystals by Geuther, Danon and Saglime, *Phys. Rev. Lett.* 96, 054803 (2006) (PF [S2]). (2) The thermal cycle takes hundreds of seconds (350 s heating, about 120 s of emission), not seconds. (3) Yield is 10⁴–10⁵ neutrons per cycle; the earlier lower bound of 10³ had no source. (4) The crystals are about 1 cm thick and 2–3 cm across, and a sharp tip (70 nm; 600 nm gave nothing) and a gas pressure near 1 mTorr are measured conditions. (5) The Curie temperature of LiTaO₃ is reported from 874 K to 958 K. (6) The neutron branch returns about 10⁻⁶ of the beam power; the authors state it is not a power source.
+> **What changed on 2026-11-11.** The library entry was checked against sources and this file was brought into line. (1) The device is an existing published one, not a new concept: Naranjo, Gimzewski and Putterman, *Nature* 434, 1115 (2005) (PF [S1]), reproduced with two crystals by Geuther, Danon and Saglime, *Phys. Rev. Lett.* 96, 054803 (2006) (PF [S2]). (2) The thermal cycle takes hundreds of seconds (350 s heating, about 120 s of emission), not seconds. (3) Yield is 10⁴–10⁵ neutrons per cycle; the earlier lower bound of 10³ had no source. (4) The crystals are about 1 cm thick and 2–3 cm across, and a sharp tip (70 nm; 600 nm gave nothing) and a gas pressure near 1 mTorr are measured conditions. (5) The Curie temperature of LiTaO₃ is reported from 874 K to 958 K. (6) The neutron branch returns about 10⁻⁶ of the beam power; the authors state it is not a power source.
 
 > **Hazards (read [SAFETY.md](../SAFETY.md)).** High voltage on an isolated face, D₂, and a neutron channel in one cell. Dielectric breakdown and leakage are ordinary industrial hazards. This file is a mapping, not a procedure. Do not scale crystal size, Δ*T*, or D inventory in search of a nuclear signature. Do not skip isolation to “see neutrons.”
 

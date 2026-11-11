@@ -18,7 +18,7 @@ related:
   - magnetostriction
   - speed-of-sound
   - thermal-equilibrium-temperature
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Thermal Expansion (Anharmonic Length Change)

@@ -8,6 +8,7 @@ constraints:
   - spatial-buffer
 confidence_data: high
 confidence_mapping: medium
+review_depth: light
 related:
   - superfluid-helium-4
   - superconductivity
@@ -15,7 +16,7 @@ related:
   - ideal-gas-pressure
   - flux-quantization
   - quantum-hall-effect
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Bose–Einstein Condensate (Density-Set Coherence Cliff)
@@ -26,85 +27,81 @@ Bose–Einstein condensate (density-set coherence cliff)
 
 ### 4.2 Macroscopic Observation
 
-A dilute gas of alkali atoms, confined in a magnetic or optical trap and cooled, develops a macroscopic occupation of the lowest trap mode once a density- and temperature-dependent threshold is crossed. After release, the velocity distribution is bimodal: a narrow peak sits on a broader thermal cloud. Two independent condensates released into each other produce interference fringes. Warming the sample, or letting the density drop, removes the peak and the fringes; the cloud is then an ordinary thermal gas.
+A dilute gas of alkali atoms, confined in a magnetic or optical trap and cooled, develops a macroscopic occupation of the lowest trap state once a density- and temperature-dependent threshold is crossed. A sharp peak appears on the broader thermal distribution, in the trap and in the velocity distribution measured after release. Two condensates released into each other produce interference fringes. Warming the sample, or letting the density fall, removes the peak.
 
 ### 4.3 Established Quantitative Boundaries
 
-- Ideal-gas threshold, written as a phase-space density (handbook form used to locate \(T_c\)):
+- **Model (ideal Bose gas).** Threshold: \(n\lambda_T^3 = \zeta(3/2) \simeq 2.612\), with \(\lambda_T = h/\sqrt{2\pi m k_BT}\). In a harmonic trap the condition holds at the central density, and \(k_BT_c = \hbar\omega_{ho}(N/\zeta(3))^{1/3} = 0.94\,\hbar\omega_{ho}N^{1/3}\) [S1].
+- **Measured.** The measured transition temperature is very close to the ideal-gas value, with a sudden onset of the condensate fraction at \(T/T_c \approx 1\); about 300 nK for 40,000 atoms in an early experiment [S1].
+- **Measured.** Atom numbers range from a few thousand to several million [S1]. Sodium: up to \(5\times10^5\) condensed atoms at densities above \(10^{14}\) cm⁻³, below a critical temperature of about 2 µK, reached in seven seconds of evaporative cooling [S2].
+- **Computed here.** Sodium at 2 µK has \(\lambda_T = 257\) nm, and \(n\lambda_T^3 = 2.612\) then requires \(n = 1.5\times10^{14}\) cm⁻³, consistent with the measured density [S2].
+- **Model (ideal gas, harmonic trap).** Condensate fraction \(N_0/N = 1 - (T/T_c)^3\); in a uniform gas the exponent is 3/2 [S1].
+- **Measured.** Readout. The trap is switched off and the expanded cloud is imaged by absorption; the condensate is the narrow peak. Interference between two condensates has been observed [S1][S5].
+- **Measured.** Superfluid response. A laser beam stirred through a condensate heats it strongly only above a critical velocity [S3]. In a toroidal trap a flow of condensed atoms persists without decay for up to 10 s, limited by drift and trap lifetime [S4].
+- **Convention.** The laboratory condensate is not a zero-power state: it exists only while the trap confines it, and its lifetime is finite.
 
-  \[
-  n\lambda_{\mathrm{th}}^3 \simeq 2.612, \qquad \lambda_{\mathrm{th}} = \frac{h}{\sqrt{2\pi m kT}}
-  \]
-
-  \(2.612\) is \(\zeta(3/2)\). In a harmonic trap the same condition is evaluated at the peak density and gives a \(T_c\) that scales as \(N^{1/3}\) times the trap frequency. Both statements are fits to where the condensate fraction appears, not a derivation of the nodes.
-
-- Laboratory alkali condensates sit at nanokelvin to microkelvin temperatures with typical atom numbers \(10^3\)–\(10^7\). Those ranges are the working envelope of the existing apparatus class, not a single universal cliff.
-- The condensate fraction \(N_0/N\) falls to zero as \(T \to T_c^-\) or as the density is lowered through the threshold at fixed \(T\). Either route destroys the bimodal peak and the interference contrast.
-- The trapped condensate is not a self-bound droplet: when the trap is switched off the cloud expands. Loss of atoms (background-gas collisions, three-body recombination) lowers \(n\) and can drop the sample back through \(T_c(n)\).
-
-**Data confidence:** High — the phase-space condition, the nK–\(\mu\)K / \(10^3\)–\(10^7\) working envelope, bimodal time-of-flight, and interference contrast are multiply reproduced. Species-by-species scattering lengths and exact \(T_c\) shifts from interactions are medium and are not required here.
+**Data confidence:** High for the threshold condition, the atom-number range and the bimodal readout, from a standard review. The first-observation papers were not opened; their content is taken from the review. The critical-velocity and persistent-flow results are from abstracts.
 
 ### 4.4 Standard Mathematical Description
 
 Recorded as descriptive relations, not as axioms.
 
-- Thermal wavelength and ideal-gas critical line:
-
-  \[
-  n\lambda_{\mathrm{th}}^3 = \zeta(3/2) \approx 2.612
-  \]
-
-  Condensate present for \(n\lambda_{\mathrm{th}}^3\) above that value; absent below it.
-
-- Condensate fraction of a uniform ideal Bose gas (descriptive \(T\)-dependence):
-
-  \[
-  \frac{N_0}{N} = 1 - \left(\frac{T}{T_c}\right)^{3/2} \qquad (T \le T_c)
-  \]
-
-  Harmonic-trap exponents differ; the load-bearing fact is \(N_0 \to 0\) at \(T_c\), not the exponent.
-
-- Interacting-gas bookkeeping (Gross–Pitaevskii / chemical-potential form) introduces a healing length and a sound speed set by density and scattering length. Those lengths describe the *already condensed* cloud. They are not used here to invent a pairing gap or to relocate \(T_c\).
+- Critical line: \(n\lambda_T^3 = \zeta(3/2)\); equivalently \(T_c = (2\pi\hbar^2/mk_B)(n/\zeta(3/2))^{2/3}\) for a uniform gas [S1].
+- Harmonic trap: \(k_BT_c = 0.94\,\hbar\omega_{ho}N^{1/3}\), \(N_0/N = 1-(T/T_c)^3\) [S1].
+- Interactions (Gross–Pitaevskii) broaden the condensate peak and shift \(T_c\) slightly; they set a healing length and a sound speed in the condensed cloud [S1].
 
 ### 4.5 QSA Mapping
 
-- **Minimum hardware scale / node count / coherence volume.** A trapped cloud whose phase-space density crosses \(n\lambda_{\mathrm{th}}^3 \simeq 2.612\). The “nodes” are the atoms; the buffer is the combination of number, volume, and temperature that puts enough of them in one mode. There is no measured few-nanometre continuity cliff of the [reflection](reflection.md) kind, and no single minimum \(N\) at which the effect switches on. \(10^3\)–\(10^7\) is the envelope in which a stable condensate fraction is routinely read out, not a derived node-count threshold.
+- **Minimum hardware scale / node count / coherence volume.** A trapped cloud whose central phase-space density exceeds 2.612. The buffer is the combination of number, volume and temperature. There is no minimum atom number at which the effect switches on: condensates of a few thousand atoms are routine, and the transition is rounded, not absent, in a finite system.
 
-- **Clock rate / latency.** Trap frequencies set the sloshing / expansion clocks of the cloud; they are apparatus scales, not a universal condensate clock. There is no Josephson \(2e/h\) lock and no cyclotron clock. Interaction-driven sound in the condensed cloud is a hydrodynamic response of an already-formed condensate, analogous to second sound on [superfluid-helium-4](superfluid-helium-4.md).
+- **Clock rate / latency.** Trap frequencies set the oscillation and expansion times; they are apparatus scales. There is no \(2e/h\) lock.
 
-- **Energy barriers or thresholds.** The load-bearing threshold is thermal / density: \(T > T_c(n)\), or \(n\) dropped at fixed \(T\), removes macroscopic occupation and phase coherence. This is not a latched anisotropy barrier and not a measured superconducting gap. Holding the condensate requires continuous cooling and trapping resources; it is not a zero-power latch.
+- **Energy barriers or thresholds.** The threshold is thermal and density-set: \(T > T_c(n)\), or \(n\) lowered at fixed \(T\). It is not an anisotropy barrier and not a pairing gap. Holding the condensate needs continuous trapping.
 
 - **Dominant failure modes.**
-  - Thermal: \(T > T_c(n)\) \(\to\) condensate fraction \(\to 0\) \(\to\) no bimodal peak, no interference.
-  - Spatial / density: expansion, atom loss, or a weaker trap drops \(n\) through the critical line at fixed \(T\) \(\to\) same collapse.
-  - Trap loss: without confinement the cloud is not a stable laboratory condensate.
-  - Heating / three-body loss: practical routes to the two collapses above, not a third machine class.
+  - **Threshold** — thermal: \(T > T_c(n)\); the condensate fraction, \(1-(T/T_c)^3\) below \(T_c\), reaches zero. Sharp in the large-\(N\) limit and rounded at finite \(N\).
+  - **Threshold** — density: \(n\lambda_T^3 < 2.612\) at fixed \(T\); the same line crossed along the other axis.
+  - **Crossover** — loss and heating: atom loss lowers \(n\) continuously over the sample lifetime. No opened source for a lifetime; 10 s of persistent flow was limited by the trap.
+  - **Threshold** — trap removal: the cloud expands. The bimodal peak and the interference fringes are read during this expansion, so release ends the sample but is also how it is observed.
+  - **Threshold** — velocity: dissipation above a critical velocity.
 
-- **Emergent constant or stable output.** A macroscopic occupation of one mode — read as a condensate fraction, a narrow velocity peak, and interference contrast — only while the cloud stays above the critical phase-space density.
+- **Emergent constant or stable output.** A macroscopic occupation of one state, read as a condensate fraction, a narrow velocity peak and interference contrast, while the cloud stays above the critical phase-space density.
 
 ### 4.6 Internal Consistency Notes
 
-The thermal / density cliff is clean and maps onto a failure envelope. That is as much as this entry can claim tightly.
+The thermal and density threshold is clean and maps onto a failure envelope.
 
-The mapping does not close at the same level as [josephson-effect](josephson-effect.md) or [superfluid-helium-4](superfluid-helium-4.md), for three recorded reasons.
+Sourcing changed two things. A dilute condensate is a superfluid by direct test: it has a critical velocity and supports persistent flow, so the contrast with [superfluid-helium-4](superfluid-helium-4.md) is one of density and interaction strength, not of whether superflow exists. And the signatures are read after the trap is switched off, so "trap off" is the readout step as well as the end of the sample. The 2.612 threshold and the atom-number range were confirmed; the harmonic-trap exponent is 3, where the first version quoted only the uniform-gas 3/2.
 
-1. **Family tension.** The file sits in `gapped-coherence` because the taxonomy groups protected collective modes that die at a critical temperature. An ideal-gas BEC has no measured pairing gap. Collapse is loss of macroscopic occupation and of phase coherence, not gap closure of the superconducting kind. Forcing a gap onto the alkali cloud would be an interpretive overlay. The tension is left visible.
-2. **No sharp hardware cliff.** \(N \sim 10^3\)–\(10^7\) is a working envelope, not a derived minimum node count. QSA here *takes* the measured phase-space condition as the specification; it does not obtain \(2.612\) from node rules.
-3. **Continuous resources.** Unlike a permanent magnet or a trapped fluxoid, the laboratory condensate is not held at zero continuous power. That does not eject it from the family, but it means this is not a latch.
+The mapping does not close as tightly as its neighbours, for three reasons.
 
-The leftover stack is assembled as draft `phase-space-condensate` in the analysis layer. Contrast on `gapped-condensate` and `chargeless-superflow` stays. That names the home; it does not invent a pairing gap or a 0 W hold.
+1. **Family tension.** The file sits in `gapped-coherence` by the taxonomy rule. An ideal-gas condensate has no pairing gap; the collapse is loss of macroscopic occupation.
+2. **No size threshold.** The atom-number range is a working envelope. The 2.612 condition is taken from the ideal-gas model, not derived from node rules.
+3. **Continuous resources.** The condensate is not held at zero power.
 
-Relation to [superfluid-helium-4](superfluid-helium-4.md) is analogical. Liquid helium is dense and strongly interacting and has a sharp \(T_\lambda\) at \(2.17\,\mathrm{K}\); alkali BECs are dilute and have a \(T_c\) set by \(n\). They share a thermal coherence cliff and quantized winding; they are not the same hardware. No claim is made about “what the condensate is.”
+The leftover stack is draft `phase-space-condensate` in the analysis layer.
 
 ### 4.7 Overall Confidence in the QSA Mapping
 
-**Medium** — the \(T_c(n)\) cliff, the working envelope, and the loss of interference contrast are solid measured boundaries, but the family assignment is looser than a pairing gap, the minimum node count is not sharp, and the phase-space threshold is taken from the ideal-gas condition rather than derived.
+**Medium** — the \(T_c(n)\) threshold and the readout are solid, but the family assignment is loose, there is no minimum node count, and the threshold value is taken from the ideal-gas condition.
 
 ## Related entries
 
-- [superfluid-helium-4](superfluid-helium-4.md) — dense, chargeless analog with a fixed \(T_\lambda\); not the same hardware
-- [superconductivity](superconductivity.md) — charged gapped coherence; contrast case for a real gap and a zero-power persistent current
-- [thermal-equilibrium-temperature](thermal-equilibrium-temperature.md) — \(T\) itself is an ensemble reading; \(T_c\) is a cliff on that reading
-- [ideal-gas-pressure](ideal-gas-pressure.md) — the same cloud below the critical phase-space density is an ordinary thermal gas
-- [flux-quantization](flux-quantization.md) — integer winding in a charged condensate; the analog here is phase winding of the atomic cloud
-- [quantum-hall-effect](quantum-hall-effect.md) — another collective state whose mapping is limited by an underived quantized output
+- [superfluid-helium-4](superfluid-helium-4.md) — dense analogue with a fixed \(T_\lambda\)
+- [superconductivity](superconductivity.md) — charged case with a gap and a zero-power persistent current
+- [thermal-equilibrium-temperature](thermal-equilibrium-temperature.md) — the temperature reading on which \(T_c\) sits
+- [ideal-gas-pressure](ideal-gas-pressure.md) — the same cloud below threshold is a thermal gas
+- [flux-quantization](flux-quantization.md) — integer winding in a charged condensate
+- [quantum-hall-effect](quantum-hall-effect.md) — another state whose output value is taken, not derived
+
+## Sources
+
+Rules and the meaning of the Checked column: [README.md](README.md#sourcing-standard).
+
+| Key | Reference | Checked | Supports |
+|---|---|---|---|
+| S1 | [Dalfovo, Giorgini, Pitaevskii and Stringari, *Rev. Mod. Phys.* 71, 463 (1999), arXiv:cond-mat/9806038](https://arxiv.org/abs/cond-mat/9806038) | full-text | Standard review: threshold 2.61, trap critical temperature and condensate fraction, 300 nK for 40,000 atoms, atom-number range, release-and-image readout, interference, interaction effects. |
+| S2 | [Davis et al., *Phys. Rev. Lett.* 75, 3969 (1995)](https://doi.org/10.1103/PhysRevLett.75.3969) | abstract | Sodium: up to 5e5 atoms, density above 1e14 per cm³, critical temperature about 2 µK, seven seconds of cooling. |
+| S3 | [Raman et al., *Phys. Rev. Lett.* 83, 2502 (1999)](https://doi.org/10.1103/PhysRevLett.83.2502) | abstract | Strong heating of a stirred condensate only above a critical velocity. |
+| S4 | [Ryu et al., *Phys. Rev. Lett.* 99, 260401 (2007)](https://doi.org/10.1103/PhysRevLett.99.260401) | abstract | Persistent flow in a toroidal trap for up to 10 s. |
+| S5 | [Andrews et al., *Science* 275, 637 (1997)](https://doi.org/10.1126/science.275.5300.637) | cited-only | Interference between two condensates; cited through the review. The first observation, Anderson et al., *Science* 269, 198 (1995), is likewise taken from the review. |

@@ -1,7 +1,7 @@
 ---
 origin: application
 device: EM-CSAM micro-railgun deposition head, driver, and the same barrel/coil as a lab
-updated: 2026-11-14
+updated: 2026-11-11
 ---
 
 # Application: EM-CSAM head (manufacture + experiment)
@@ -15,7 +15,7 @@ updated: 2026-11-14
 
 Derived specs: [design-spec-sheets](../library/derived/design-spec-sheets.md), [requirement-audit](../library/derived/requirement-audit.md).
 
-> **Revised 2026-11-14** (extends the corrections of 2026-11-12). Every number in this file is now one of three kinds, and says which. **Library**: stated in a sourced library file, linked where it is used. **Computed here**: arithmetic on library numbers with the inputs shown, guarded by [`analysis/checks/b3_applications.py`](../analysis/checks/b3_applications.py). **Hardware note**: a planning value or model result from [`../../em-csam/`](../../em-csam/README.md) and its `tools/shot_model.py`; none of these is a measurement. What changed: §2.2 gains Joule heating by action integral and by enthalpy; §2.3 states the bonding window from the sourced critical velocities and lists the metals that have none; §2.4 compares the bank voltage with the Paschen floor and the arc minimum; §3 restates each experiment against observables the library supports, and §5 drops the falsifiers that standard physics already answers (the skin split with pulse width, nickel against palladium remanence). The skin layer is treated throughout as a smooth profile with no edge.
+> **Revised 2026-11-11** (extends the corrections of 2026-11-11). Every number in this file is now one of three kinds, and says which. **Library**: stated in a sourced library file, linked where it is used. **Computed here**: arithmetic on library numbers with the inputs shown, guarded by [`analysis/checks/b3_applications.py`](../analysis/checks/b3_applications.py). **Hardware note**: a planning value or model result from [`../../em-csam/`](../../em-csam/README.md) and its `tools/shot_model.py`; none of these is a measurement. What changed: §2.2 gains Joule heating by action integral and by enthalpy; §2.3 states the bonding window from the sourced critical velocities and lists the metals that have none; §2.4 compares the bank voltage with the Paschen floor and the arc minimum; §3 restates each experiment against observables the library supports, and §5 drops the falsifiers that standard physics already answers (the skin split with pulse width, nickel against palladium remanence). The skin layer is treated throughout as a smooth profile with no edge.
 
 ---
 
@@ -335,7 +335,7 @@ These are results that would contradict the plan in §2. Results that standard p
 - Steel deposits from dry and H-rich carriers are equally tough, and a bake does nothing.
 - No impact velocity at which a hard-magnet powder both bonds and keeps useful coercivity.
 
-Removed on 2026-11-14 because standard physics answers them: “pulse width does not change the rail-face against bulk heating split” (magnetic diffusion), and “Ni and Pd are indistinguishable on remanence” (Pd is not ferromagnetic). None of the list is a LENR falsifier.
+Removed on 2026-11-11 because standard physics answers them: “pulse width does not change the rail-face against bulk heating split” (magnetic diffusion), and “Ni and Pd are indistinguishable on remanence” (Pd is not ferromagnetic). None of the list is a LENR falsifier.
 
 ---
 

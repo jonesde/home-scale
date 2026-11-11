@@ -77,7 +77,7 @@ Retrieved 2026-11-10.
 - **RG-TUCKER75** — Tucker & Toth, Sandia SAND-75-0041. [OSTI](https://www.osti.gov/servlets/purl/4229184-1IbmTb/)
   - *Says:* Action to reach melt from room temperature, converted to A²·s/m⁴: Cu ≈ 8.0×10¹⁶, Al 2.5×10¹⁶, Fe 1.3×10¹⁶, W 2.4×10¹⁶, Zn 1.1×10¹⁶, Sn 1.7×10¹⁵.
   - *Used for:* Action margin per material.
-  - *Access:* Open scan. The copper entry is hard to read in the text layer; on the page image it is 80492 A²·s/mm⁴ at the start of melting, which confirms 8.0×10¹⁶ A²·s/m⁴ (re-read 2026-11-12). It was also cross-checked against bond-wire fusing data. A 2013 *IEEE Trans. Plasma Sci.* paper found these values do not match its own measurements for Cu, Al and Ti, so treat them as ±tens of percent.
+  - *Access:* Open scan. The copper entry is hard to read in the text layer; on the page image it is 80492 A²·s/mm⁴ at the start of melting, which confirms 8.0×10¹⁶ A²·s/m⁴ (re-read 2026-11-11). It was also cross-checked against bond-wire fusing data. A 2013 *IEEE Trans. Plasma Sci.* paper found these values do not match its own measurements for Cu, Al and Ti, so treat them as ±tens of percent.
 
 - **RG-WOODS96** — Woods, "Analysis of the Armature-Rail Interface in Solid Armature Railguns", Institute for Advanced Technology report IAT.R 0120 (1996). [DTIC](https://apps.dtic.mil/sti/tr/pdf/ADA320642.pdf)
   - *Says:* Behind a moving contact of length a at speed V the current in the rail is confined to a depth of about 2√(D·a/V), set by the transit time and not by the pulse length.
@@ -181,7 +181,7 @@ The top-level README once said no close cousin had been found. These are the clo
 
 - **PC-FALCON05** — Falcon & Castaing, *Am. J. Phys.* 2005 (arXiv cond-mat/0407773). [ar5iv](https://ar5iv.labs.arxiv.org/html/cond-mat/0407773)
   - *Says:* A chain of oxidised metal beads measures 10⁴–10⁷ Ω at low current (force-dependent), then drops irreversibly to 1–10 Ω. The voltage saturates per contact at 0.4 V for stainless steel, 0.3 V for brass and 0.2 V for bronze; copper was not measured. The contact spots reach about 1050 °C (micro-welding); the plateau is that regime.
-  - *Used for:* Why powder paste is high-resistance until its contacts weld, and the 0.2–0.4 V per contact range. Corrected 2026-11-12: earlier notes quoted 0.4 V as if it applied to copper.
+  - *Used for:* Why powder paste is high-resistance until its contacts weld, and the 0.2–0.4 V per contact range. Corrected 2026-11-11: earlier notes quoted 0.4 V as if it applied to copper.
   - *Access:* Open.
 
 - **PC-CREYSSELS09** — Creyssels, Falcon, Castaing, Powders & Grains 2009, *AIP Conf. Proc.* 1145. [PDF](https://labo.msc.u-paris.fr/~falcon/AIP09.pdf)
@@ -194,7 +194,7 @@ The top-level README once said no close cousin had been found. These are the clo
   - *Access:* Open. No numeric resistivity found.
 
 - **PC-FRITTING** — Fritting technical note. [PA3FWM](https://www.pa3fwm.nl/technotes/tn17a.html)
-  - *Says:* Gives "1 mA and a few volts" for wetting a contact. It does not give a fritting time; an earlier summary here said "a few volts for a few microseconds", which the note does not say (corrected 2026-11-12).
+  - *Says:* Gives "1 mA and a few volts" for wetting a contact. It does not give a fritting time; an earlier summary here said "a few volts for a few microseconds", which the note does not say (corrected 2026-11-11).
   - *Access:* Informal note.
 
 - **PC-ALIOUAT22** — Aliouat et al., "Investigation of Electrical Transitions in the First Steps of Spark Plasma Sintering", *Materials* 15, 4096 (2022). [DOI](https://doi.org/10.3390/ma15124096)

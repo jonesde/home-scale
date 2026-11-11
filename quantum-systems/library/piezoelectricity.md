@@ -19,7 +19,7 @@ related:
   - phonon-dispersion
   - refraction-dielectric
   - dielectric-breakdown
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Piezoelectricity (Strain–Polarization Coupling)

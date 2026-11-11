@@ -1,7 +1,7 @@
 ---
 origin: application
 device: mirror, transparent conductor, SPR chip, EMI shield
-updated: 2026-11-14
+updated: 2026-11-11
 ---
 
 # Application: Thin-film optics and transparent conductors
@@ -10,9 +10,9 @@ updated: 2026-11-14
 **QSA machines.** `collective-screening` (core); `energy-gate` (photoelectric / gap absorption as contrast); `oscillator-grid` (adhesion, anneal, melt).
 **Status.** Working application. High-data. It was filed as the High-mapping calibration case; the mapping of [reflection](../library/reflection.md) is now Medium and the thickness half of the calibration is withdrawn (note below). **Not a tested coating process.**
 
-> **Corrected 2026-11-12.** This file opened with a test: if QSA cannot recover "Ag goes transparent below ~5–10 nm continuous, and above the plasma / interband edge," do not take the interstitial-latch mapping seriously. Sourcing [reflection](../library/reflection.md) showed that the first half of that sentence is not a measured cliff. The reflectance of a continuous film falls smoothly with thickness (Ag at 550 nm, computed from bulk constants: 96 % at 50 nm, 74 % at 20 nm, 39 % at 10 nm, 14 % at 5 nm; Al keeps 34–50 % at 5 nm, depending on the optical constants used), a continuous 5.66 nm Au film matches that calculation, and a collective optical response is measured down to one atomic layer. The sharp change in a deposited film is percolation, and it is sharp in dc conductance, not in reflectance. Ordinary thin-film optics predicts the same thickness curve, so recovering it does not test the mapping against the standard description. The spectral half stands: the edge is measured (Ag 3.8–3.9 eV). Sections 1–6 are rewritten to match; the device list is unchanged.
+> **Corrected 2026-11-11.** This file opened with a test: if QSA cannot recover "Ag goes transparent below ~5–10 nm continuous, and above the plasma / interband edge," do not take the interstitial-latch mapping seriously. Sourcing [reflection](../library/reflection.md) showed that the first half of that sentence is not a measured cliff. The reflectance of a continuous film falls smoothly with thickness (Ag at 550 nm, computed from bulk constants: 96 % at 50 nm, 74 % at 20 nm, 39 % at 10 nm, 14 % at 5 nm; Al keeps 34–50 % at 5 nm, depending on the optical constants used), a continuous 5.66 nm Au film matches that calculation, and a collective optical response is measured down to one atomic layer. The sharp change in a deposited film is percolation, and it is sharp in dc conductance, not in reflectance. Ordinary thin-film optics predicts the same thickness curve, so recovering it does not test the mapping against the standard description. The spectral half stands: the edge is measured (Ag 3.8–3.9 eV). Sections 1–6 are rewritten to match; the device list is unchanged.
 
-> **Re-checked 2026-11-14** against the library as it now stands. Changes: the Al figure at 5 nm is 34–50 % (the epitaxial-Al constants give the low end); `coupled-screening-failure` is now recorded as in tension in [requirement-audit](../library/derived/requirement-audit.md); the SPR thickness window and the Ag work function are linked to their library files; the statements about transparent conducting oxides, adhesion layers and RF meshes are marked as unsourced, since no sourced library file covers them; §6 says which EM-CSAM regime can make a film thin enough for this series.
+> **Re-checked 2026-11-11** against the library as it now stands. Changes: the Al figure at 5 nm is 34–50 % (the epitaxial-Al constants give the low end); `coupled-screening-failure` is now recorded as in tension in [requirement-audit](../library/derived/requirement-audit.md); the SPR thickness window and the Ag work function are linked to their library files; the statements about transparent conducting oxides, adhesion layers and RF meshes are marked as unsourced, since no sourced library file covers them; §6 says which EM-CSAM regime can make a film thin enough for this series.
 
 ---
 

@@ -17,7 +17,7 @@ related:
   - thermal-expansion
   - permanent-magnet-latch
   - ferroelectric-remanence
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Melting (Loss of Lattice Order)

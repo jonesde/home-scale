@@ -1,7 +1,7 @@
 ---
 origin: application
 device: AFM/FM bilayer coupon whose loop shift records a trip through TB
-updated: 2026-11-14
+updated: 2026-11-11
 envelope: thin-film lab; conceivable later as a sealed coupon
 ---
 
@@ -14,7 +14,7 @@ envelope: thin-film lab; conceivable later as a sealed coupon
 
 > **Hazards (read [SAFETY.md](../SAFETY.md)).** Thin-film deposition and field-cool magnets are ordinary lab hazards. This file is a mapping, not a thermal-fuse datasheet.
 
-> **Re-checked 2026-11-14** against [exchange-bias](../library/exchange-bias.md). The numbers stand. Changes: the device is stated as a use of a measured effect that spin valves already exploit; blocking-temperature classes for common pins are added; training is added as a read limit; the falsifier that restated an established fact is marked as such. One correction to the device itself: the library records that cooling in zero field from a remanent state still sets a shift. A coupon that trips above *T<sub>B</sub>* and cools again with its ferromagnet magnetized therefore re-sets its pin, and the shift is not simply gone afterwards. §1, §2 and §4 now say what the coupon has to look like for a trip to be readable.
+> **Re-checked 2026-11-11** against [exchange-bias](../library/exchange-bias.md). The numbers stand. Changes: the device is stated as a use of a measured effect that spin valves already exploit; blocking-temperature classes for common pins are added; training is added as a read limit; the falsifier that restated an established fact is marked as such. One correction to the device itself: the library records that cooling in zero field from a remanent state still sets a shift. A coupon that trips above *T<sub>B</sub>* and cools again with its ferromagnet magnetized therefore re-sets its pin, and the shift is not simply gone afterwards. §1, §2 and §4 now say what the coupon has to look like for a trip to be readable.
 
 ---
 

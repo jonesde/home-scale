@@ -15,7 +15,7 @@ related:
   - photoelectric-threshold
   - surface-plasmon-resonance
   - faraday-rotation
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Reflection (Electron-Cloud Response)

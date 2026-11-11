@@ -9,6 +9,7 @@ constraints:
   - energy-barrier
 confidence_data: high
 confidence_mapping: high
+review_depth: light
 related:
   - bose-einstein-condensate
   - superconductivity
@@ -16,7 +17,7 @@ related:
   - josephson-effect
   - type-ii-critical-field
   - thermal-equilibrium-temperature
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Superfluid Helium-4 (Chargeless Superflow)
@@ -27,86 +28,81 @@ Superfluid helium-4 (chargeless superflow)
 
 ### 4.2 Macroscopic Observation
 
-Liquid \(^4\mathrm{He}\) below the \(\lambda\)-point flows through packed powder and fine capillaries without measurable viscosity, climbs the walls of an open vessel as a film, and, when one side of a superleak is heated, produces a fountain of liquid (the thermomechanical / fountain effect). Persistent currents circulate in a closed torus on laboratory timescales. Above the \(\lambda\)-point the same liquid is an ordinary (if cryogenic) fluid: the superleak clogs, the fountain stops, and a finite viscosity returns.
+Liquid \(^4\mathrm{He}\) below the \(\lambda\)-point flows through packed powder and fine capillaries without measurable viscosity, creeps over the walls of an open vessel as a film, and produces a fountain when one side of a superleak is heated. Currents persist in a closed path. Above the \(\lambda\)-point the same liquid is an ordinary viscous fluid. These qualitative observations are standard; the numbers below are the sourced part.
 
 ### 4.3 Established Quantitative Boundaries
 
-- \(\lambda\)-point at saturated vapour pressure:
+- **Measured.** \(\lambda\)-point at saturated vapour pressure: \(T_\lambda = 2.1768\) K; liquid density there 0.1461 g cm⁻³ [S1].
+- **Measured.** Superfluid fraction. Near the transition the recommended fit is \(\rho_s/\rho = k_0(1 + k_1\epsilon)\,\epsilon^{\zeta}\) with \(\epsilon = 1 - T/T_\lambda\), \(k_0 = 2.403\) and \(\zeta = 0.6717\) [S1]. The fraction goes continuously to zero at \(T_\lambda\).
+- **Computed here.** Leading term of that fit at \(\epsilon = 0.01\) (22 mK below \(T_\lambda\)): \(\rho_s/\rho \approx 0.11\).
+- **Measured.** Landau critical velocity for roton creation, from ion drift: about 60 m s⁻¹ at saturated vapour pressure, falling to 46 m s⁻¹ at 24 bar. The speed of sound is 220 m s⁻¹ [S2].
+- **Measured.** Critical velocities in apertures and channels lie below the Landau value. Two regimes appear: a faster one in small apertures, where single \(2\pi\) phase slips are resolved, and a slower one in larger channels. Values are not reproducible from one experiment to the next, and in small apertures the vortices are nucleated by thermal activation [S2].
+- **Computed here.** Circulation quantum \(\kappa = h/m_4 = 9.97\times10^{-8}\) m² s⁻¹, with \(m_4\) the atomic mass (alpha-particle mass plus two electron masses, \(6.6465\times10^{-27}\) kg) [S3]. Single quanta of circulation are observed building up in aperture flow [S2].
+- **Computed here.** The ideal-gas condensation temperature \(T_c = (2\pi\hbar^2/mk_B)(n/2.612)^{2/3}\) [S4] at the liquid's number density (\(2.20\times10^{28}\) m⁻³) is 3.15 K, 45 % above the measured \(T_\lambda\).
+- **Convention.** Holding a persistent current costs zero continuous power below \(T_\lambda\) and below the critical velocity.
 
-  \[
-  T_\lambda = 2.17\,\mathrm{K}
-  \]
-
-  The heat capacity has a \(\lambda\)-shaped singularity there. Under pressure the \(\lambda\)-line moves; it ends when the liquid freezes. Those are measured phase-boundary facts, not used here as a mechanism.
-
-- Superfluid fraction \(\rho_s(T)\): \(\rho_s \to 0\) as \(T \to T_\lambda^-\), and \(\rho_s / \rho \to 1\) as \(T \to 0\). The complementary normal fraction \(\rho_n = \rho - \rho_s\) is what a torsion-pendulum (Andronikashvili) stack continues to drag. This two-fluid bookkeeping is *data* — a decomposition of the observed density into a fraction that flows through a superleak and a fraction that does not — not an axiom that two liquids occupy the same volume.
-- Viscosity through a fine channel \(\to 0\) for the superfluid fraction below \(T_\lambda\). The same channel shows a finite viscosity above \(T_\lambda\).
-- Superflow collapses above a critical velocity \(v_c\). Observed \(v_c\) is geometry-dependent (channel size, film thickness, wall condition) and typically lies far below the Landau estimate taken from the roton minimum. The existence of a velocity cliff is high confidence; any one numerical \(v_c\) is medium.
-- Circulation around a closed superfluid path is quantized:
-
-  \[
-  \kappa = \frac{h}{m_4} \approx 9.97\times 10^{-8}\,\mathrm{m^2\,s^{-1}}
-  \]
-
-  Quantized vortices in the rotating liquid carry this increment. That is the chargeless counterpart of \(\Phi_0\) on [flux-quantization](flux-quantization.md).
-
-**Data confidence:** High — \(T_\lambda\), the fountain and superleak responses, \(\rho_s(T)\), and the circulation quantum are handbook measurements. Channel-specific \(v_c\) is medium.
+**Data confidence:** High for \(T_\lambda\), the density and \(\rho_s(T)\), read from the standard reference tables (a scanned document read by character recognition). Critical velocities are Medium by the source's own account. The pressure dependence of \(T_\lambda\) and the fountain relation have no opened source and are not quoted.
 
 ### 4.4 Standard Mathematical Description
 
 Recorded as descriptive relations, not as axioms.
 
-- Two-fluid decomposition of the observed mass density:
-
-  \[
-  \rho = \rho_n(T) + \rho_s(T), \qquad \mathbf{j} = \rho_n\mathbf{v}_n + \rho_s\mathbf{v}_s
-  \]
-
-  \(\rho_s(T_\lambda) = 0\). The fountain / thermomechanical relation \(\Delta P = \rho s\,\Delta T\) (London form) fits the pressure head across a superleak; it is a fit to the fountain data.
-
-- Quantized circulation on a closed path that stays in the superfluid:
+- Two-fluid decomposition: \(\rho = \rho_n(T) + \rho_s(T)\), \(\mathbf{j} = \rho_n\mathbf{v}_n + \rho_s\mathbf{v}_s\), with \(\rho_s(T_\lambda) = 0\). This is bookkeeping of the measured density, not a statement that two liquids are present.
+- Quantized circulation on a closed path in the superfluid:
 
   \[
   \oint \mathbf{v}_s\cdot d\mathbf{l} = n\,\frac{h}{m_4}, \qquad n \in \mathbb{Z}
   \]
 
-- Superflow is lost for \(T > T_\lambda\) or for \(|\mathbf{v}_s| > v_c\) (channel-dependent). Those are the operating inequalities, not a derived \(v_c(d)\).
+- Landau criterion: \(v_L = \min(\epsilon/p)\) over the excitation spectrum, close to the roton minimum [S2].
 
 ### 4.5 QSA Mapping
 
-- **Minimum hardware scale / node count / coherence volume.** A connected volume of liquid \(^4\mathrm{He}\) below \(T_\lambda\), large enough to support a nonzero \(\rho_s\). The *demonstration* of vanishing viscosity further requires a spatial filter — a superleak or film — that the normal fraction cannot pass and the superfluid fraction can. That filter is apparatus, not the condensate buffer. Quantized circulation requires a closed path, as in [flux-quantization](flux-quantization.md), with vortex cores as the chargeless analog of mixed-state defects on [type-ii-critical-field](type-ii-critical-field.md). There is no charge, no London \(\lambda\), and no Meissner expulsion.
+- **Minimum hardware scale / node count / coherence volume.** A connected volume of liquid \(^4\mathrm{He}\) below \(T_\lambda\). Showing zero viscosity needs a filter (superleak or film) that passes the superfluid fraction only; that is apparatus. Quantized circulation needs a closed path, as in [flux-quantization](flux-quantization.md). There is no charge, no London \(\lambda\) and no Meissner expulsion.
 
-- **Clock rate / latency.** There is no Josephson voltage–frequency lock (no \(e\)). Weak-link apertures in helium do produce an analogous current–phase oscillation; that is a related observation, not the primary artifact here. Second sound (a temperature wave in the two-fluid bookkeeping) is a hydrodynamic clock of the *already formed* superfluid, not the clock that opens the \(\lambda\)-point.
+- **Clock rate / latency.** No voltage–frequency lock (no charge). Micro-apertures show the analogous phase-slip dynamics. Second sound is a hydrodynamic clock of the formed superfluid.
 
-- **Energy barriers or thresholds.** \(T_\lambda\) is the thermal cliff: \(\rho_s\) vanishes and the superleak / fountain / persistent-current responses go with it. \(v_c\) is a velocity threshold that dumps superflow into a dissipative channel (vortex nucleation / coupling to the normal fraction). Neither is a static anisotropy barrier of the [permanent-magnet-latch](permanent-magnet-latch.md) kind; holding a persistent current still costs no continuous power while \(T < T_\lambda\) and \(v < v_c\).
+- **Energy barriers or thresholds.** \(T_\lambda\) is the thermal threshold. The velocity limit has two parts: a sharp Landau bound of 60 m s⁻¹ for roton emission, and a lower, geometry-dependent limit set by vortex nucleation over an energy barrier.
 
 - **Dominant failure modes.**
-  - Thermal: \(T > T_\lambda\) \(\to \rho_s = 0\) \(\to\) ordinary viscous liquid.
-  - Velocity: \(v > v_c\) \(\to\) dissipation, even though \(T < T_\lambda\).
-  - Topology: an open path cannot hold a persistent circulating integer; a blocked superleak cannot demonstrate the viscosity collapse.
-  - Solidification: crossing the melting curve removes the liquid hardware.
+  - **Threshold** — thermal: \(T > T_\lambda = 2.1768\) K; a phase transition, approached continuously as \(\rho_s/\rho \propto (1 - T/T_\lambda)^{0.6717}\).
+  - **Threshold** — velocity, upper bound: 60 m s⁻¹ (46 m s⁻¹ at 24 bar), roton creation.
+  - **Crossover** — velocity, in channels and apertures: thermally activated vortex nucleation; statistical, not reproducible between experiments, below the Landau value.
+  - **Threshold** — topology: an open path holds no circulating integer.
+  - **Threshold** — solidification: crossing the melting curve removes the liquid. No opened source for the pressure.
 
-- **Emergent constant or stable output.** A chargeless superflow (vanishing viscosity through a superleak, fountain head, persistent current) together with a circulation quantum \(h/m_4\), produced only while \(T < T_\lambda\) and \(v < v_c\).
+- **Emergent constant or stable output.** Chargeless superflow and a circulation quantum \(h/m_4\), while \(T < T_\lambda\) and the flow stays below the critical velocity.
 
 ### 4.6 Internal Consistency Notes
 
-This is the clean chargeless member of the gapped-coherence family. The thermal cliff, the superleak filter, the fountain, and the circulation integer are the same *kind* of specification as \(T_c\), \(R = 0\), and \(\Phi_0\), without electromagnetic screening. That is a consistency check on the family: charge is not required for the machine class.
+This is the chargeless member of the family. The thermal threshold, the circulation integer and the phase slip are the same kinds of specification as \(T_c\), \(\Phi_0\) and the phase slip of a superconducting loop, without electromagnetic screening.
 
-Two-fluid language is kept as bookkeeping of \(\rho_s(T)\) and \(\rho_n(T)\). It is not promoted to a claim that two substances are present, and it is not used to derive \(T_\lambda = 2.17\,\mathrm{K}\) from node rules. Why the \(\lambda\)-point sits at that temperature is a gap.
+Sourcing changed two things. \(T_\lambda\) is 2.1768 K (the first version rounded to 2.17 K). The critical velocity is split: the Landau bound is sharp and measured with ions, and the lower limits seen in channels are a statistical nucleation process, a crossover.
 
-The family name “gapped” is slightly loose here: the load-bearing collapse is loss of \(\rho_s\) at \(T_\lambda\) (and of superflow at \(v_c\)), not a measured charge gap of the superconducting kind. The assignment follows the taxonomy rule — protected collective mode with a critical temperature — not a pairing-gap identification.
+\(T_\lambda\) is not obtained from node rules. The ideal-gas formula at the liquid density gives 3.15 K, so the dilute-gas condition does not locate it either.
 
-Relation to [bose-einstein-condensate](bose-einstein-condensate.md) is analogical (thermal / density cliff, phase coherence, quantized winding), not identity of hardware. Liquid helium is dense and strongly interacting; alkali BECs are dilute. The two entries must not be collapsed into one machine.
+The family name "gapped" is loose here: the collapse is loss of \(\rho_s\) at \(T_\lambda\), not closure of a pairing gap. Relation to [bose-einstein-condensate](bose-einstein-condensate.md) is analogy, not identity of hardware.
 
 ### 4.7 Overall Confidence in the QSA Mapping
 
-**High** — \(T_\lambda\), \(\rho_s(T)\), the superleak / fountain collapses, and \(h/m_4\) are sharp measured boundaries and translate directly into thermal, spatial, and velocity-threshold specifications; the open items are the numerical origin of \(T_\lambda\) and channel-by-channel \(v_c\), not the existence of the envelope.
+**High** — \(T_\lambda\), \(\rho_s(T)\), the Landau bound and \(h/m_4\) are measured boundaries that translate into thermal, velocity and topology specifications; the open items are the origin of \(T_\lambda\) and the channel-dependent critical velocity.
 
 ## Related entries
 
-- [bose-einstein-condensate](bose-einstein-condensate.md) — dilute, density-set thermal cliff; analog, not the same hardware
-- [superconductivity](superconductivity.md) — charged analog: dissipationless flow below a critical temperature
+- [bose-einstein-condensate](bose-einstein-condensate.md) — dilute analogue with a density-set threshold
+- [superconductivity](superconductivity.md) — charged analogue
 - [flux-quantization](flux-quantization.md) — charged counterpart of the circulation integer
-- [josephson-effect](josephson-effect.md) — weak-link / aperture analog once a voltage (or its helium counterpart) is present
-- [type-ii-critical-field](type-ii-critical-field.md) — vortex lattice as an array of phase defects; here the quantum is \(h/m_4\)
-- [thermal-equilibrium-temperature](thermal-equilibrium-temperature.md) — \(T_\lambda\) is a thermal cliff sitting on top of an ordinary temperature reading
+- [josephson-effect](josephson-effect.md) — weak-link analogue
+- [type-ii-critical-field](type-ii-critical-field.md) — vortices carrying \(\Phi_0\) in place of \(h/m_4\)
+- [thermal-equilibrium-temperature](thermal-equilibrium-temperature.md) — the temperature reading on which \(T_\lambda\) sits
+
+## Sources
+
+Rules and the meaning of the Checked column: [README.md](README.md#sourcing-standard).
+
+| Key | Reference | Checked | Supports |
+|---|---|---|---|
+| S1 | [Donnelly and Barenghi, *J. Phys. Chem. Ref. Data* 27, 1217 (1998)](https://srd.nist.gov/JPCRD/jpcrd551.pdf) | full-text | Reference tables for liquid helium at saturated vapour pressure: lambda point 2.1768 K, density there, superfluid-fraction fit with exponent 0.6717. Scanned; read by character recognition. |
+| S2 | [Varoquaux, "Critical velocities in superfluids and the nucleation of vortices", arXiv:cond-mat/0611405 (2006)](https://arxiv.org/abs/cond-mat/0611405) | full-text | Review of critical velocities: Landau value 60 m/s, 46 m/s at 24 bar, sound 220 m/s; two regimes; poor reproducibility; thermally activated nucleation; phase slips and circulation quanta in apertures. |
+| S3 | [CODATA 2022, alpha particle mass (NIST)](https://physics.nist.gov/cgi-bin/cuu/Value?mal) | full-text | Alpha-particle mass; with the electron mass and the exact Planck constant gives the circulation quantum. |
+| S4 | [Dalfovo, Giorgini, Pitaevskii and Stringari, *Rev. Mod. Phys.* 71, 463 (1999), arXiv:cond-mat/9806038](https://arxiv.org/abs/cond-mat/9806038) | full-text | Ideal-gas condensation temperature of a uniform Bose gas. |

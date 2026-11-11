@@ -19,7 +19,7 @@ related:
   - blackbody-spectrum
   - stefan-boltzmann
   - thermal-equilibrium-temperature
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Work Function / Thermionic Emission (Heat-Opened Surface Gate)

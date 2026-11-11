@@ -4,9 +4,9 @@ Entries are utility and internal-consistency tests, not interpretive claims. Fam
 
 Every catalog row links to a file. Column meanings: [library README](README.md). Family definitions: [TAXONOMY.md](TAXONOMY.md).
 
-**Sourcing:** 33 of 63 files carry opened references, evidence tags and threshold/crossover labels ([standard](README.md#sourcing-standard)); the Sourced column says which, and how deeply each was checked. A row marked — still holds numbers recalled by a language model; treat its "High" data rating as unverified until the file is converted.
+**Sourcing:** 63 of 63 files carry opened references, evidence tags and threshold/crossover labels ([standard](README.md#sourcing-standard)); the Sourced column says which, and how deeply each was checked. A row marked — still holds numbers recalled by a language model; treat its "High" data rating as unverified until the file is converted.
 
-**Status:** 63 formal · 0 draft · 0 queued. Mapping: 28 High · 35 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) and [pyroelectric fusion](pyroelectric-fusion.md) (Medium).
+**Status:** 63 formal · 0 draft · 0 queued. Mapping: 27 High · 36 Medium · 0 Low. Data is High except [dielectric breakdown](dielectric-breakdown.md) and [pyroelectric fusion](pyroelectric-fusion.md) (Medium).
 
 Logically derived spec sheets, a shared-requirement audit, and an analog-slot map live in [`derived/`](derived/README.md) — not catalog rows. Conventional topics that stay **clauses** rather than files are listed under [Handbook topics not filed as effects](#handbook-topics-not-filed-as-effects). Device applications: [`../application/`](../application/README.md).
 
@@ -25,10 +25,10 @@ Many charged nodes must occupy a minimum coherent volume and synchronize before 
 | [Skin effect](skin-effect.md) | `skin-effect` | formal | High | High | deep | No edge: δ is the 1/e length of an exponential; the superconducting transition is the one threshold | Steady drive, a single pulse and a moving contact follow three different rules; Cu 66 µm at 1 MHz and 8.4 mm at 60 Hz, but 3–6 mm for a 0.2–0.7 ms pulse |
 | [Plasma-frequency cutoff](plasma-frequency-cutoff.md) | `plasma-frequency-cutoff` | formal | High | High | deep | ω above the plasma edge: sharp only in the collisionless model, a steep crossover in a real metal | Clock-failure twin of reflection; Al and Na sit 3–5 % below the free-electron value, K/Rb/Cs 13–18 %, Ag at 0.42 of it (3.8 eV measured against 9 eV) |
 | [Surface plasmon resonance](surface-plasmon-resonance.md) | `surface-plasmon-resonance` | formal | High | Medium | standard | No momentum match; Re ε > 0; metal fill below about 0.4. Film thickness is a crossover around an optimum | Interface-bound mode; needs a metal–dielectric face plus a coupler; Au optimum near 45–50 nm at 633 nm; island films lose the mode below a fill fraction of about 0.4 |
-| [Total internal reflection](total-internal-reflection.md) | `total-internal-reflection` | formal | High | High | — | θ < θc, or n1 ≤ n2; third body inside the evanescent tail | Geometry / index gate on the same n as refraction |
-| [Faraday rotation](faraday-rotation.md) | `faraday-rotation` | formal | High | Medium | — | B → 0 or path below the Verdet · B · L detection budget | Polarization rotates as VBL; product budget, not a hard cliff |
-| [Cyclotron resonance](cyclotron-resonance.md) | `cyclotron-resonance` | formal | High | High | — | ω ≠ ωc, or ωc τ < 1 | Absorption at eB/m*; m* is a measured output; needs a long enough scattering time |
-| [Aharonov–Bohm (enclosed-flux phase)](aharonov-bohm.md) | `aharonov-bohm` | formal | High | High | — | Path does not enclose Φ, or coherence lost | Fringe shift periodic in h/e in a B-free path; not superconducting h/2e |
+| [Total internal reflection](total-internal-reflection.md) | `total-internal-reflection` | formal | High | High | light | θ < θc, or n1 ≤ n2 (thresholds); a third body in the evanescent field frustrates it continuously with gap width | Geometry / index gate on the same n as refraction |
+| [Faraday rotation](faraday-rotation.md) | `faraday-rotation` | formal | High | Medium | light | B → 0 or path below the Verdet · B · L detection budget | Polarization rotates as VBL; product budget, not a hard cliff |
+| [Cyclotron resonance](cyclotron-resonance.md) | `cyclotron-resonance` | formal | High | High | light | ω ≠ ωc; visibility is a crossover in mobility × field (ωc τ) | Absorption at eB/m*; m* is a measured output; needs a long enough scattering time |
+| [Aharonov–Bohm (enclosed-flux phase)](aharonov-bohm.md) | `aharonov-bohm` | formal | High | High | light | Path does not enclose Φ, or coherence lost | Fringe shift periodic in h/e; the shielded electron-beam test is from 1986; metal rings also show a weaker h/2e component |
 | [Casimir force (mode-cutoff attraction)](casimir-force.md) | `casimir-force` | formal | High | Medium | standard | Gap too large (thermal regime above about 3 µm). Conducting contrast is a crossover: thin or transparent faces reduce the force by up to half | Uncharged plates attract ~1/d⁴; 1.3 mPa at 1 μm for ideal plates, real metals about half of ideal at 0.1 μm; prefactor taken |
 
 ---
@@ -58,16 +58,16 @@ A protected collective mode with critical temperature, field, and/or current.
 
 | Effect | Slug | Status | Data | Mapping | Sourced | Dominant collapse | Notes |
 |---|---|---|---|---|---|---|---|
-| [Superconductivity (zero resistance)](superconductivity.md) | `superconductivity` | formal | High | Medium | — | T > Tc, H > Hc (Hc2), or I > Ic | R → 0 below a material-specific triple; coherent volume is not one number; pinning still unspecified |
-| [Meissner effect](meissner.md) | `meissner` | formal | High | High | — | H > Hc (type I) or H > Hc1 (type II); thickness ≪ λ | Field expulsion with χ = −1; London λ is the spatial buffer; not the same artifact as R = 0 |
-| [Josephson effect](josephson-effect.md) | `josephson-effect` | formal | High | High | — | Junction too thick (Ic → 0); I > Ic; T > Tc | Weak-link pair current; voltage–frequency lock 483.6 MHz/μV |
-| [Flux quantization](flux-quantization.md) | `flux-quantization` | formal | High | High | — | Loop not superconducting; fluxoid not conserved | Closed loop holds n Φ0 = n h/2e |
-| [Type-II critical field / vortices](type-ii-critical-field.md) | `type-ii-critical-field` | formal | High | High | — | Hc1 first penetration; Hc2 gap destroyed; unpinned flux flow | Mixed-state vortex lattice; extra spatial scale √(Φ0/B) |
-| [Superfluid helium-4](superfluid-helium-4.md) | `superfluid-helium-4` | formal | High | High | — | T > Tλ (2.17 K); v > vc | Chargeless superflow / fountain; family name “gapped” is slightly loose (no pairing gap) |
-| [Bose–Einstein condensate](bose-einstein-condensate.md) | `bose-einstein-condensate` | formal | High | Medium | — | T > Tc(n), or density drops; phase coherence lost | Dilute alkali BEC; clean thermal/density cliff; no measured pairing gap; not a zero-power latch |
-| [Quantum Hall effect](quantum-hall-effect.md) | `quantum-hall-effect` | formal | High | Medium | — | B off a plateau; T or current too high; 2DEG lost | Integer RH = h/(ν e²); gap + edge channel recorded, not derived |
-| [Quantum point contact](quantum-point-contact.md) | `quantum-point-contact` | formal | High | Medium | — | Pinch-off; T or mfp wash the steps | 1D conductance steps at 2e²/h; no B required; not QHE |
-| [Neutron gravitational states](neutron-gravitational-states.md) | `neutron-gravitational-states` | formal | High | Medium | — | Absorber below z1; not UCN; no mirror | UCN bound in mgz + mirror; z1 ≈ 13.7 μm; gapped name loose |
+| [Superconductivity (zero resistance)](superconductivity.md) | `superconductivity` | formal | High | Medium | light | T > Tc, H > Hc (Hc2), or I > Ic | R → 0 below a material-specific triple; coherent volume is not one number; pinning still unspecified |
+| [Meissner effect](meissner.md) | `meissner` | formal | High | High | light | H > Hc (type I) or H > Hc1 (type II); thickness ≪ λ | Field expulsion with χ = −1; London λ is the spatial buffer; not the same artifact as R = 0 |
+| [Josephson effect](josephson-effect.md) | `josephson-effect` | formal | High | High | light | Junction too thick (Ic → 0); I > Ic; T > Tc | Weak-link pair current; voltage–frequency lock 483.6 MHz/μV |
+| [Flux quantization](flux-quantization.md) | `flux-quantization` | formal | High | High | light | Loop not superconducting; phase slips destabilize the integer in wires near 10 nm | Closed loop holds n Φ0 = n h/2e |
+| [Type-II critical field / vortices](type-ii-critical-field.md) | `type-ii-critical-field` | formal | High | High | light | Hc1 first penetration; Hc2 gap destroyed; unpinned flux flow | Mixed-state vortex lattice; extra spatial scale √(Φ0/B) |
+| [Superfluid helium-4](superfluid-helium-4.md) | `superfluid-helium-4` | formal | High | High | light | T > Tλ (2.17 K); v > vc | Chargeless superflow / fountain; family name “gapped” is slightly loose (no pairing gap) |
+| [Bose–Einstein condensate](bose-einstein-condensate.md) | `bose-einstein-condensate` | formal | High | Medium | light | T > Tc(n), or density drops; phase coherence lost | Dilute alkali BEC; clean thermal/density cliff; no measured pairing gap; not a zero-power latch |
+| [Quantum Hall effect](quantum-hall-effect.md) | `quantum-hall-effect` | formal | High | Medium | light | B off a plateau; T or current too high; 2DEG lost | Integer RH = h/(ν e²); gap + edge channel recorded, not derived |
+| [Quantum point contact](quantum-point-contact.md) | `quantum-point-contact` | formal | High | Medium | light | Pinch-off; T or mfp wash the steps | 1D conductance steps at 2e²/h; no B required; not QHE |
+| [Neutron gravitational states](neutron-gravitational-states.md) | `neutron-gravitational-states` | formal | High | Medium | light | Absorber below z1; not UCN; no mirror | UCN bound in mgz + mirror; z1 ≈ 13.7 μm; gapped name loose |
 
 ---
 
@@ -77,20 +77,20 @@ A discrete energetic or field gate. Below threshold the conversion does not occu
 
 | Effect | Slug | Status | Data | Mapping | Sourced | Dominant collapse | Notes |
 |---|---|---|---|---|---|---|---|
-| [Photoelectric threshold](photoelectric-threshold.md) | `photoelectric-threshold` | formal | High | High | — | hν < φ (typical φ 2–6 eV) | Electrons leave a metal only above the work function; KE = hν − φ; contrast case for reflection |
+| [Photoelectric threshold](photoelectric-threshold.md) | `photoelectric-threshold` | formal | High | High | light | hν < φ (typical φ 2–6 eV) | Electrons leave a metal only above the work function; KE = hν − φ; contrast case for reflection |
 | [Work function / thermionic emission](work-function-thermionic.md) | `work-function-thermionic` | formal | High | High | standard | Emission falls as exp(−φ/kT), a crossover with no cut-off temperature | Same surface gate as photoelectric on a clean uniform surface, opened by heat; W 4.55 eV |
-| [Semiconductor gap absorption](semiconductor-gap-absorption.md) | `semiconductor-gap-absorption` | formal | High | High | — | hν < Eg | Crystal transmits below the gap and absorbs above; Si 1.12 eV, Ge 0.66 eV, GaAs 1.42 eV |
-| [X-ray absorption edge](x-ray-absorption-edge.md) | `x-ray-absorption-edge` | formal | High | High | — | hν below the shell binding energy | Element-specific inner-shell gates; Cu K-edge 8.979 keV |
+| [Semiconductor gap absorption](semiconductor-gap-absorption.md) | `semiconductor-gap-absorption` | formal | High | High | light | hν < Eg | Crystal transmits below the gap and absorbs above; Si 1.12 eV, Ge 0.66 eV, GaAs 1.42 eV |
+| [X-ray absorption edge](x-ray-absorption-edge.md) | `x-ray-absorption-edge` | formal | High | High | light | hν below the shell binding energy | Element-specific inner-shell gates; Cu K-edge 8.979 keV |
 | [Ionization threshold](ionization-threshold.md) | `ionization-threshold` | formal | High | High | standard | E < I | Gas stays neutral below the binding energy; H 13.598 eV, He 24.587 eV |
-| [Pair production](pair-production.md) | `pair-production` | formal | High | High | — | Eγ < 1.022 MeV; no nearby nucleus | Photon → e⁺e⁻ only above 2mec² and with a momentum sink |
+| [Pair production](pair-production.md) | `pair-production` | formal | High | High | light | Eγ < 1.022 MeV; no nearby nucleus | Photon → e⁺e⁻ only above 2mec² and with a momentum sink |
 | [Muon-catalyzed fusion](muon-catalyzed-fusion.md) | `muon-catalyzed-fusion` | formal | High | High | standard | No muon; muon decay and α-sticking, which add (about 150 fusions per muon at best) | Published experiment; needs a muon and a host D₂/DT molecule; releases about 2.6 GeV per muon against an estimated 5–10 GeV to make one |
 | [Dielectric breakdown](dielectric-breakdown.md) | `dielectric-breakdown` | formal | Medium | Medium | deep | Field below breakdown; the value is statistical and set by pressure × gap (Paschen), gap size and pulse length | Air 3 MV/m holds for mm–cm gaps only; Paschen minimum 327–352 V near 7.5 µm at 1 atm; below about 5–10 µm field emission lowers the voltage again |
 | [Electrical contacts](electrical-contacts.md) | `electrical-contacts` | formal | Medium | Medium | deep | Contact voltage reaches the softening or melting voltage (Cu melts at 0.43 V); surface films puncture at 10⁷–10⁸ V/m | Constriction resistance at a-spots; bead chains plateau at 0.2–0.4 V per contact by micro-welding; nothing is measured for a powder slurry |
-| [Photoconductivity](photoconductivity.md) | `photoconductivity` | formal | High | High | — | hν < Eg or trap depth | Same gap gate as absorption, read out as current; gain set by lifetime / transit time |
-| [Coulomb blockade](coulomb-blockade.md) | `coulomb-blockade` | formal | High | High | — | kT ≳ Ec or RT ≲ h/e² | Single-electron charging gate; island aF–fF |
+| [Photoconductivity](photoconductivity.md) | `photoconductivity` | formal | High | High | light | hν < Eg or trap depth | Same gap gate as absorption, read out as current; gain set by lifetime / transit time |
+| [Coulomb blockade](coulomb-blockade.md) | `coulomb-blockade` | formal | High | High | light | Thermal smearing and loss of tunnel resistance are crossovers, ending at a ballistic contact near 2e²/h | Single-electron charging gate; island aF–fF |
 | [Deuteron photodisintegration](deuteron-photodisintegration.md) | `deuteron-photodisintegration` | formal | High | High | standard | Eγ below 2.2259 MeV (binding energy plus recoil) | Photon unbinds d → p+n; opposite arrow to μCF |
 | [Pyroelectric fusion](pyroelectric-fusion.md) | `pyroelectric-fusion` | formal | Medium | High | standard | No ΔT or no D; potential too low is a crossover (D–D cross-section negligible below 20 keV) | Published device (2005, replicated 2006): a polar crystal accelerates D; 10⁴–10⁵ neutrons at 2.45 MeV per thermal cycle of hundreds of seconds |
-| [Coherent neutrino–nucleus scattering](coherent-neutrino-scattering.md) | `coherent-neutrino-scattering` | formal | High | Medium | — | qR ≳ 1; no nucleus | CEνNS N² recoils (COHERENT); coherence window, no IBD threshold |
+| [Coherent neutrino–nucleus scattering](coherent-neutrino-scattering.md) | `coherent-neutrino-scattering` | formal | High | Medium | light | Coherence is lost gradually as qR grows (full below about 10 MeV); no nucleus | CEνNS N² recoils (COHERENT); coherence window, no IBD threshold |
 
 ---
 
@@ -100,16 +100,16 @@ The ion grid as coupled mechanical oscillators.
 
 | Effect | Slug | Status | Data | Mapping | Sourced | Dominant collapse | Notes |
 |---|---|---|---|---|---|---|---|
-| [Phonon dispersion](phonon-dispersion.md) | `phonon-dispersion` | formal | High | Medium | — | Zone-boundary cutoff; mode softening; loss of Bragg order | Measured ω(q) is the lattice allowed-clock map; no single hardware number |
+| [Phonon dispersion](phonon-dispersion.md) | `phonon-dispersion` | formal | High | Medium | light | Zone-boundary cutoff; mode softening; loss of Bragg order | Measured ω(q) is the lattice allowed-clock map; no single hardware number |
 | [Speed of sound](speed-of-sound.md) | `speed-of-sound` | formal | High | High | standard | No medium; no shear wave in a liquid at acoustic frequencies; qa ~ 1 ends the long-wave slope | Long-wave vs = √(C/ρ); no shear sound in a vacuum or a liquid |
-| [Debye cutoff](debye-cutoff.md) | `debye-cutoff` | formal | High | High | — | ω > ωD (mode absent) | Finite N ⇒ 3N modes; ΘD is the clock ceiling |
+| [Debye cutoff](debye-cutoff.md) | `debye-cutoff` | formal | High | High | light | Modes end at the top measured branch; the Debye frequency is a model cut that lies below it in Si and diamond | Finite N ⇒ 3N modes; ΘD is the clock ceiling |
 | [Melting](melting.md) | `melting` | formal | High | Medium | deep | T → Tm; loss of Bragg order and shear | The grid stops being a grid; Lindemann is a criterion, not a derivation |
 | [Phonon thermal conductivity](thermal-conductivity-phonon.md) | `thermal-conductivity-phonon` | formal | Medium | Medium | standard | Umklapp / boundary / amorphization kills the mean free path | κ = (1/3) C v ℓ for the lattice channel; diamond 2200–3100 W/m/K; in metals phonons carry only a few per cent (Cu 4.7 %) |
 | [Elasticity](elasticity.md) | `elasticity` | formal | High | Medium | deep | Stress above yield or fracture; the shear modulus drops in a step at melting | Hooke at small strain; dislocations are the mesoscale gap |
 | [Piezoelectricity](piezoelectricity.md) | `piezoelectricity` | formal | High | Medium | standard | Inversion symmetry present; T > Tc; depoling below Tc is a crossover | Strain ↔ P only without inversion; coupling taken from handbook d_ij |
 | [Magnetostriction](magnetostriction.md) | `magnetostriction` | formal | High | Medium | deep | T > Tc (the strain falls continuously to zero there); lattice destroyed | Length change locked to the moment and even in M; Ni −35 to −40 ppm, Terfenol-D 1000–2000 ppm; clamped Ni gives 7–9 MPa, about 5 % of yield |
 | [Thermal expansion](thermal-expansion.md) | `thermal-expansion` | formal | High | Medium | standard | Vanishes for a harmonic lattice; in real solids a continuous function of temperature that can change sign | Metals 4.5–30 × 10⁻⁶ /K at 293 K; Invar's low value holds only in a temperature window; Si and fused silica contract at low temperature |
-| [Mössbauer effect](mossbauer-effect.md) | `mossbauer-effect` | formal | High | High | — | f → 0 (hot, melt, free atom) | Recoilless 14.4 keV ⁵⁷Fe resonance; lattice is the buffer |
+| [Mössbauer effect](mossbauer-effect.md) | `mossbauer-effect` | formal | High | Medium | light | Recoilless fraction falls continuously with temperature and with diffusion; no resonance in ordinary liquids | Recoilless 14.4 keV ⁵⁷Fe resonance; needs a binding solid host, crystalline or glassy |
 
 ---
 
@@ -121,13 +121,13 @@ Every mapping in this family is Medium for the same recorded reason: the hardwar
 
 | Effect | Slug | Status | Data | Mapping | Sourced | Dominant collapse | Notes |
 |---|---|---|---|---|---|---|---|
-| [Thermal equilibrium temperature](thermal-equilibrium-temperature.md) | `thermal-equilibrium-temperature` | formal | High | Medium | — | Too few independent contributors, or observation faster than the exchange window | T is the stable averaged output of a large population; no universal N |
-| [Ideal-gas pressure](ideal-gas-pressure.md) | `ideal-gas-pressure` | formal | High | Medium | — | Kn = λ/L ≳ 1, or N too small for a stable reading | Wall force P = nkT; continuum hydro is a second, density-tracking envelope |
-| [Blackbody spectrum](blackbody-spectrum.md) | `blackbody-spectrum` | formal | High | Medium | — | Cavity modes under-populated; wall T undefined; surface not black | Planck u(ν,T) as the thermal EM average; Rayleigh–Jeans is the failed high-ν envelope |
-| [Stefan–Boltzmann law](stefan-boltzmann.md) | `stefan-boltzmann` | formal | High | Medium | — | Same envelope as the spectrum; surface not black; T → 0 | j = εσT⁴ is the integral of the Planck curve; σ is defined |
+| [Thermal equilibrium temperature](thermal-equilibrium-temperature.md) | `thermal-equilibrium-temperature` | formal | High | Medium | light | Too few independent contributors, or observation faster than the exchange window | T is the stable averaged output of a large population; no universal N |
+| [Ideal-gas pressure](ideal-gas-pressure.md) | `ideal-gas-pressure` | formal | High | Medium | light | Continuum picture fails gradually over Kn 0.1–10; N too small for a stable reading | Wall force P = nkT; continuum hydro is a second, density-tracking envelope |
+| [Blackbody spectrum](blackbody-spectrum.md) | `blackbody-spectrum` | formal | High | Medium | light | Cavity modes under-populated; wall T undefined; surface not black | Planck u(ν,T) as the thermal EM average; Rayleigh–Jeans is the failed high-ν envelope |
+| [Stefan–Boltzmann law](stefan-boltzmann.md) | `stefan-boltzmann` | formal | High | Medium | light | Same envelope as the spectrum; surface not black; T → 0 | j = εσT⁴ is the integral of the Planck curve; σ is defined |
 | [Electron heat capacity](electron-heat-capacity.md) | `electron-heat-capacity` | formal | High | Medium | standard | T → 0 (γT into noise), or a gapped spectrum | Ce = γT from a Fermi-surface slice ~ T/TF; a superconducting gap removes the linear term |
-| [Brownian motion](brownian-motion.md) | `brownian-motion` | formal | High | Medium | — | Particle so large the kicks average below the window’s resolution | Visible jitter is an incomplete impact average; D = kT/γ; large bodies look still |
-| [Johnson–Nyquist noise](johnson-nyquist-noise.md) | `johnson-nyquist-noise` | formal | High | Medium | — | T → 0 or Δf → 0; hf ≳ kT leaves the classical envelope | ⟨V²⟩ = 4kTRΔf; electrical FDR twin of Brownian; no resistor-volume cliff |
+| [Brownian motion](brownian-motion.md) | `brownian-motion` | formal | High | Medium | light | Particle so large the kicks average below the window’s resolution | Visible jitter is an incomplete impact average; D = kT/γ; large bodies look still |
+| [Johnson–Nyquist noise](johnson-nyquist-noise.md) | `johnson-nyquist-noise` | formal | High | Medium | light | T → 0 or Δf → 0; hf ≳ kT leaves the classical envelope | ⟨V²⟩ = 4kTRΔf; electrical FDR twin of Brownian; no resistor-volume cliff |
 | [Curie paramagnetism](curie-paramagnetism.md) | `curie-paramagnetism` | formal | High | Medium | standard | Magnetic ordering at Tc or TN (threshold); saturation and the 1/T fall are crossovers | χ = C/T unlocked-spin ensemble; contrast with the latched magnet / AFM order |
 | [Electrical resistivity and Joule heating](electrical-resistivity.md) | `electrical-resistivity` | formal | High | Medium | deep | The superconducting transition is the one sharp collapse; steps at melting; heating to melt set by the action integral | ρ(T) as a scattering average; Cu 1.678×10⁻⁸ Ω·m at 293 K; action to the start of melting about 8×10¹⁶ A²·s/m⁴ for Cu |
 

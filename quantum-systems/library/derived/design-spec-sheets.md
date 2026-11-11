@@ -15,7 +15,7 @@ Each sheet is one reverse-engineered machine: the smallest hardware that still p
 
 ## collective-screening
 
-A charged population that screens an incoming field and re-radiates it. That is a visible mirror, an RF skin, a plasma-edge cutoff, and the conducting faces of a Casimir gap. The machine is **driven**, not a memory: there is no stored bit when the incident field is gone. Sourcing (2026-11-12) removed the minimum-thickness claim: the response grows smoothly with the amount of material the field passes through, with an e-folding length of 12–15 nm in Ag and about 7 nm in Al, and is measured down to one atomic layer. What is sharp is dc percolation of a deposited film and, in the collisionless limit, the plasma edge. One electron leaving a surface is a different machine (`energy-gate`).
+A charged population that screens an incoming field and re-radiates it. That is a visible mirror, an RF skin, a plasma-edge cutoff, and the conducting faces of a Casimir gap. The machine is **driven**, not a memory: there is no stored bit when the incident field is gone. Sourcing (2026-11-11) removed the minimum-thickness claim: the response grows smoothly with the amount of material the field passes through, with an e-folding length of 12–15 nm in Ag and about 7 nm in Al, and is measured down to one atomic layer. What is sharp is dc percolation of a deposited film and, in the collisionless limit, the plasma edge. One electron leaving a surface is a different machine (`energy-gate`).
 
 | Spec | Commitment | Source class |
 |---|---|---|

@@ -16,7 +16,7 @@ related:
   - antiferromagnetic-order
   - thermal-equilibrium-temperature
   - faraday-rotation
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Curie Paramagnetism (Unlocked-Spin Ensemble)

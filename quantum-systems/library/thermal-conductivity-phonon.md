@@ -18,7 +18,7 @@ related:
   - melting
   - thermal-expansion
   - electron-heat-capacity
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Phonon Thermal Conductivity (Mean-Free-Path Transport)

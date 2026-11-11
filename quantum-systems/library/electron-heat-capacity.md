@@ -14,7 +14,7 @@ related:
   - debye-cutoff
   - semiconductor-gap-absorption
   - johnson-nyquist-noise
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Electron Heat Capacity (Fermi-Surface Average)

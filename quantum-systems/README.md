@@ -115,7 +115,7 @@ High / Medium / Low, with a one-sentence justification focused on how well the e
 The effect library lives in [`library/`](library/INDEX.md). The copy-paste starter is [`library/_template.md`](library/_template.md). Operating rules for files, frontmatter, and the index are in [`library/README.md`](library/README.md).
 
 - Template defined and locked (this document).
-- Catalog: 63 formal entries (six families). Mapping confidence is recorded per file — 28 High, 35 Medium, 0 Low.
+- Catalog: 63 formal entries (six families). Mapping confidence is recorded per file — 27 High, 36 Medium, 0 Low.
 - Medium mapping means the collapse is assigned but a hardware scale is still statistical, mesoscale, or taken rather than derived. Tighten those before adding a second wave.
 - Sourcing: the first-wave numbers were written from model recall. Files are being converted to fetched references one family at a time; [`library/INDEX.md`](library/INDEX.md) lists which are done. Until a file is sourced, its "High" data confidence is a claim, not a check.
 - The working premise itself is examined in [`Determinism.md`](Determinism.md): which theorems and experiments constrain a deterministic account, and why most of this catalog cannot bear on the question.

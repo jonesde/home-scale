@@ -18,7 +18,7 @@ related:
   - dielectric-breakdown
   - plasma-frequency-cutoff
   - blackbody-spectrum
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Ionization Threshold (Single-Particle Binding Gate)

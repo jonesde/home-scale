@@ -15,7 +15,7 @@ Use from a short script, run from anywhere:
             "form": "crossover",             # failure rows only: threshold | crossover
             "sources": ["S1", "S4"],         # keys from the effect file's Sources table
         },
-    }, "2026-11-12")
+    }, "2026-11-11")
 
 `apply` sets `updated` on every row it touches and fails if a key is not found.
 Do not add or delete rows with it; append a new JSON line by hand for a new row.

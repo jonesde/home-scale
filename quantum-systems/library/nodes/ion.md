@@ -14,7 +14,7 @@ statistics: unset
 lifetime_si:
 identity_source: library/debye-cutoff.md
 description: Host ion / lattice site that provisions 3N mechanical modes; the grid stops being a grid at Tm. Class node, not one isotope.
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Ion (lattice occupant)
@@ -45,3 +45,5 @@ Ion / lattice site. Class node for the oscillator-grid matrix. Not one PDG nucli
 ### 6. Contrast
 
 Not the electron gas. Not a free ion in vacuum. Destruction of this matrix erases latches that live on it; the latch entries own that erase path.
+
+Identity values checked against PDG 2026 ([mass_width_2026.txt](https://pdg.lbl.gov/2026/mcdata/mass_width_2026.txt): no entry, `pdgid` stays NULL; the card takes no numeric identity value) on 2026-11-11.

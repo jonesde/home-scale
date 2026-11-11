@@ -17,7 +17,7 @@ related:
   - meissner
   - superconductivity
   - electrical-resistivity
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Skin Effect (Low-Frequency Screening Length)

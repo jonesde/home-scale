@@ -3,7 +3,7 @@
 **Source problem:** configuration dependence of reported LENR / gas-loaded-metal anomalies.
 **QSA role:** an application of the effect library to an unisolated problem, graded against sourced hydrogen and magnet facts.
 **Status:** Working application. A hypothesis and a test plan. No nuclear process is asserted. **Not a tested protocol.**
-**Updated:** 2026-11-13
+**Updated:** 2026-11-11
 
 > **Hazards (read [SAFETY.md](../SAFETY.md)).** H₂/D₂, fine metal powder, and pressure in one vessel are a fire, leak, and dust-explosion stack. A wet bed adds steam and a flammable headspace. kA-class pulses injure at arm's length even at tens of volts. BeCu is named only for shops that already control beryllium; otherwise stay on copper. This file is a mapping, not a procedure. Do not scale inventory, pressure, pulse energy, or liquid volume in search of a nuclear signature. Do not skip to a neutron search.
 
@@ -11,7 +11,7 @@
 
 **Sources.** Hydrogen facts are cited to [hydrogen-in-metals](../library/hydrogen-in-metals.md) (below **HM**) by section; strain and field facts to [magnetostriction](../library/magnetostriction.md) (**MS**); blocking to [superparamagnetism](../library/superparamagnetism.md). Their Sources tables hold the references. Arithmetic introduced here is guarded in [`analysis/checks/b2_hydrogen.py`](../analysis/checks/b2_hydrogen.py).
 
-> **What changed on 2026-11-13, and why.** The earlier version was written before any hydrogen fact in the library was sourced. Checking it against sources changed six things.
+> **What changed on 2026-11-11, and why.** The earlier version was written before any hydrogen fact in the library was sourced. Checking it against sources changed six things.
 > 1. The "blocking" analogy (a trapped hydrogen cluster held by a barrier that grows with its volume, as \(KV\) does in a magnetic grain) is withdrawn. Trapped hydrogen is bound per atom. The volume-proportional barrier that the sources do support belongs to the coherent hydride transition, which the earlier version set aside as "capacity".
 > 2. Nickel was ranked first and described as loading hydrogen. Under 20–300 bar near room temperature it holds \(10^{-4}\) hydrogen atoms per metal atom and forms no hydride. The host table is corrected and palladium is the first host.
 > 3. Magnetostriction was named as the scribe. It is the smallest strain in the cell. The write channel is now given as computed strains.

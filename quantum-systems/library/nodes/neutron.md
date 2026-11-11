@@ -11,10 +11,10 @@ mass_si: 1.67492750056e-27
 mass_text: 939.565 MeV/c²
 spin_text: 1/2
 statistics: fermion
-lifetime_si: 879.4
-identity_source: PDG 2026
+lifetime_si: 878.3
+identity_source: PDG 2026; CODATA 2022
 description: Neutral nucleon. Photodisintegration product, UCN in the gravitational well, and coherent CEνNS scatterer (via the nucleus).
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Neutron
@@ -25,8 +25,8 @@ Neutron. PDG MC ID `2112`.
 
 ### 2. Taken specifications
 
-- Charge 0. Mass \(939.565\,\mathrm{MeV}/c^{2}\) (PDG 2026). Spin \(1/2\) fermion.
-- Free lifetime \(\tau_n \approx 879\,\mathrm{s}\) (beam / bottle class; the discrepancy is not this card). Bound in a nucleus it is stable on library clocks.
+- Charge 0. Mass \(939.565\,\mathrm{MeV}/c^{2}\) (PDG 2026); \(1.67492750056\times 10^{-27}\,\mathrm{kg}\) (CODATA 2022). Spin \(1/2\) fermion.
+- Free lifetime \(\tau_n \approx 878\,\mathrm{s}\) (PDG 2026 average \(878.3 \pm 0.4\,\mathrm{s}\); beam / bottle class; the discrepancy is not this card). Bound in a nucleus it is stable on library clocks.
 
 ### 3. Forced by
 
@@ -46,3 +46,5 @@ Mass and free lifetime are taken. Bottle-versus-beam lifetime tension is not clo
 ### 6. Contrast
 
 Not the proton. Not a phonon. A thermal neutron is not a UCN.
+
+Identity values checked against PDG 2026 ([mass_width_2026.txt](https://pdg.lbl.gov/2026/mcdata/mass_width_2026.txt), [neutron mean life](https://pdgapi.lbl.gov/summaries/S017T)) and CODATA 2022 ([neutron mass](https://physics.nist.gov/cgi-bin/cuu/Value?mn), [energy equivalent in MeV](https://physics.nist.gov/cgi-bin/cuu/Value?mnc2mev)) on 2026-11-11.

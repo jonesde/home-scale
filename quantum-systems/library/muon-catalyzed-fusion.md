@@ -16,7 +16,7 @@ related:
   - photoelectric-threshold
   - pyroelectric-fusion
   - deuteron-photodisintegration
-updated: 2026-11-14
+updated: 2026-11-11
 ---
 
 # Muon-Catalyzed Fusion (Mass-Rescaled Nuclear Gate)

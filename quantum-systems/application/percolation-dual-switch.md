@@ -1,7 +1,7 @@
 ---
 origin: application
 device: one metal film read out as specular R, dc sheet conductance and conducting-plate attraction while its thickness is walked through percolation
-updated: 2026-11-14
+updated: 2026-11-11
 envelope: MEMS / thin-film lab; packaged clutch would be the later consumer form
 ---
 
@@ -14,9 +14,9 @@ envelope: MEMS / thin-film lab; packaged clutch would be the later consumer form
 
 > **Hazards (read [SAFETY.md](../SAFETY.md)).** Sub-μm gaps, patch charge, and (if actuated) MEMS snap-in are ordinary lab hazards. This file is a mapping, not a clutch design.
 
-> **Corrected 2026-11-12**, after the sourcing of [reflection](../library/reflection.md) and [casimir-force](../library/casimir-force.md). Three facts changed. (1) Specular *R* has no cliff: it falls smoothly as a continuous film thins, and passes through percolation without a step. (2) Percolation is a threshold in dc conductance. (3) The Casimir force is reduced by a thin or visibly transparent face and is not removed: a 9 nm palladium film gives a smaller force than a thick one, indium tin oxide gives 40–50 % less than gold at 50–150 nm, and a mirror switched from reflecting to transparent gave no significant change at 70–400 nm. No force measurement on an islanded film below percolation was found. The concept is kept. It is restated in §1–§5 as a test of whether the three readouts separate, which is what the measurements indicate, and the original "die together" expectation is marked where it stood.
+> **Corrected 2026-11-11**, after the sourcing of [reflection](../library/reflection.md) and [casimir-force](../library/casimir-force.md). Three facts changed. (1) Specular *R* has no cliff: it falls smoothly as a continuous film thins, and passes through percolation without a step. (2) Percolation is a threshold in dc conductance. (3) The Casimir force is reduced by a thin or visibly transparent face and is not removed: a 9 nm palladium film gives a smaller force than a thick one, indium tin oxide gives 40–50 % less than gold at 50–150 nm, and a mirror switched from reflecting to transparent gave no significant change at 70–400 nm. No force measurement on an islanded film below percolation was found. The concept is kept. It is restated in §1–§5 as a test of whether the three readouts separate, which is what the measurements indicate, and the original "die together" expectation is marked where it stood.
 
-> **Re-checked 2026-11-14** against [reflection](../library/reflection.md), [casimir-force](../library/casimir-force.md) and [requirement-audit](../library/derived/requirement-audit.md); the numbers stand. Added: what the original clutch would need to be true (§2), the size of the force change that is supported (up to about a factor of two), and a note that roughness and patch limits are unsourced.
+> **Re-checked 2026-11-11** against [reflection](../library/reflection.md), [casimir-force](../library/casimir-force.md) and [requirement-audit](../library/derived/requirement-audit.md); the numbers stand. Added: what the original clutch would need to be true (§2), the size of the force change that is supported (up to about a factor of two), and a note that roughness and patch limits are unsourced.
 
 ---
 

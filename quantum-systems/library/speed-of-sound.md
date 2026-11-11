@@ -16,7 +16,7 @@ related:
   - melting
   - thermal-conductivity-phonon
   - ideal-gas-pressure
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Speed of Sound (Long-Wave Acoustic Slope)

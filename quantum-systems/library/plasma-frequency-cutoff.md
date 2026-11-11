@@ -15,7 +15,7 @@ related:
   - surface-plasmon-resonance
   - photoelectric-threshold
   - refraction-dielectric
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Plasma-Frequency Cutoff (Collective Clock Failure)

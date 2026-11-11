@@ -1,7 +1,7 @@
 ---
 origin: application
 device: gapped 2DEG used as a B-orientation inhibit, not as the SI ohm
-updated: 2026-11-14
+updated: 2026-11-11
 envelope: cryogenic high-B lab until higher-T graphene packaging exists
 ---
 
@@ -14,13 +14,15 @@ envelope: cryogenic high-B lab until higher-T graphene packaging exists
 
 > **Hazards (read [SAFETY.md](../SAFETY.md)).** High field magnets and cryogens are institutional hazards. This file is a mapping, not a magnet procedure. Do not close *R<sub>K</sub>* or \(2e^2/h\) with a Chern / Landauer derivation story.
 
-> **Checked 2026-11-14.** This file quotes no numbers beyond the defined constants *R<sub>K</sub>* = *h*/*e*² and 2*e*²/*h*. The library entries it rests on ([quantum-hall-effect](../library/quantum-hall-effect.md), [quantum-point-contact](../library/quantum-point-contact.md), [cyclotron-resonance](../library/cyclotron-resonance.md), [coulomb-blockade](../library/coulomb-blockade.md)) have not been converted to the sourcing standard, so every physical statement below is **unsourced** until they are. None of the cliffs removed elsewhere in this pass is used here. One wording change: the in-plane field is described as the end of a continuous tilt dependence. The standard expectation, not yet sourced here, is that the plateaus follow the perpendicular component of *B*, so the inhibit is graded in tilt angle and complete only when that component is too small to open a gap larger than *kT*.
+> **Checked 2026-11-11.** This file quotes no numbers beyond the defined constants *R<sub>K</sub>* = *h*/*e*² and 2*e*²/*h*. The library entries it rests on ([quantum-hall-effect](../library/quantum-hall-effect.md), [quantum-point-contact](../library/quantum-point-contact.md), [cyclotron-resonance](../library/cyclotron-resonance.md), [coulomb-blockade](../library/coulomb-blockade.md)) have not been converted to the sourcing standard, so every physical statement below is **unsourced** until they are. None of the cliffs removed elsewhere in this pass is used here. One wording change: the in-plane field is described as the end of a continuous tilt dependence. The standard expectation, not yet sourced here, is that the plateaus follow the perpendicular component of *B*, so the inhibit is graded in tilt angle and complete only when that component is too small to open a gap larger than *kT*.
+
+> **Corrected 2026-11-11.** [quantum-hall-effect](../library/quantum-hall-effect.md) and [quantum-point-contact](../library/quantum-point-contact.md) are now sourced, so the statements below that rest on them are no longer unsourced. The tilt dependence is established physics, not an expectation: in silicon inversion layers tilted up to 90° the orbital quantization depends solely on the normal component *B* cos *θ*, and the parallel component has a negligible effect on it ([Fang and Stiles, *Phys. Rev.* 174, 823 (1968)](https://doi.org/10.1103/PhysRev.174.823), abstract). The inhibit is therefore a crossover in tilt angle. The parallel component still acts on the spin splitting, so a tilt at fixed normal field is not a null operation for spin-resolved plateaus. The constriction steps were measured with no magnetic field applied ([van Wees et al., *Phys. Rev. Lett.* 60, 848 (1988)](https://doi.org/10.1103/PhysRevLett.60.848), abstract) and are accurate to about 1 %, against parts in 10¹⁰ for the Hall plateau, so the contrast column is also a contrast in precision. Graphene plateaus at 300 K needed 29–45 T ([Novoselov et al., arXiv:cond-mat/0702408](https://arxiv.org/abs/cond-mat/0702408)). [cyclotron-resonance](../library/cyclotron-resonance.md) and [coulomb-blockade](../library/coulomb-blockade.md) were sourced separately; this note does not check them.
 
 ---
 
 ## 1. Claim
 
-Integer QHE hardware is a 2DEG + perpendicular *B* that opens a bulk gap + an edge path. With *B* in the plane the perpendicular component is zero and the artifact does not occur. Between the two orientations the dependence on tilt is continuous (unsourced; see the note above). A ballistic 1D constriction at *B* = 0 shows \(2e^2/h\) steps and is a different machine (`predicted:edge-channel:qpc-is-not-this-edge`, `predicted:quantum-point-contact:steps-survive-at-zero-b`).
+Integer QHE hardware is a 2DEG + perpendicular *B* that opens a bulk gap + an edge path. With *B* in the plane the perpendicular component is zero and the artifact does not occur. Between the two orientations the plateaus follow the normal component *B* cos *θ* (measured; see the 2026-11-11 note above). A ballistic 1D constriction at *B* = 0 shows \(2e^2/h\) steps and is a different machine (`predicted:edge-channel:qpc-is-not-this-edge`, `predicted:quantum-point-contact:steps-survive-at-zero-b`).
 
 The cyclotron line on the same wafer shares *ω<sub>c</sub>* = *eB/m* and is not the plateau (`predicted:cyclotron-resonance:same-omega-c-not-a-plateau`). *R<sub>Q</sub>* as a tunnel floor is not *R<sub>K</sub>* (`predicted:coulomb-blockade:rq-is-not-rk`).
 

@@ -235,7 +235,7 @@ check(_PITCH, "2 sqrt(D t) in Cu at 0.7 ms (mm)", 2 * sqrt(D_CU * 0.7e-3) * 1e3,
 check(_PITCH, "1.13 sqrt(D t) in Cu at 1 us, low end of the quoted range (mm)", 1.13 * sqrt(D_CU * 1e-6) * 1e3, 0.13)
 check(_PITCH, "1.13 sqrt(D t) in Cu at 100 us, low end of the quoted range (mm)", 1.13 * sqrt(D_CU * 100e-6) * 1e3, 1.3)
 
-# --- em-csam hardware notes (corrections of 2026-11-12) ----------------------
+# --- em-csam hardware notes (corrections of 2026-11-11) ----------------------
 _HW = "em-csam/EM-CSAM-ConceptTechnical.md, DesignReview-2026-11.md"
 _T = 0.5e-3
 check(_HW, "0.80 sqrt(D t) in Cu at 0.5 ms (mm)", 0.80 * sqrt(D_CU * _T) * 1e3, 2.1)

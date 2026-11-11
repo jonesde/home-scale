@@ -15,7 +15,7 @@ related:
   - skin-effect
   - total-internal-reflection
   - refraction-dielectric
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Surface Plasmon Resonance (Interface-Bound Collective Mode)

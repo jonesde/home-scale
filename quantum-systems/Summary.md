@@ -55,9 +55,9 @@ Live pipeline: `effect` → `implication` → `design` → `requirement`. Markdo
 | Layer | Count | Where |
 |---|---|---|
 | Formal effects | 63 (six families; three added in the 2026-11 sourcing pass: electrical-contacts, electrical-resistivity, hydrogen-in-metals) | [library/INDEX.md](library/INDEX.md) |
-| Mapping confidence | 28 High · 35 Medium · 0 Low (shape-anisotropy and reflection moved to Medium when sourced; the two new entries are Medium) | per-file frontmatter |
+| Mapping confidence | 27 High · 36 Medium · 0 Low (shape-anisotropy and reflection moved to Medium when sourced; the two new entries are Medium) | per-file frontmatter |
 | Data confidence | High except [dielectric-breakdown](library/dielectric-breakdown.md) and [pyroelectric-fusion](library/pyroelectric-fusion.md) (Medium). Unverified outside the sourced files | same |
-| Sourced effects | 33 of 63 (see the Sourced column of the index) | [library/INDEX.md](library/INDEX.md) |
+| Sourced effects | 63 of 63 (see the Sourced column of the index) | [library/INDEX.md](library/INDEX.md) |
 | Extracted implications | 486 | `analysis/fragments/*.jsonl` |
 | Predicted implications | 41 | [analysis/predicted_implication.csv](analysis/predicted_implication.csv) |
 | Designs | 12 (8 formal; four drafts) | [analysis/design.csv](analysis/design.csv) |
@@ -100,7 +100,7 @@ Shared requirements often share a **kind** of cliff, not a **number**. See [libr
 
 ## 5. What to do next
 
-First, before anything below: convert the remaining unsourced effect files (the Sourced column of the index lists them) to the [sourcing standard](library/README.md#sourcing-standard), one family at a time. The first-wave numbers were recalled by a language model. The magnet pilot found a factor-of-ten error in the NdFeB blocking size (copied into the requirement table, the spec sheets and three applications), a reversed comparison with magnetite, a Curie temperature in the wrong unit, one prediction contradicted by published experiments, and two predictions that were already measured facts. Assume the other families hold errors of the same kinds.
+All 63 effect files now meet the [sourcing standard](library/README.md#sourcing-standard) at the depth shown in the index (17 deep, 16 standard, 30 light). Any new or revised file must meet it too. For the record: The first-wave numbers were recalled by a language model. The magnet pilot found a factor-of-ten error in the NdFeB blocking size (copied into the requirement table, the spec sheets and three applications), a reversed comparison with magnetite, a Curie temperature in the wrong unit, one prediction contradicted by published experiments, and two predictions that were already measured facts. The other families held errors of the same kinds. The next science step is the event-statistics family proposed in [Determinism.md](Determinism.md) §7.4, and raising light files to standard where they matter.
 
 Then prefer, in order:
 

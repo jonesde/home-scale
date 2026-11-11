@@ -14,7 +14,7 @@ statistics: fermion
 lifetime_si:
 identity_source: PDG 2026
 description: Neutral lepton that forces CEνNS. Flavor is not split into three cards until an effect isolates one.
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Neutrino
@@ -42,3 +42,5 @@ Absolute mass and the three-flavor PMNS structure are taken / out of scope. This
 ### 6. Contrast
 
 Not a neutron. Not an axion. Inverse beta decay is a different gate (1.8 MeV, not this node’s identity).
+
+Identity values checked against PDG 2026 ([mass_width_2026.txt](https://pdg.lbl.gov/2026/mcdata/mass_width_2026.txt), [Monte Carlo numbering scheme](https://pdg.lbl.gov/2026/reviews/rpp2026-rev-monte-carlo-numbering.pdf); no mass is tabulated for the neutrino IDs) on 2026-11-11.

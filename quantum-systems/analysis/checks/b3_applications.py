@@ -1,4 +1,4 @@
-# Checks for the application files revised on 2026-11-14 (batch 3):
+# Checks for the application files revised on 2026-11-11 (batch 3):
 # application/EM-CSAM.md, EM-CSAM-Pitch.md, bonded-magnets.md, thin-film-optics.md,
 # percolation-dual-switch.md, depolarization-fuse.md.
 # Executed in the namespace of analysis/computed_checks.py: uses check, K_B, MU_0,
@@ -180,7 +180,7 @@ check(_B3_DEP, "3e7 V/m as a share of it (%)", 100 * 3e7 / (0.263 / _B3_EPS0), 0
 check(_B3_DEP, "4e7 V/m as a share of it (%)", 100 * 4e7 / (0.263 / _B3_EPS0), 0.13, 0.04)
 check(_B3_DEP, "six unit cells of 0.40 nm (nm)", 6 * 0.40, 2.4, 0.001)
 
-# --- em-csam hardware notes: qualifiers added 2026-11-14 ---------------------
+# --- em-csam hardware notes: qualifiers added 2026-11-11 ---------------------
 _HW3 = "em-csam/EM-CSAM-ConceptTechnical.md §3.5, DesignReview-2026-11.md B4"
 check(_HW3, "Cu melt onset per mm at L' = 0.45 (m/s), the table's value", 8.0e16 * 1e-3 * 0.45e-6 / (2 * 8960), 2000)
 check(_HW3, "Cu melt onset per mm at L' = 0.40 (m/s)", 8.0e16 * 1e-3 * 0.40e-6 / (2 * 8960), 1800)

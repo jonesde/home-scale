@@ -1,7 +1,7 @@
 ---
 origin: application
 device: metal-hydride storage bed / tank / compressor
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Application: Metal-hydride storage
@@ -10,7 +10,7 @@ updated: 2026-11-13
 **QSA machines.** `ensemble-average` (dilute lattice H); a hysteretic first-order transition (the hydride plateau); trapped H at defects; `oscillator-grid` (*T*<sub>m</sub>, decrepitation, thermal conductivity of the bed).
 **Status.** Working application. No anomaly claim. **Not a tested protocol.** Hydrogen service and fine powder are industrial hazards ([SAFETY.md](../SAFETY.md)).
 
-> **Changed 2026-11-13**, after [hydrogen-in-metals](../library/hydrogen-in-metals.md) (below **HM**) was sourced. Nickel is removed from the device list: it forms a hydride only above about 6 kbar. The plateau is now described as a hysteretic first-order transition; the earlier text called it "filling the reservoir" and "not a latch write". Release of trapped hydrogen is an Arrhenius crossover with no "blocking line". "Fines trap more per gram" is dropped: the sourced statement is that smaller specimens retain less. Falsifiers are restated as desorption and isotherm measurements.
+> **Changed 2026-11-11**, after [hydrogen-in-metals](../library/hydrogen-in-metals.md) (below **HM**) was sourced. Nickel is removed from the device list: it forms a hydride only above about 6 kbar. The plateau is now described as a hysteretic first-order transition; the earlier text called it "filling the reservoir" and "not a latch write". Release of trapped hydrogen is an Arrhenius crossover with no "blocking line". "Fines trap more per gram" is dropped: the sourced statement is that smaller specimens retain less. Falsifiers are restated as desorption and isotherm measurements.
 
 ---
 

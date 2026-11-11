@@ -14,7 +14,7 @@ statistics: fermion
 lifetime_si:
 identity_source: PDG 2026; CODATA 2022
 description: Antiparticle of the electron; pair-production product witnessed by the 511 keV annihilation line.
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Positron
@@ -43,3 +43,5 @@ Positron (*e*⁺). PDG MC ID −11. Same mass as [`electron`](electron.md); oppo
 ### 6. Contrast
 
 Not a second electron. Not a stored pair. The gate still fails in empty space even above 1.022 MeV.
+
+Identity values checked against PDG 2026 ([mass_width_2026.txt](https://pdg.lbl.gov/2026/mcdata/mass_width_2026.txt), [electron listing](https://pdg.lbl.gov/2026/listings/rpp2026-list-electron.pdf), [Monte Carlo numbering scheme](https://pdg.lbl.gov/2026/reviews/rpp2026-rev-monte-carlo-numbering.pdf)) and CODATA 2022 ([electron mass](https://physics.nist.gov/cgi-bin/cuu/Value?me), [energy equivalent in MeV](https://physics.nist.gov/cgi-bin/cuu/Value?mec2mev)) on 2026-11-11.

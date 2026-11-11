@@ -18,7 +18,7 @@ related:
   - dielectric-breakdown
   - semiconductor-gap-absorption
   - x-ray-absorption-edge
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Refraction / Dielectric Polarization (Bound-Charge Response)

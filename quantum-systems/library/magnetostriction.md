@@ -18,7 +18,7 @@ related:
   - thermal-expansion
   - melting
   - magnetic-domains
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Magnetostriction (Moment–Strain Coupling)

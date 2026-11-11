@@ -14,7 +14,7 @@ statistics: unset
 lifetime_si:
 identity_source: library/pair-production.md
 description: Nearby mass that can recoil so a photon can convert to e+e-. Empty space is under-provisioned. Not one isotope.
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Nucleus (recoil partner)
@@ -39,8 +39,10 @@ Nucleus, as the momentum sink of [`pair-production`](../pair-production.md). Cla
 
 ### 5. Open
 
-Proton and neutron are the likely next `cataloged` cards (parents of this class). They are not first-wave nodes. This card does not split *Z* or *A*.
+[`proton`](proton.md) and [`neutron`](neutron.md), the parents of this class, are now `forced` cards of their own. This card does not split *Z* or *A*.
 
 ### 6. Contrast
 
 Not empty space. Not the electron that opens only at the triplet threshold 2.044 MeV. Not a vacuum ledger.
+
+Identity values checked against PDG 2026 ([Monte Carlo numbering scheme](https://pdg.lbl.gov/2026/reviews/rpp2026-rev-monte-carlo-numbering.pdf), nuclear-code format) and CODATA 2022 ([electron mass energy equivalent](https://physics.nist.gov/cgi-bin/cuu/Value?mec2mev), for the 1.022 and 2.044 MeV thresholds) on 2026-11-11.

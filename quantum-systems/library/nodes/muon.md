@@ -12,9 +12,9 @@ mass_text: 105.658 MeV/c²
 spin_text: 1/2
 statistics: fermion
 lifetime_si: 2.197e-6
-identity_source: PDG 2026
+identity_source: PDG 2026; CODATA 2022
 description: Unstable charged lepton that opens the muon-catalyzed-fusion nuclear gate. Not a latch. Not the electron.
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Muon
@@ -25,7 +25,7 @@ Muon (\(μ^-\)). PDG MC ID `13`. Antiparticle \(μ^+\) is `−13` and does not c
 
 ### 2. Taken specifications
 
-- Charge −*e*. Mass 105.658 MeV/*c*² (PDG 2026); \(m_\mu/m_e \approx 206.8\).
+- Charge −*e*. Mass 105.658 MeV/*c*² (PDG 2026); 1.883531627×10⁻²⁸ kg (CODATA 2022); \(m_\mu/m_e \approx 206.8\).
 - Spin 1/2 fermion. Mean lifetime \(2.197\times 10^{-6}\,\mathrm{s}\). Taken, not derived.
 - Heavier charged lepton. Not a quasiparticle of a lattice.
 
@@ -44,3 +44,5 @@ Mass and lifetime are PDG taken values, same class as \(m_e\) on pair production
 ### 6. Contrast
 
 Not the [`electron`](electron.md). Not a [`directional-moment`](directional-moment.md). A muon-free hydride is not this hardware.
+
+Identity values checked against PDG 2026 ([mass_width_2026.txt](https://pdg.lbl.gov/2026/mcdata/mass_width_2026.txt), [muon mean life](https://pdgapi.lbl.gov/summaries/S004T)) and CODATA 2022 ([muon mass](https://physics.nist.gov/cgi-bin/cuu/Value?mmu), [energy equivalent in MeV](https://physics.nist.gov/cgi-bin/cuu/Value?mmuc2mev), [muon-electron mass ratio](https://physics.nist.gov/cgi-bin/cuu/Value?mmusme)) on 2026-11-11.

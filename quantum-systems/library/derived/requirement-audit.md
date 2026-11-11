@@ -110,7 +110,7 @@ gapped-condensate (must) · chargeless-superflow (should) · phase-space-condens
 | `split-r0-and-expulsion` | Type-II mixed state: *R* = 0 can outlive *χ* = −1 |
 | `qpc-is-not-this-edge` | A 1D constriction’s `2e²/h` steps are not a Hall plateau |
 | `hall-gap-not-pairing` | Landau / mobility gap is not 2Δ |
-| `coupled-grid-loss` | Shear speed, crystal *κ*, and Mössbauer *f* fail together at *T*<sub>m</sub> |
+| `coupled-grid-loss` | **Now in tension.** Only the shear leg holds as written: the phonon share of *κ* falls at *T*<sub>m</sub> but metals still conduct heat, and the Mössbauer fraction falls continuously, starting in the solid |
 
 Use these as **coupled tests**, not as extra knobs.
 
@@ -178,7 +178,7 @@ Several machines die when a critical temperature destroys the ordered, coherent,
 
 #### `connected-spatial-buffer`
 
-The requirement says a machine needs a connected responding depth of order its own screening or coherence length, and collapses below it. Sourcing the optical case (2026-11-12) contradicts that reading: the optical *δ* (Ag 12–15 nm, Al 6.6–8.3 nm) is the e-folding length of a continuous decay, reflectance falls smoothly with thickness, and a collective response is measured down to one atomic layer. Status is now `tension`. London *λ* (~40–50 nm in elements) is not yet checked. The two are in any case different formulas; do not call 10 nm a London depth.
+The requirement says a machine needs a connected responding depth of order its own screening or coherence length, and collapses below it. Sourcing the optical case (2026-11-11) contradicts that reading: the optical *δ* (Ag 12–15 nm, Al 6.6–8.3 nm) is the e-folding length of a continuous decay, reflectance falls smoothly with thickness, and a collective response is measured down to one atomic layer. Status is now `tension`. London *λ* (~40–50 nm in elements) is not yet checked. The two are in any case different formulas; do not call 10 nm a London depth.
 
 #### `latch-cell-is-the-cliff`
 
@@ -266,7 +266,7 @@ Use these as **coupled tests**, not as extra knobs.
 
 #### `coupled-screening-failure`
 
-As written: a film starved in connected thickness should lose ordinary reflectivity, go transmitting toward and above the plasma edge, lose a Kretschmann SPR dip, and lose conducting-plate Casimir contrast in the same window. Sourcing (2026-11-12) put this in `tension`: reflectance has no thickness threshold, and the Casimir force is reduced but present for thin or visibly transparent faces. The three readouts share one dielectric function but fall off smoothly and at different rates; only dc percolation is sharp.
+As written: a film starved in connected thickness should lose ordinary reflectivity, go transmitting toward and above the plasma edge, lose a Kretschmann SPR dip, and lose conducting-plate Casimir contrast in the same window. Sourcing (2026-11-11) put this in `tension`: reflectance has no thickness threshold, and the Casimir force is reduced but present for thin or visibly transparent faces. The three readouts share one dielectric function but fall off smoothly and at different rates; only dc percolation is sharp.
 
 #### `average-replaced-by-order`
 

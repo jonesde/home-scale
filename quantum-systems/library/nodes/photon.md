@@ -14,7 +14,7 @@ statistics: boson
 lifetime_si:
 identity_source: PDG 2026
 description: Massless boson that opens energy gates as an input and appears as the thermal EM average; not a stored record.
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Photon
@@ -47,3 +47,5 @@ Photon (γ). PDG MC ID `22`.
 ### 6. Contrast
 
 Not the plasma / interband edge (*φ* ≠ *ω_p*). Not a latch. Empty space does not convert a lone photon to a pair.
+
+Identity values checked against PDG 2026 ([mass_width_2026.txt](https://pdg.lbl.gov/2026/mcdata/mass_width_2026.txt), [photon listing](https://pdg.lbl.gov/2026/listings/rpp2026-list-photon.pdf)) on 2026-11-11.

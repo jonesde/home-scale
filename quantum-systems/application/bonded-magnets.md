@@ -1,7 +1,7 @@
 ---
 origin: application
 device: bonded NdFeB part, magnetic recording medium, ferrofluid
-updated: 2026-11-14
+updated: 2026-11-11
 ---
 
 # Application: Bonded magnets, tape, and ferrofluid
@@ -14,7 +14,7 @@ If this file’s isolation sequence does not recover “magnetite blocks near 20
 
 The first version of this file had the calibration target wrong: it put NdFeB near ~30 nm and magnetite below it. The library's own volume (2.3×10⁻²⁶ m³) is a 3.5 nm sphere, and magnetite, with about 340 times less anisotropy, blocks at a larger size. Numbers and sources are in [superparamagnetism](../library/superparamagnetism.md). A correct experiment would have failed the old gate.
 
-> **Re-checked 2026-11-14** against [superparamagnetism](../library/superparamagnetism.md), [permanent-magnet-latch](../library/permanent-magnet-latch.md), [magnetic-domains](../library/magnetic-domains.md), [ferromagnetic-hysteresis](../library/ferromagnetic-hysteresis.md) and [shape-anisotropy](../library/shape-anisotropy.md). The sizes stand. Changes: the volume limit is called a crossover throughout and is stated as not being what limits a bonded or sintered magnet (coercivity, temperature and shock are); the *kT* multipliers are given with their conventions; a hard-ferrite size is added; the ferrofluid row notes that a suspension also loses remanence by particle rotation; §6 asks about coercivity and shock after impact in place of *KV*.
+> **Re-checked 2026-11-11** against [superparamagnetism](../library/superparamagnetism.md), [permanent-magnet-latch](../library/permanent-magnet-latch.md), [magnetic-domains](../library/magnetic-domains.md), [ferromagnetic-hysteresis](../library/ferromagnetic-hysteresis.md) and [shape-anisotropy](../library/shape-anisotropy.md). The sizes stand. Changes: the volume limit is called a crossover throughout and is stated as not being what limits a bonded or sintered magnet (coercivity, temperature and shock are); the *kT* multipliers are given with their conventions; a hard-ferrite size is added; the ferrofluid row notes that a suspension also loses remanence by particle rotation; §6 asks about coercivity and shock after impact in place of *KV*.
 
 ---
 

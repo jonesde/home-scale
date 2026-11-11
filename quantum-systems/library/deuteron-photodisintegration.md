@@ -13,7 +13,7 @@ related:
   - ionization-threshold
   - muon-catalyzed-fusion
   - photoelectric-threshold
-updated: 2026-11-14
+updated: 2026-11-11
 ---
 
 # Deuteron Photodisintegration (2.224 MeV Unbinding Gate)

@@ -13,7 +13,7 @@ related:
   - reflection
   - blackbody-spectrum
   - total-internal-reflection
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Casimir Force (Mode-Cutoff Attraction)

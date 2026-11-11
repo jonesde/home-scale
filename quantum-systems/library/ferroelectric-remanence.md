@@ -20,7 +20,7 @@ related:
   - piezoelectricity
   - refraction-dielectric
   - dielectric-breakdown
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Ferroelectric Remanence (Polar Latch)

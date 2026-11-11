@@ -1,7 +1,7 @@
 ---
 origin: application
 device: muon-catalyzed hydrogen-isotope fusion cycle as an extra-node energy-gate
-updated: 2026-11-14
+updated: 2026-11-11
 envelope: industrial / accelerator only; no consumer muon source exists
 ---
 
@@ -13,7 +13,7 @@ envelope: industrial / accelerator only; no consumer muon source exists
 **Envelope.** Accelerator / industrial only. Home-scale waits on a consumer muon source that does not exist.
 **Sources.** Facts are cited to [muon-catalyzed-fusion](../library/muon-catalyzed-fusion.md) (below **MCF**) by source key; its Sources table holds the references.
 
-> **What changed on 2026-11-14.** The library entry was checked against sources and this file was brought into line. (1) The device is an existing published experiment, not a new concept: about 150 fusions per muon were measured in cold, dense d–t at LAMPF (Jones, *Nature* 321, 127 (1986); MCF [S4]), and a diamond-anvil d–t target is running at PSI (MuFusE, arXiv:2606.05333; MCF [S9]). (2) The yield is *Y* ≈ 1/(*ω<sub>s</sub>* + *λ*<sub>0</sub>/*λ<sub>c</sub>*): decay and sticking losses add, and at optimum each limits the yield about equally (MCF [S6]). The earlier "supply × cycle × (1−*ω<sub>s</sub>*)" wording is replaced. (3) Sticking is 0.35–0.6 % and falls with density (MCF [S5][S7]). (4) The fast cycle needs a host D₂ or DT molecule for resonant formation (MCF [S6]). (5) The energy balance is stated: 2.64 GeV released per muon at the record yield against an estimated 5 GeV electrical (10 GeV thermal) to make one muon (MCF [S7][S8]).
+> **What changed on 2026-11-11.** The library entry was checked against sources and this file was brought into line. (1) The device is an existing published experiment, not a new concept: about 150 fusions per muon were measured in cold, dense d–t at LAMPF (Jones, *Nature* 321, 127 (1986); MCF [S4]), and a diamond-anvil d–t target is running at PSI (MuFusE, arXiv:2606.05333; MCF [S9]). (2) The yield is *Y* ≈ 1/(*ω<sub>s</sub>* + *λ*<sub>0</sub>/*λ<sub>c</sub>*): decay and sticking losses add, and at optimum each limits the yield about equally (MCF [S6]). The earlier "supply × cycle × (1−*ω<sub>s</sub>*)" wording is replaced. (3) Sticking is 0.35–0.6 % and falls with density (MCF [S5][S7]). (4) The fast cycle needs a host D₂ or DT molecule for resonant formation (MCF [S6]). (5) The energy balance is stated: 2.64 GeV released per muon at the record yield against an estimated 5 GeV electrical (10 GeV thermal) to make one muon (MCF [S7][S8]).
 
 > **Hazards (read [SAFETY.md](../SAFETY.md)).** Muon production is an accelerator problem (prompt radiation, activated beamline, cryogenic or high-pressure H-isotope targets). This file is a mapping, not a factory design. Do not scale muon current, target inventory, or pulse energy in search of a nuclear signature. A muon-free hydride is not this machine — do not “make up for” missing muons with pressure or cold work.
 

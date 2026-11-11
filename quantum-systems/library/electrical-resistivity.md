@@ -17,7 +17,7 @@ related:
   - electron-heat-capacity
   - thermal-conductivity-phonon
   - superconductivity
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Electrical Resistivity and Joule Heating

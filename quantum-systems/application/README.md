@@ -25,7 +25,7 @@ Device-centered uses of the QSA library. Concepts are allowed to repeat; the sin
 | [EM-LENR.md](EM-LENR.md) | Contained pulsed-coil cell (Steven E. Jones) | Configuration hypothesis tested on trapped hydrogen and on the hydride transition; nuclear search last | Lab / industrial; nuclear search last |
 | [EM-CSAM.md](EM-CSAM.md) | Micro-railgun deposition head + driver | Impact bonding, skin, breakdown, magnetostriction | Shop + same driver as experiment |
 
-EM-LENR was rewritten on 2026-11-13 against the sourced [hydrogen-in-metals](../library/hydrogen-in-metals.md) entry: palladium first, defined readouts (thermal desorption, isotherm hysteresis), nuclear search last. The configuration hypothesis is Steven’s and still awaits his review.
+EM-LENR was rewritten on 2026-11-11 against the sourced [hydrogen-in-metals](../library/hydrogen-in-metals.md) entry: palladium first, defined readouts (thermal desorption, isotherm hysteresis), nuclear search last. The configuration hypothesis is Steven’s and still awaits his review.
 
 ---
 

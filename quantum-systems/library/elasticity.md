@@ -17,7 +17,7 @@ related:
   - thermal-expansion
   - ferromagnetic-hysteresis
   - ferroelectric-domains
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Elasticity (Small-Strain Restoring Output)

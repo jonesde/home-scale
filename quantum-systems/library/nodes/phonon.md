@@ -14,7 +14,7 @@ statistics: boson
 lifetime_si:
 identity_source: library/phonon-dispersion.md
 description: Lattice mode of the oscillator-grid; dies by cutoff, mean-free-path collapse, or melt. No PDG ID.
-updated: 2026-08-17
+updated: 2026-11-11
 ---
 
 # Phonon
@@ -46,3 +46,5 @@ Phonon. Quasiparticle / allowed clock of the ion grid. No PDG MC ID — do not i
 ### 6. Contrast
 
 Not a latch. Not a photon. A sound field is not a zero-power memory. Melt removes the grid that carries the mode.
+
+Identity values checked against PDG 2026 ([mass_width_2026.txt](https://pdg.lbl.gov/2026/mcdata/mass_width_2026.txt): no entry, `pdgid` stays NULL; the card takes no numeric identity value) on 2026-11-11.

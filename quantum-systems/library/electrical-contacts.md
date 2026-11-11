@@ -18,7 +18,7 @@ related:
   - melting
   - skin-effect
   - work-function-thermionic
-updated: 2026-11-12
+updated: 2026-11-11
 ---
 
 # Electrical Contacts (Constriction, Softening and Melting Voltage)

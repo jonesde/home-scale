@@ -1,7 +1,7 @@
 ---
 origin: application
 device: charged high-strength metal (bolts, welds, hydride-formed parts)
-updated: 2026-11-13
+updated: 2026-11-11
 ---
 
 # Application: Hydrogen embrittlement / delayed fracture
@@ -13,7 +13,7 @@ updated: 2026-11-13
 
 Derived specs: [design-spec-sheets](../library/derived/design-spec-sheets.md), [requirement-audit](../library/derived/requirement-audit.md).
 
-> **Changed 2026-11-13**, after [hydrogen-in-metals](../library/hydrogen-in-metals.md) (below **HM**) was sourced. The accepted mechanisms are now named. The "blocking analog", "volume cliff" and "detrapping line" are removed: trap binding is per atom, falls with occupancy, and has no sourced volume threshold; release is an Arrhenius crossover. Reversible and irreversible traps are distinguished. The earlier claim that a deeply pinned population is the load-bearing object is restated as a hypothesis, with the sourced statement that sits against it.
+> **Changed 2026-11-11**, after [hydrogen-in-metals](../library/hydrogen-in-metals.md) (below **HM**) was sourced. The accepted mechanisms are now named. The "blocking analog", "volume cliff" and "detrapping line" are removed: trap binding is per atom, falls with occupancy, and has no sourced volume threshold; release is an Arrhenius crossover. Reversible and irreversible traps are distinguished. The earlier claim that a deeply pinned population is the load-bearing object is restated as a hypothesis, with the sourced statement that sits against it.
 
 ---
 
